@@ -3,16 +3,13 @@ import LeftLogo from "../components/ui/LeftLogo";
 import "../index.css";
 
 import SignupForm from "../components/layout/SignUpForm";
+import AuthLayout from "../components/layout/AuthLayout";
 
 const SignUp = () => {
   return (
-    <div className="flex bg-gray-300 w-full h-full">
-      <div>
-        <LeftLogo />
-      </div>
-      <div>Sign Up Form</div>
+    <AuthLayout>
       <SignupForm />
-    </div>
+    </AuthLayout>
   );
 };
 

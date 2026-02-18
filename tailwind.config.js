@@ -1,10 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
@@ -20,6 +17,7 @@ export default {
         secondary: "#F4F6F8",
         accent: "#10B981",
         text: "#2E2E2E",
+        textSecondary: "#969696",
         ai: "#8B5CF6",
       },
     },
