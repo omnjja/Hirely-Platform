@@ -8,7 +8,7 @@ import FormFooter from "../ui/FormFooter";
 
 const SignupForm = () => {
   return (
-    <div className="w-[55%] mx-auto bg-white flex items-center justify-center px-6">
+    <div className="w-[55%] mx-auto bg-white flex justify-center items-center px-6">
       <div className="max-w-md w-full">
         <FormHeader head="Sign Up" subhead="Sign up to enjoy the features" />
 

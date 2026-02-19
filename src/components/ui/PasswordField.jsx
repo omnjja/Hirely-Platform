@@ -6,8 +6,9 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import FormHelperText from "@mui/material/FormHelperText";
 
-const PasswordField = ({ label }) => {
+const PasswordField = ({ label, error, onChange, name }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -25,6 +26,7 @@ const PasswordField = ({ label }) => {
         fullWidth
         variant="outlined"
         size="small"
+        error={Boolean(error)}
         sx={{
           "& .MuiOutlinedInput-root": {
             borderRadius: "8px",
@@ -58,7 +60,10 @@ const PasswordField = ({ label }) => {
           }
           label={label}
           size="small"
+          onChange={onChange}
+          name={name}
         />
+        {error && <FormHelperText>{error}</FormHelperText>}
       </FormControl>
     </div>
   );

@@ -2,6 +2,7 @@ import React from "react";
 import LeftLogo from "../ui/LeftLogo";
 import "../../index.css";
 import Logo from "../ui/Logo";
+
 const AuthLayout = ({ children }) => {
   return (
     <div className="flex w-full min-h-screen">

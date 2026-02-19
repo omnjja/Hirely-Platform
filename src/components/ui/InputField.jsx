@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 
-const InputField = ({ label }) => {
+const InputField = ({ label, error, onChange, name }) => {
   return (
     <div className="w-full">
       <TextField
@@ -9,6 +9,10 @@ const InputField = ({ label }) => {
         label={label}
         size="small"
         className="w-full"
+        error={Boolean(error)}
+        onChange={onChange}
+        name={name}
+        helperText={error ? error : ""}
         sx={{
           "& .MuiOutlinedInput-root": {
             borderRadius: "8px",
