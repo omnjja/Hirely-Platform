@@ -4,6 +4,8 @@ import InputField from "../ui/InputField";
 import PasswordField from "../ui/PasswordField";
 import ButtonComponent from "../ui/ButtonComponent";
 import FormFooter from "../ui/FormFooter";
+import GoogleButton from "../ui/GoogleButton";
+import Divider from "../ui/Divider";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -85,24 +87,10 @@ const LoginForm = () => {
           </div>
 
           {/* OR Divider */}
-          <div className="flex items-center gap-3 my-4">
-            <div className="flex-1 h-px bg-gray-300" />
-            <span className="text-sm text-gray-400">or</span>
-            <div className="flex-1 h-px bg-gray-300" />
-          </div>
+          <Divider label="or" />
 
           {/* Google Button */}
-          <button
-            type="button"
-            className="w-full border border-gray-300 rounded-md py-2 flex items-center justify-center gap-2 cursor-pointer hover:bg-gray-50 transition"
-          >
-            <span className="text-sm font-medium">Continue with Google</span>
-            <img
-              src="https://www.svgrepo.com/show/355037/google.svg"
-              alt="Google"
-              className="w-4 h-4"
-            />
-          </button>
+          <GoogleButton label="Continue with Google" />
 
           {/* Need an account */}
           <FormFooter

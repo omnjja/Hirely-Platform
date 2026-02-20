@@ -1,42 +1,48 @@
-import React, { useState } from "react";
+import React, { forwardRef } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import Box from "@mui/material/Box";
+import FormHelperText from "@mui/material/FormHelperText";
 
-const SelectField = () => {
-  const [role, setRole] = useState("");
-
-  const handleChange = (event) => {
-    setRole(event.target.value);
-  };
-
-  return (
-    <div className="w-full">
+const SelectField = forwardRef(
+  ({ error, label, options, name, value, onChange }, ref) => {
+    return (
       <FormControl
         fullWidth
         size="small"
+        error={Boolean(error)}
         sx={{
           "& .MuiOutlinedInput-root": {
             borderRadius: "8px",
           },
+          "& .MuiFormHelperText-root": {
+            minHeight: "14px",
+            fontSize: { xs: "10px", md: "12px" },
+            marginTop: "2px",
+          },
         }}
       >
-        <InputLabel id="demo-simple-select-label">Role</InputLabel>
+        <InputLabel>{label}</InputLabel>
+
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={role}
-          label="Role"
-          onChange={handleChange}
+          inputRef={ref}
+          name={name}
+          value={value}
+          label={label}
+          onChange={onChange} // <-- use handleChange instead of dummy onChange
         >
-          <MenuItem value="HR">HR</MenuItem>
-          <MenuItem value="Candidate">Candidate</MenuItem>
+          {options.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
         </Select>
+
+        <FormHelperText>{error || " "}</FormHelperText>
       </FormControl>
-    </div>
-  );
-};
+    );
+  },
+);
 
 export default SelectField;

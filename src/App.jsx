@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/Login";
 import SignUpPage from "./pages/SignUp";
 
@@ -21,6 +21,19 @@ function App() {
         {/* <Route path="/" element={<Home />} /> */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route
+          path="/"
+          element={
+            <div className="flex flex-col items-center justify-center h-screen gap-4">
+              <Link to="/login" className="text-primary">
+                Go to Login
+              </Link>
+              <Link to="/signup" className="text-primary">
+                Go to Sign Up
+              </Link>
+            </div>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

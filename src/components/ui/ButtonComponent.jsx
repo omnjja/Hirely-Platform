@@ -5,6 +5,7 @@ const ButtonComponent = ({
   type = "button",
   onClick,
   fullWidth = false,
+  disabled = false,
 }) => {
   return (
     <button
@@ -16,9 +17,10 @@ const ButtonComponent = ({
         rounded-lg
         hover:bg-primary/90
         transition
-        cursor-pointer
         ${fullWidth ? "w-full" : "w-auto"}
+        ${disabled ? "opacity-50 " : "cursor-pointer"}
       `}
+      disabled={disabled}
     >
       {text}
     </button>

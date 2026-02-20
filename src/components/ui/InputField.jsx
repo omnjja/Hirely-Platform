@@ -1,26 +1,29 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import TextField from "@mui/material/TextField";
 
-const InputField = ({ label, error, onChange, name }) => {
+const InputField = forwardRef(({ label, error, onChange, name }, ref) => {
   return (
-    <div className="w-full">
-      <TextField
-        id="outlined-required"
-        label={label}
-        size="small"
-        className="w-full"
-        error={Boolean(error)}
-        onChange={onChange}
-        name={name}
-        helperText={error ? error : ""}
-        sx={{
-          "& .MuiOutlinedInput-root": {
-            borderRadius: "8px",
-          },
-        }}
-      />
-    </div>
+    <TextField
+      fullWidth
+      label={label}
+      size="small"
+      error={Boolean(error)}
+      onChange={onChange}
+      name={name}
+      inputRef={ref} // <-- key fix for react-hook-form
+      helperText={error || " "}
+      sx={{
+        "& .MuiOutlinedInput-root": {
+          borderRadius: "8px",
+        },
+        "& .MuiFormHelperText-root": {
+          minHeight: "14px",
+          fontSize: { xs: "10px", md: "12px" },
+          marginTop: "2px",
+        },
+      }}
+    />
   );
-};
+});
 
 export default InputField;
