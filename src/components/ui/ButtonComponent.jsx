@@ -14,7 +14,7 @@ const ButtonComponent = ({
       className={`
         bg-primary text-white
         px-5 py-2
-        rounded-lg
+        rounded-4xl
         hover:bg-primary/90
         transition
         ${fullWidth ? "w-full" : "w-auto"}

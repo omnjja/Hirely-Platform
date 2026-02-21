@@ -96,7 +96,7 @@ const LoginForm = () => {
           <FormFooter
             text="Need an account? "
             linkText="Create one"
-            onClick={() => {}}
+            destination="/signup"
           />
         </form>
       </div>

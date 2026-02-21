@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import PasswordField from "../ui/PasswordField";
 import SelectField from "../ui/SelectField";
 import InputField from "../ui/InputField";
@@ -53,6 +54,8 @@ const SignupForm = () => {
     }
   };
 
+  const navigate = useNavigate();
+
   const options = [
     { value: "employer", label: "Employer" },
     { value: "job_seeker", label: "Job Seeker" },
@@ -73,7 +76,7 @@ const SignupForm = () => {
       md:mb-0
     "
     >
-      <div className="max-w-md w-full">
+      <div className="max-w-md w-full pb-1">
         <FormHeader head="Sign Up" subhead="Sign up to enjoy the features" />
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-1">
@@ -133,7 +136,7 @@ const SignupForm = () => {
           <FormFooter
             text="Already have an account? "
             linkText="Sign in"
-            onClick={() => {}}
+            destination="/login"
           />
         </form>
       </div>

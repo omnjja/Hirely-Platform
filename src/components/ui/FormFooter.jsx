@@ -1,12 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const FormFooter = ({ text, linkText, onClick }) => {
+const FormFooter = ({ text, linkText, destination }) => {
   return (
     <div className="text-center text-sm text-gray-500 mt-2">
       {text}
-      <span className="text-primary font-bold cursor-pointer underline" onClick={onClick}>
+      <Link to={destination} className="text-primary font-bold cursor-pointer underline">
         {linkText}
-      </span>
+      </Link>
     </div>
   );
 };
