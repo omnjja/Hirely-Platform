@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import FormHeader from "../ui/FormHeader";
 import InputField from "../ui/InputField";
 import PasswordField from "../ui/PasswordField";
@@ -6,66 +6,84 @@ import ButtonComponent from "../ui/ButtonComponent";
 import FormFooter from "../ui/FormFooter";
 import GoogleButton from "../ui/GoogleButton";
 import Divider from "../ui/Divider";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 const LoginForm = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+  const schema = z.object({
+    email: z
+      .string()
+      .min(1, "Email is required")
+      .email("Invalid email address"),
+    password: z.string().min(8, "Password must be at least 8 characters"),
   });
 
-  const [errors, setErrors] = useState({});
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setError,
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    resolver: zodResolver(schema),
+  });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const validateForm = () => {
-    const { email, password } = formData;
-
-    const newErrors = {};
-
-    if (!email) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      newErrors.email = "Email is invalid";
+  const onSubmit = async (data) => {
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // simulate api call
+      console.log(data);
+      throw new Error("Failed to sign in");
+    } catch (error) {
+      setError("root", { message: "Failed to sign in. Please try again." });
     }
-
-    if (!password) {
-      newErrors.password = "Password is required";
-    } else if (password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
-    }
-    setErrors(newErrors);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    validateForm();
-    // If there are no errors continue with form submission logic
-  };
   return (
-    <div className="w-[55%] mx-auto bg-white flex items-center justify-center px-6">
-      <div className="max-w-md w-full">
+    <div
+      className="w-full
+    sm:w-[90%]
+    md:w-[70%]
+    lg:w-[55%]
+    xl:w-[45%]
+    mx-auto
+    bg-white
+    flex
+    items-center
+    justify-center
+    px-4
+    sm:px-6
+    py-8
+    rounded-xl
+    shadow-sm"
+    >
+      <div className="max-w-md w-full py-6">
         <FormHeader
           head="Sign in"
           subhead="Please Login to continue to your account"
         />
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
           <InputField
             label="Email"
             name="email"
-            value={formData.email}
-            onChange={handleChange}
-            error={errors.email}
+            {...register("email")}
+            error={errors.email?.message}
           />
           <PasswordField
             label="Password"
             name="password"
-            value={formData.password}
-            onChange={handleChange}
-            error={errors.password}
+            {...register("password")}
+            error={errors.password?.message}
           />
-          <ButtonComponent text="Sign in" type="submit" fullWidth />
+          <ButtonComponent
+            text={isSubmitting ? "Signing in..." : "Sign in"}
+            type="submit"
+            fullWidth
+            disabled={isSubmitting}
+          />
 
           {/* Remember + Forgot */}
           <div className="flex items-center justify-between text-sm">
