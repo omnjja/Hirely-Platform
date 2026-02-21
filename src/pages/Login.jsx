@@ -6,7 +6,7 @@ import AuthLayout from "../components/layout/AuthLayout";
 import ResetPassLayout from "../components/layout/ResetPassLayout";
 import InputField from "../components/ui/InputField";
 import PasswordField from "../components/ui/PasswordField";
-import passSuccess from "../assets/success pass.png";
+// import passSuccess from "../assets/success pass.png";
 
 const Login = () => {
   return (
