@@ -2,41 +2,36 @@ import React from "react";
 import ButtonComponent from "../ui/ButtonComponent";
 import Logo from "../ui/Logo";
 import FormHeader from "../ui/FormHeader";
+import { useNavigate } from "react-router-dom";
 
-const ResetPassLayout = ({ buttonText, header, subhead, children, width }) => {
+const ResetPassLayout = ({
+  buttonText,
+  header,
+  subhead,
+  children,
+  width,
+  to,
+}) => {
+  const navigate = useNavigate();
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div
-        className="
-          w-full
-          md:w-[50%]
-          bg-white
-          rounded-2xl
-          pb-10
-          px-5
-          md:min-h-130
-          max-h-[90vh]
-          overflow-y-auto
-        "
-      >
-        <div className="hidden md:block">
-          <Logo />
-        </div>
+    <div className="min-h-screen bg-white">
+      <div className="px-6 pt-6">
+        <Logo />
+      </div>
 
-        <div
-          style={{ width: width ? `${width}%` : "50%" }}
-          className="w-full
-            mx-auto
-            mt-7
-            flex
-            flex-col
-            items-start
-            gap-1
-          "
-        >
+      <div className="w-full md:w-[55%] mx-auto px-4 md:px-6 py-10">
+        <div className="max-w-md w-full mx-auto">
           <FormHeader head={header} subhead={subhead} />
-          <div className="w-full">{children}</div>
-          <ButtonComponent text={buttonText} fullWidth />
+
+          <div className="mt-6 flex flex-col gap-4">
+            {children}
+
+            <ButtonComponent
+              text={buttonText}
+              fullWidth
+              onClick={() => to && navigate(to)}
+            />
+          </div>
         </div>
       </div>
     </div>

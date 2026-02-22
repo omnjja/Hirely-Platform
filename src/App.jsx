@@ -3,6 +3,9 @@ import "./index.css";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/Login";
 import SignUpPage from "./pages/SignUp";
+import ForgotPassword from "./pages/ForgotPassword";
+import RecoveryEmail from "./pages/RecoveryEmail";
+import SucessfulPassword from "./pages/SucessfulPassword";
 
 function App() {
   return (
@@ -21,6 +24,9 @@ function App() {
         {/* <Route path="/" element={<Home />} /> */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/ForgotPassword" element={<ForgotPassword />} />
+        <Route path="/RecoveryEmail" element={<RecoveryEmail />} />
+        <Route path="/SuccessfulPassword" element={<SucessfulPassword />} />
         <Route
           path="/"
           element={

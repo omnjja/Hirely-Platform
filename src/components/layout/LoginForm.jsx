@@ -9,8 +9,10 @@ import Divider from "../ui/Divider";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const schema = z.object({
     email: z
       .string()
@@ -45,20 +47,15 @@ const LoginForm = () => {
   return (
     <div
       className="w-full
-    sm:w-[90%]
-    md:w-[70%]
-    lg:w-[55%]
-    xl:w-[45%]
-    mx-auto
-    bg-white
-    flex
-    items-center
-    justify-center
-    px-4
-    sm:px-6
-    py-8
-    rounded-xl
-    shadow-sm"
+       md:w-[55%] 
+      mx-auto
+      bg-white
+      flex
+      items-center
+      justify-center
+      px-4
+      md:px-6
+      pb-8"
     >
       <div className="max-w-md w-full py-6">
         <FormHeader
@@ -98,7 +95,7 @@ const LoginForm = () => {
             <button
               type="button"
               className="text-red-600 hover:underline"
-              onClick={() => {}}
+              onClick={() => navigate("/ForgotPassword")}
             >
               Forgot password?
             </button>
