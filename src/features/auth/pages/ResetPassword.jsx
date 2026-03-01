@@ -1,6 +1,6 @@
 import React from "react";
-import ResetPassLayout from "../components/layout/ResetPassLayout";
-import PasswordField from "../components/ui/PasswordField";
+import ResetPassLayout from "../../../components/layout/ResetPassLayout";
+import PasswordField from "../../../components/ui/PasswordField";
 
 const ResetPassword = () => {
   return (

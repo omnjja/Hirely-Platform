@@ -1,11 +1,11 @@
 import React from "react";
-import FormHeader from "../ui/FormHeader";
-import InputField from "../ui/InputField";
-import PasswordField from "../ui/PasswordField";
-import ButtonComponent from "../ui/ButtonComponent";
-import FormFooter from "../ui/FormFooter";
-import GoogleButton from "../ui/GoogleButton";
-import Divider from "../ui/Divider";
+import FormHeader from "./FormHeader";
+import InputField from "../../../components/ui/InputField";
+import PasswordField from "../../../components/ui/PasswordField";
+import ButtonComponent from "../../../components/ui/ButtonComponent";
+import FormFooter from "./FormFooter";
+import GoogleButton from "../../../components/ui/GoogleButton";
+import Divider from "../../../components/ui/Divider";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";

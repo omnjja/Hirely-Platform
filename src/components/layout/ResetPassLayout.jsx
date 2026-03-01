@@ -1,17 +1,10 @@
 import React from "react";
 import ButtonComponent from "../ui/ButtonComponent";
 import Logo from "../ui/Logo";
-import FormHeader from "../ui/FormHeader";
+import FormHeader from "../../features/auth/components/FormHeader";
 import { useNavigate } from "react-router-dom";
 
-const ResetPassLayout = ({
-  buttonText,
-  header,
-  subhead,
-  children,
-  width,
-  to,
-}) => {
+const ResetPassLayout = ({ buttonText, header, subhead, children, to }) => {
   const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-white">

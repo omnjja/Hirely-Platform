@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import ResetPassLayout from "../components/layout/ResetPassLayout";
-import InputField from "../components/ui/InputField";
-import NextButton from "../components/ui/NextButton";
+import ResetPassLayout from "../../../components/layout/ResetPassLayout";
+import InputField from "../../../components/ui/InputField";
+import NextButton from "../../../components/ui/NextButton";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");

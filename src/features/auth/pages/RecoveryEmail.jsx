@@ -1,7 +1,7 @@
 import React from "react";
-import ResetPassLayout from "../components/layout/ResetPassLayout";
-import NextButton from "../components/ui/NextButton";
-import RecoveryPhoto from "../assets/RecoveryPhoto.png";
+import ResetPassLayout from "../../../components/layout/ResetPassLayout";
+import NextButton from "../../../components/ui/NextButton";
+import RecoveryPhoto from "../../../assets/RecoveryPhoto.png";
 
 const RecoveryEmail = () => {
   return (
