@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import PasswordField from "../../../components/ui/PasswordField";
 import SelectField from "../../../components/ui/SelectField";
 import InputField from "../../../components/ui/InputField";
@@ -11,9 +10,10 @@ import Divider from "../../../components/ui/Divider";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import ToastPromiseMessage from "../../../utils/ToastPromiseMessage";
 
 const SignupForm = () => {
-  const schema = z
+  const userRegisterationSchema = z
     .object({
       name: z.string().min(1, "Name is required"),
       email: z
@@ -21,17 +21,20 @@ const SignupForm = () => {
         .min(1, "Email is required")
         .email("Invalid email address"),
       password: z.string().min(8, "Password must be at least 8 characters"),
-      confirmPassword: z.string().min(1, "Confirm Password is required"),
-      role: z.string().min(1, "Role is required"),
+      confirmPassword: z.string().min(1, "Please confirm your password"),
+      role: z.string().min(1, "Please select a role"),
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: "Passwords do not match",
+      path: ["confirmPassword"],
     });
+
   const {
     register,
     handleSubmit,
     control,
     setError,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
@@ -41,20 +44,28 @@ const SignupForm = () => {
       confirmPassword: "",
       role: "",
     },
-    resolver: zodResolver(schema),
+    resolver: zodResolver(userRegisterationSchema),
   });
 
   const onSubmit = async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000)); // simulate api call
-      console.log(data);
-      throw new Error("Failed to sign up");
-    } catch (error) {
-      setError("root", { message: "Failed to sign up. Please try again." });
+      console.log("Form Data:", data);
+      ToastPromiseMessage(Promise.resolve(), {
+        loading: "Creating account... ⏳",
+        success: "Account created successfully! ✅",
+        error: "Failed to create account. Please try again. ❌",
+      });
+      reset();
+    } catch (e) {
+      // handle specific API errors
+      if (e.code === "EMAIL_TAKEN") {
+        setError("email", { message: "Email already in use" });
+      } else {
+        setError("root", { message: "Failed to sign up. Please try again." });
+      }
     }
   };
-
-  const navigate = useNavigate();
 
   const options = [
     { value: "employer", label: "Employer" },
@@ -83,25 +94,21 @@ const SignupForm = () => {
           <InputField
             {...register("name")}
             label="Name"
-            name={"name"}
             error={errors.name?.message}
           />
           <InputField
             {...register("email")}
             label="Email"
-            name={"email"}
             error={errors.email?.message}
           />
           <PasswordField
             {...register("password")}
             label="Password"
-            name={"password"}
             error={errors.password?.message}
           />
           <PasswordField
             {...register("confirmPassword")}
             label="Password Confirmation"
-            name={"confirmPassword"}
             error={errors.confirmPassword?.message}
           />
           <Controller
@@ -128,7 +135,6 @@ const SignupForm = () => {
             fullWidth
             disabled={isSubmitting}
           />
-
           <Divider label="or" />
 
           <GoogleButton label="Continue with Google" />

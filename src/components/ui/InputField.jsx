@@ -1,17 +1,16 @@
 import React, { forwardRef } from "react";
 import TextField from "@mui/material/TextField";
 
-const InputField = forwardRef(({ label, error, onChange, name }, ref) => {
+const InputField = forwardRef(({ label, error, ...props }, ref) => {
   return (
     <TextField
       fullWidth
       label={label}
       size="small"
       error={Boolean(error)}
-      onChange={onChange}
-      name={name}
-      inputRef={ref} // <-- key fix for react-hook-form
+      inputRef={ref}
       helperText={error || " "}
+      {...props}
       sx={{
         "& .MuiOutlinedInput-root": {
           borderRadius: "8px",

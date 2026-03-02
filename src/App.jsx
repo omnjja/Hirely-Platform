@@ -6,6 +6,7 @@ import SignUp from "./features/auth/pages/SignUp";
 import ForgotPassword from "./features/auth/pages/ForgotPassword";
 import RecoveryEmail from "./features/auth/pages/RecoveryEmail";
 import SucessfulPassword from "./features/auth/pages/SucessfulPassword";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           }
         />
       </Routes>
+      <Toaster position="top-center" />
     </BrowserRouter>
   );
 }
