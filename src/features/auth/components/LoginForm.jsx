@@ -65,13 +65,11 @@ const LoginForm = () => {
         <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
           <InputField
             label="Email"
-            name="email"
             {...register("email")}
             error={errors.email?.message}
           />
           <PasswordField
             label="Password"
-            name="password"
             {...register("password")}
             error={errors.password?.message}
           />
