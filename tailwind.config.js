@@ -13,11 +13,11 @@ export default {
         bold: 700,
       },
       colors: {
-        primary: "#1B41AA",
+        primary: "#1B41AA", 
         secondary: "#F4F6F8",
         accent: "#10B981",
         text: "#2E2E2E",
-        textSecondary: "#969696",
+        textSecondary: "#6a7282",
         ai: "#8B5CF6",
       },
     },

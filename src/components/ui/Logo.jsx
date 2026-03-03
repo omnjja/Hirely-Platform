@@ -3,7 +3,7 @@ import logo from "../../assets/HirelyLogoRemovebg.png";
 
 const Logo = () => {
   return (
-    <div className="w-full md:block flex justify-center mt-4">
+    <div className="w-full md:block flex justify-start">
       <img
         src={logo}
         alt="Hirely Logo"
