@@ -12,7 +12,7 @@ const AuthLayout = ({ children }) => {
       </div>
 
       {/* Right side */}
-      <div className="w-full md:w-1/2 flex flex-col items-center justify-center">
+      <div className="w-full md:w-1/2 flex flex-col">
         <div className="w-full">
           <Logo />
           {children}
