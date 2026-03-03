@@ -8,7 +8,7 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import FormHelperText from "@mui/material/FormHelperText";
 
-const PasswordField = forwardRef(({ label, error, onChange, name }, ref) => {
+const PasswordField = forwardRef(({ label, error, ...props }, ref) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -32,9 +32,8 @@ const PasswordField = forwardRef(({ label, error, onChange, name }, ref) => {
 
       <OutlinedInput
         type={showPassword ? "text" : "password"}
-        onChange={onChange}
-        name={name}
-        inputRef={ref} // <-- key fix for react-hook-form
+        {...props}
+        inputRef={ref}
         label={label}
         endAdornment={
           <InputAdornment position="end">
