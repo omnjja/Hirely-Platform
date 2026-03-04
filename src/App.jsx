@@ -7,6 +7,7 @@ import ForgotPassword from "./features/auth/pages/ForgotPassword";
 import RecoveryEmail from "./features/auth/pages/RecoveryEmail";
 import SucessfulPassword from "./features/auth/pages/SucessfulPassword";
 import RoleSelection from "./features/registration/pages/RoleSelection";
+import CandidateRegistration from "./features/registration/pages/CandidateRegistration";
 import { Toaster } from "react-hot-toast";
 
 function App() {
@@ -19,6 +20,10 @@ function App() {
         <Route path="/RecoveryEmail" element={<RecoveryEmail />} />
         <Route path="/SuccessfulPassword" element={<SucessfulPassword />} />
         <Route path="/role-selection" element={<RoleSelection />} />
+        <Route
+          path="/candidate-registration"
+          element={<CandidateRegistration />}
+        />
         <Route
           path="/"
           element={

@@ -1,7 +1,9 @@
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const RoleComponent = ({ name, photo, description }) => {
+const RoleComponent = ({ name, photo, description, redirectPath }) => {
+  const navigate = useNavigate();
   return (
     <div className="bg-white rounded-3xl p-8 w-full max-w-sm shadow-md hover:shadow-xl  transition-all duration-300 flex flex-col items-center gap-4 border border-gray-100">
       <div className="w-24 h-24 flex items-center justify-center">
@@ -19,7 +21,7 @@ const RoleComponent = ({ name, photo, description }) => {
       <ButtonComponent
         text={`Register as ${name}`}
         fullWidth
-        // onClick={() => redirect to registration form}
+        onClick={() => navigate(redirectPath)}
       />
     </div>
   );

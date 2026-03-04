@@ -11,6 +11,7 @@ const RoleSelection = () => {
       photo: candidateLogo,
       description:
         "Looking for your next career opportunity? Create your profile and get discovered by top companies.",
+      redirectPath: "/candidate-registration",
     },
     {
       name: "HR/Recruiter",
@@ -38,6 +39,7 @@ const RoleSelection = () => {
             name={role.name}
             photo={role.photo}
             description={role.description}
+            redirectPath={role.redirectPath}
           />
         ))}
       </div>
