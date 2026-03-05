@@ -9,6 +9,7 @@ import SucessfulPassword from "./features/auth/pages/SucessfulPassword";
 import RoleSelection from "./features/registration/pages/RoleSelection";
 import CandidateRegistration from "./features/registration/pages/CandidateRegistration";
 import { Toaster } from "react-hot-toast";
+import HrRegistration from "./features/registration/pages/HrRegistration";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           path="/candidate-registration"
           element={<CandidateRegistration />}
         />
+        <Route path="/hr-registration" element={<HrRegistration />} />
         <Route
           path="/"
           element={

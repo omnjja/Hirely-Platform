@@ -1,7 +1,7 @@
 import React from "react";
+import { Controller } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
-import { Controller } from "react-hook-form";
 
 const InputFieldWithLabel = ({
   name,
@@ -16,11 +16,11 @@ const InputFieldWithLabel = ({
   ...props
 }) => {
   return (
-    <div className="mb-1">
-      <div className="font-medium text-sm">
+    <div className="mb-3">
+      <label htmlFor={name} className="block font-medium text-sm mb-1">
         {label}
         {required && <span style={{ color: "#ef4444" }}> *</span>}
-      </div>
+      </label>
 
       <Controller
         name={name}
@@ -31,28 +31,27 @@ const InputFieldWithLabel = ({
             <TextField
               {...field}
               {...props}
-              select={Boolean(options)} // if options exist, make it a select
+              id={name}
+              select={Boolean(options)}
               fullWidth
               size="small"
               error={Boolean(error)}
               helperText={error?.message || " "}
-              multiline={!options && Boolean(fieldHeight)} // if it's not a select and has fieldHeight, make it multiline
+              multiline={!options && Boolean(fieldHeight)}
               rows={!options && fieldHeight ? 4 : undefined}
               sx={{
                 "& .MuiOutlinedInput-root": {
-                  borderRadius: "8px",
-                  alignItems: "flex-start",
+                  borderRadius: 2,
                   bgcolor: "#F9FAFB",
-                },
-                "& textarea": {
-                  color: "#717182",
-                },
-                "& input": {
-                  color: "#717182",
+                  alignItems: "flex-start",
                 },
                 "& .MuiFormHelperText-root": {
-                  marginTop: 0,
-                  fontSize: "12px",
+                  mt: 0.5,
+                  fontSize: { xs: "10px", sm: "11px", md: "12px" },
+                },
+                "& input, & textarea": {
+                  color: "#717182",
+                  fontSize: { xs: "14px", sm: "15px", md: "16px" },
                 },
               }}
             >
@@ -70,10 +69,10 @@ const InputFieldWithLabel = ({
 
             {bottomText && (
               <div
-                className="font-medium text-xs"
                 style={{
                   color: bottomTextColor,
-                  marginTop: "-14px",
+                  fontSize: "12px",
+                  marginTop: 2,
                 }}
               >
                 {bottomText}
