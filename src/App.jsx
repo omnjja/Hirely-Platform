@@ -1,31 +1,13 @@
 import React from "react";
 import "./index.css";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import Login from "./features/auth/pages/Login";
-import SignUp from "./features/auth/pages/SignUp";
-import ForgotPassword from "./features/auth/pages/ForgotPassword";
-import RecoveryEmail from "./features/auth/pages/RecoveryEmail";
-import SucessfulPassword from "./features/auth/pages/SucessfulPassword";
-import RoleSelection from "./features/registration/pages/RoleSelection";
-import CandidateRegistration from "./features/registration/pages/CandidateRegistration";
 import { Toaster } from "react-hot-toast";
-import HrRegistration from "./features/registration/pages/HrRegistration";
+
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/ForgotPassword" element={<ForgotPassword />} />
-        <Route path="/RecoveryEmail" element={<RecoveryEmail />} />
-        <Route path="/SuccessfulPassword" element={<SucessfulPassword />} />
-        <Route path="/role-selection" element={<RoleSelection />} />
-        <Route
-          path="/candidate-registration"
-          element={<CandidateRegistration />}
-        />
-        <Route path="/hr-registration" element={<HrRegistration />} />
         <Route
           path="/"
           element={
