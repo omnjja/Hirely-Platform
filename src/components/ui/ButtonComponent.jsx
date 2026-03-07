@@ -12,10 +12,10 @@ const ButtonComponent = ({
       type={type}
       onClick={onClick}
       className={`
-        bg-primary text-white
+        bg-[#1B41AA] text-white
         px-5 py-2
         rounded-4xl
-        hover:bg-primary/90
+        hover:bg-[#1B41AA]/90
         transition
         ${fullWidth ? "w-full" : "w-auto"}
         ${disabled ? "opacity-50 " : "cursor-pointer"}
