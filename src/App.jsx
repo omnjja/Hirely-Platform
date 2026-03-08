@@ -39,6 +39,12 @@ function App() {
               <Link to="/role-selection" className="text-primary">
                 Go to Role Selection
               </Link>
+              <Link to="/candidate-registration" className="text-primary">
+                Go to Candidate Registration
+              </Link>
+              <Link to="/hr-registration" className="text-primary">
+                Go to HR Registration
+              </Link>
             </div>
           }
         />

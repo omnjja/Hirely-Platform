@@ -9,13 +9,11 @@ const RegistrationLayout = ({ header, subhead, children }) => {
       <div className="flex flex-col items-center justify-center mb-8 ">
         <p className="text-xl font-bold md:text-2xl">{header}</p>
         <div
-          className="bg-white p-6 rounded-lg shadow-md md:w-[50%] mt-4 max-w-xl 
-      overflow-y-auto
-      max-h-[75vh]"
+          className="bg-white p-6 rounded-lg shadow-md md:w-[50%] mt-4" // overflow-y-auto max-h-[75vh]
         >
           <p className="text-[#1B41AA] text-lg font-semibold">{subhead}</p>
           {children}
-          <ButtonComponent text="Submit Application" fullWidth />
+          {/* each form should have its own submit button */}
         </div>
       </div>
     </div>
