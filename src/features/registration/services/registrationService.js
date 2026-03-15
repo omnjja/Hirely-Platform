@@ -9,3 +9,8 @@ export const chooseRole = async (role) => {
   const res = await api.patch("/api/v1/auth/choose-role", role);
   return res.data;
 };
+
+export const registerCandidate = async (formData) => {
+  const res = await api.post("/api/v1/auth/complete-registration/candidate", formData);
+  return res.data;
+}
