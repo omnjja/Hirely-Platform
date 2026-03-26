@@ -10,6 +10,7 @@ import RoleSelection from "./features/registration/pages/RoleSelection";
 import CandidateRegistration from "./features/registration/pages/CandidateRegistration";
 import { Toaster } from "react-hot-toast";
 import HrRegistration from "./features/registration/pages/HrRegistration";
+import AuthCallback from "./features/auth/pages/AuthCallback ";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
             </div>
           }
         />
+        <Route path="/auth/callback" element={<AuthCallback />} />
       </Routes>
       <Toaster position="top-center" />
     </BrowserRouter>

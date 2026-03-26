@@ -11,59 +11,58 @@ import UseCustomForm from "@/hooks/UseCustomForm";
 import { useRegistrationUpload } from "../hooks/useRegisterationUpload";
 
 const CandidateRegistrationForm = () => {
-  const { mutateAsync: registerCandidate } = useCandidateRegMutation();// send all data to registerCandidate
-   const { handleImageUpload, handleCVUpload } = useRegistrationUpload();
+  const { mutateAsync: registerCandidate } = useCandidateRegMutation(); // send all data to registerCandidate
+  const { handleImageUpload, handleCVUpload } = useRegistrationUpload();
 
-    const {
+  const {
     register,
     control,
     setError,
     reset,
     handleSubmit,
     formState: { errors, isSubmitting },
-    } = UseCustomForm({
+  } = UseCustomForm({
     defaultValues: candidateRegistrationDefaultValues,
     schema: candidateRegistrationSchema,
   });
 
+  const [profilePicture, setProfilePicture] = React.useState(null);
+  const [cvFile, setCvFile] = React.useState(null);
 
-    const [profilePicture, setProfilePicture] = React.useState(null);
-    const [cvFile, setCvFile] = React.useState(null);
-
-    const onSubmit = async (data) => {
+  const onSubmit = async (data) => {
     try {
-
-        let profilePictureKey = null;
-        let cvKey = null;
-        if (profilePicture) {
+      let profilePictureKey = null;
+      let cvKey = null;
+      if (profilePicture) {
         const { key } = await handleImageUpload(profilePicture);
         profilePictureKey = key;
-        }
-        if (cvFile) {
+      }
+      if (cvFile) {
         const { key } = await handleCVUpload(cvFile);
         cvKey = key;
-        }
+      }
 
-        const payload = { 
-        ...data, 
-        profilePicture: profilePictureKey, 
-        cv: cvKey 
-        };
+      const payload = {
+        ...data,
+        profilePicture: profilePictureKey,
+        cv: cvKey,
+      };
 
-        await registerCandidate(payload);
-        reset();
-
+      await registerCandidate(payload);
+      reset();
     } catch (error) {
       setError("root", {
-        message: error.response?.data?.message || "An error occurred. Please try again.",
+        message:
+          error.response?.data?.message ||
+          "An error occurred. Please try again.",
       });
       console.log("register error:", error);
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <InputFieldWithLabel
-            {...register("fullName")}
+          {...register("fullName")}
           name="fullName"
           control={control}
           label="Full Name"
@@ -135,11 +134,10 @@ const CandidateRegistrationForm = () => {
             required
             control={control}
             error={errors.experienceLevel?.message}
-
           />
         </div>
         <InputFieldWithLabel
-            {...register("yearsOfExperience")}
+          {...register("yearsOfExperience")}
           name="yearsOfExperience"
           label="Years of Experience (optional)"
           placeholder="e.g., 5"
@@ -147,7 +145,7 @@ const CandidateRegistrationForm = () => {
           error={errors.yearsOfExperience?.message}
         />
         <InputFieldWithLabel
-            {...register("introductionSummary")}
+          {...register("introductionSummary")}
           name="Introduction-Summary"
           label="Introduction / Summary"
           placeholder="Tell us about yourself, your experience, and what you're looking for..."
@@ -155,7 +153,7 @@ const CandidateRegistrationForm = () => {
           required
           bottomText="0 characters (minimum 50)"
           fieldHeight="80px"
-            error={errors.introductionSummary?.message}
+          error={errors.introductionSummary?.message}
         />
         <div className="grid grid-cols-[1fr_auto] gap-4 items-center">
           <InputFieldWithLabel
@@ -198,24 +196,25 @@ const CandidateRegistrationForm = () => {
           Professional URLs <span className="text-red-500"> *</span>
         </p>
         <InputFieldWithLabel
-            {...register("linkedIn")}
+          {...register("linkedIn")}
           name="linkedIn"
           label="LinkedIn"
           required
           placeholder="e.g., https://www.linkedin.com/in/yourprofile"
           control={control}
-            error={errors.linkedIn?.message}
+          error={errors.linkedIn?.message}
         />
         <InputFieldWithLabel
-            {...register("gitHub")}
+          {...register("gitHub")}
           name="gitHub"
           label="GitHub"
           required
           placeholder="e.g., https://github.com/yourusername"
           control={control}
-            error={errors.gitHub?.message}
+          error={errors.gitHub?.message}
         />
       </form>
-    )
-    };
-}
+    );
+  };
+};
+export default CandidateRegistrationForm;

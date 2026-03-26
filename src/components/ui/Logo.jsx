@@ -10,7 +10,7 @@ const Logo = () => {
         className="
           w-24
           md:w-32
-          h-auto
+          h-28
           object-contain
         "
       />

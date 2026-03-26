@@ -1,4 +1,3 @@
-import React from "react";
 import FormHeader from "./FormHeader";
 import InputField from "../../../components/ui/InputField";
 import PasswordField from "../../../components/ui/PasswordField";
@@ -10,6 +9,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import useLoginMutation from "../hooks/useLoginMutation";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -34,13 +35,24 @@ const LoginForm = () => {
     resolver: zodResolver(schema),
   });
 
+  const { mutateAsync: login } = useLoginMutation();
+
   const onSubmit = async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // simulate api call
-      console.log(data);
-      throw new Error("Failed to sign in");
+      const response = await login(data);
+      if (response.accessToken) {
+        navigate("/dashboard");
+      } else {
+        setError("root", {
+          message: "Failed to sign in. Please check your credentials.",
+        });
+      }
     } catch (error) {
-      setError("root", { message: "Failed to sign in. Please try again." });
+      setError("root", {
+        message:
+          error.response?.data?.message ||
+          "Failed to sign in. Please try again.",
+      });
     }
   };
 
@@ -73,6 +85,11 @@ const LoginForm = () => {
             {...register("password")}
             error={errors.password?.message}
           />
+          {errors.root && (
+            <p className="text-red-600 text-sm text-center">
+              {errors.root.message}
+            </p>
+          )}
           <ButtonComponent
             text={isSubmitting ? "Signing in..." : "Sign in"}
             type="submit"

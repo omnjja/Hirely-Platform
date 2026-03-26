@@ -6,42 +6,16 @@ import ButtonComponent from "../../../components/ui/ButtonComponent";
 import FormFooter from "./FormFooter";
 import GoogleButton from "../../../components/ui/GoogleButton";
 import Divider from "../../../components/ui/Divider";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import ToastPromiseMessage from "../../../utils/ToastPromiseMessage";
 import DateField from "../../../components/ui/DateField";
+import useSignupMutation from "../hooks/useSignupMutation";
+import {
+  userSignupDefaultValues,
+  userSignupSchema,
+} from "../../../shcemas/userSignupSchema";
+import useCustomForm from "../../../hooks/useCustomForm";
+import * as authAPI from "../services/authService";
 
 const SignupForm = () => {
-  const userRegisterationSchema = z
-    .object({
-      // name: z.string().min(1, "Name is required"),
-      email: z
-        .string()
-        .min(1, "Email is required")
-        .email("Invalid email address"),
-      password: z.string().min(8, "Password must be at least 8 characters"),
-      confirmPassword: z.string().min(1, "Please confirm your password"),
-      birthDate: z
-        .string()
-        .min(1, "Date of birth is required")
-        .refine((date) => {
-          const birth = new Date(date);
-          const today = new Date();
-          return birth <= today;
-        }, "Date of birth cannot be in the future"),
-    })
-    .refine((data) => data.password === data.confirmPassword, {
-      message: "Passwords do not match",
-      path: ["confirmPassword"],
-    });
-
-  // .refine((date) => {
-  //   const birth = new Date(date);
-  //   const today = new Date();
-  //   const age = today.getFullYear() - birth.getFullYear();
-  //   return age >= 18;
-  // }, "You must be at least 18 years old")
   const {
     register,
     handleSubmit,
@@ -49,35 +23,24 @@ const SignupForm = () => {
     setError,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm({
-    defaultValues: {
-      // name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      birthDate: "",
-    },
-    resolver: zodResolver(userRegisterationSchema),
+  } = useCustomForm({
+    defaultValues: userSignupDefaultValues,
+    schema: userSignupSchema,
   });
 
+  const { mutateAsync: signup } = useSignupMutation();
+
   const onSubmit = async (data) => {
-    const { confirmPassword, ...submitData } = data;
+    const { confirmPassword, ...payload } = data;
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // simulate api call
-      console.log("Form Data:", submitData);
-      ToastPromiseMessage(Promise.resolve(), {
-        loading: "Creating account... ⏳",
-        success: "Account created successfully! ✅",
-        error: "Failed to create account. Please try again. ❌",
-      });
+      await signup(payload);
       reset();
-    } catch (e) {
-      // handle specific API errors
-      if (e.code === "EMAIL_TAKEN") {
-        setError("email", { message: "Email already in use" });
-      } else {
-        setError("root", { message: "Failed to sign up. Please try again." });
-      }
+    } catch (error) {
+      setError("root", {
+        message:
+          error.response?.data?.message ||
+          "An error occurred. Please try again.",
+      });
     }
   };
 
@@ -100,11 +63,6 @@ const SignupForm = () => {
         <FormHeader head="Sign Up" subhead="Sign up to enjoy the features" />
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-1">
-          {/* <InputField
-            {...register("name")}
-            label="Name"
-            error={errors.name?.message}
-          /> */}
           <InputField
             {...register("email")}
             label="Email"
@@ -121,10 +79,10 @@ const SignupForm = () => {
             error={errors.confirmPassword?.message}
           />
           <DateField
-            name="birthDate"
+            name="dateOfBirth"
             control={control}
             label="Date of Birth"
-            error={errors.birthDate?.message}
+            error={errors.dateOfBirth?.message}
           />
           {errors.root && (
             <p className="text-red-500 text-sm flex items-center mb-1">
@@ -139,7 +97,10 @@ const SignupForm = () => {
           />
           <Divider label="or" />
 
-          <GoogleButton label="Continue with Google" />
+          <GoogleButton
+            label="Continue with Google"
+            onClick={authAPI.googleAuth}
+          />
 
           <FormFooter
             text="Already have an account? "
