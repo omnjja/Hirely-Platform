@@ -7,6 +7,7 @@ import ForgotPassword from "./features/auth/pages/ForgotPassword";
 import RecoveryEmail from "./features/auth/pages/RecoveryEmail";
 import SucessfulPassword from "./features/auth/pages/SucessfulPassword";
 import { Toaster } from "react-hot-toast";
+import AuthCallback from "./features/auth/pages/AuthCallback ";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             </div>
           }
         />
+        <Route path="/auth/callback" element={<AuthCallback />} />
       </Routes>
       <Toaster position="top-center" />
     </BrowserRouter>

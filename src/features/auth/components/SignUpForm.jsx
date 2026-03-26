@@ -6,50 +6,16 @@ import ButtonComponent from "../../../components/ui/ButtonComponent";
 import FormFooter from "./FormFooter";
 import GoogleButton from "../../../components/ui/GoogleButton";
 import Divider from "../../../components/ui/Divider";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import DateField from "../../../components/ui/DateField";
 import useSignupMutation from "../hooks/useSignupMutation";
+import {
+  userSignupDefaultValues,
+  userSignupSchema,
+} from "../../../shcemas/userSignupSchema";
+import useCustomForm from "../../../hooks/useCustomForm";
+import * as authAPI from "../services/authService";
 
 const SignupForm = () => {
-  // client-side validation
-  const userRegisterationSchema = z
-    .object({
-      email: z
-        .string()
-        .min(1, "Email is required")
-        .email("Invalid email address"),
-      password: z
-        .string()
-        .min(8, "Password must be at least 8 characters")
-        .regex(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/,
-          "Password must contain uppercase, lowercase, number, and special character",
-        ),
-      confirmPassword: z.string().min(1, "Please confirm your password"),
-      dateOfBirth: z
-        .string()
-        .min(1, "Date of birth is required")
-        .refine((date) => {
-          const birth = new Date(date);
-          const today = new Date();
-          return birth <= today;
-        }, "Date of birth cannot be in the future"),
-    })
-    .refine((data) => data.password === data.confirmPassword, {
-      message: "Passwords do not match",
-      path: ["confirmPassword"],
-    });
-
-  // if there any age restriction
-  // .refine((date) => {
-  //   const birth = new Date(date);
-  //   const today = new Date();
-  //   const age = today.getFullYear() - birth.getFullYear();
-  //   return age >= 18;
-  // }, "You must be at least 18 years old")
-
   const {
     register,
     handleSubmit,
@@ -57,23 +23,16 @@ const SignupForm = () => {
     setError,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm({
-    defaultValues: {
-      email: "",
-      password: "",
-      confirmPassword: "",
-      dateOfBirth: "",
-    },
-    resolver: zodResolver(userRegisterationSchema),
+  } = useCustomForm({
+    defaultValues: userSignupDefaultValues,
+    schema: userSignupSchema,
   });
 
-  // API interaction
   const { mutateAsync: signup } = useSignupMutation();
 
   const onSubmit = async (data) => {
     const { confirmPassword, ...payload } = data;
-    console.log("Form data:", payload);
-
+    // console.log("Form data:", payload);
     try {
       await signup(payload);
       reset();
@@ -83,7 +42,6 @@ const SignupForm = () => {
           error.response?.data?.message ||
           "An error occurred. Please try again.",
       });
-      console.log("Signup error:", error);
     }
   };
 
@@ -140,7 +98,10 @@ const SignupForm = () => {
           />
           <Divider label="or" />
 
-          <GoogleButton label="Continue with Google" />
+          <GoogleButton
+            label="Continue with Google"
+            onClick={authAPI.googleAuth}
+          />
 
           <FormFooter
             text="Already have an account? "
