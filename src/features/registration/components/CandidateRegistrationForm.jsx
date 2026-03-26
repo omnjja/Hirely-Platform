@@ -7,7 +7,7 @@ import {
 } from "@/schemas/candidateRegistrationSchema";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import useCandidateRegMutation from "../hooks/useCandidateRegMutation";
-import UseCustomForm from "@/hooks/UseCustomForm";
+import useCustomForm from "@/hooks/useCustomForm";
 import { useRegistrationUpload } from "../hooks/useRegisterationUpload";
 
 const CandidateRegistrationForm = () => {
@@ -21,7 +21,7 @@ const CandidateRegistrationForm = () => {
     reset,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = UseCustomForm({
+  } = useCustomForm({
     defaultValues: candidateRegistrationDefaultValues,
     schema: candidateRegistrationSchema,
   });

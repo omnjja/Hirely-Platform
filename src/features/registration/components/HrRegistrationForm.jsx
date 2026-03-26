@@ -7,11 +7,11 @@ import {
 } from "@/schemas/hrRegistrationSchema";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import useHrRegMutation from "../hooks/useHrRegMutation";
-import UseCustomForm from "@/hooks/UseCustomForm";
+import useCustomForm from "@/hooks/useCustomForm";
 
 const HrRegistrationForm = () => {
   const { mutateAsync: registerHr } = useHrRegMutation();
-  
+
   const {
     register,
     control,
@@ -19,7 +19,7 @@ const HrRegistrationForm = () => {
     reset,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = UseCustomForm({
+  } = useCustomForm({
     defaultValues: hrRegistrationDefaultValues,
     schema: hrRegistrationSchema,
   });
