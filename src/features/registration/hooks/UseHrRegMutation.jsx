@@ -1,31 +1,29 @@
 import { useMutation } from "@tanstack/react-query";
-import * as registrationAPI from "../services/registrationService";
+import { registerHR } from "../services/registrationService";
 import toast from "react-hot-toast";
+import useAppNavigate from "@/hooks/useAppNavigate";
 
 const useHrRegMutation = () => {
+  const { toHome } = useAppNavigate();
   return useMutation({
-    mutationFn: registrationAPI.registerHR,
+    mutationFn: registerHR,
 
     onMutate: () => {
-      toast.loading("Submitting your data... ⏳", {
+      toast.loading("Submitting your data", {
         id: "hrRegistrationToast",
       });
     },
 
-    onSuccess: () => {
-      toast.success(
-        "Your company registration was submitted successfully! 🎉",
-        {
-          id: "hrRegistrationToast",
-        },
-      );
+    onSuccess: (data) => {
+      console.log(data);
+      toast.success("Your are registrated successfully!", {
+        id: "hrRegistrationToast",
+      });
+      toHome();
     },
 
-    onError: (error) => {
-      const message =
-        error?.response?.data?.message ||
-        "Failed to submit your application. Please try again.";
-      toast.error(`${message} ❌`, { id: "hrRegistrationToast" });
+    onError: () => {
+      toast.dismiss("hrRegistrationToast");
     },
   });
 };

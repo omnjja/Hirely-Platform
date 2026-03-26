@@ -8,15 +8,15 @@ import {
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import useHrRegMutation from "../hooks/useHrRegMutation";
 import useCustomForm from "@/hooks/useCustomForm";
+import useAppNavigate from "@/hooks/useAppNavigate";
 
 const HrRegistrationForm = () => {
   const { mutateAsync: registerHr } = useHrRegMutation();
-
+  const { toHome } = useAppNavigate();
   const {
     register,
     control,
     setError,
-    reset,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useCustomForm({
@@ -25,18 +25,15 @@ const HrRegistrationForm = () => {
   });
 
   const onSubmit = async (data) => {
-    const { email, ...payload } = data;
-    console.log("HR Registration Data:", payload);
     try {
-      await registerHr(payload);
-      reset();
+      await registerHr(data);
+      toHome();
     } catch (error) {
       setError("root", {
         message:
           error.response?.data?.message ||
           "An error occurred. Please try again.",
       });
-      console.log("register error:", error);
     }
   };
 
@@ -58,23 +55,16 @@ const HrRegistrationForm = () => {
         placeholder="e.g., Tech Solutions Inc."
         error={errors.companyName?.message}
       />
-      <InputFieldWithLabel
-        {...register("jobTitle")}
-        name="jobTitle"
-        label="Job Title"
-        required
-        control={control}
-        placeholder="e.g., HR Manager"
-        error={errors.jobTitle?.message}
-      />
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <InputFieldWithLabel
-          {...register("email")}
-          name="email"
-          label="Email"
+          {...register("jobTitle")}
+          name="jobTitle"
+          label="Job Title"
           required
-          placeholder="john.doe@company.com"
-          error={errors.email?.message}
+          control={control}
+          placeholder="e.g., HR Manager"
+          error={errors.jobTitle?.message}
         />
         <InputFieldWithLabel
           {...register("phoneNumber")}
@@ -94,16 +84,16 @@ const HrRegistrationForm = () => {
           control={control}
           required
           options={[
-            { value: "1-50", label: "1-50 employees" },
+            { value: "1-10", label: "1-10 employees" },
+            { value: "11-50", label: "11-50 employees" },
             { value: "51-200", label: "51-200 employees" },
-            { value: "201-500", label: "201-500 employees" },
-            { value: "501-1000", label: "501-1000 employees" },
+            { value: "201-1000", label: "201-1000 employees" },
             { value: "1000+", label: "1000+ employees" },
           ]}
         />
         <SelectField
-          name="industry"
-          label="Industry"
+          name="companyIndustry"
+          label="Company Industry"
           placeholder="Select industry"
           control={control}
           required
@@ -122,7 +112,6 @@ const HrRegistrationForm = () => {
         name="companySummary"
         label="Company Description"
         placeholder="Tell us about your company, culture, and what makes it a great place to work..."
-        required
         bottomText="0 characters (minimum 50)"
         fieldHeight="80px"
         error={errors.companySummary?.message}
@@ -141,13 +130,12 @@ const HrRegistrationForm = () => {
         </p>
       )}
       <ButtonComponent
-        text={isSubmitting ? "Signing up..." : "Sign up"}
+        text={isSubmitting ? "Submit Application..." : "Submit Application"}
         type="submit"
         fullWidth
         disabled={isSubmitting}
       />
     </form>
-    // </div>
   );
 };
 

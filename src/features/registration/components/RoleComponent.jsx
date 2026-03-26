@@ -1,6 +1,5 @@
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import useChooseRoleMutation from "../hooks/useChooseRoleMutation";
 
 const RoleComponent = ({
@@ -8,20 +7,15 @@ const RoleComponent = ({
   name,
   photo,
   description,
-  redirectPath,
   isLoading,
   setIsLoading,
 }) => {
-  const { mutateAsync: selectRole, isPending } = useChooseRoleMutation();
+  const { mutateAsync: selectRole } = useChooseRoleMutation();
 
-  const navigate = useNavigate();
   const onSubmit = async (role) => {
     setIsLoading(true);
     try {
       await selectRole(role);
-      navigate(redirectPath);
-    } catch {
-      // handle error
     } finally {
       setIsLoading(false);
     }

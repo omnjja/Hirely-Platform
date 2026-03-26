@@ -8,9 +8,10 @@ const Logo = () => {
         src={logo}
         alt="Hirely Logo"
         className="
-          w-24
+          w-20
           md:w-32
-          h-28
+          h-16
+          md:h-20
           object-contain
         "
       />

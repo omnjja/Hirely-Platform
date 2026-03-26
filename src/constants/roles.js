@@ -8,7 +8,6 @@ export const ROLES = [
     photo: candidateLogo,
     description:
       "Looking for your next career opportunity? Create your profile and get discovered by top companies.",
-    redirectPath: "/candidate-registration",
   },
   {
     id: "HR",
@@ -16,6 +15,5 @@ export const ROLES = [
     photo: recruiterLogo,
     description:
       "Find the perfect candidates for your company. Register and start posting jobs today.",
-    redirectPath: "/hr-registration",
   },
 ];

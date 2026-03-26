@@ -23,10 +23,10 @@ function App() {
         <Route path="/SuccessfulPassword" element={<SucessfulPassword />} />
         <Route path="/role-selection" element={<RoleSelection />} />
         <Route
-          path="/candidate-registration"
+          path="/candidate/complete-profile"
           element={<CandidateRegistration />}
         />
-        <Route path="/hr-registration" element={<HrRegistration />} />
+        <Route path="/hr/complete-profile" element={<HrRegistration />} />
         <Route
           path="/"
           element={
@@ -40,10 +40,10 @@ function App() {
               <Link to="/role-selection" className="text-primary">
                 Go to Role Selection
               </Link>
-              <Link to="/candidate-registration" className="text-primary">
+              <Link to="/candidate/complete-profile" className="text-primary">
                 Go to Candidate Registration
               </Link>
-              <Link to="/hr-registration" className="text-primary">
+              <Link to="/hr/complete-profile" className="text-primary">
                 Go to HR Registration
               </Link>
             </div>

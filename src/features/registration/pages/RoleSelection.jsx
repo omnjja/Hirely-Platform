@@ -24,7 +24,6 @@ const RoleSelection = () => {
             name={role.name}
             photo={role.photo}
             description={role.description}
-            redirectPath={role.redirectPath}
             isLoading={isLoading}
             setIsLoading={setIsLoading}
           />
