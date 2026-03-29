@@ -78,10 +78,11 @@ const HrRegistrationForm = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <SelectField
+          {...register("companySize")}
           name="companySize"
           label="Company Size"
           placeholder="Select company size"
-          control={control}
+          // control={control}
           required
           options={[
             { value: "1-10", label: "1-10 employees" },
@@ -92,10 +93,11 @@ const HrRegistrationForm = () => {
           ]}
         />
         <SelectField
+          {...register("companyIndustry")}
           name="companyIndustry"
           label="Company Industry"
           placeholder="Select industry"
-          control={control}
+          // control={control}
           required
           options={[
             { value: "technology", label: "Technology" },
