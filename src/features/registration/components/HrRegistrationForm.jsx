@@ -18,12 +18,15 @@ const HrRegistrationForm = () => {
     control,
     setError,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
   } = useCustomForm({
     defaultValues: hrRegistrationDefaultValues,
     schema: hrRegistrationSchema,
   });
 
+  const companySummaryValue = watch("companySummary") || "";
+  const companySummaryLength = companySummaryValue.length;
   const onSubmit = async (data) => {
     try {
       await registerHr(data);
@@ -114,7 +117,7 @@ const HrRegistrationForm = () => {
         name="companySummary"
         label="Company Description"
         placeholder="Tell us about your company, culture, and what makes it a great place to work..."
-        bottomText="0 characters (minimum 50)"
+        bottomText={`${companySummaryLength} characters (minimum 50)`}
         fieldHeight="80px"
         error={errors.companySummary?.message}
       />

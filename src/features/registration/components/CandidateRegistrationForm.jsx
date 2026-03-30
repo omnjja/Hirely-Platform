@@ -13,24 +13,31 @@ import useCandidateRegMutation from "../hooks/useCandidateRegMutation";
 import useCustomForm from "@/hooks/useCustomForm";
 import { useRegistrationUpload } from "../hooks/useRegisterationUpload";
 import ButtonComponent from "@/components/ui/ButtonComponent";
+import { experienceOptions } from "@/constants/experienceOptions";
+import AddingField from "@/components/ui/AddingField";
 
 const CandidateRegistrationForm = () => {
   const { mutateAsync: registerCandidate } = useCandidateRegMutation(); // send all data to registerCandidate
   const { handleImageUpload, handleCVUpload } = useRegistrationUpload();
+  const [profilePicture, setProfilePicture] = useState(null);
+  const [cvFile, setCvFile] = useState(null);
 
   const {
     register,
     setError,
     reset,
     handleSubmit,
+    control,
+    watch,
     formState: { errors, isSubmitting },
   } = useCustomForm({
     defaultValues: candidateRegistrationDefaultValues,
     schema: candidateRegistrationSchema,
+    mode: "onChange",
   });
 
-  const [profilePicture, setProfilePicture] = useState(null);
-  const [cvFile, setCvFile] = useState(null);
+  const introductionValue = watch("introductionSummary") || "";
+  const textLength = introductionValue.length;
 
   const onSubmit = async (data) => {
     try {
@@ -91,8 +98,9 @@ const CandidateRegistrationForm = () => {
           {...register("country")}
           name="country"
           label="Country"
+          placeholder="Select country"
           required
-          options={[{ value: "", label: "Select Country" }, ...countryOptions]}
+          options={countryOptions}
           error={errors.country?.message}
         />
         <InputFieldWithLabel
@@ -113,10 +121,12 @@ const CandidateRegistrationForm = () => {
           required
           error={errors.education?.message}
         />
-        <InputFieldWithLabel
+        <SelectField
           {...register("experienceLevel")}
           name="experienceLevel"
           label="Experience Level"
+          placeholder="Select Experience Level"
+          options={experienceOptions}
           required
           error={errors.experienceLevel?.message}
         />
@@ -134,35 +144,24 @@ const CandidateRegistrationForm = () => {
         label="Introduction / Summary"
         placeholder="Tell us about yourself, your experience, and what you're looking for..."
         required
-        bottomText="0 characters (minimum 50)"
+        bottomText={`${textLength} characters (minimum 50)`}
         fieldHeight="80px"
         error={errors.introductionSummary?.message}
       />
-      {/* list */}
-      <div className="grid grid-cols-[1fr_auto] gap-4 items-center">
-        <InputFieldWithLabel
-          {...register("skills")}
-          name="skills"
-          label="Skills"
-          required
-          placeholder="e.g., React, TypeScript, Node.js"
-          bottomText="At least one skill is required"
-          error={errors.skills?.message}
-        />
-        <AddButton className="mb:8 md:mb-2.5" />
-      </div>
-      <div className="grid grid-cols-[1fr_auto] gap-4 items-center">
-        <InputFieldWithLabel
-          {...register("languages")}
-          name="languages"
-          label="Languages"
-          required
-          placeholder="e.g., English, Spanish, Mandarin"
-          bottomText="At least one language is required"
-          error={errors.languages?.message}
-        />
-        <AddButton className="mb:8 md:mb-2.5" />
-      </div>
+      <AddingField
+        name="skills"
+        control={control}
+        errors={errors}
+        placeholder="e.g., React, TypeScript, Node.js"
+        bottomText="At least one skill is required"
+      />
+      <AddingField
+        name="languages"
+        control={control}
+        errors={errors}
+        placeholder="e.g., English, Arabic, French"
+        bottomText="At least one language is required"
+      />
       <UploadCVField
         name="cv"
         label="Import Your CV"

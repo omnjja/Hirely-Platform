@@ -1,9 +1,10 @@
 import React from "react";
 
-const AddButton = ({ text = "Add", onClick, className }) => {
+const AddButton = ({ text = "Add", onClick, className, type = "button" }) => {
   return (
     <button
       onClick={onClick}
+      type={type}
       className={`
         flex items-center justify-center gap-2
          h-10

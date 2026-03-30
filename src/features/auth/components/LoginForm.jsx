@@ -9,8 +9,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import useLoginMutation from "../hooks/useLoginMutation";
+import * as authAPI from "../services/authService";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -120,7 +120,10 @@ const LoginForm = () => {
           <Divider label="or" />
 
           {/* Google Button */}
-          <GoogleButton label="Continue with Google" />
+          <GoogleButton
+            label="Continue with Google"
+            onClick={authAPI.googleAuth}
+          />
 
           {/* Need an account */}
           <FormFooter

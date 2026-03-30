@@ -6,17 +6,16 @@ const useLoginMutation = () => {
   return useMutation({
     mutationFn: authAPI.login,
     onMutate: () => {
-      toast.loading("Signing in... ⏳", { id: "loginToast" });
+      toast.loading("Signing in... ", { id: "loginToast" });
     },
     onSuccess: (data) => {
       const { accessToken } = data;
       localStorage.setItem("authToken", accessToken);
-      toast.success("Signed in successfully! ✅", { id: "loginToast" });
+      toast.success("Signed in successfully!", { id: "loginToast" });
     },
     onError: (error) => {
       toast.error(
-        error.response?.data?.message ||
-          "Failed to sign in. Please try again. ❌",
+        error.response?.data?.message || "Failed to sign in. Please try again.",
         { id: "loginToast" },
       );
     },
