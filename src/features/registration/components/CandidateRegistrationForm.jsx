@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputFieldWithLabel from "@/components/ui/InputFieldWithLabel";
 import SelectField from "@/components/ui/SelectField";
 import {
@@ -16,7 +16,7 @@ import ButtonComponent from "@/components/ui/ButtonComponent";
 import { experienceOptions } from "@/constants/experienceOptions";
 import AddingField from "@/components/ui/AddingField";
 
-const CandidateRegistrationForm = () => {
+const CandidateRegistrationForm = ({ onProgressChange }) => {
   const { mutateAsync: registerCandidate } = useCandidateRegMutation(); // send all data to registerCandidate
   const { handleImageUpload, handleCVUpload } = useRegistrationUpload();
   const [profilePicture, setProfilePicture] = useState(null);
@@ -38,6 +38,13 @@ const CandidateRegistrationForm = () => {
 
   const introductionValue = watch("introductionSummary") || "";
   const textLength = introductionValue.length;
+
+  const values = watch();
+  useEffect(() => {
+    const filled = Object.values(values).filter(Boolean).length;
+    const total = Object.keys(values).length;
+    onProgressChange((filled / total) * 100);
+  }, [values]);
 
   const onSubmit = async (data) => {
     try {

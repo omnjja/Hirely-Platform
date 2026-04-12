@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import InputFieldWithLabel from "@/components/ui/InputFieldWithLabel";
 import SelectField from "@/components/ui/SelectField";
 import {
@@ -9,8 +9,10 @@ import ButtonComponent from "@/components/ui/ButtonComponent";
 import useHrRegMutation from "../hooks/useHrRegMutation";
 import useCustomForm from "@/hooks/useCustomForm";
 import useAppNavigate from "@/hooks/useAppNavigate";
+import { COMPANYSIZE } from "@/constants/companySizesOptions";
+import { COMPANYINDUSTRY } from "@/constants/companyIndustryOptions";
 
-const HrRegistrationForm = () => {
+const HrRegistrationForm = ({ onProgressChange }) => {
   const { mutateAsync: registerHr } = useHrRegMutation();
   const { toHome } = useAppNavigate();
   const {
@@ -27,6 +29,14 @@ const HrRegistrationForm = () => {
 
   const companySummaryValue = watch("companySummary") || "";
   const companySummaryLength = companySummaryValue.length;
+
+  const values = watch();
+  useEffect(() => {
+    const filled = Object.values(values).filter(Boolean).length;
+    const total = Object.keys(values).length;
+    onProgressChange((filled / total) * 100);
+  }, [values]);
+
   const onSubmit = async (data) => {
     try {
       await registerHr(data);
@@ -85,30 +95,18 @@ const HrRegistrationForm = () => {
           name="companySize"
           label="Company Size"
           placeholder="Select company size"
-          // control={control}
           required
-          options={[
-            { value: "1-10", label: "1-10 employees" },
-            { value: "11-50", label: "11-50 employees" },
-            { value: "51-200", label: "51-200 employees" },
-            { value: "201-1000", label: "201-1000 employees" },
-            { value: "1000+", label: "1000+ employees" },
-          ]}
+          options={COMPANYSIZE}
+          error={errors.companySize?.message}
         />
         <SelectField
           {...register("companyIndustry")}
           name="companyIndustry"
           label="Company Industry"
           placeholder="Select industry"
-          // control={control}
           required
-          options={[
-            { value: "technology", label: "Technology" },
-            { value: "finance", label: "Finance" },
-            { value: "healthcare", label: "Healthcare" },
-            { value: "education", label: "Education" },
-            { value: "retail", label: "Retail" },
-          ]}
+          options={COMPANYINDUSTRY}
+          error={errors.companyIndustry?.message}
         />
       </div>
 

@@ -6,7 +6,7 @@ const useCustomForm = ({ defaultValues = {}, schema, mode = "onSubmit" }) => {
   return useForm({
     defaultValues,
     resolver: zodResolver(schema),
-    mode: mode,
+    mode: mode, // default is "onSubmit",
   });
 };
 
