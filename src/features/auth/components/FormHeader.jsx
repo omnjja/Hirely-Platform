@@ -8,7 +8,7 @@ const FormHeader = ({ head, subhead }) => {
           text-xl
           md:text-3xl
           font-bold
-          text-text
+          text-[#2E2E2E]
         "
       >
         {head}
