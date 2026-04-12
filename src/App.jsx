@@ -7,7 +7,9 @@ import ForgotPassword from "./features/auth/pages/ForgotPassword";
 import RecoveryEmail from "./features/auth/pages/RecoveryEmail";
 import SucessfulPassword from "./features/auth/pages/SucessfulPassword";
 import RoleSelection from "./features/registration/pages/RoleSelection";
+import CandidateRegistration from "./features/registration/pages/CandidateRegistration";
 import { Toaster } from "react-hot-toast";
+import HrRegistration from "./features/registration/pages/HrRegistration";
 import AuthCallback from "./features/auth/pages/AuthCallback ";
 
 function App() {
@@ -21,6 +23,11 @@ function App() {
         <Route path="/SuccessfulPassword" element={<SucessfulPassword />} />
         <Route path="/role-selection" element={<RoleSelection />} />
         <Route
+          path="/candidate/complete-profile"
+          element={<CandidateRegistration />}
+        />
+        <Route path="/hr/complete-profile" element={<HrRegistration />} />
+        <Route
           path="/"
           element={
             <div className="flex flex-col items-center justify-center h-screen gap-4">
@@ -32,6 +39,12 @@ function App() {
               </Link>
               <Link to="/role-selection" className="text-primary">
                 Go to Role Selection
+              </Link>
+              <Link to="/candidate/complete-profile" className="text-primary">
+                Go to Candidate Registration
+              </Link>
+              <Link to="/hr/complete-profile" className="text-primary">
+                Go to HR Registration
               </Link>
             </div>
           }

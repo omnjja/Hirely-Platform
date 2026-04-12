@@ -1,18 +1,18 @@
 import React from "react";
-import PasswordField from "../../../components/ui/PasswordField";
-import InputField from "../../../components/ui/InputField";
+import PasswordField from "@/components/ui/PasswordField";
+import InputField from "@/components/ui/InputField";
 import FormHeader from "./FormHeader";
-import ButtonComponent from "../../../components/ui/ButtonComponent";
+import ButtonComponent from "@/components/ui/ButtonComponent";
 import FormFooter from "./FormFooter";
-import GoogleButton from "../../../components/ui/GoogleButton";
-import Divider from "../../../components/ui/Divider";
-import DateField from "../../../components/ui/DateField";
+import GoogleButton from "@/components/ui/GoogleButton";
+import Divider from "@/components/ui/Divider";
+import DateField from "@/components/ui/DateField";
 import useSignupMutation from "../hooks/useSignupMutation";
 import {
   userSignupDefaultValues,
   userSignupSchema,
-} from "../../../shcemas/userSignupSchema";
-import useCustomForm from "../../../hooks/useCustomForm";
+} from "@/shcemas/userSignupSchema";
+import useCustomForm from "@/hooks/useCustomForm";
 import * as authAPI from "../services/authService";
 
 const SignupForm = () => {
@@ -32,7 +32,6 @@ const SignupForm = () => {
 
   const onSubmit = async (data) => {
     const { confirmPassword, ...payload } = data;
-    // console.log("Form data:", payload);
     try {
       await signup(payload);
       reset();
