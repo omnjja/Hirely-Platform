@@ -1,16 +1,16 @@
 import React from "react";
 import "./index.css";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import Login from "./features/auth/pages/Login";
-import SignUp from "./features/auth/pages/SignUp";
-import ForgotPassword from "./features/auth/pages/ForgotPassword";
-import RecoveryEmail from "./features/auth/pages/RecoveryEmail";
-import SucessfulPassword from "./features/auth/pages/SucessfulPassword";
-import RoleSelection from "./features/registration/pages/RoleSelection";
-import CandidateRegistration from "./features/registration/pages/CandidateRegistration";
 import { Toaster } from "react-hot-toast";
-import HrRegistration from "./features/registration/pages/HrRegistration";
-import AuthCallback from "./features/auth/pages/AuthCallback ";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import ForgotPassword from "./pages/ForgotPassword";
+import RecoveryEmail from "./pages/RecoveryEmail";
+import SucessfulPassword from "./pages/SucessfulPassword";
+import RoleSelection from "./pages/RoleSelection";
+import CandidateRegistration from "./pages/CandidateRegistration";
+import HrRegistration from "./pages/HrRegistration";
+import AuthCallback from "./pages/AuthCallback ";
 
 function App() {
   return (
