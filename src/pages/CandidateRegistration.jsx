@@ -1,7 +1,6 @@
 import RegistrationLayout from "@/components/layout/RegistrationLayout";
 import React from "react";
-import CandidateRegistrationForm from "../components/CandidateRegistrationForm";
-
+import CandidateRegistrationForm from "@/features/registration/components/CandidateRegistrationForm";
 
 const CandidateRegistration = () => {
   return (
