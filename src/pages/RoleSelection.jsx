@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Logo from "@/components/ui/Logo";
-import RoleComponent from "../components/RoleComponent";
+import RoleComponent from "@/features/registration/components/RoleComponent";
 import { ROLES } from "@/constants/roles";
 
 const RoleSelection = () => {

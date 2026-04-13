@@ -1,6 +1,6 @@
 import React from "react";
 import ResetPassLayout from "@/components/layout/ResetPassLayout";
-import passSuccess from "../../../assets/success pass.png";
+import passSuccess from "@/assets/success pass.png";
 
 const SucessfulPassword = () => {
   return (
