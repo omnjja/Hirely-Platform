@@ -5,7 +5,6 @@ import {
   candidateRegistrationDefaultValues,
   candidateRegistrationSchema,
 } from "@/schemas/candidateRegistrationSchema";
-import AddButton from "@/components/ui/AddButton";
 import UploadCVField from "@/components/ui/UploadCVField";
 import UploadProfilePictureField from "@/components/ui/UploadProfilePictureField";
 import { countryOptions } from "@/constants/countryOptions";
@@ -20,7 +19,6 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
   const { mutateAsync: registerCandidate } = useCandidateRegMutation(); // send all data to registerCandidate
   const { handleImageUpload, handleCVUpload } = useRegistrationUpload();
   const [profilePicture, setProfilePicture] = useState(null);
-  const [cvFile, setCvFile] = useState(null);
 
   const {
     register,
@@ -29,6 +27,7 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
     handleSubmit,
     control,
     watch,
+    setValue,
     formState: { errors, isSubmitting },
   } = useCustomForm({
     defaultValues: candidateRegistrationDefaultValues,
@@ -47,23 +46,30 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
   }, [values]);
 
   const onSubmit = async (data) => {
+    console.log(data);
     try {
       let profilePictureKey = null;
       let cvKey = null;
       if (profilePicture) {
         const { key } = await handleImageUpload(profilePicture);
+        setValue("profilePicture", key);
         profilePictureKey = key;
       }
+      const cvFile = data.cv?.[0];
       if (cvFile) {
         const { key } = await handleCVUpload(cvFile);
         cvKey = key;
       }
+      console.log(watch("cv")); // Check the value of the cv <field>
 
       const payload = {
         ...data,
         profilePicture: profilePictureKey,
         cv: cvKey,
+        skills: data.skills.map((skill) => skill.value),
+        languages: data.languages.map((language) => language.value),
       };
+      console.log("Submitting payload:", payload);
 
       await registerCandidate(payload);
       reset();
@@ -90,6 +96,7 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
         name="profilePicture"
         label="Profile Picture"
         onPhotoSelect={(photo) => setProfilePicture(photo)}
+        setValue={setValue}
         error={errors.profilePicture?.message}
       />
       <InputFieldWithLabel
@@ -176,7 +183,6 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
         register={register}
         bottomText="Accepted formats: PDF, DOC, DOCX (Max 5MB)"
         error={errors.cv?.message}
-        onFileSelect={(file) => setCvFile(file)}
       />
       <p className="text-lg font-semibold mt-2">
         Professional URLs <span className="text-red-500"> *</span>

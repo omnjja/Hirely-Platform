@@ -7,6 +7,7 @@ const UploadProfilePictureField = ({
   required,
   error,
   onPhotoSelect,
+  setValue,
   bottomText,
   bottomTextColor = "#6A7282",
 }) => {
@@ -47,6 +48,8 @@ const UploadProfilePictureField = ({
     setFileName(`${file.name} (${(file.size / 1024).toFixed(1)} KB)`);
 
     if (onPhotoSelect) onPhotoSelect(file);
+
+    setValue("profilePicture", file, { shouldValidate: true });
   };
 
   return (

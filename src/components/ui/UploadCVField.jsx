@@ -21,6 +21,8 @@ const UploadCVField = ({
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
   ];
 
+  const { ref: inputRef, onChange: rhfOnChange, ...rest } = register(name);
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -43,6 +45,7 @@ const UploadCVField = ({
         onFileSelect(file);
       }
     }
+    rhfOnChange(e);
   };
 
   return (
@@ -76,8 +79,9 @@ const UploadCVField = ({
             type="file"
             accept=".pdf,.doc,.docx"
             hidden
-            {...register(name)}
-            onChange={(e) => handleFileChange(e)}
+            ref={inputRef}
+            {...rest}
+            onChange={handleFileChange}
           />
         </label>
       )}
@@ -109,8 +113,12 @@ const UploadCVField = ({
               type="file"
               accept=".pdf,.doc,.docx"
               hidden
-              {...register(name)}
-              onChange={(e) => handleFileChange(e)}
+              ref={inputRef}
+              {...rest}
+              onChange={(e) => {
+                handleFileChange(e);
+                onChange(e);
+              }}
             />
           </label>
         </div>

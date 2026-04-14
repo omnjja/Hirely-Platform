@@ -35,8 +35,10 @@ export const candidateRegistrationSchema = z.object({
   introductionSummary: z
     .string()
     .min(50, "Introduction must be at least 50 characters"),
-  skills: z.array(z.string()).min(1, "At least one skill is required"),
-  languages: z.array(z.string()).min(1, "At least one language is required"),
+  // skills: z.array(z.string()).min(1, "At least one skill is required"),
+  // languages: z.array(z.string()).min(1, "At least one language is required"),
+  skills: z.array(z.object({ value: z.string() })),
+  languages: z.array(z.object({ value: z.string() })),
   linkedIn: z
     .string()
     .url("Please enter a valid URL")
@@ -51,9 +53,8 @@ export const candidateRegistrationSchema = z.object({
       (val) => val.startsWith("https://github.com"),
       "Please enter a valid GitHub URL",
     ),
-  profilePicture: z.string().optional(),
-  cv: z.any()
-  .refine((files) => files?.length > 0, "CV upload is required")
+  profilePicture: z.instanceof(File).optional(),
+  cv: z.any().refine((file) => file?.length === 1, "CV upload is required"),
 });
 
 export const candidateRegistrationDefaultValues = {
