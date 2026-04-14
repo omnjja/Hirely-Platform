@@ -11,8 +11,6 @@ import RoleSelection from "./pages/RoleSelection";
 import CandidateRegistration from "./pages/CandidateRegistration";
 import HrRegistration from "./pages/HrRegistration";
 import AuthCallback from "./pages/AuthCallback ";
-import HrRegistration from "./features/registration/pages/HrRegistration";
-import AuthCallback from "./features/auth/pages/AuthCallback ";
 import CandidateProfile from "./features/candidate/pages/CandidateProfile";
 
 function App() {
