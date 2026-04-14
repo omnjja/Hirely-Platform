@@ -116,7 +116,7 @@ const HrRegistrationForm = ({ onProgressChange }) => {
         label="Company Description"
         placeholder="Tell us about your company, culture, and what makes it a great place to work..."
         bottomText={`${companySummaryLength} characters (minimum 50)`}
-        fieldHeight="80px"
+        fieldHeight="80"
         error={errors.companySummary?.message}
       />
 

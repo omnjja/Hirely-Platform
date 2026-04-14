@@ -157,17 +157,21 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
       />
       <AddingField
         name="skills"
+        listName="skills"
         control={control}
         errors={errors}
         placeholder="e.g., React, TypeScript, Node.js"
         bottomText="At least one skill is required"
+        required
       />
       <AddingField
         name="languages"
+        listName="languages"
         control={control}
         errors={errors}
         placeholder="e.g., English, Arabic, French"
         bottomText="At least one language is required"
+        required
       />
       <UploadCVField
         name="cv"

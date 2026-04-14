@@ -11,6 +11,8 @@ import RoleSelection from "./pages/RoleSelection";
 import CandidateRegistration from "./pages/CandidateRegistration";
 import HrRegistration from "./pages/HrRegistration";
 import AuthCallback from "./pages/AuthCallback ";
+import CreateJobPosting from "./pages/CreateJobPosting";
+import RecruiterLayout from "./components/layout/RecruiterLayout";
 
 function App() {
   return (
@@ -27,6 +29,10 @@ function App() {
           element={<CandidateRegistration />}
         />
         <Route path="/hr/complete-profile" element={<HrRegistration />} />
+        <Route path="/recruiter" element={<RecruiterLayout />}>
+          <Route path="create-job-posting" element={<CreateJobPosting />} />
+        </Route>
+
         <Route
           path="/"
           element={
@@ -45,6 +51,9 @@ function App() {
               </Link>
               <Link to="/hr/complete-profile" className="text-primary">
                 Go to HR Registration
+              </Link>
+              <Link to="/recruiter/create-job-posting" className="text-primary">
+                Go to Create Job Posting
               </Link>
             </div>
           }
