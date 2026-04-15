@@ -5,9 +5,9 @@ import Logo from "./Logo";
 
 const Sidebar = ({ menuItems }) => {
   return (
-    <div className="h-screen w-20 bg-[#F4F6F8] flex flex-col justify-between items-center border-r fixed">
+    <div className="h-screen bg-[#F4F6F8] flex flex-col justify-between items-center border-r fixed w-14 md:w-20">
       <div className="flex flex-col items-center gap-6">
-        <div className="w-20 h-20 flex items-center justify-center">
+        <div className="w-14 md:w-20 h-14 md:h-20 flex items-center justify-center">
           <NavLink to="/">
             <Logo />
           </NavLink>
@@ -27,7 +27,7 @@ const Sidebar = ({ menuItems }) => {
                 }
               >
                 <Icon className="w-5 h-5 mb-1" />
-                {item.label}
+                 <span className="hidden md:block">{item.label}</span>
               </NavLink>
             );
           })}

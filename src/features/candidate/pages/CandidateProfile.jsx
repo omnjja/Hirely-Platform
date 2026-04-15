@@ -1,14 +1,26 @@
-import React from "react";
+import { React, useEffect } from "react";
 import CandidateLayout from "@/components/layout/CandidateLayout";
 import ProfileInfo from "../components/ProfileComponents/ProfileInfo";
 import ProfileTabs from "../components/ProfileComponents/ProfileTabs";
 import { profileSections } from "@/constants/profileSections";
 import ExperienceSection from "../components/ProfileComponents/ExperienceSection";
-import { date } from "zod";
 import SkillsSection from "../components/ProfileComponents/SkillsSection";
 import EmploymentSection from "../components/ProfileComponents/EmploymentSection";
+import { getCandidateProfile } from "../services/candidateService";
 
 const CandidateProfile = () => {
+  async function fetchProfileData() {
+    try {
+      const data = await getCandidateProfile();
+      console.log("Profile Data:", data);
+    } catch (error) {
+      console.error("Error fetching profile data:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchProfileData();
+  }, []);
   const educationItems = [
     {
       date: "2015 - 2019",

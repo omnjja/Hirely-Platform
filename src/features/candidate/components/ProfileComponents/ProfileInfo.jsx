@@ -28,27 +28,46 @@ const ProfileInfo = () => {
   };
 
   return (
-    <div className="bg-white border border-gray-500 rounded-2xl p-6 flex gap-5">
-      {/* Avatar */}
-      <div className="shrink-0">
-        {user.avatar ? (
-    <img
-      src={user.avatar}
-      alt="User Avatar"
-      className="w-20 h-20 rounded-full border-2 border-teal-500 object-cover"
-    />
-  ) : (
-    <div className="w-20 h-20 rounded-full border-2 border-teal-500 flex items-center justify-center bg-gray-100">
-      <UserRound size={32} className="text-gray-400" />
-    </div>
-  )}
+    <div className="bg-white border border-gray-500 rounded-2xl p-4 md:p-6  flex flex-col md:flex-row gap-4 md:gap-5">
+      {/* Avatar + Buttons in mobile */}
+      <div className="flex items-start gap-4 md:contents">
+        <div className="shrink-0">
+          {user.avatar ? (
+            <img
+              src={user.avatar}
+              alt="User Avatar"
+              className="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-teal-500 object-cover"
+            />
+          ) : (
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-teal-500 flex items-center justify-center bg-gray-100">
+              <UserRound size={28} className="text-gray-400" />
+            </div>
+          )}
+        </div>
+
+        <div className="flex md:hidden flex-col gap-2 ml-auto shrink-0">
+          <ButtonComponent
+            text="Change Photo"
+            rounded="lg"
+            gradientBorder={true}
+          />
+          <ButtonComponent
+            text="Edit Profile"
+            rounded="lg"
+            gradientBorder={true}
+          >
+            <Pencil className="w-3.5 h-3.5" />
+          </ButtonComponent>
+        </div>
       </div>
 
       {/* Info */}
       <div className="flex-1">
         <div className="flex justify-between items-start">
           <div>
-            <h2 className="text-xl font-bold text-[#1B41AA]">{user.name}</h2>
+            <h2 className="text-lg md:text-xl font-bold text-[#1B41AA]">
+              {user.name}
+            </h2>
             <p className="text-gray-500 text-sm mb-2">{user.title}</p>
             <p className="text-gray-400 text-sm max-w-lg leading-relaxed mb-4">
               {user.bio}
@@ -56,7 +75,7 @@ const ProfileInfo = () => {
           </div>
           {/* Buttons */}
 
-          <div className="flex flex-col gap-2 ml-4 shrink-0">
+          <div className="hidden md:flex flex-col gap-2 ml-4 shrink-0">
             <ButtonComponent
               text="Change Photo"
               rounded="lg"
@@ -71,10 +90,10 @@ const ProfileInfo = () => {
             >
               <Pencil className="w-3.5 h-3.5" />
             </ButtonComponent>
-          </div>    
+          </div>
         </div>
         {/* Contact Info */}
-        <div className="grid grid-cols-2 gap-x-8 gap-y-2 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 mb-4">
           <div className="flex items-center gap-2 text-sm text-gray-500">
             <Mail className="w-4 h-4" /> {user.email}
           </div>

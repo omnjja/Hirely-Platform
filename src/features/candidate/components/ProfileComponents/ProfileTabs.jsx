@@ -28,14 +28,14 @@ const ProfileTabs = ({ sections }) => {
     return () => observer.disconnect();
   }, []);
   return (
-    <div className="flex gap-6 border-b relative mt-5 sticky top-0 z-50 bg-white py-3">
+    <div className="flex gap-4 md:gap-6 border-b mt-5 sticky top-0 z-50 bg-white py-3">
       {sections.map((section) => (
         <button
           key={section.id}
           onClick={() => handleTabChange(section.id)}
           className={`
             pb-2 relative
-            text-sm font-medium
+            text-xs md:text-sm font-medium
             ${activeTab === section.id ? "text-[#1B41AA]" : "text-gray-500"}
           `}
         >
@@ -46,9 +46,10 @@ const ProfileTabs = ({ sections }) => {
               className="
                 absolute
                 left-0
-                bottom-0
+                md:bottom-0
+                -bottom-3.25
                 w-full
-                h-[2px]
+                h-0.5
                 bg-linear-to-r
                 from-[#1B41AA]
                 to-[#0FB07C]

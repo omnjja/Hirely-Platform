@@ -6,13 +6,13 @@ import { CANDIDATEMENUITEMS } from "@/constants/candidateMenuItems";
 const CandidateLayout = ({ children }) => {
   return (
     <div className="flex h-screen">
-      <div className="mr-20">
+      <div className="mr-14 md:mr-20">
         <Sidebar menuItems={CANDIDATEMENUITEMS} />
       </div>
 
-      <div className="">
+      <div className="flex-1 ">
         <MainHeader />
-        <div className="ml-7 mt-7 w-5xl"> {children}</div>
+        <div className="ml-4 md:ml-7 mt-7 "> {children}</div>
       </div>
     </div>
   );
