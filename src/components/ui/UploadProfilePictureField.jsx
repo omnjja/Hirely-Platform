@@ -7,8 +7,10 @@ const UploadProfilePictureField = ({
   required,
   error,
   onPhotoSelect,
-  setValue,
+  // setValue,
+  name,
   bottomText,
+  register,
   bottomTextColor = "#6A7282",
 }) => {
   const fileInputRef = useRef(null);
@@ -16,6 +18,8 @@ const UploadProfilePictureField = ({
   const [fileError, setFileError] = useState("");
   const [filePreview, setFilePreview] = useState(null);
   const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+
+  const { ref: inputRef, onChange: rhfOnChange, ...rest } = register(name);
 
   const handleClick = () => {
     fileInputRef.current.click();
@@ -49,7 +53,8 @@ const UploadProfilePictureField = ({
 
     if (onPhotoSelect) onPhotoSelect(file);
 
-    setValue("profilePicture", file, { shouldValidate: true });
+    // setValue("profilePicture", file);
+    rhfOnChange(e);
   };
 
   return (
@@ -123,9 +128,13 @@ const UploadProfilePictureField = ({
       {/* Hidden Input */}
       <input
         type="file"
-        ref={fileInputRef}
+        ref={(e) => {
+          inputRef(e);
+          fileInputRef.current = e;
+        }}
         className="hidden"
         accept=".jpg,.jpeg,.png"
+        {...rest}
         onChange={handleFileChange}
       />
     </div>

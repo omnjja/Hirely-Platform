@@ -14,6 +14,7 @@ import { useRegistrationUpload } from "../hooks/useRegisterationUpload";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import { experienceOptions } from "@/constants/experienceOptions";
 import AddingField from "@/components/ui/AddingField";
+import { candidatePayload } from "@/constants/candidatePayload";
 
 const CandidateRegistrationForm = ({ onProgressChange }) => {
   const { mutateAsync: registerCandidate } = useCandidateRegMutation(); // send all data to registerCandidate
@@ -27,7 +28,7 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
     handleSubmit,
     control,
     watch,
-    setValue,
+    // setValue,
     formState: { errors, isSubmitting },
   } = useCustomForm({
     defaultValues: candidateRegistrationDefaultValues,
@@ -35,8 +36,8 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
     mode: "onChange",
   });
 
-  const introductionValue = watch("introductionSummary") || "";
-  const textLength = introductionValue.length;
+  const summaryValue = watch("introductionSummary") || "";
+  const textLength = summaryValue.length;
 
   const values = watch();
   useEffect(() => {
@@ -52,7 +53,7 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
       let cvKey = null;
       if (profilePicture) {
         const { key } = await handleImageUpload(profilePicture);
-        setValue("profilePicture", key);
+        // setValue("profilePicture", key);
         profilePictureKey = key;
       }
       const cvFile = data.cv?.[0];
@@ -62,13 +63,8 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
       }
       console.log(watch("cv")); // Check the value of the cv <field>
 
-      const payload = {
-        ...data,
-        profilePicture: profilePictureKey,
-        cv: cvKey,
-        skills: data.skills.map((skill) => skill.value),
-        languages: data.languages.map((language) => language.value),
-      };
+      const payload = candidatePayload(data, profilePictureKey, cvKey);
+
       console.log("Submitting payload:", payload);
 
       await registerCandidate(payload);
@@ -96,7 +92,7 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
         name="profilePicture"
         label="Profile Picture"
         onPhotoSelect={(photo) => setProfilePicture(photo)}
-        setValue={setValue}
+        register={register}
         error={errors.profilePicture?.message}
       />
       <InputFieldWithLabel
@@ -118,12 +114,12 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
           error={errors.country?.message}
         />
         <InputFieldWithLabel
-          {...register("phoneNumber")}
-          name="phoneNumber"
-          label="Phone Number"
+          {...register("mobileNumber")}
+          name="mobileNumber"
+          label="Mobile Number"
           placeholder="e.g., +1 234 567 8901"
           required
-          error={errors.phoneNumber?.message}
+          error={errors.mobileNumber?.message}
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -153,14 +149,14 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
         error={errors.yearsOfExperience?.message}
       />
       <InputFieldWithLabel
-        {...register("introductionSummary")}
-        name="introductionSummary"
+        {...register("profileSummary")}
+        name="profileSummary"
         label="Introduction / Summary"
         placeholder="Tell us about yourself, your experience, and what you're looking for..."
         required
         bottomText={`${textLength} characters (minimum 50)`}
         fieldHeight="80px"
-        error={errors.introductionSummary?.message}
+        error={errors.profileSummary?.message}
       />
       <AddingField
         name="skills"
