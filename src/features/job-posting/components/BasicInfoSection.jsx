@@ -1,24 +1,9 @@
 import { Grid } from "@mui/material";
 import InputFieldWithLabel from "@/components/ui/InputFieldWithLabel";
 import SelectField from "@/components/ui/SelectField";
-import { useState } from "react";
 import OptionsCard from "@/components/ui/OptionsCard";
-import Card from "@/components/ui/Card";
-
-import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: (theme.vars ?? theme).palette.text.secondary,
-  ...theme.applyStyles("dark", {
-    backgroundColor: "#1A2027",
-  }),
-}));
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const departments = [
   { label: "Product & Design", value: "product_design" },
@@ -42,7 +27,8 @@ const experienceLevels = [
 ];
 
 const BasicInfoSection = () => {
-  const [gender, setGender] = useState("");
+  const isMobile = useMediaQuery("(max-width: 640px)");
+
   return (
     <div className="rounded-xl shadow-xs p-5">
       <p className="text-lg font-medium mb-4 flex items-center gap-2">
@@ -50,7 +36,7 @@ const BasicInfoSection = () => {
       </p>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-          <Grid size={{ xs: 6, md: 8 }}>
+          <Grid size={{ xs: 12, md: 8 }}>
             <InputFieldWithLabel
               label="Job Title"
               placeholder="e.g. Senior Creative Director"
@@ -60,7 +46,7 @@ const BasicInfoSection = () => {
             />
           </Grid>
 
-          <Grid size={{ xs: 6, md: 4 }}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <SelectField
               name="department"
               label="Department"
@@ -72,17 +58,15 @@ const BasicInfoSection = () => {
             />
           </Grid>
 
-          <Grid size={{ xs: 6, md: 4 }}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <OptionsCard
               label="Job Type"
               options={jobTypes}
-              value={gender}
-              onChange={setGender}
-              columns={jobTypes.length}
+              columns={isMobile ? 2 : jobTypes.length}
             />
           </Grid>
 
-          <Grid size={{ xs: 6, md: 4 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <InputFieldWithLabel
               label="Location"
               placeholder="e.g. New York, NY"
@@ -92,15 +76,15 @@ const BasicInfoSection = () => {
             />
           </Grid>
 
-          <Grid size={{ xs: 6, md: 4 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <SelectField
               name="experienceLevel"
               label="Experience Level"
               placeholder="Select Experience Level"
               fullWidth
               rounded="xl"
-              options={experienceLevels}
               variant="outlined"
+              options={experienceLevels}
             />
           </Grid>
         </Grid>

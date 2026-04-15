@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-("use client");
+"use client"
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 
@@ -15,7 +15,7 @@ const CustomizedSlider = ({
     <div className="grid w-full">
       <div className="flex items-center justify-between mb-2">
         {label ? (
-          <Label htmlFor="slider-demo-temperature">{label}</Label>
+          <Label>{label}</Label>
         ) : null}
       </div>
       <Slider
@@ -24,7 +24,7 @@ const CustomizedSlider = ({
         onValueChange={setValue}
         min={lowerBound}
         max={upperBound}
-        step={0.1}
+        step={100}
         disabled={disabled}
       />
       <div className="flex items-center justify-between">

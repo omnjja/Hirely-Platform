@@ -2,7 +2,6 @@ import React from "react";
 import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import InputFieldWithLabel from "@/components/ui/InputFieldWithLabel";
-// import Slider from "@mui/material/Slider";
 import CustomizedSlider from "@/components/ui/CustomizedSlider";
 
 const JobCompensations = () => {
@@ -10,10 +9,11 @@ const JobCompensations = () => {
     <div className="rounded-xl shadow-xs p-5">
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-          <Grid size={{ xs: 6, md: 12 }}>
+          <Grid size={{ xs: 12 }}>
             <p className="text-lg font-medium mb-2">? Compensation</p>
           </Grid>
-          <Grid size={{ xs: 6, md: 6 }}>
+
+          <Grid size={{ xs: 12, sm: 6 }}>
             <InputFieldWithLabel
               type="number"
               label="Minimum Salary"
@@ -23,7 +23,8 @@ const JobCompensations = () => {
               variant="outlined"
             />
           </Grid>
-          <Grid size={{ xs: 6, md: 6 }}>
+
+          <Grid size={{ xs: 12, sm: 6 }}>
             <InputFieldWithLabel
               type="number"
               label="Maximum Salary"
@@ -33,7 +34,8 @@ const JobCompensations = () => {
               variant="outlined"
             />
           </Grid>
-          <Grid size={{ xs: 6, md: 12 }}>
+
+          <Grid size={{ xs: 12 }}>
             <CustomizedSlider />
           </Grid>
         </Grid>

@@ -4,28 +4,32 @@ const OptionsCard = ({
   label,
   options = [],
   value = options[0]?.value,
-  onChange,
   columns = 2,
+  mobileColumns,
 }) => {
   return (
     <>
-      {label && <p className="text-sm font-medium mb-2 ">{label}</p>}
+      {label && <p className="text-sm font-medium mb-2">{label}</p>}
       <div
-        className={`grid gap-2`}
+        className="grid gap-2"
         style={{
           gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+          ...(mobileColumns && {
+            ["@media (max-width: 640px)"]: {
+              gridTemplateColumns: `repeat(${mobileColumns}, minmax(0, 1fr))`,
+            },
+          }),
         }}
       >
         {options.map((opt) => (
           <div
             key={opt.value}
-            onClick={() => onChange(opt.value)}
             className={`text-sm cursor-pointer flex items-center justify-center border rounded-lg p-1 transition select-none
-          ${
-            value === opt.value
-              ? "bg-[#1B41AA] text-white border-[#1B41AA] shadow-md"
-              : "bg-[#E5E7EB] text-black hover:bg-[#D1D5DB] border-gray-300"
-          }`}
+              ${
+                value === opt.value
+                  ? "bg-[#1B41AA] text-white border-[#1B41AA] shadow-md"
+                  : "bg-[#E5E7EB] text-black hover:bg-[#D1D5DB] border-gray-300"
+              }`}
           >
             {opt.label}
           </div>
