@@ -11,7 +11,6 @@ const roundedStyles = {
   full: 999,
 };
 
-
 const InputFieldWithLabel = forwardRef(
   (
     {
@@ -48,15 +47,12 @@ const InputFieldWithLabel = forwardRef(
     };
 
     const selectedVariant = variants[variant];
-    const noOfRows = fieldHeight / 20 || undefined; 
+    const noOfRows = fieldHeight / 20 || undefined;
 
     return (
       <div className={clsx("mb-3 w-full", containerClassName)}>
         {label && (
-          <label
-            htmlFor={name}
-            className="block font-medium text-sm mb-1"
-          >
+          <label htmlFor={name} className="block font-medium text-sm mb-1">
             {label}
             {required && <span className="text-red-500"> *</span>}
           </label>
@@ -88,6 +84,7 @@ const InputFieldWithLabel = forwardRef(
             },
             "& input, & textarea": {
               color: "#11181C",
+              padding: "8px 12px",
               fontSize: { xs: "14px", sm: "15px", md: "16px" },
             },
             "& input::placeholder, & textarea::placeholder": {

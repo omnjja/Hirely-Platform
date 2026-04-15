@@ -1,7 +1,23 @@
 import React from "react";
 import VideocamIcon from "@mui/icons-material/Videocam";
-import { Trash2 } from "lucide-react";
 import ButtonComponent from "@/components/ui/ButtonComponent";
+import IconWrapper from "@/components/ui/IconWrapper";
+import VidQuestion from "./VidQuestion";
+
+const questions = [
+  {
+    id: 1,
+    text: "Tell us about your most challenging project and how you navigated technical debt.",
+    timeLimit: "2 Minutes Limit",
+    retakes: "2 Re-takes allowed",
+  },
+  {
+    id: 2,
+    text: "Describe a situation where you had to learn a new technology quickly. How did you approach it?",
+    timeLimit: "3 Minutes Limit",
+    retakes: "3 Re-takes allowed",
+  },
+];
 
 const VideoQuestions = () => {
   return (
@@ -10,9 +26,9 @@ const VideoQuestions = () => {
       <div className="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-2 sm:p-4">
         {/* left */}
         <div className="flex items-start gap-3 sm:gap-4">
-          <div className="bg-[#1B41AA] p-2 sm:p-3 rounded-xl">
+          <IconWrapper>
             <VideocamIcon sx={{ color: "white" }} />
-          </div>
+          </IconWrapper>
 
           <div className="flex flex-col">
             <p className="font-bold text-[#2A3439] text-sm sm:text-base">
@@ -38,49 +54,8 @@ const VideoQuestions = () => {
 
       {/* questions */}
       <div className="flex flex-col gap-4 sm:gap-6 mt-4">
-        {/* question item */}
-        {[1, 2].map((q) => (
-          <div
-            key={q}
-            className="flex flex-col gap-4 p-4 sm:p-5 rounded-xl border border-gray-100 shadow-sm
-            transition-all duration-300 hover:shadow-md "
-          >
-            <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4 justify-between">
-              {/* left content */}
-              <div className="flex items-start gap-3 flex-1">
-                <p className="flex items-center justify-center text-xs sm:text-sm w-8 h-8 bg-[#E8EFF3] rounded-xl text-gray-600">
-                  {q}
-                </p>
-
-                <div className="flex flex-col gap-2 sm:gap-3">
-                  <p className="font-semibold text-[#2A3439] text-sm sm:text-base leading-snug">
-                    Tell us about your most challenging project and how you
-                    navigated technical debt.
-                  </p>
-
-                  <div className="flex flex-wrap gap-2">
-                    <span className="text-gray-500 text-xs px-3 py-1 bg-[#E8EFF3] rounded-md">
-                      2 Minutes Limit
-                    </span>
-                    <span className="text-gray-500 text-xs px-3 py-1 bg-[#E8EFF3] rounded-md">
-                      2 Re-takes allowed
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* delete */}
-              <button
-                className="self-end sm:self-start p-2 rounded-lg transition-all duration-200 
-                hover:bg-red-50 hover:scale-110 active:scale-95 cursor-pointer"
-              >
-                <Trash2
-                  size={20}
-                  className="text-gray-400 hover:text-red-500 transition-colors duration-200"
-                />
-              </button>
-            </div>
-          </div>
+        {questions.map((question) => (
+          <VidQuestion key={question.id} question={question} />
         ))}
 
         {/* add question placeholder */}
@@ -88,7 +63,7 @@ const VideoQuestions = () => {
           className="flex items-start gap-3 p-4 sm:p-5 rounded-xl border-2 border-dashed border-gray-200
           transition-all duration-300 hover:bg-gray-50 cursor-pointer"
         >
-          <p className="flex items-center justify-center text-xs sm:text-sm w-8 h-8 bg-[#E8EFF3] rounded-xl text-gray-600">
+          <p className="flex items-center justify-center text-[9px] sm:text-xs w-8 h-8 bg-[#E8EFF3] rounded-xl text-gray-600">
             3
           </p>
 
