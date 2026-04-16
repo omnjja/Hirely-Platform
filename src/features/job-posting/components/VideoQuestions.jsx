@@ -31,7 +31,7 @@ const VideoQuestions = () => {
           </IconWrapper>
 
           <div className="flex flex-col">
-            <p className="font-bold text-[#2A3439] text-sm sm:text-base">
+            <p className="font-bold text-[#2A3439] text-sm sm:text-[30px]">
               Automated Video Screening
             </p>
             <p className="text-xs sm:text-sm text-gray-500">
@@ -60,11 +60,11 @@ const VideoQuestions = () => {
 
         {/* add question placeholder */}
         <div
-          className="flex items-start gap-3 p-4 sm:p-5 rounded-xl border-2 border-dashed border-gray-200
+          className="flex items-center gap-3 p-4 sm:p-5 rounded-xl border-2 border-dashed border-gray-200
           transition-all duration-300 hover:bg-gray-50 cursor-pointer"
         >
           <p className="flex items-center justify-center text-[9px] sm:text-xs w-8 h-8 bg-[#E8EFF3] rounded-xl text-gray-600">
-            3
+            {questions.length + 1}
           </p>
 
           <p className="text-sm sm:text-base text-[#2A3439]">

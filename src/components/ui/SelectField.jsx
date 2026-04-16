@@ -21,6 +21,7 @@ const SelectField = forwardRef(
       containerClassName = "",
       sx = {},
       textColor = "#11181C",
+      labelClassName = "",
 
       ...props
     },
@@ -46,7 +47,7 @@ const SelectField = forwardRef(
     return (
       <div className={clsx("mb-3 w-full", containerClassName)}>
         {label && (
-          <label htmlFor={name} className="block font-medium text-sm mb-1">
+          <label htmlFor={name} className={clsx("block font-medium text-sm mb-1", labelClassName)}>
             {label}
             {required && <span className="text-red-500"> *</span>}
           </label>

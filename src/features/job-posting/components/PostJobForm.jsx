@@ -6,79 +6,102 @@ import JobDetails from "./JobDetails";
 import JobSkills from "./JobSkills";
 import VideoQuestions from "./VideoQuestions";
 import { Box, Grid } from "@mui/material";
+import JobPostHeader from "./JobPostHeader";
+import { SquareChevronUp, Wrench } from "lucide-react";
+import useCustomForm from "@/hooks/useCustomForm";
+import { jobDefaultValues, jobSchema } from "@/schemas/jobSchema";
+import { FormProvider } from "react-hook-form";
+import ButtonComponent from "@/components/ui/ButtonComponent";
 
 const PostJobForm = () => {
+  const methods = useCustomForm({
+    defaultValues: jobDefaultValues,
+    schema: jobSchema,
+    mode: onchange,
+  });
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2} className="w-full min-h-screen p-3 sm:p-5">
-        {/* Main Content */}
-        <Grid size={{ xs: 12, lg: 10 }}>
-          <Card className="p-4 sm:p-6">
-            {/* Header */}
-            <div className="mb-4">
-              <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest mb-1">
-                <span className="text-gray-500">Jobs</span> - New Requisition
-              </p>
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid
+            container
+            spacing={2}
+            className="w-full min-h-screen p-3 sm:p-5"
+          >
+            {/* Main Content */}
+            <Grid size={{ xs: 12, lg: 10 }}>
+              <Card className="p-4 sm:p-6">
+                {/* Header */}
+                <JobPostHeader />
 
-              <h1 className="text-lg sm:text-2xl font-bold text-gray-900">
-                Create New Job Posting
-              </h1>
+                {/* Sections */}
+                <div className="mt-4 sm:mt-6">
+                  <BasicInfoSection />
+                </div>
 
-              <p className="text-xs sm:text-sm text-gray-500 mt-1">
-                Define the parameters for your next key hire. Use our
-                AI-enhanced editor to refine descriptions and set video
-                screening hurdles.
-              </p>
-            </div>
+                <div className="mt-4 sm:mt-6">
+                  <Grid container spacing={2}>
+                    {/* left */}
+                    <Grid
+                      size={{ xs: 12, md: 6 }}
+                      className="flex flex-col gap-4 sm:gap-6"
+                    >
+                      <JobCompensations />
+                      <JobSkills
+                        head="Required Skills"
+                        name="job_skills"
+                        placeholder="type a skill and press enter"
+                        icon={<Wrench color="#2A3439" />}
+                      />
+                      <JobSkills
+                        head="Keywords"
+                        name="keywords"
+                        placeholder="type a keyword and press enter"
+                        icon={<SquareChevronUp color="#2A3439" />}
+                      />
+                    </Grid>
 
-            {/* Sections */}
-            <div className="mt-4 sm:mt-6">
-              <BasicInfoSection />
-            </div>
+                    {/* right */}
+                    <Grid size={{ xs: 12, md: 6 }}>
+                      <JobDetails />
+                    </Grid>
+                  </Grid>
+                </div>
 
-            <div className="mt-4 sm:mt-6">
-              <Grid container spacing={2}>
-                {/* left */}
-                <Grid
-                  size={{ xs: 12, md: 6 }}
-                  className="flex flex-col gap-4 sm:gap-6"
-                >
-                  <JobCompensations />
-                  <JobSkills />
-                </Grid>
+                {/* actions */}
+                <div className="flex flex-col sm:flex-row justify-end gap-3 mt-6">
+                    <ButtonComponent
+                      text={methods.isSubmitting ? "Submitting..." : "Submit"}
+                      type="submit"
+                      fullWidth
+                      disabled={methods.isSubmitting}
+                    />
+                </div>
+              </Card>
 
-                {/* right */}
-                <Grid size={{ xs: 12, md: 6 }}>
-                  <JobDetails />
-                </Grid>
-              </Grid>
-            </div>
+              {/* Video Questions */}
+              <div className="mt-4 sm:mt-6">
+                <VideoQuestions />
+              </div>
+            </Grid>
 
-            {/* actions */}
-            <div className="flex flex-col sm:flex-row justify-end gap-3 mt-6">
-              {/* buttons */}
-            </div>
-          </Card>
-
-          {/* Video Questions */}
-          <div className="mt-4 sm:mt-6">
-            <VideoQuestions />
-          </div>
-        </Grid>
-
-        {/* Sidebar */}
-        <Grid size={{ xs: 12, lg: 2 }}>
-          <Card className="p-4 sm:p-5 lg:sticky lg:top-20">
-            <p className="text-sm font-medium text-gray-500 mb-4 flex items-center gap-2">
-              ? AI Card
-            </p>
-          </Card>
-        </Grid>
-      </Grid>
-    </Box>
+            {/* AI card */}
+            <Grid size={{ xs: 12, lg: 2 }}>
+              <Card className="p-4 sm:p-5 lg:sticky lg:top-20">
+                <p className="text-sm font-medium text-gray-500 mb-4 flex items-center gap-2">
+                  ? AI Card
+                </p>
+              </Card>
+            </Grid>
+          </Grid>
+        </Box>
+      </form>
+    </FormProvider>
   );
 };
 
 export default PostJobForm;
-
-

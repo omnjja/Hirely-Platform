@@ -19,6 +19,7 @@ const InputFieldWithLabel = forwardRef(
       required,
       bottomText,
       error,
+      labelClassName = "",
       variant = "default",
       size = "small",
       fieldHeight,
@@ -52,7 +53,10 @@ const InputFieldWithLabel = forwardRef(
     return (
       <div className={clsx("mb-3 w-full", containerClassName)}>
         {label && (
-          <label htmlFor={name} className="block font-medium text-sm mb-1">
+          <label
+            htmlFor={name}
+            className={clsx("block font-medium text-sm mb-1", labelClassName)}
+          >
             {label}
             {required && <span className="text-red-500"> *</span>}
           </label>
@@ -81,6 +85,9 @@ const InputFieldWithLabel = forwardRef(
               ml: 0,
               color: error ? "#ef4444" : "#6A7282",
               fontSize: { xs: "10px", sm: "11px", md: "12px" },
+              disabled: {
+                color: "#9CA3AF",
+              },
             },
             "& input, & textarea": {
               color: "#11181C",
@@ -90,6 +97,14 @@ const InputFieldWithLabel = forwardRef(
             "& input::placeholder, & textarea::placeholder": {
               color: "#9CA3AF",
               opacity: 1,
+            },
+            "& .MuiOutlinedInput-root.Mui-disabled": {
+              backgroundColor: "#F3F4F6",
+            },
+
+            "& .MuiInputBase-input.Mui-disabled": {
+              WebkitTextFillColor: "#9CA3AF",
+              cursor: "not-allowed",
             },
             ...sx,
           }}

@@ -2,8 +2,11 @@ import { useRef, useState } from "react";
 import { Controller } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { UploadCloud, FileText, X } from "lucide-react";
+import clsx from "clsx";
 
 const UploadCVField = ({
+  label,
+  labelClassName,
   accept = ".pdf,.doc,.docx",
   maxSizeMB = 10,
   control,
@@ -27,8 +30,13 @@ const UploadCVField = ({
 
         return (
           <div>
-            <p className="text-xs font-medium text-muted-foreground tracking-widest uppercase mb-3">
-              Document Attachment
+            <p
+              className={clsx(
+                "text-sm font-medium text-muted-foreground tracking-widest uppercase mb-3",
+                labelClassName,
+              )}
+            >
+              {label}
             </p>
 
             {/* Drop Zone */}
@@ -50,7 +58,7 @@ const UploadCVField = ({
                     ? "border-green-400 bg-green-50"
                     : isDragging
                       ? "border-[#1B41AA] bg-blue-50"
-                      : "border-muted hover:border-muted-foreground"
+                      : "border-[#a3a7a99c] hover:border-muted-foreground"
                 }
                 ${errors?.[name] ? "border-red-400" : ""}`}
             >

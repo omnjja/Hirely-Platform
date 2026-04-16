@@ -4,75 +4,96 @@ import SelectField from "@/components/ui/SelectField";
 import OptionsCard from "@/components/ui/OptionsCard";
 import Box from "@mui/material/Box";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-
-const departments = [
-  { label: "Product & Design", value: "product_design" },
-  { label: "Engineering", value: "engineering" },
-  { label: "Marketing", value: "marketing" },
-  { label: "Sales", value: "sales" },
-  { label: "HR", value: "hr" },
-];
-
-const jobTypes = [
-  { label: "Full-time", value: "full_time" },
-  { label: "Part-time", value: "part_time" },
-  { label: "Remote", value: "remote" },
-];
-
-const experienceLevels = [
-  { label: "Junior", value: "junior" },
-  { label: "Mid", value: "mid" },
-  { label: "Senior", value: "senior" },
-  { label: "Lead", value: "lead" },
-];
+import { EXPERIENCE_LEVELS, JOB_TYPES } from "@/constants/jobEnums";
+import { Briefcase } from "lucide-react";
+import { useFormContext, useWatch } from "react-hook-form";
 
 const BasicInfoSection = () => {
+  const {
+    register,
+    control,
+    watch,
+    formState: { errors },
+  } = useFormContext();
+  let disabledOtherInput = useWatch({
+    control,
+    name: "jobType",
+  });
   const isMobile = useMediaQuery("(max-width: 640px)");
 
   return (
     <div className="rounded-xl shadow-xs p-5">
-      <p className="text-lg font-medium mb-4 flex items-center gap-2">
-        ? Basic Information
+      <p className="text-sm sm:text-[20px] font-semibold mb-6 flex items-center gap-2 text-[#2A3439] ">
+        <Briefcase size={30} />
+        Basic Information
       </p>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          <Grid size={{ xs: 12, md: 8 }}>
+        <Grid container spacing={2} justifyContent="space-between">
+          <Grid size={{ xs: 12, md: 4 }}>
             <InputFieldWithLabel
               label="Job Title"
-              placeholder="e.g. Senior Creative Director"
+              placeholder="e.g. Senior Software Engineer"
               fullWidth
               rounded="xl"
               variant="outlined"
+              labelClassName="text-[#566166] uppercase tracking-wider"
+              {...register("title")}
+              error={errors.title?.message}
             />
           </Grid>
 
           <Grid size={{ xs: 12, md: 4 }}>
-            <SelectField
-              name="department"
+            <InputFieldWithLabel
               label="Department"
-              placeholder="Select Department"
+              placeholder="e.g. Engineering"
               fullWidth
               rounded="xl"
               variant="outlined"
-              options={departments}
+              labelClassName="text-[#566166] uppercase tracking-wider"
+              {...register("department")}
+              error={errors.department?.message}
             />
           </Grid>
 
           <Grid size={{ xs: 12, md: 4 }}>
-            <OptionsCard
-              label="Job Type"
-              options={jobTypes}
-              columns={isMobile ? 2 : jobTypes.length}
-            />
-          </Grid>
-
-          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <InputFieldWithLabel
               label="Location"
-              placeholder="e.g. New York, NY"
+              placeholder="e.g. Cairo, Egypt (Remote)"
               fullWidth
               rounded="xl"
               variant="outlined"
+              labelClassName="text-[#566166] uppercase tracking-wider"
+              {...register("location")}
+              error={errors.location?.message}
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 6 }} className="w-full">
+            <OptionsCard
+              name="jobType"
+              label="Job Type"
+              options={JOB_TYPES}
+              columns={isMobile ? 2 : JOB_TYPES.length}
+              labelClassName="text-[#566166] uppercase tracking-wider"
+              {...register("jobType")}
+              error={
+                watch("jobType") === ""
+                  ? errors.other?.message
+                  : errors.jobType?.message
+              }
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 2 }}>
+            <InputFieldWithLabel
+              label="Others"
+              placeholder="e.g. Freelance"
+              fullWidth
+              rounded="xl"
+              variant="outlined"
+              labelClassName="text-[#566166] uppercase tracking-wider"
+              disabled={disabledOtherInput}
+              {...register("other")}
             />
           </Grid>
 
@@ -84,7 +105,10 @@ const BasicInfoSection = () => {
               fullWidth
               rounded="xl"
               variant="outlined"
-              options={experienceLevels}
+              options={EXPERIENCE_LEVELS}
+              labelClassName="text-[#566166] uppercase line-wider tracking-wider"
+              {...register("experienceLevel")}
+              error={errors.experienceLevel?.message}
             />
           </Grid>
         </Grid>

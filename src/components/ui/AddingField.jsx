@@ -5,7 +5,6 @@ import AddButton from "@/components/ui/AddButton";
 
 const AddingField = ({
   name,
-  listName,
   control,
   errors,
   bottomText,
@@ -14,7 +13,7 @@ const AddingField = ({
   required = false,
 }) => {
   const { fields, append, remove } = useFieldArray({
-    name: listName,
+    name: name,
     control,
   });
   const [value, setValue] = useState("");

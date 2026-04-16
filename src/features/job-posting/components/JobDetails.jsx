@@ -4,27 +4,14 @@ import InputFieldWithLabel from "@/components/ui/InputFieldWithLabel";
 import Box from "@mui/material/Box";
 import Card from "@/components/ui/Card";
 import DocumentsPicker from "@/components/ui/DocumentsPicker";
-import useCustomForm  from "@/hooks/useCustomForm";
-import z from "zod";
+import { useFormContext } from "react-hook-form";
 
 const JobDetails = () => {
   const {
+    register,
     control,
     formState: { errors },
-  } = useCustomForm({
-    defaultValues: {
-      attachment: null,
-    },
-    schema: z.object({
-      attachment: z
-        .instanceof(File, "Please upload a valid file")
-        .refine(
-          (file) => file.size <= 1 * 1024 * 1024,
-          "Max file size is 10MB",
-        )
-        .nullable(),
-    }),
-  });
+  } = useFormContext();
   return (
     <Card className="border rounded-xl shadow-xs p-5">
       <Box sx={{ flexGrow: 1 }}>
@@ -35,7 +22,10 @@ const JobDetails = () => {
               placeholder="Describe the day-to-day impact of this role"
               fullWidth
               rounded="xl"
-              fieldHeight="160"
+              fieldHeight="140"
+              labelClassName="text-[#566166] tracking-wide uppercase font-semibold mb-3"
+              {...register("roleContext")}
+              error={errors.roleContext?.message}
             />
           </Grid>
 
@@ -45,17 +35,22 @@ const JobDetails = () => {
               placeholder="Bullet points of what they will achieve"
               fullWidth
               rounded="xl"
-              fieldHeight="160"
+              fieldHeight="140"
+              labelClassName="text-[#566166] tracking-wide uppercase font-semibold mb-3"
+              {...register("roleResponsibilities")}
+              error={errors.roleResponsibilities?.message}
             />
           </Grid>
 
           <Grid size={{ xs: 12 }}>
             <DocumentsPicker
+              label="Document Attachment"
+              labelClassName="text-[#566166] tracking-wide uppercase font-semibold mb-3"
               name="attachment"
               control={control}
               errors={errors}
               accept=".pdf"
-              maxSizeMB={1}
+              maxSizeMB={2}
             />
           </Grid>
         </Grid>
