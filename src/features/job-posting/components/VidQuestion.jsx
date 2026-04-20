@@ -31,7 +31,6 @@ const VidQuestion = ({ questionNumber, question, onRemove }) => {
           </div>
         </div>
 
-        {/* delete */}
         <button
           type="button"
           className="self-start p-2 rounded-lg transition-all duration-200 

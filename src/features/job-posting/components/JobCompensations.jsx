@@ -24,11 +24,6 @@ const JobCompensations = () => {
     formState: { errors },
   } = useFormContext();
 
-  // const upperBound = useWatch({
-  //   control,
-  //   name: "compensationMax",
-  // });
-
   const minVal = watch("compensationMin");
   const maxVal = watch("compensationMax");
 
@@ -71,7 +66,6 @@ const JobCompensations = () => {
                 min: { value: MIN, message: `Min is ${fmt(MIN)}` },
                 max: { value: MAX - STEP, message: "Must be less than max" },
               })}
-              // {...register("compensationMin")}
               error={errors.compensationMin?.message}
             />
           </Grid>
@@ -85,7 +79,6 @@ const JobCompensations = () => {
               fullWidth
               variant="outlined"
               labelClassName="text-[#566166] uppercase font-bold"
-              // {...register("compensationMax")}
               {...register("compensationMax", {
                 valueAsNumber: true,
                 min: { value: MIN + STEP, message: "Must be greater than min" },

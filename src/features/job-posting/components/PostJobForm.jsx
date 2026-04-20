@@ -13,7 +13,6 @@ import { jobDefaultValues, jobSchema } from "@/schemas/jobSchema";
 import { FormProvider } from "react-hook-form";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import { useCreateJobMutation } from "../hooks/useCreateJobMutation";
-import AddNewQuestion from "./AddNewQuestion";
 
 const PostJobForm = () => {
   const methods = useCustomForm({
@@ -32,7 +31,6 @@ const PostJobForm = () => {
       compensationMin: Number(data.compensationMin),
       compensationMax: Number(data.compensationMax),
     };
-    console.log("payload: ", payload);
     try {
       await postJob(payload);
       methods.reset();
@@ -50,20 +48,17 @@ const PostJobForm = () => {
             spacing={2}
             className="w-full min-h-screen p-3 sm:p-5"
           >
-            {/* Main Content */}
             <Grid size={{ xs: 12, lg: 10 }}>
               <Card className="p-4 sm:p-6">
-                {/* Header */}
+
                 <JobPostHeader />
 
-                {/* Sections */}
                 <div className="mt-4 sm:mt-6">
                   <BasicInfoSection />
                 </div>
 
                 <div className="mt-4 sm:mt-6">
                   <Grid container spacing={2}>
-                    {/* left */}
                     <Grid
                       size={{ xs: 12, md: 6 }}
                       className="flex flex-col gap-4 sm:gap-6"
@@ -83,7 +78,6 @@ const PostJobForm = () => {
                       />
                     </Grid>
 
-                    {/* right */}
                     <Grid size={{ xs: 12, md: 6 }}>
                       <JobDetails />
                     </Grid>
@@ -95,12 +89,10 @@ const PostJobForm = () => {
                       "An error occurred. Please try again."}
                   </p>
                 )}
-                {/* Video Questions */}
                 <div className="mt-4 sm:mt-6">
                   <VideoQuestions />
                 </div>
 
-                {/* actions */}
                 <div className="flex flex-col sm:flex-row justify-end gap-3 mt-6">
                   <ButtonComponent
                     text={methods.isSubmitting ? "Submitting..." : "Submit"}
