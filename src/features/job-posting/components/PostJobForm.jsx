@@ -12,17 +12,35 @@ import useCustomForm from "@/hooks/useCustomForm";
 import { jobDefaultValues, jobSchema } from "@/schemas/jobSchema";
 import { FormProvider } from "react-hook-form";
 import ButtonComponent from "@/components/ui/ButtonComponent";
+import { useCreateJobMutation } from "../hooks/useCreateJobMutation";
+import AddNewQuestion from "./AddNewQuestion";
 
 const PostJobForm = () => {
   const methods = useCustomForm({
     defaultValues: jobDefaultValues,
     schema: jobSchema,
-    mode: onchange,
+    mode: "onChange",
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const { mutateAsync: postJob } = useCreateJobMutation();
+
+  const onSubmit = async (data) => {
+    const payload = {
+      ...data,
+      skills: data.skills.map((item) => item.value ?? item),
+      keywords: data.keywords.map((item) => item.value ?? item),
+      compensationMin: Number(data.compensationMin),
+      compensationMax: Number(data.compensationMax),
+    };
+    console.log("payload: ", payload);
+    try {
+      await postJob(payload);
+      methods.reset();
+    } catch (error) {
+      methods.setError(error || "something went wrong.");
+    }
   };
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -53,7 +71,7 @@ const PostJobForm = () => {
                       <JobCompensations />
                       <JobSkills
                         head="Required Skills"
-                        name="job_skills"
+                        name="skills"
                         placeholder="type a skill and press enter"
                         icon={<Wrench color="#2A3439" />}
                       />
@@ -71,22 +89,27 @@ const PostJobForm = () => {
                     </Grid>
                   </Grid>
                 </div>
+                {methods.formState.errors?.root && (
+                  <p className="text-red-500 text-sm flex items-center mb-1">
+                    {methods.errors?.root?.message ||
+                      "An error occurred. Please try again."}
+                  </p>
+                )}
+                {/* Video Questions */}
+                <div className="mt-4 sm:mt-6">
+                  <VideoQuestions />
+                </div>
 
                 {/* actions */}
                 <div className="flex flex-col sm:flex-row justify-end gap-3 mt-6">
-                    <ButtonComponent
-                      text={methods.isSubmitting ? "Submitting..." : "Submit"}
-                      type="submit"
-                      fullWidth
-                      disabled={methods.isSubmitting}
-                    />
+                  <ButtonComponent
+                    text={methods.isSubmitting ? "Submitting..." : "Submit"}
+                    type="submit"
+                    fullWidth
+                    disabled={methods.isSubmitting}
+                  />
                 </div>
               </Card>
-
-              {/* Video Questions */}
-              <div className="mt-4 sm:mt-6">
-                <VideoQuestions />
-              </div>
             </Grid>
 
             {/* AI card */}

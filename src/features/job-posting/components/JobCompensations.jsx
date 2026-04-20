@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import PaymentsIcon from "@mui/icons-material/Payments";
@@ -7,11 +7,42 @@ import CustomizedSlider from "@/components/ui/CustomizedSlider";
 import IconWrapper from "@/components/ui/IconWrapper";
 import { useFormContext } from "react-hook-form";
 
+const MIN = 1000;
+const MAX = 50000;
+const STEP = 1000;
+
+function fmt(v) {
+  return "$" + v.toLocaleString();
+}
+
 const JobCompensations = () => {
   const {
     register,
+    control,
+    watch,
+    setValue,
     formState: { errors },
   } = useFormContext();
+
+  // const upperBound = useWatch({
+  //   control,
+  //   name: "compensationMax",
+  // });
+
+  const minVal = watch("compensationMin");
+  const maxVal = watch("compensationMax");
+
+  useEffect(() => {
+    if (Number(minVal) >= Number(maxVal)) {
+      setValue("compensationMin", Number(maxVal) - STEP);
+    }
+  }, [maxVal]);
+
+  useEffect(() => {
+    if (Number(maxVal) <= Number(minVal)) {
+      setValue("compensationMax", Number(minVal) + STEP);
+    }
+  }, [minVal]);
 
   return (
     <div className="rounded-xl shadow-xs p-5">
@@ -35,7 +66,12 @@ const JobCompensations = () => {
               fullWidth
               variant="outlined"
               labelClassName="text-[#566166] uppercase font-bold"
-              {...register("compensationMin")}
+              {...register("compensationMin", {
+                valueAsNumber: true,
+                min: { value: MIN, message: `Min is ${fmt(MIN)}` },
+                max: { value: MAX - STEP, message: "Must be less than max" },
+              })}
+              // {...register("compensationMin")}
               error={errors.compensationMin?.message}
             />
           </Grid>
@@ -49,13 +85,23 @@ const JobCompensations = () => {
               fullWidth
               variant="outlined"
               labelClassName="text-[#566166] uppercase font-bold"
-              {...register("compensationMax")}
+              // {...register("compensationMax")}
+              {...register("compensationMax", {
+                valueAsNumber: true,
+                min: { value: MIN + STEP, message: "Must be greater than min" },
+                max: { value: MAX, message: `Max is ${fmt(MAX)}` },
+              })}
               error={errors.compensationMax?.message}
             />
           </Grid>
 
           <Grid size={{ xs: 12 }}>
-            <CustomizedSlider />
+            <CustomizedSlider
+              control={control}
+              minVal={minVal}
+              maxVal={maxVal}
+              setValue={setValue}
+            />
           </Grid>
         </Grid>
       </Box>

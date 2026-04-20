@@ -6,19 +6,14 @@ import Box from "@mui/material/Box";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { EXPERIENCE_LEVELS, JOB_TYPES } from "@/constants/jobEnums";
 import { Briefcase } from "lucide-react";
-import { useFormContext, useWatch } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 const BasicInfoSection = () => {
   const {
     register,
-    control,
-    watch,
     formState: { errors },
   } = useFormContext();
-  let disabledOtherInput = useWatch({
-    control,
-    name: "jobType",
-  });
+
   const isMobile = useMediaQuery("(max-width: 640px)");
 
   return (
@@ -76,24 +71,7 @@ const BasicInfoSection = () => {
               columns={isMobile ? 2 : JOB_TYPES.length}
               labelClassName="text-[#566166] uppercase tracking-wider"
               {...register("jobType")}
-              error={
-                watch("jobType") === ""
-                  ? errors.other?.message
-                  : errors.jobType?.message
-              }
-            />
-          </Grid>
-
-          <Grid size={{ xs: 12, md: 2 }}>
-            <InputFieldWithLabel
-              label="Others"
-              placeholder="e.g. Freelance"
-              fullWidth
-              rounded="xl"
-              variant="outlined"
-              labelClassName="text-[#566166] uppercase tracking-wider"
-              disabled={disabledOtherInput}
-              {...register("other")}
+              error={errors.jobType?.message}
             />
           </Grid>
 

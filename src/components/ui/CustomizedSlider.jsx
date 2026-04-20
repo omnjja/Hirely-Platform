@@ -1,40 +1,54 @@
-import React, { useState } from "react";
+import React from "react";
 ("use client");
+import { Controller } from "react-hook-form";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 
+const MIN = 0;
+const MAX = 500000;
+const STEP = 100;
+
+function fmt(v) {
+  return "$" + v.toLocaleString();
+}
 const CustomizedSlider = ({
   label,
-  lowerBound = 500,
-  upperBound = 10000,
-  type = '$',
-  disabled,
+  control,
+  minVal,
+  maxVal,
+  setValue,
 }) => {
-  const [value, setValue] = useState([2000, 5000]);
-
   return (
     <div className="grid w-full">
       <div className="flex items-center justify-between mb-2">
         {label ? <Label>{label}</Label> : null}
       </div>
-      <Slider
-        id="slider-demo-temperature"
-        value={value}
-        onValueChange={setValue}
-        min={lowerBound}
-        max={upperBound}
-        step={100}
-        disabled={disabled}
-      />
-      <div className="flex items-center justify-between">
-        <span className="text-sm text-muted-foreground">
-          {type}
-          {lowerBound}
-        </span>
-        <span className="text-sm text-muted-foreground">
-          {type}
-          {upperBound}+
-        </span>
+      <div className="space-y-2">
+        <Controller
+          name="minSalary"
+          control={control}
+          render={() => (
+            <Slider
+              value={[Number(minVal), Number(maxVal)]}
+              onValueChange={([newMin, newMax]) => {
+                setValue("compensationMin", newMin, { shouldValidate: true });
+                setValue("compensationMax", newMax, { shouldValidate: true });
+              }}
+              min={MIN}
+              max={MAX}
+              step={STEP}
+              className="w-full"
+            />
+          )}
+        />
+        <div className="flex justify-between">
+          <span className="text-sm font-medium text-primary">
+            {fmt(Number(minVal))}
+          </span>
+          <span className="text-sm font-medium text-primary">
+            {fmt(Number(maxVal))}
+          </span>
+        </div>
       </div>
     </div>
   );

@@ -37,8 +37,8 @@ const JobDetails = () => {
               rounded="xl"
               fieldHeight="140"
               labelClassName="text-[#566166] tracking-wide uppercase font-semibold mb-3"
-              {...register("roleResponsibilities")}
-              error={errors.roleResponsibilities?.message}
+              {...register("coreResponsibilities")}
+              error={errors.coreResponsibilities?.message}
             />
           </Grid>
 

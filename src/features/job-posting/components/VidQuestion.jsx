@@ -1,10 +1,10 @@
 import React from "react";
 import { Icon, Trash2 } from "lucide-react";
-
-const VidQuestion = ({ question }) => {
+const TIME_LIMIT = 3;
+const RETAKES = 2;
+const VidQuestion = ({ questionNumber, question, onRemove }) => {
   return (
     <div
-      key={question.id}
       className="flex flex-col gap-4 p-4 sm:p-5 rounded-xl border border-gray-100 shadow-sm
             transition-all duration-300 hover:shadow-md "
     >
@@ -12,20 +12,20 @@ const VidQuestion = ({ question }) => {
         {/* left content */}
         <div className="flex items-start gap-3 flex-1">
           <p className="flex items-center justify-center text-[9px] sm:text-xs w-8 h-8 bg-[#E8EFF3] rounded-xl text-gray-600">
-            {question.id}
+            {questionNumber}
           </p>
           {/* question */}
           <div className="flex flex-col gap-2 sm:gap-3">
             <p className="font-semibold text-[#2A3439] text-xs sm:text-base leading-snug">
-              {question.text}
+              {question}
             </p>
 
             <div className="flex flex-wrap gap-2">
               <span className="text-gray-500 text-[9px] sm:text-xs px-3 py-1 bg-[#E8EFF3] rounded-md">
-                {question.timeLimit}
+                {TIME_LIMIT} Minutes Limit
               </span>
               <span className="text-gray-500 text-[9px] sm:text-xs px-3 py-1 bg-[#E8EFF3] rounded-md">
-                {question.retakes}
+                {RETAKES} Re-takes allowed
               </span>
             </div>
           </div>
@@ -33,8 +33,10 @@ const VidQuestion = ({ question }) => {
 
         {/* delete */}
         <button
+          type="button"
           className="self-start p-2 rounded-lg transition-all duration-200 
                 hover:bg-red-50 hover:scale-110 active:scale-95 cursor-pointer"
+          onClick={onRemove}
         >
           <Trash2
             size={20}

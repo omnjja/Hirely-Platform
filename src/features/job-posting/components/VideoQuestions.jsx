@@ -1,30 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import IconWrapper from "@/components/ui/IconWrapper";
 import VidQuestion from "./VidQuestion";
-
-const questions = [
-  {
-    id: 1,
-    text: "Tell us about your most challenging project and how you navigated technical debt.",
-    timeLimit: "2 Minutes Limit",
-    retakes: "2 Re-takes allowed",
-  },
-  {
-    id: 2,
-    text: "Describe a situation where you had to learn a new technology quickly. How did you approach it?",
-    timeLimit: "3 Minutes Limit",
-    retakes: "3 Re-takes allowed",
-  },
-];
+import AddNewQuestion from "./AddNewQuestion";
+import { useFormContext, useWatch } from "react-hook-form";
 
 const VideoQuestions = () => {
+  const {
+    control,
+    setValue,
+    formState: { errors },
+  } = useFormContext();
+  const questions = useWatch({ control, name: "interviewerQuestions" }) ?? [];
+  const [addQuestion, setAddQuestion] = useState(false);
+
+  function onAddQuestion() {
+    setAddQuestion(true);
+  }
+  function onCancelQuestion() {
+    setAddQuestion(false);
+  }
+  function onRemoveQuestion(index) {
+    const updated = questions.filter((_, i) => i !== index);
+    setValue("interviewerQuestions", updated);
+  }
   return (
-    <div className="rounded-xl shadow-lg p-4 sm:p-6 bg-linear-to-tr from-white via-white via-85% to-[#E8EFF3] transition-all duration-300">
-      {/* header */}
+    <div className="rounded-xl shadow-lg p-4 sm:p-6 bg-linear-to-tr from-white via-white via-65% to-[#E8EFF3] transition-all duration-300">
       <div className="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-2 sm:p-4">
-        {/* left */}
         <div className="flex items-start gap-3 sm:gap-4">
           <IconWrapper>
             <VideocamIcon sx={{ color: "white" }} />
@@ -40,35 +43,50 @@ const VideoQuestions = () => {
           </div>
         </div>
 
-        {/* button */}
         <ButtonComponent
           text="+ Add Question"
-          textColor="#1B41AA"
-          bgColor="white"
-          shadow="md"
-          rounded="lg"
-          bold
-          size="md"
+          style={{
+            bgColor: "#ffffff",
+            textColor: "#1B41AA",
+            bold: true,
+          }}
+          onClick={() => onAddQuestion()}
         />
       </div>
 
-      {/* questions */}
       <div className="flex flex-col gap-4 sm:gap-6 mt-4">
-        {questions.map((question) => (
-          <VidQuestion key={question.id} question={question} />
-        ))}
-
-        {/* add question placeholder */}
-        <div
-          className="flex items-center gap-3 p-4 sm:p-5 rounded-xl border-2 border-dashed border-gray-200
+        {questions.length > 0 ? (
+          <div className="flex flex-col gap-4 sm:gap-6 mt-4">
+            {questions.map((question, index) => (
+              <VidQuestion
+                key={index}
+                questionNumber={index + 1}
+                question={question}
+                onRemove={() => onRemoveQuestion(index)}
+              />
+            ))}
+          </div>
+        ) : (
+          !addQuestion && (
+            <div
+              className="flex items-center gap-3 p-4 sm:py-3 sm:px-5 rounded-xl border-2 border-dashed border-gray-200
           transition-all duration-300 hover:bg-gray-50 cursor-pointer"
-        >
-          <p className="flex items-center justify-center text-[9px] sm:text-xs w-8 h-8 bg-[#E8EFF3] rounded-xl text-gray-600">
-            {questions.length + 1}
-          </p>
-
-          <p className="text-sm sm:text-base text-[#2A3439]">
-            Click 'Add Question' to define another prompt...
+            >
+              <p className="mx-auto text-gray-500 text-xs sm:text-base ">
+                Click 'Add Question' to define a question prompt...
+              </p>
+            </div>
+          )
+        )}
+        {addQuestion && (
+          <AddNewQuestion
+            quationsNum={questions.length}
+            onCancelQuestion={onCancelQuestion}
+          />
+        )}
+        <div className="">
+          <p className="text-red-500 text-sm px-4">
+            {errors.interviewerQuestions?.message || " "}
           </p>
         </div>
       </div>

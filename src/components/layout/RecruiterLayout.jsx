@@ -1,14 +1,9 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./../ui/Sidebar";
-import { BarChart3, Briefcase, Users, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-
-const menuItems = [
-  { icon: Briefcase, path: "/jobs", label: "Jobs" },
-  { icon: Users, path: "/candidates", label: "Candidates" },
-  { icon: BarChart3, path: "/analytics", label: "Analytics" },
-];
+import { menuItems } from "@/constants/recruiterRegistrationEnums";
 
 const RecruiterLayout = () => {
   const [isOpen, setIsOpen] = useState(false);

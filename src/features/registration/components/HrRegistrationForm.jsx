@@ -9,8 +9,7 @@ import ButtonComponent from "@/components/ui/ButtonComponent";
 import useHrRegMutation from "../hooks/useHrRegMutation";
 import useCustomForm from "@/hooks/useCustomForm";
 import useAppNavigate from "@/hooks/useAppNavigate";
-import { COMPANYSIZE } from "@/constants/companySizesOptions";
-import { COMPANYINDUSTRY } from "@/constants/companyIndustryOptions";
+import { COMPANYINDUSTRY, COMPANYSIZE } from "@/constants/recruiterRegistrationEnums";
 
 const HrRegistrationForm = ({ onProgressChange }) => {
   const { mutateAsync: registerHr } = useHrRegMutation();
