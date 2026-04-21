@@ -36,7 +36,7 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
     mode: "onChange",
   });
 
-  const summaryValue = watch("introductionSummary") || "";
+  const summaryValue = watch("profileSummary") || "";
   const textLength = summaryValue.length;
 
   const values = watch();

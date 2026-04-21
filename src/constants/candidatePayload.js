@@ -12,8 +12,8 @@ export const candidatePayload = (data, profilePictureKey, cvKey) => {
     skills: data.skills.map((skill) => skill.value),
     languages: data.languages.map((language) => language.value),
 
-    linkedIn: data.linkedIn,
-    gitHub: data.gitHub,
+    linkedInUrl: data.linkedIn,
+    githubUrl: data.gitHub,
 
     profilePictureUrl: profilePictureKey,
     cvFileUrl: cvKey,
