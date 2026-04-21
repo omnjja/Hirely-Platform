@@ -17,15 +17,18 @@ const ButtonComponent = ({
       type={type}
       onClick={onClick}
       className={`
-        bg-[${bgColor}] text-[${textColor}]
         px-5 py-2
-        rounded-${rounded}
-        hover:bg-[${bgColor}]/90
+        hover:opacity-90
         active:scale-97
         transition-all duration-200
         ${fullWidth ? "w-full" : "w-auto"}
         ${disabled ? "opacity-50 " : "cursor-pointer"}
         `}
+      style={{
+        backgroundColor: bgColor,
+        color: textColor,
+        borderRadius: rounded === "4xl" ? "32px" : "12px",
+      }}
       disabled={disabled}
     >
       {text}
