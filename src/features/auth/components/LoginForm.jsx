@@ -1,0 +1,140 @@
+import FormHeader from "./FormHeader";
+import InputField from "../../../components/ui/InputField";
+import PasswordField from "../../../components/ui/PasswordField";
+import ButtonComponent from "../../../components/ui/ButtonComponent";
+import FormFooter from "./FormFooter";
+import GoogleButton from "../../../components/ui/GoogleButton";
+import Divider from "../../../components/ui/Divider";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import useLoginMutation from "../hooks/useLoginMutation";
+import * as authAPI from "../services/authService";
+
+const LoginForm = () => {
+  const navigate = useNavigate();
+  const schema = z.object({
+    email: z
+      .string()
+      .min(1, "Email is required")
+      .email("Invalid email address"),
+    password: z.string().min(8, "Password must be at least 8 characters"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setError,
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    resolver: zodResolver(schema),
+  });
+
+  const { mutateAsync: login } = useLoginMutation();
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await login(data);
+      if (response.accessToken) {
+        navigate("/dashboard");
+      } else {
+        setError("root", {
+          message: "Failed to sign in. Please check your credentials.",
+        });
+      }
+    } catch (error) {
+      setError("root", {
+        message:
+          error.response?.data?.message ||
+          "Failed to sign in. Please try again.",
+      });
+    }
+  };
+
+  return (
+    <div
+      className="w-full
+       md:w-[55%] 
+      mx-auto
+      bg-white
+      flex
+      items-center
+      justify-center
+      px-4
+      md:px-6
+      pb-8"
+    >
+      <div className="max-w-md w-full py-6">
+        <FormHeader
+          head="Sign in"
+          subhead="Please Login to continue to your account"
+        />
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+          <InputField
+            label="Email"
+            {...register("email")}
+            error={errors.email?.message}
+          />
+          <PasswordField
+            label="Password"
+            {...register("password")}
+            error={errors.password?.message}
+          />
+          {errors.root && (
+            <p className="text-red-600 text-sm text-center">
+              {errors.root.message}
+            </p>
+          )}
+          <ButtonComponent
+            text={isSubmitting ? "Signing in..." : "Sign in"}
+            type="submit"
+            fullWidth
+            disabled={isSubmitting}
+          />
+
+          {/* Remember + Forgot */}
+          <div className="flex items-center justify-between text-sm">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                className="w-4 h-4 font-bold text-primary accent-primary border-gray-300 rounded focus:ring-primary"
+              />
+              <span>Keep me logged in</span>
+            </label>
+
+            <button
+              type="button"
+              className="text-red-600 hover:underline"
+              onClick={() => navigate("/ForgotPassword")}
+            >
+              Forgot password?
+            </button>
+          </div>
+
+          {/* OR Divider */}
+          <Divider label="or" />
+
+          {/* Google Button */}
+          <GoogleButton
+            label="Continue with Google"
+            onClick={authAPI.googleAuth}
+          />
+
+          {/* Need an account */}
+          <FormFooter
+            text="Need an account? "
+            linkText="Create one"
+            destination="/signup"
+          />
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default LoginForm;
