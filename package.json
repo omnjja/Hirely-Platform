@@ -23,6 +23,7 @@
     "dayjs": "^1.11.19",
     "framer-motion": "^12.38.0",
     "i18n-iso-countries": "^7.14.0",
+    "lucide-react": "^1.8.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-dropzone": "^15.0.0",

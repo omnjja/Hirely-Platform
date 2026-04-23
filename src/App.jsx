@@ -2,16 +2,16 @@ import React from "react";
 import "./index.css";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import Login from "./features/auth/pages/Login";
-import SignUp from "./features/auth/pages/SignUp";
-import ForgotPassword from "./features/auth/pages/ForgotPassword";
-import RecoveryEmail from "./features/auth/pages/RecoveryEmail";
-import SucessfulPassword from "./features/auth/pages/SucessfulPassword";
-import RoleSelection from "./features/registration/pages/RoleSelection";
-import CandidateRegistration from "./features/registration/pages/CandidateRegistration";
-import HrRegistration from "./features/registration/pages/HrRegistration";
-import AuthCallback from "./features/auth/pages/AuthCallback";
-// import CandidateProfile from "./features/candidat";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import ForgotPassword from "./pages/ForgotPassword";
+import RecoveryEmail from "./pages/RecoveryEmail";
+import SucessfulPassword from "./pages/SucessfulPassword";
+import RoleSelection from "./pages/RoleSelection";
+import CandidateRegistration from "./pages/CandidateRegistration";
+import HrRegistration from "./pages/HrRegistration";
+import AuthCallback from "./pages/AuthCallback ";
+import CandidateProfile from "./features/candidate/pages/CandidateProfile";
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
           element={<CandidateRegistration />}
         />
         <Route path="/hr/complete-profile" element={<HrRegistration />} />
-        {/* <Route path="/candidate/profile" element={<CandidateProfile />} /> */}
+        <Route path="/candidate/profile" element={<CandidateProfile />} />
         <Route
           path="/"
           element={
@@ -48,9 +48,9 @@ function App() {
               <Link to="/hr/complete-profile" className="text-primary">
                 Go to HR Registration
               </Link>
-              {/* <Link to="/candidate/profile" className="text-primary">
+              <Link to="/candidate/profile" className="text-primary">
                 Go to Candidate Profile
-              </Link> */}
+              </Link>
             </div>
           }
         />
