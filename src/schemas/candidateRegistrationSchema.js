@@ -6,7 +6,7 @@ export const candidateRegistrationSchema = z.object({
   fullName: z.string().min(1, "Full Name is required"),
   currentJobTitle: z.string().min(1, "Current Job Title is required"),
   country: z.string().min(1, "Country is required"),
-  phoneNumber: z
+  mobileNumber: z
     .string()
     .min(1, "Phone Number is required")
     .refine(
@@ -32,11 +32,13 @@ export const candidateRegistrationSchema = z.object({
   yearsOfExperience: z
     .union([z.string().length(0), z.coerce.number().min(0).max(50)])
     .optional(),
-  introductionSummary: z
+  profileSummary: z
     .string()
-    .min(50, "Introduction must be at least 50 characters"),
-  skills: z.array(z.string()).min(1, "At least one skill is required"),
-  languages: z.array(z.string()).min(1, "At least one language is required"),
+    .min(50, "Profile summary must be at least 50 characters"),
+  // skills: z.array(z.string()).min(1, "At least one skill is required"),
+  // languages: z.array(z.string()).min(1, "At least one language is required"),
+  skills: z.array(z.object({ value: z.string() })),
+  languages: z.array(z.object({ value: z.string() })),
   linkedIn: z
     .string()
     .url("Please enter a valid URL")
@@ -51,20 +53,19 @@ export const candidateRegistrationSchema = z.object({
       (val) => val.startsWith("https://github.com"),
       "Please enter a valid GitHub URL",
     ),
-  profilePicture: z.string().optional(),
-  cv: z.any()
-  .refine((files) => files?.length > 0, "CV upload is required")
+  profilePicture: z.any().optional().nullable(),
+  cv: z.any().refine((file) => file?.length === 1, "CV upload is required"),
 });
 
 export const candidateRegistrationDefaultValues = {
   fullName: "",
   currentJobTitle: "",
   country: "",
-  phoneNumber: "",
+  mobileNumber: "",
   education: "",
   experienceLevel: "",
   yearsOfExperience: "",
-  introductionSummary: "",
+  profileSummary: "",
   skills: [],
   languages: [],
   linkedIn: "",
