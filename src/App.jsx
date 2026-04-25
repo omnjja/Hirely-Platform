@@ -13,6 +13,7 @@ import HrRegistration from "./pages/HrRegistration";
 import AuthCallback from "./pages/AuthCallback ";
 import CreateJobPosting from "./pages/CreateJobPosting";
 import RecruiterLayout from "./components/layout/RecruiterLayout";
+import BrowseJobs from "./pages/BrowseJobs";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/hr/complete-profile" element={<HrRegistration />} />
         <Route path="/recruiter" element={<RecruiterLayout />}>
           <Route path="create-job-posting" element={<CreateJobPosting />} />
+          <Route path="jobs" element={<BrowseJobs />} />
         </Route>
 
         <Route
@@ -54,6 +56,9 @@ function App() {
               </Link>
               <Link to="/recruiter/create-job-posting" className="text-primary">
                 Go to Create Job Posting
+              </Link>
+              <Link to="/recruiter/jobs" className="text-primary">
+                Go to all Jobs
               </Link>
             </div>
           }

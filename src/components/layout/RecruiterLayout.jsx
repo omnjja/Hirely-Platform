@@ -45,7 +45,7 @@ const RecruiterLayout = () => {
           </h1>
         </div>
 
-        <div className="px-3 sm:px-4">
+        <div>
           <Outlet />
         </div>
       </div>

@@ -39,6 +39,7 @@ const SelectField = forwardRef(
       md: 2,
       lg: 4,
       xl: 8,
+      xxl: 16,
       full: 999,
     };
 

@@ -10,7 +10,7 @@ const Sidebar = ({ menuItems, isMobile = false, setIsOpen }) => {
       className={`
         h-screen sticky top-0
         ${isMobile ? "w-40 items-start px-4" : "w-20 items-center"} 
-        bg-[#F4F6F8] flex flex-col justify-between py-4
+         flex flex-col justify-between py-4
         transition-all duration-300
       `}
     >
