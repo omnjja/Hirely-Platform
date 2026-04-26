@@ -1,9 +1,17 @@
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import { useFieldArray } from "react-hook-form";
 import InputFieldWithLabel from "@/components/ui/InputFieldWithLabel";
 import AddButton from "@/components/ui/AddButton";
 
-const AddingField = ({ name, control, errors, bottomText, placeholder }) => {
+const AddingField = ({
+  name,
+  control,
+  errors,
+  bottomText,
+  placeholder,
+  withBtn = true,
+  required = false,
+}) => {
   const { fields, append, remove } = useFieldArray({
     name: name,
     control,
@@ -16,20 +24,30 @@ const AddingField = ({ name, control, errors, bottomText, placeholder }) => {
     setValue("");
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (!withBtn) handleAdd();
+    }
+  };
+
   return (
     <div>
       <div className="grid grid-cols-[1fr_auto] gap-4 items-center">
         <InputFieldWithLabel
           name={name}
           label={name}
-          required
+          required={required}
           placeholder={placeholder}
           bottomText={bottomText}
           error={errors[name]?.message}
           onChange={(e) => setValue(e.target.value)}
           value={value}
+          onKeyDown={handleKeyDown}
         />
-        <AddButton className="mb:8 md:mb-2.5" onClick={handleAdd} />
+        {withBtn && (
+          <AddButton className="mb:8 md:mb-2.5" onClick={handleAdd} />
+        )}
       </div>
       <div className="flex flex-wrap gap-2 mb-1">
         {fields.map((field, index) => (

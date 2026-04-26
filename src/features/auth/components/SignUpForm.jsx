@@ -11,7 +11,7 @@ import useSignupMutation from "../hooks/useSignupMutation";
 import {
   userSignupDefaultValues,
   userSignupSchema,
-} from "@/shcemas/userSignupSchema";
+} from "@/schemas/userSignupSchema";
 import useCustomForm from "@/hooks/useCustomForm";
 import * as authAPI from "../services/authService";
 
