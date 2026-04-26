@@ -5,7 +5,6 @@ import {
   candidateRegistrationDefaultValues,
   candidateRegistrationSchema,
 } from "@/schemas/candidateRegistrationSchema";
-import AddButton from "@/components/ui/AddButton";
 import UploadCVField from "@/components/ui/UploadCVField";
 import UploadProfilePictureField from "@/components/ui/UploadProfilePictureField";
 import { countryOptions } from "@/constants/countryOptions";
@@ -15,12 +14,12 @@ import { useRegistrationUpload } from "../hooks/useRegisterationUpload";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import { experienceOptions } from "@/constants/experienceOptions";
 import AddingField from "@/components/ui/AddingField";
+import { candidatePayload } from "@/constants/candidatePayload";
 
 const CandidateRegistrationForm = ({ onProgressChange }) => {
   const { mutateAsync: registerCandidate } = useCandidateRegMutation(); // send all data to registerCandidate
   const { handleImageUpload, handleCVUpload } = useRegistrationUpload();
   const [profilePicture, setProfilePicture] = useState(null);
-  const [cvFile, setCvFile] = useState(null);
 
   const {
     register,
@@ -29,6 +28,7 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
     handleSubmit,
     control,
     watch,
+    // setValue,
     formState: { errors, isSubmitting },
   } = useCustomForm({
     defaultValues: candidateRegistrationDefaultValues,
@@ -36,8 +36,8 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
     mode: "onChange",
   });
 
-  const introductionValue = watch("introductionSummary") || "";
-  const textLength = introductionValue.length;
+  const summaryValue = watch("profileSummary") || "";
+  const textLength = summaryValue.length;
 
   const values = watch();
   useEffect(() => {
@@ -47,23 +47,25 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
   }, [values]);
 
   const onSubmit = async (data) => {
+    console.log(data);
     try {
       let profilePictureKey = null;
       let cvKey = null;
       if (profilePicture) {
         const { key } = await handleImageUpload(profilePicture);
+        // setValue("profilePicture", key);
         profilePictureKey = key;
       }
+      const cvFile = data.cv?.[0];
       if (cvFile) {
         const { key } = await handleCVUpload(cvFile);
         cvKey = key;
       }
+      console.log(watch("cv")); // Check the value of the cv <field>
 
-      const payload = {
-        ...data,
-        profilePicture: profilePictureKey,
-        cv: cvKey,
-      };
+      const payload = candidatePayload(data, profilePictureKey, cvKey);
+
+      console.log("Submitting payload:", payload);
 
       await registerCandidate(payload);
       reset();
@@ -90,6 +92,7 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
         name="profilePicture"
         label="Profile Picture"
         onPhotoSelect={(photo) => setProfilePicture(photo)}
+        register={register}
         error={errors.profilePicture?.message}
       />
       <InputFieldWithLabel
@@ -111,12 +114,12 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
           error={errors.country?.message}
         />
         <InputFieldWithLabel
-          {...register("phoneNumber")}
-          name="phoneNumber"
-          label="Phone Number"
+          {...register("mobileNumber")}
+          name="mobileNumber"
+          label="Mobile Number"
           placeholder="e.g., +1 234 567 8901"
           required
-          error={errors.phoneNumber?.message}
+          error={errors.mobileNumber?.message}
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -146,14 +149,14 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
         error={errors.yearsOfExperience?.message}
       />
       <InputFieldWithLabel
-        {...register("introductionSummary")}
-        name="introductionSummary"
+        {...register("profileSummary")}
+        name="profileSummary"
         label="Introduction / Summary"
         placeholder="Tell us about yourself, your experience, and what you're looking for..."
         required
         bottomText={`${textLength} characters (minimum 50)`}
         fieldHeight="80px"
-        error={errors.introductionSummary?.message}
+        error={errors.profileSummary?.message}
       />
       <AddingField
         name="skills"
@@ -180,7 +183,6 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
         register={register}
         bottomText="Accepted formats: PDF, DOC, DOCX (Max 5MB)"
         error={errors.cv?.message}
-        onFileSelect={(file) => setCvFile(file)}
       />
       <p className="text-lg font-semibold mt-2">
         Professional URLs <span className="text-red-500"> *</span>

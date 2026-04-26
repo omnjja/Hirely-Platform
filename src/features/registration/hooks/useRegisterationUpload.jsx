@@ -8,8 +8,8 @@ import {
  export const useRegistrationUpload = () => {
     const handleImageUpload = async (file) => {
         try {
-            const { uploadURL, key } = await getUploadImageURL(file);
-            await uploadImageToS3(uploadURL, file);
+            const { uploadUrl, key } = await getUploadImageURL(file);
+            await uploadImageToS3(uploadUrl, file);
             return { key };
         } catch (error) {
             console.error("Image upload error:", error);
@@ -19,8 +19,8 @@ import {
 
     const handleCVUpload = async (file) => {
         try {
-            const { uploadURL, key } = await getCVUploadURL(file);
-            await uploadCVToS3(uploadURL, file);
+            const { uploadUrl, key } = await getCVUploadURL(file);
+            await uploadCVToS3(uploadUrl, file);
             return { key };
         } catch (error) {
             console.error("CV upload error:", error);
