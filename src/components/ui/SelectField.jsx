@@ -46,7 +46,7 @@ const SelectField = forwardRef(
     const selectedVariant = variants[variant];
 
     return (
-      <div className={clsx("mb-3 w-full", containerClassName)}>
+      <div className={clsx("w-full", containerClassName)}>
         {label && (
           <label htmlFor={name} className={clsx("block font-medium text-sm mb-1", labelClassName)}>
             {label}

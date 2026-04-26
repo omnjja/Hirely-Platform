@@ -8,6 +8,7 @@ const Sidebar = ({ menuItems, isMobile = false, setIsOpen }) => {
   return (
     <div
       className={`
+        bg-white
         h-screen sticky top-0
         ${isMobile ? "w-40 items-start px-4" : "w-20 items-center"} 
          flex flex-col justify-between py-4

@@ -1,5 +1,4 @@
 import SearchComponent from "@/components/ui/SearchComponent";
-import React from "react";
 import FiltersBar from "@/features/browse-job/components/FiltersBar";
 import Jobs from "@/features/browse-job/components/Jobs";
 import { Box, Card, Grid } from "@mui/material";
@@ -21,7 +20,7 @@ const BrowseJobs = () => {
 
       <Box sx={{ flexGrow: 1 }} className="bg-[#F4F6F8]">
         <Grid container spacing={2} className="w-full min-h-screen p-3 sm:p-5">
-          <Grid size={{ xs: 12, lg: 10 }}>
+          <Grid size={{ xs: 12, lg: 10 }} className="flex-1">
             <Jobs />
           </Grid>
           <Grid size={{ xs: 12, lg: 2 }}>

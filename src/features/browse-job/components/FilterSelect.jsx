@@ -22,6 +22,7 @@ const FilterSelect = ({
       }}
     >
       <SelectField
+        containerClassName={`mb-0`}
         options={options}
         placeholder={placeholder}
         variant="default"
