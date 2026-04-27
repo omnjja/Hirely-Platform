@@ -9,7 +9,7 @@ const JobCardInfo = ({ job }) => {
       <div className="grid grid-cols-2 sm:flex sm:flex-row gap-2 sm:gap-6">
         <div className="flex items-center gap-1.5 sm:w-1/3">
           <MapPin size={16} color="#364153" className="shrink-0" />
-          <p className="text-xs sm:text-sm text-[#364153]">Cairo, Egypt</p>
+          <p className="text-xs sm:text-sm text-[#364153]">{job.location}</p>
         </div>
 
         <div className="flex items-center gap-1.5 sm:w-1/2">

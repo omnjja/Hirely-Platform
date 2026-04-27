@@ -1,12 +1,16 @@
 import React from "react";
 import Job from "./Job";
 import useJobs from "../hooks/useJobs";
-import { RefreshCw } from "lucide-react";
+import { ChevronLeft, ChevronRight, RefreshCw } from "lucide-react";
 import JobSkeleton from "./JobSkeleton";
 import ErrorComponent from "@/components/ui/ErrorComponent";
+import ButtonComponent from "@/components/ui/ButtonComponent";
 
 const Jobs = () => {
-  const { data, isLoading, isFetching, error, refetch } = useJobs();
+  const { data, isLoading, isFetching, error, refetch, page, setPage } =
+    useJobs();
+  const hasPrev = page > 1;
+  const hasNext = data?.hasNextPage;
 
   if (isLoading)
     return (
@@ -37,7 +41,47 @@ const Jobs = () => {
           </p>
         </div>
       ) : (
-        data?.items?.map((job) => <Job key={job.id} job={job} />)
+        <>
+          {data?.items?.map((job) => (
+            <Job key={job.id} job={job} />
+          ))}
+
+          <div className="flex items-center justify-evenly pt-2 border-t border-gray-100">
+            <ButtonComponent
+              onClick={() => setPage((p) => p - 1)}
+              disabled={!hasPrev || isFetching}
+              style={{
+                bgColor: "#1B41AA",
+                textColor: "white",
+                rounded: "4xl",
+                size: "xs",
+              }}
+            >
+              <div className="flex">
+                <ChevronLeft size={15} />
+                <span className="hidden sm:inline">Previous</span>
+              </div>
+            </ButtonComponent>
+
+            <span className="text-xs text-gray-400">Page {page}</span>
+
+            <ButtonComponent
+              onClick={() => setPage((p) => p + 1)}
+              disabled={!hasNext || isFetching}
+              style={{
+                bgColor: "#1B41AA",
+                textColor: "white",
+                rounded: "4xl",
+                size: "xs",
+              }}
+            >
+              <div className="flex">
+                <span className="hidden sm:inline">Next</span>
+                <ChevronRight size={15} />
+              </div>
+            </ButtonComponent>
+          </div>
+        </>
       )}
     </div>
   );

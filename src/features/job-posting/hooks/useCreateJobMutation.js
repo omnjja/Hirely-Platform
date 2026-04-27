@@ -1,8 +1,10 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createJob } from "../services/JobService";
 import toast from "react-hot-toast";
 
 export const useCreateJobMutation = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: createJob,
     onMutate: () => {
@@ -12,6 +14,7 @@ export const useCreateJobMutation = () => {
       toast.success("Job Posted successfully!", {
         id: "createJobToast",
       });
+      queryClient.invalidateQueries({ queryKey: ["jobs"] });
     },
     onError: (error) => {
       toast.error(
