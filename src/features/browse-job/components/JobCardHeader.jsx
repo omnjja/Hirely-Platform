@@ -1,10 +1,12 @@
 import React from "react";
-import { Ellipsis } from "lucide-react";
+import { Ellipsis, ExternalLink } from "lucide-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { useNavigate } from "react-router-dom";
 dayjs.extend(relativeTime);
 
 const JobCardHeader = ({ job }) => {
+  const navigate = useNavigate();
   return (
     <div className="flex items-start justify-between gap-2">
       <div className="w-full flex flex-col gap-1 sm:gap-1.5 min-w-0">
@@ -13,10 +15,15 @@ const JobCardHeader = ({ job }) => {
             Be an early applicant
           </p>
           <div className="flex items-center gap-1.5 shrink-0">
-            <p className="text-[#6A7282] text-xs hidden sm:block whitespace-nowrap">
+            <p className="text-[#6A7282] text-xs whitespace-nowrap">
               {dayjs(job.createdAt).fromNow()}
             </p>
-            <Ellipsis size={14} color="#6A7282" className="cursor-pointer" />
+            <ExternalLink
+              size={14}
+              color="#6A7282"
+              className="cursor-pointer"
+              onClick={() => navigate(job.id)}
+            />
           </div>
         </div>
 
