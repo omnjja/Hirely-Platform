@@ -11,13 +11,14 @@ const InputFieldWithLabel = forwardRef(
       bottomTextColor = "#6A7282",
       fieldHeight,
       error,
+      labelStyle = "block font-medium text-sm mb-1",
       ...props
     },
     ref,
   ) => {
     return (
       <div className="mb-3">
-        <label htmlFor={name} className="block font-medium text-sm mb-1">
+        <label htmlFor={name} className={labelStyle}>
           {label}
           {required && <span style={{ color: "#ef4444" }}> *</span>}
         </label>

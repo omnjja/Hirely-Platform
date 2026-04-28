@@ -15,6 +15,9 @@ import ButtonComponent from "@/components/ui/ButtonComponent";
 import { experienceOptions } from "@/constants/experienceOptions";
 import AddingField from "@/components/ui/AddingField";
 import { candidatePayload } from "@/constants/candidatePayload";
+import { useNavigate } from "react-router-dom";
+import { skillsOptions } from "@/constants/skillsOptions";
+import { languageOptions } from "@/constants/languageOptions";
 
 const CandidateRegistrationForm = ({ onProgressChange }) => {
   const { mutateAsync: registerCandidate } = useCandidateRegMutation(); // send all data to registerCandidate
@@ -28,7 +31,6 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
     handleSubmit,
     control,
     watch,
-    // setValue,
     formState: { errors, isSubmitting },
   } = useCustomForm({
     defaultValues: candidateRegistrationDefaultValues,
@@ -37,7 +39,9 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
   });
 
   const summaryValue = watch("profileSummary") || "";
+  const selectedCountry = watch("country") || "";
   const textLength = summaryValue.length;
+  const navigate = useNavigate();
 
   const values = watch();
   useEffect(() => {
@@ -53,7 +57,6 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
       let cvKey = null;
       if (profilePicture) {
         const { key } = await handleImageUpload(profilePicture);
-        // setValue("profilePicture", key);
         profilePictureKey = key;
       }
       const cvFile = data.cv?.[0];
@@ -69,6 +72,7 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
 
       await registerCandidate(payload);
       reset();
+      navigate("/candidate/profile");
     } catch (error) {
       setError("root", {
         message:
@@ -109,6 +113,7 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
           name="country"
           label="Country"
           placeholder="Select country"
+          value={selectedCountry}
           required
           options={countryOptions}
           error={errors.country?.message}
@@ -164,6 +169,7 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
         errors={errors}
         placeholder="e.g., React, TypeScript, Node.js"
         bottomText="At least one skill is required"
+        suggestionsList={skillsOptions}
       />
       <AddingField
         name="languages"
@@ -171,6 +177,7 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
         errors={errors}
         placeholder="e.g., English, Arabic, French"
         bottomText="At least one language is required"
+        suggestionsList={languageOptions}
       />
       <UploadCVField
         name="cv"
