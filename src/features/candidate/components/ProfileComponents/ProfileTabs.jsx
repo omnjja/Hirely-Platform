@@ -28,7 +28,7 @@ const ProfileTabs = ({ sections }) => {
     return () => observer.disconnect();
   }, []);
   return (
-    <div className="flex gap-4 md:gap-6 border-b mt-5 sticky top-0 z-50 bg-white py-3">
+    <div className="flex gap-4 md:gap-6 border-b mt-5 sticky top-0 z-10 bg-white py-3">
       {sections.map((section) => (
         <button
           key={section.id}

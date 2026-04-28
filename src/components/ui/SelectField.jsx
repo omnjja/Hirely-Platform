@@ -22,7 +22,8 @@ const SelectField = forwardRef(
       sx = {},
       textColor = "#11181C",
       labelClassName = "",
-
+      // options,
+      value = "",
       ...props
     },
     ref,
@@ -31,6 +32,7 @@ const SelectField = forwardRef(
       default: { bg: "#F9FAFB" },
       white: { bg: "#FFFFFF" },
       outlined: { bg: "transparent" },
+      field: { bg: "#FFFFFF" },
     };
 
     const roundedStyles = {
@@ -43,41 +45,89 @@ const SelectField = forwardRef(
     };
 
     const selectedVariant = variants[variant];
+    const isField = variant === "field";
 
     return (
-      <div className={clsx("mb-3 w-full", containerClassName)}>
+      <div
+        className={clsx(
+          isField ? "flex flex-col gap-1" : "mb-3 w-full",
+          containerClassName,
+        )}
+      >
         {label && (
-          <label htmlFor={name} className={clsx("block font-medium text-sm mb-1", labelClassName)}>
+          <label
+            htmlFor={name}
+            className={clsx(
+              isField
+                ? "text-xs text-gray-500"
+                : "block font-medium text-sm mb-1",
+              labelClassName,
+            )}
+          >
             {label}
             {required && <span className="text-red-500"> *</span>}
           </label>
         )}
-
         <FormControl
           fullWidth={fullWidth}
           size={size}
           error={Boolean(error)}
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              borderRadius: roundedStyles[rounded] || roundedStyles["md"],
-              bgcolor: selectedVariant.bg,
-            },
-            "& .MuiFormHelperText-root": {
-              minHeight: 18,
-              fontSize: { xs: "10px", sm: "11px", md: "12px" },
-              mt: 0.5,
-              ml: 0,
-              color: error ? "#ef4444" : "#6A7282",
-            },
-            ...sx,
-          }}
+          sx={
+            isField
+              ? {
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "8px",
+                    bgcolor: "white",
+                    fontSize: "14px",
+                    "& fieldset": {
+                      borderColor: "#D1D5DB",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#D1D5DB",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#1B41AA",
+                      borderWidth: "1px",
+                    },
+                  },
+                  "& .MuiSelect-select": {
+                    padding: "8px 12px",
+                  },
+                  "& .MuiFormHelperText-root": {
+                    minHeight: 0,
+                    fontSize: "12px",
+                    mt: 0.5,
+                    ml: 0,
+                    color: "#ef4444",
+                  },
+                }
+              : {
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: roundedStyles[rounded] || roundedStyles["md"],
+                    bgcolor: selectedVariant.bg,
+                  },
+                  "& .MuiFormHelperText-root": {
+                    minHeight: 18,
+                    fontSize: {
+                      xs: "10px",
+                      sm: "11px",
+                      md: "12px",
+                    },
+                    mt: 0.5,
+                    ml: 0,
+                    color: error ? "#ef4444" : "#6A7282",
+                  },
+
+                  ...sx,
+                }
+          }
         >
           <Select
             id={name}
             name={name}
             inputRef={ref}
             displayEmpty
-            defaultValue=""
+            value={value}
             {...props}
             renderValue={(selected) => {
               if (!selected) {
@@ -93,13 +143,17 @@ const SelectField = forwardRef(
               fontSize: { xs: "14px", sm: "15px", md: "16px" },
               color: textColor,
             }}
+            // sx={
+            //   isField
+            //     ? {} // no extra sx needed
+            //     : { fontSize: { xs: "14px", sm: "15px", md: "16px" } }
+            // }
           >
             {placeholder && (
               <MenuItem value="" disabled sx={{ color: "#9CA3AF" }}>
                 {placeholder}
               </MenuItem>
             )}
-
             {options.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}

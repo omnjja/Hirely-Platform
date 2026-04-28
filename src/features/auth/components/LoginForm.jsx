@@ -41,7 +41,23 @@ const LoginForm = () => {
     try {
       const response = await login(data);
       if (response.accessToken) {
-        navigate("/dashboard");
+        const { role, isProfileCompleted } = response;
+
+        if (role === "CANDIDATE") {
+          if (isProfileCompleted) {
+            navigate("/candidate/profile");
+          } else {
+            navigate("/candidate/complete-profile");
+          }
+        }
+
+        if (role === "HR") {
+          if (isProfileCompleted) {
+            navigate("/hr/profile");
+          } else {
+            navigate("/hr/complete-profile");
+          }
+        }
       } else {
         setError("root", {
           message: "Failed to sign in. Please check your credentials.",
