@@ -2,7 +2,7 @@ import React from "react";
 import Card from "@/components/ui/Card";
 import jobImg from "@/assets/JobDeatilsBG.webp";
 
-const JobDetailsHeader = () => {
+const JobDetailsHeader = ({ title, department, location }) => {
   return (
     <Card
       className="overflow-hidden relative h-48 sm:h-72 md:h-95"
@@ -22,10 +22,10 @@ const JobDetailsHeader = () => {
         </div>
         <div>
           <p className="font-semibold text-[#1B41AA] text-sm sm:text-2xl leading-tight">
-            Senior AI Product Designer
+            {title}
           </p>
           <p className="text-xs sm:text-sm text-[#1B41AA]">
-            Luminous Systems Inc. • San Francisco, CA
+            {department} • {location}
           </p>
         </div>
       </div>

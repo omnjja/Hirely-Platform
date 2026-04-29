@@ -4,7 +4,17 @@ import { CircleCheck, Zap } from "lucide-react";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 
-const JobDetailsDescription = () => {
+const JobDetailsDescription = ({
+  coreResponsibilities,
+  skills,
+  experience,
+}) => {
+  const responsibilities = coreResponsibilities
+    .split(".")
+    .map((s) => s.trim())
+    .filter(Boolean);
+
+  skills = [`${experience} Years of experience required`, ...skills];
   return (
     <div className="flex flex-col sm:flex-row justify-between gap-5 sm:gap-20">
       <JobDetailsDescriptionCard
@@ -17,6 +27,7 @@ const JobDetailsDescription = () => {
           />
         }
         color={`#1B41AA`}
+        data={responsibilities}
       />
       <JobDetailsDescriptionCard
         title={"Requirements"}
@@ -28,6 +39,7 @@ const JobDetailsDescription = () => {
           />
         }
         color={"#1FA4A7"}
+        data={skills}
       />
     </div>
   );

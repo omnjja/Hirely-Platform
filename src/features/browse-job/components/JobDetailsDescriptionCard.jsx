@@ -1,7 +1,7 @@
 import React from "react";
 import ResponsabiltyItem from "./ResponsabiltyItem";
 
-const JobDetailsDescriptionCard = ({ title, icon, subIcon, color }) => {
+const JobDetailsDescriptionCard = ({ title, icon, subIcon, color, data }) => {
   return (
     <div
       className="relative overflow-hidden p-8 rounded-4xl w-full"
@@ -16,30 +16,9 @@ const JobDetailsDescriptionCard = ({ title, icon, subIcon, color }) => {
         <p className="text-xl text-[#2C2F31] font-bold">{title}</p>
       </div>
       <div className="pl-1 flex flex-col gap-2">
-        <ResponsabiltyItem
-          subIcon={subIcon}
-          text={
-            "Proficiency in Figma, prototyping, and basic front-end knowledge."
-          }
-        />
-        <ResponsabiltyItem
-          subIcon={subIcon}
-          text={
-            "Proficiency in Figma, prototyping, and basic front-end knowledge."
-          }
-        />
-        <ResponsabiltyItem
-          subIcon={subIcon}
-          text={
-            "Proficiency in Figma, prototyping, and basic front-end knowledge."
-          }
-        />
-        <ResponsabiltyItem
-          subIcon={subIcon}
-          text={
-            "Proficiency in Figma, prototyping, and basic front-end knowledge."
-          }
-        />
+        {data?.map((res, indx) => (
+          <ResponsabiltyItem key={indx} subIcon={subIcon} text={res} />
+        ))}
       </div>
     </div>
   );

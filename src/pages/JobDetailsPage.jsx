@@ -6,17 +6,47 @@ import JobDetailsDescription from "@/features/browse-job/components/JobDetailsDe
 import JobDetailsAbout from "@/features/browse-job/components/JobDetailsAbout";
 import JobRecruiter from "@/features/browse-job/components/JobRecruiter";
 import ButtonComponent from "@/components/ui/ButtonComponent";
-import { ArrowRight, Bookmark } from "lucide-react";
+import { ArrowRight, Bookmark, RefreshCw } from "lucide-react";
+import useJobDetails from "@/features/browse-job/hooks/useJobDetails";
+import ErrorComponent from "@/components/ui/ErrorComponent";
+import JobDetailsSkeleton from "@/features/browse-job/components/JobDetailsSkeleton";
 
 const JobDetailsPage = () => {
+  const { data, isLoading, isFetching, error, refetch } = useJobDetails();
+  if (isLoading) return <JobDetailsSkeleton />;
+  if (error) {
+    console.log(error.message);
+    return <ErrorComponent error={error.message} action={() => refetch()} />;
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }} className="px-3 sm:px-5 py-3 mb-5">
       <Grid container spacing={10} className="w-full min-h-screen">
         <Grid size={{ xs: 12, lg: 9 }} className="flex-1 flex flex-col gap-9 ">
-          <JobDetailsHeader />
-          <JobDetailsInfo />
-          <JobDetailsAbout />
-          <JobDetailsDescription />
+          {isFetching && (
+            <div className="flex items-center gap-2 text-xs text-gray-400">
+              <RefreshCw size={12} className="animate-spin" />
+              Refreshing...
+            </div>
+          )}
+          <JobDetailsHeader
+            title={data.title}
+            department={data.department}
+            location={data.location}
+          />
+          <JobDetailsInfo
+            jobType={data.jobType}
+            minSalary={data.compensationMin}
+            maxSalary={data.compensationMax}
+            location={data.location}
+            count={data.applicationCount}
+          />
+          <JobDetailsAbout about={data.roleContext} />
+          <JobDetailsDescription
+            coreResponsibilities={data.coreResponsibilities}
+            skills={data.skills}
+            experience={data.experienceLevel}
+          />
           <JobRecruiter
             company={{
               name: "Muhamed Ahmed",
