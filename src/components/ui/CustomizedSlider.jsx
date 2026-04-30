@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 
 const MIN = 0;
-const MAX = 500000;
+const MAX = 5000;
 const STEP = 100;
 
 function fmt(v) {

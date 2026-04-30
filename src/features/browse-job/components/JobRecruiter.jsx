@@ -2,7 +2,7 @@ import React from "react";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import imgBoy from "@/assets/boy.webp";
 
-const JobRecruiter = ({ company }) => {
+const JobRecruiter = ({ name, hrJobTitle, size, quote }) => {
   return (
     <div className="relative overflow-hidden rounded-4xl border border-black bg-[#1A48A133] p-4 flex flex-col ">
       <div className="p-3 flex items-center justify-between gap-3">
@@ -16,17 +16,15 @@ const JobRecruiter = ({ company }) => {
 
           <div className="flex flex-col">
             <p className="font-bold text-[#2C2F31] text-sm sm:text-lg">
-              {company?.name}
+              {name}
             </p>
-            <p className="text-xs sm:text-sm text-[#595C5E]">
-              {company?.tagline}
-            </p>
+            <p className="text-xs sm:text-sm text-[#595C5E]">{/* {} */}</p>
             <div className="mt-3 flex gap-2 flex-wrap">
               <span className="text-xs font-semibold bg-[#2C57B11A] text-[#1FA5A8] px-2.5 py-1 rounded-full">
-                {company?.size}
+                {hrJobTitle}
               </span>
               <span className="text-xs font-semibold bg-[#2C57B11A] text-[#1FA5A8] px-2.5 py-1 rounded-full">
-                {company?.stage}
+                {size} Employees
               </span>
             </div>
           </div>
@@ -45,9 +43,7 @@ const JobRecruiter = ({ company }) => {
       </div>
 
       <div className=" px-4 py-3">
-        <p className="text-xs sm:text-sm text-[#595C5E] italic">
-          "{company?.quote}"
-        </p>
+        <p className="text-xs sm:text-sm text-[#595C5E] italic">"{quote}"</p>
       </div>
       <div className="absolute top-0 right-0">
         <svg

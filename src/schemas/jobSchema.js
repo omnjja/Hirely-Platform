@@ -53,6 +53,10 @@ export const jobSchema = z
   .refine((data) => data.compensationMax > data.compensationMin, {
     message: "Max salary must be greater than min salary",
     path: ["compensationMax"],
+  })
+  .refine((data) => data.compensationMin < data.compensationMax, {
+    message: "Min salary must be less than max salary",
+    path: ["compensationMin"],
   });
 
 export const jobDefaultValues = {

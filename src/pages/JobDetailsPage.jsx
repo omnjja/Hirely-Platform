@@ -14,10 +14,13 @@ import JobDetailsSkeleton from "@/features/browse-job/components/JobDetailsSkele
 const JobDetailsPage = () => {
   const { data, isLoading, isFetching, error, refetch } = useJobDetails();
   if (isLoading) return <JobDetailsSkeleton />;
-  if (error) {
-    console.log(error.message);
-    return <ErrorComponent error={error.message} action={() => refetch()} />;
-  }
+  if (error)
+    return (
+      <ErrorComponent
+        error={error.message}
+        action={() => refetch()}
+      />
+    );
 
   return (
     <Box sx={{ flexGrow: 1 }} className="px-3 sm:px-5 py-3 mb-5">
@@ -48,14 +51,10 @@ const JobDetailsPage = () => {
             experience={data.experienceLevel}
           />
           <JobRecruiter
-            company={{
-              name: "Muhamed Ahmed",
-              tagline: "Empowering the next generation of AI collaboration.",
-              size: "5k+ Employees",
-              stage: "Series D",
-              quote:
-                "We believe that the future of work is not AI replacing humans, but AI augmenting human brilliance. Join us in shaping this future.",
-            }}
+            name={data.hrName}
+            hrJobTitle={"Recruiter"}
+            size={data.companySize}
+            quote={data.companySummary}
           />
           <div className="flex gap-3">
             <div className="bg-[#EEF1F3] rounded-full p-3">
