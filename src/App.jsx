@@ -12,6 +12,7 @@ import CandidateRegistration from "./pages/CandidateRegistration";
 import HrRegistration from "./pages/HrRegistration";
 import AuthCallback from "./pages/AuthCallback ";
 import CreateJobPosting from "./pages/CreateJobPosting";
+import EditJobPosting from "./pages/EditJobPosting";
 import RecruiterLayout from "./components/layout/RecruiterLayout";
 import BrowseJobs from "./pages/BrowseJobs";
 import JobDetailsPage from "./pages/JobDetailsPage";
@@ -34,6 +35,7 @@ function App() {
         <Route path="/recruiter" element={<RecruiterLayout />}>
           <Route path="create-job-posting" element={<CreateJobPosting />} />
           <Route path="jobs" element={<BrowseJobs />} />
+          <Route path="jobs/:id/edit" element={<EditJobPosting />} />
           <Route path="jobs/:id" element={<JobDetailsPage />} />
         </Route>
 

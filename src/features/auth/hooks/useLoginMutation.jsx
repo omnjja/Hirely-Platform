@@ -9,8 +9,9 @@ const useLoginMutation = () => {
       toast.loading("Signing in... ", { id: "loginToast" });
     },
     onSuccess: (data) => {
-      const { accessToken } = data;
+      const { accessToken, role } = data;
       localStorage.setItem("authToken", accessToken);
+      localStorage.setItem("role", role);
       toast.success("Signed in successfully!", { id: "loginToast" });
     },
     onError: (error) => {

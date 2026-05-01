@@ -38,7 +38,7 @@ const JobRecruiter = ({ name, hrJobTitle, size, quote }) => {
             size: "sm",
             bold: true,
           }}
-          className="shrink-0 shadow-sm z-10"
+          className="shrink-0 shadow-sm z-5"
         />
       </div>
 

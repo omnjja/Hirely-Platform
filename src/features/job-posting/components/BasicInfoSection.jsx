@@ -7,6 +7,7 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { EXPERIENCE_LEVELS, JOB_TYPES } from "@/constants/jobEnums";
 import { Briefcase } from "lucide-react";
 import { useFormContext } from "react-hook-form";
+import basicInfoImg from "@/assets/basicInfo.webp"
 
 const BasicInfoSection = () => {
   const {
@@ -18,10 +19,12 @@ const BasicInfoSection = () => {
 
   return (
     <div className="rounded-xl shadow-xs p-5">
-      <p className="text-sm sm:text-[20px] font-semibold mb-6 flex items-center gap-2 text-[#2A3439] ">
-        <Briefcase size={30} />
+      <div className="text-sm sm:text-[20px] font-semibold mb-6 flex items-center gap-2.5 text-[#2A3439] ">
+        <div className="w-10 h-10 overflow-hidden">
+          <img src={basicInfoImg} className=" w-full h-full" />
+        </div>
         Basic Information
-      </p>
+      </div>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2} justifyContent="space-between">
           <Grid size={{ xs: 12, md: 4 }}>
