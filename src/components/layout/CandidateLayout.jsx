@@ -38,7 +38,7 @@ const CandidateLayout = () => {
       {/* Content */}
       <div className="flex-1 flex flex-col overflow-y-auto">
         {/* Header */}
-        <div className="bg-white flex items-center sm:gap-5 lg:justify-between p-4 border-b border-gray-100 shadow-sm">
+        <div className="sticky top-0 left-0 z-10 bg-white flex items-center sm:gap-5 lg:justify-between p-4 border-b border-gray-100 shadow-sm">
           <button
             className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition"
             onClick={() => setIsOpen(true)}
