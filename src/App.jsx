@@ -12,7 +12,10 @@ import CandidateRegistration from "./pages/CandidateRegistration";
 import HrRegistration from "./pages/HrRegistration";
 import AuthCallback from "./pages/AuthCallback ";
 import CreateJobPosting from "./pages/CreateJobPosting";
+import EditJobPosting from "./pages/EditJobPosting";
 import RecruiterLayout from "./components/layout/RecruiterLayout";
+import BrowseJobs from "./pages/BrowseJobs";
+import JobDetailsPage from "./pages/JobDetailsPage";
 import CandidateProfile from "./pages/CandidateProfile";
 import CandidateLayout from "./components/layout/CandidateLayout";
 
@@ -33,9 +36,14 @@ function App() {
         <Route path="/hr/complete-profile" element={<HrRegistration />} />
         <Route path="/candidate" element={<CandidateLayout />}>
           <Route path="profile" element={<CandidateProfile />} />
+          <Route path="jobs" element={<BrowseJobs />} />
+          <Route path="jobs/:id" element={<JobDetailsPage />} />
         </Route>
         <Route path="/recruiter" element={<RecruiterLayout />}>
           <Route path="create-job-posting" element={<CreateJobPosting />} />
+          <Route path="jobs" element={<BrowseJobs />} />
+          <Route path="jobs/:id" element={<JobDetailsPage />} />
+          <Route path="jobs/:id/edit" element={<EditJobPosting />} />
         </Route>
         <Route
           path="/"
@@ -61,6 +69,9 @@ function App() {
               </Link>
               <Link to="/recruiter/create-job-posting" className="text-primary">
                 Go to Create Job Posting
+              </Link>
+              <Link to="/recruiter/jobs" className="text-primary">
+                Go to all Jobs
               </Link>
             </div>
           }

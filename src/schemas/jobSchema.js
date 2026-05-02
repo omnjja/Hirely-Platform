@@ -1,23 +1,11 @@
 import { z } from "zod";
-const EXPERIENCE_LEVELS = ["0", "0-3", "2-5", "5+"];
-const JOB_TYPES = [
-  "FULL_TIME",
-  "PART_TIME",
-  "CONTRACT",
-  "INTERNSHIP",
-  "TEMPORARY",
-];
 export const jobSchema = z
   .object({
     title: z.string().min(1, "Job title is required").max(200),
     department: z.string().min(1, "Department is required").max(120),
-    jobType: z.enum(JOB_TYPES, {
-      errorMap: () => ({ message: "Job type is required" }),
-    }),
+    jobType: z.string().min(1, "Job type is required"),
     location: z.string().min(1, "Location is required").max(200),
-    experienceLevel: z.enum(EXPERIENCE_LEVELS, {
-      errorMap: () => ({ message: "Experience level is required" }),
-    }),
+    experienceLevel: z.string().min(1, "Experience level is required"),
     compensationMin: z.coerce
       .number({ invalid_type_error: "Must be a number" })
       .min(0, "Must be positive"),
@@ -53,6 +41,10 @@ export const jobSchema = z
   .refine((data) => data.compensationMax > data.compensationMin, {
     message: "Max salary must be greater than min salary",
     path: ["compensationMax"],
+  })
+  .refine((data) => data.compensationMin < data.compensationMax, {
+    message: "Min salary must be less than max salary",
+    path: ["compensationMin"],
   });
 
 export const jobDefaultValues = {

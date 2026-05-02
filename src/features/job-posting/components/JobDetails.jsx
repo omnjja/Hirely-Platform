@@ -46,7 +46,7 @@ const JobDetails = () => {
             <DocumentsPicker
               label="Document Attachment"
               labelClassName="text-[#566166] tracking-wide uppercase font-semibold mb-3"
-              name="attachment"
+              name="documentAttachment"
               control={control}
               errors={errors}
               accept=".pdf"

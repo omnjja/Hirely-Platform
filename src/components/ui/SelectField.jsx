@@ -22,8 +22,8 @@ const SelectField = forwardRef(
       sx = {},
       textColor = "#11181C",
       labelClassName = "",
-      // options,
-      value = "",
+      value,
+      defaultValue = "",
       ...props
     },
     ref,
@@ -41,6 +41,7 @@ const SelectField = forwardRef(
       md: 2,
       lg: 4,
       xl: 8,
+      xxl: 16,
       full: 999,
     };
 
@@ -48,12 +49,7 @@ const SelectField = forwardRef(
     const isField = variant === "field";
 
     return (
-      <div
-        className={clsx(
-          isField ? "flex flex-col gap-1" : "mb-3 w-full",
-          containerClassName,
-        )}
-      >
+      <div className={clsx("w-full", containerClassName)}>
         {label && (
           <label
             htmlFor={name}
@@ -68,6 +64,7 @@ const SelectField = forwardRef(
             {required && <span className="text-red-500"> *</span>}
           </label>
         )}
+
         <FormControl
           fullWidth={fullWidth}
           size={size}
@@ -103,7 +100,7 @@ const SelectField = forwardRef(
                 }
               : {
                   "& .MuiOutlinedInput-root": {
-                    borderRadius: roundedStyles[rounded] || roundedStyles["md"],
+                    borderRadius: roundedStyles[rounded] || roundedStyles.md,
                     bgcolor: selectedVariant.bg,
                   },
                   "& .MuiFormHelperText-root": {
@@ -117,7 +114,6 @@ const SelectField = forwardRef(
                     ml: 0,
                     color: error ? "#ef4444" : "#6A7282",
                   },
-
                   ...sx,
                 }
           }
@@ -127,12 +123,14 @@ const SelectField = forwardRef(
             name={name}
             inputRef={ref}
             displayEmpty
-            value={value}
+            value={value !== undefined ? value : undefined}
+            defaultValue={value === undefined ? defaultValue : undefined}
             {...props}
             renderValue={(selected) => {
-              if (!selected) {
+              if (selected === "") {
                 return <span style={{ color: "#9CA3AF" }}>{placeholder}</span>;
               }
+
               const selectedOption = options.find(
                 (opt) => opt.value === selected,
               );
@@ -143,17 +141,13 @@ const SelectField = forwardRef(
               fontSize: { xs: "14px", sm: "15px", md: "16px" },
               color: textColor,
             }}
-            // sx={
-            //   isField
-            //     ? {} // no extra sx needed
-            //     : { fontSize: { xs: "14px", sm: "15px", md: "16px" } }
-            // }
           >
             {placeholder && (
               <MenuItem value="" disabled sx={{ color: "#9CA3AF" }}>
                 {placeholder}
               </MenuItem>
             )}
+
             {options.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}

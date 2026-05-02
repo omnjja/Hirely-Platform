@@ -11,16 +11,18 @@ export const hrRegistrationSchema = z.object({
     .refine((val) => val.startsWith("+"), "Must start with country code")
     .refine((val) => /^\+\d+$/.test(val), "Invalid phone number")
     .refine((val) => val.length === 13, "Phone number must be 13 digits"),
-  companySize: z.enum(COMPANY_SIZE, {
-    errorMap: () => {
-      "Company Size is required";
-    },
-  }),
-  companyIndustry: z.enum(COMPANY_INDUSTRY, {
-    errorMap: () => {
-      "Company Industry is required";
-    },
-  }),
+  // companySize: z.enum(COMPANY_SIZE, {
+  //   errorMap: () => {
+  //     "Company Size is required";
+  //   },
+  // }),
+  // companyIndustry: z.enum(COMPANY_INDUSTRY, {
+  //   errorMap: () => {
+  //     "Company Industry is required";
+  //   },
+  // }),
+  companySize: z.string().min(1, "Company Size is required"),
+  companyIndustry: z.string().min(1, "Company Industry is required"),
   companySummary: z
     .string()
     .min(50, "Company Description must be at least 50 characters"),

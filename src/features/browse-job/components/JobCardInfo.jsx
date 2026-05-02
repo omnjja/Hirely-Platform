@@ -1,0 +1,60 @@
+import React from "react";
+import { MapPin, Clock, Briefcase, CheckCircle, XCircle } from "lucide-react";
+import useFormatText from "../hooks/useFormatText";
+
+const JobCardInfo = ({ job }) => {
+  const APPCOUNTTHRESOLD = 10;
+  return (
+    <div className="flex flex-col gap-2 sm:gap-3">
+      <div className="grid grid-cols-2 sm:flex sm:flex-row gap-2 sm:gap-6">
+        <div className="flex items-center gap-1.5 sm:w-1/3">
+          <MapPin size={16} color="#364153" className="shrink-0" />
+          <p className="text-xs sm:text-sm text-[#364153]">{job.location}</p>
+        </div>
+
+        <div className="flex items-center gap-1.5 sm:w-1/2">
+          <Clock size={16} color="#364153" className="shrink-0" />
+          <p className="text-xs sm:text-sm text-[#364153]">
+            {useFormatText(job.jobType)}
+          </p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 sm:flex sm:flex-row gap-2 sm:gap-6">
+        <div className="flex items-center gap-1.5 sm:w-1/3">
+          {job.status === "OPEN" ? (
+            <CheckCircle size={16} className="text-green-600" />
+          ) : (
+            <XCircle size={16} className="text-red-600" />
+          )}
+
+          <p
+            className={`text-xs sm:text-sm font-medium ${
+              job.status === "OPEN" ? "text-green-600" : "text-red-600"
+            }`}
+          >
+            {job.status === "OPEN" ? "Open" : "Closed"}
+          </p>
+        </div>
+
+        <div className="flex items-center gap-1.5 sm:w-1/2">
+          <Briefcase size={16} color="#364153" className="shrink-0" />
+          <p className="text-xs sm:text-sm text-[#364153]">
+            {job.experienceLevel} Years of experience
+          </p>
+        </div>
+      </div>
+
+      <div className="text-xs sm:text-sm text-[#6A7282]">
+        {job.applicationCount < APPCOUNTTHRESOLD
+          ? "Be the first to apply!"
+          : `${job.applicationCount} applicants`}
+      </div>
+      <div className="text-[25px] block md:hidden font-bold tracking-wide text-transparent bg-clip-text bg-linear-to-r from-[#1B41AA] to-[#10B981]">
+        95% Match Score
+      </div>
+    </div>
+  );
+};
+
+export default JobCardInfo;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import PaymentsIcon from "@mui/icons-material/Payments";
@@ -26,18 +26,6 @@ const JobCompensations = () => {
 
   const minVal = watch("compensationMin");
   const maxVal = watch("compensationMax");
-
-  useEffect(() => {
-    if (Number(minVal) >= Number(maxVal)) {
-      setValue("compensationMin", Number(maxVal) - STEP);
-    }
-  }, [maxVal]);
-
-  useEffect(() => {
-    if (Number(maxVal) <= Number(minVal)) {
-      setValue("compensationMax", Number(minVal) + STEP);
-    }
-  }, [minVal]);
 
   return (
     <div className="rounded-xl shadow-xs p-5">
