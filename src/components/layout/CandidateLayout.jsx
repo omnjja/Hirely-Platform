@@ -14,7 +14,7 @@ const CandidateLayout = () => {
   return (
     <div className="flex h-screen bg-white">
       {/* Sidebar Desktop */}
-      <div className="hidden lg:block h-full">
+      <div className="hidden lg:block">
         <Sidebar menuItems={CANDIDATEMENUITEMS} />
       </div>
 
@@ -50,7 +50,21 @@ const CandidateLayout = () => {
 
         {/* Page Content */}
         <div className="px-3 sm:px-6 py-4">
-          <Outlet />
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,1fr)] gap-6">
+            {/* Main Page */}
+            <div>
+              <Outlet />
+            </div>
+
+            {/* AI Card */}
+            <div className="order-2 lg:order-0">
+              <div className="p-4 sm:p-5 bg-white border rounded-xl shadow-sm lg:sticky lg:top-20">
+                <p className="text-sm font-medium text-gray-500 mb-4 flex items-center gap-2">
+                  AI Card?
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

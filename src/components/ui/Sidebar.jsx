@@ -10,7 +10,7 @@ const Sidebar = ({ menuItems, isMobile = false, setIsOpen }) => {
         bg-white border-r-[1.5px] border-r-[#E5E7EB]
         h-screen sticky top-0
         ${isMobile ? "w-40 items-start px-4" : "w-20 items-center"} 
-         flex flex-col justify-between py-4
+         flex flex-col justify-between pb-2
         transition-all duration-300
       `}
     >
@@ -20,7 +20,7 @@ const Sidebar = ({ menuItems, isMobile = false, setIsOpen }) => {
             <Logo />
           </NavLink>
         </div>
-        <div className="flex flex-col gap-6 w-full">
+        <div className="flex flex-col gap-3 w-full text-center">
           {menuItems.map((item, index) => {
             const Icon = item.icon;
             return (
