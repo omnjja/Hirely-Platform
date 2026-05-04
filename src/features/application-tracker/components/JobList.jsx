@@ -1,4 +1,6 @@
 import JobCard from "./JobCard";
+import { useQuery } from "@tanstack/react-query";
+import { getApplications } from "../services/applicationService";
 
 const jobs = [
   {
@@ -68,12 +70,19 @@ const jobs = [
   },
 ];
 
-const JobList = () => (
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
-    {jobs.map((job, i) => (
-      <JobCard key={i} {...job} />
-    ))}
-  </div>
-);
+const JobList = () => {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["applications"],
+    queryFn: getApplications,
+  });
+  console.log(data);
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+      {jobs.map((job, i) => (
+        <JobCard key={i} {...job} />
+      ))}
+    </div>
+  );
+};
 
 export default JobList;

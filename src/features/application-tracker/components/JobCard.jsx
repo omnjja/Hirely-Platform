@@ -3,7 +3,6 @@ import ProgressBar from "./ProgressBar";
 import React from "react";
 
 const JobCard = ({
-  logo,
   company,
   role,
   status, // "INTERVIEW" | "ACCEPTED" | "APPLIED" | "IN_REVIEW" | "REJECTED"
