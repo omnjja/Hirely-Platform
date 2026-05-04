@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { Box, Card, Grid } from "@mui/material";
-import JobDetailsHeader from "@/features/browse-job/components/JobDetailsHeader";
-import JobDetailsInfo from "@/features/browse-job/components/JobDetailsInfo";
-import JobDetailsDescription from "@/features/browse-job/components/JobDetailsDescription";
-import JobDetailsAbout from "@/features/browse-job/components/JobDetailsAbout";
-import JobRecruiter from "@/features/browse-job/components/JobRecruiter";
+import JobDetailsHeader from "@/features/jobs/job-details/components/JobDetailsHeader";
+import JobDetailsInfo from "@/features/jobs/job-details/components/JobDetailsInfo";
+import JobDetailsDescription from "@/features/jobs/job-details/components/JobDetailsDescription";
+import JobDetailsAbout from "@/features/jobs/job-details/components/JobDetailsAbout";
+import JobRecruiter from "@/features/jobs/job-details/components/JobRecruiter";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import { ArrowRight, Bookmark, RefreshCw } from "lucide-react";
-import useJobDetails from "@/features/browse-job/hooks/useJobDetails";
+import useJobDetails from "@/features/jobs/job-details/hooks/useJobDetails";
 import ErrorComponent from "@/components/ui/ErrorComponent";
-import JobDetailsSkeleton from "@/features/browse-job/components/JobDetailsSkeleton";
+import JobDetailsSkeleton from "@/features/jobs/job-details/components/JobDetailsSkeleton";
 import { useNavigate } from "react-router-dom";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
-import { useDeleteJobMutation } from "@/features/job-posting/hooks/useDeleteJobMutation";
+import { useDeleteJobMutation } from "@/features/jobs/job-details/hooks/useDeleteJobMutation";
 
 const JobDetailsPage = () => {
   const role = localStorage.getItem("userRole");

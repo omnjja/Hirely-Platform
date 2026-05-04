@@ -1,6 +1,6 @@
 import SearchComponent from "@/components/ui/SearchComponent";
-import FiltersBar from "@/features/browse-job/components/FiltersBar";
-import Jobs from "@/features/browse-job/components/Jobs";
+import FiltersBar from "@/features/jobs/browse-job/components/FiltersBar";
+import Jobs from "@/features/jobs/browse-job/components/Jobs";
 import { Box, Card, Grid } from "@mui/material";
 
 const BrowseJobs = () => {

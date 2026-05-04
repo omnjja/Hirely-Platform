@@ -1,7 +1,7 @@
 import React from "react";
 import { Briefcase, CircleDollarSign, MapPinned, Users } from "lucide-react";
 import JobDetailsInfoCard from "./JobDetailsInfoCard";
-import useFormatText from "../hooks/useFormatText";
+import useFormatText from "../../browse-job/hooks/useFormatText";
 
 const JobDetailsInfo = ({ jobType, minSalary, maxSalary, location, count }) => {
   const jobTypeFixed = useFormatText(jobType);

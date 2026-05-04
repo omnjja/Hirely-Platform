@@ -1,5 +1,5 @@
 import Card from "@/components/ui/Card";
-import JobForm from "@/features/job-posting/components/JobForm";
+import JobForm from "@/features/jobs/job-posting/components/JobForm";
 import { Box, Grid } from "@mui/material";
 
 const CreateJobPosting = () => {

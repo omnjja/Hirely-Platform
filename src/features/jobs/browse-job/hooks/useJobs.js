@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getJobs } from "../services/browseJobs";
+import { getJobs } from "../../services/jobService";
 import { useState } from "react";
 
 const useJobs = () => {

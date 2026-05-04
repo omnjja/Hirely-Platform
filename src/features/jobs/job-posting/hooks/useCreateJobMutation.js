@@ -1,26 +1,26 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createJob } from "../../services/jobService";
 import toast from "react-hot-toast";
-import { deleteJob } from "../services/JobService";
 
-export const useDeleteJobMutation = () => {
+export const useCreateJobMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id) => deleteJob(id),
+    mutationFn: createJob,
     onMutate: () => {
-      toast.loading("Deleting...", { id: "deleteJobToast" });
+      toast.loading("Submitting", { id: "createJobToast" });
     },
     onSuccess: () => {
-      toast.success("Job deleted successfully!", {
-        id: "deleteJobToast",
+      toast.success("Job Posted successfully!", {
+        id: "createJobToast",
       });
       queryClient.invalidateQueries({ queryKey: ["jobs"] });
     },
     onError: (error) => {
       toast.error(
         error?.response?.data?.message ||
-          "Failed to delete job. Please try again.",
-        { id: "deleteJobToast" },
+          "Failed to post job. Please try again.",
+        { id: "createJobToast" },
       );
     },
   });

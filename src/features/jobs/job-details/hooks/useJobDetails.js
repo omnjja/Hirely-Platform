@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getJobDetailsById } from "../services/browseJobs";
+import { getJobDetailsById } from "../../services/jobService";
 import { useParams } from "react-router-dom";
 
 const useJobDetails = () => {

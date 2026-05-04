@@ -1,9 +1,9 @@
 import React from "react";
 import Card from "@/components/ui/Card";
-import JobForm from "@/features/job-posting/components/JobForm";
-import useJobDetails from "@/features/browse-job/hooks/useJobDetails";
+import JobForm from "@/features/jobs/job-posting/components/JobForm";
+import useJobDetails from "@/features/jobs/job-details/hooks/useJobDetails";
 import { Box, Grid } from "@mui/material";
-import JobDetailsSkeleton from "@/features/browse-job/components/JobDetailsSkeleton";
+import JobDetailsSkeleton from "@/features/jobs/job-details/components/JobDetailsSkeleton";
 import ErrorComponent from "@/components/ui/ErrorComponent";
 
 const EditJobPosting = () => {

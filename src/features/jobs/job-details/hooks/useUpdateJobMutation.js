@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateJob } from "../services/JobService";
+import { updateJob } from "../../services/jobService";
 import toast from "react-hot-toast";
 
 export const useUpdateJobMutation = () => {

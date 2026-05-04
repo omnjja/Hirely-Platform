@@ -13,7 +13,7 @@ import { jobDefaultValues, jobSchema } from "@/schemas/jobSchema";
 import { FormProvider } from "react-hook-form";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import { useCreateJobMutation } from "../hooks/useCreateJobMutation";
-import { useUpdateJobMutation } from "../hooks/useUpdateJobMutation";
+import { useUpdateJobMutation } from "../../job-details/hooks/useUpdateJobMutation";
 import { useNavigate } from "react-router-dom";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
 
