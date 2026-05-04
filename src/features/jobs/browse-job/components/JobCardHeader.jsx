@@ -19,7 +19,7 @@ const JobCardHeader = ({ job }) => {
               {dayjs(job.createdAt).fromNow()}
             </p>
             <ExternalLink
-              size={14}
+              size={18}
               color="#6A7282"
               className="cursor-pointer"
               onClick={() => navigate(job.id)}

@@ -18,6 +18,7 @@ import BrowseJobs from "./pages/BrowseJobs";
 import JobDetailsPage from "./pages/JobDetailsPage";
 import CandidateProfile from "./pages/CandidateProfile";
 import CandidateLayout from "./components/layout/CandidateLayout";
+import CandidateLandingPage from "./pages/CandidateLandingPage";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         />
         <Route path="/hr/complete-profile" element={<HrRegistration />} />
         <Route path="/candidate" element={<CandidateLayout />}>
+          <Route index element={<CandidateLandingPage />} />
           <Route path="profile" element={<CandidateProfile />} />
           <Route path="jobs" element={<BrowseJobs />} />
           <Route path="jobs/:id" element={<JobDetailsPage />} />
@@ -63,6 +65,9 @@ function App() {
               </Link>
               <Link to="/hr/complete-profile" className="text-primary">
                 Go to HR Registration
+              </Link>
+              <Link to="/candidate/" className="text-primary">
+                Go to Candidate landing page
               </Link>
               <Link to="/candidate/profile" className="text-primary">
                 Go to Candidate Profile
