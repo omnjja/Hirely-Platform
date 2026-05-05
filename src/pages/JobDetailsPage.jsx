@@ -6,13 +6,14 @@ import JobDetailsDescription from "@/features/jobs/job-details/components/JobDet
 import JobDetailsAbout from "@/features/jobs/job-details/components/JobDetailsAbout";
 import JobRecruiter from "@/features/jobs/job-details/components/JobRecruiter";
 import ButtonComponent from "@/components/ui/ButtonComponent";
-import { ArrowRight, Bookmark, RefreshCw } from "lucide-react";
+import { ArrowRight, Bookmark, CheckCheck, RefreshCw } from "lucide-react";
 import useJobDetails from "@/features/jobs/job-details/hooks/useJobDetails";
 import ErrorComponent from "@/components/ui/ErrorComponent";
 import JobDetailsSkeleton from "@/features/jobs/job-details/components/JobDetailsSkeleton";
 import { useNavigate } from "react-router-dom";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
 import { useDeleteJobMutation } from "@/features/jobs/job-details/hooks/useDeleteJobMutation";
+import { useApplyJobMutation } from "@/features/jobs/job-details/hooks/useApplyJobMutation";
 
 const JobDetailsPage = () => {
   const role = localStorage.getItem("userRole");
@@ -20,6 +21,7 @@ const JobDetailsPage = () => {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const { data, isLoading, isFetching, error, refetch } = useJobDetails();
   const { mutateAsync: deleteJob } = useDeleteJobMutation();
+  const { mutateAsync: applyToJob, isPending } = useApplyJobMutation();
 
   if (isLoading) return <JobDetailsSkeleton />;
   if (error)
@@ -33,6 +35,9 @@ const JobDetailsPage = () => {
     });
     setConfirmOpen(false);
   };
+  async function handleJobApply() {
+    const JobApplyData = await applyToJob(data.id);
+  }
   return (
     <Box sx={{ flexGrow: 1 }} className="px-3 sm:px-5 py-3 mb-5">
       <Grid container spacing={10} className="w-full min-h-screen">
@@ -93,10 +98,26 @@ const JobDetailsPage = () => {
                 <div className="bg-[#EEF1F3] rounded-full p-3">
                   <Bookmark color="#595C5E" />
                 </div>
-                <ButtonComponent fullWidth>
+                <ButtonComponent
+                  fullWidth
+                  onClick={() => handleJobApply()}
+                  disabled={data?.isCandidateApply || isPending}
+                >
                   <div className="flex gap-1 justify-center">
-                    <p>Apply Now</p>
-                    <ArrowRight />
+                    <p>
+                      {isPending
+                        ? "Submitting..."
+                        : data?.isCandidateApply
+                          ? "Applied"
+                          : "Apply With Autofill"}
+                    </p>
+                    {isPending ? (
+                      <RefreshCw className="animate-spin" size={20} />
+                    ) : data?.isCandidateApply ? (
+                      <CheckCheck />
+                    ) : (
+                      <ArrowRight />
+                    )}
                   </div>
                 </ButtonComponent>
               </div>

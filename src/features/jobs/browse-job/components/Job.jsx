@@ -26,7 +26,7 @@ const Job = ({ job }) => {
             <div className="flex flex-col gap-2 sm:gap-4 min-w-0 flex-1">
               <JobCardHeader job={job} />
               <JobCardInfo job={job} />
-              <Actions />
+              <Actions id={job.id} isApplied={job.isCandidateApply} />
             </div>
           </div>
         </Grid>
