@@ -11,7 +11,7 @@ const LandingRecentJobs = () => {
       {[1, 2, 3].map((indx) => (
         <Card
           key={indx}
-          className="w-full flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0"
+          className="w-full flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 cursor-pointer transition hover:shadow-lg duration-400"
           rounded="rounded-4xl sm:rounded-[48px]"
         >
           <div className="flex gap-3 sm:gap-5 items-center">
@@ -37,7 +37,7 @@ const LandingRecentJobs = () => {
                 Relevant Skills: 12
               </p>
             </div>
-            <p className="flex items-center p-1 bg-[#E5E9EB] rounded-full text-lg sm:text-xl font-bold text-[#747779] cursor-pointer">
+            <p className="flex items-center p-1 bg-[#E5E9EB] rounded-full text-lg sm:text-xl font-bold text-[#747779] cursor-pointer transition hover:scale-110 duration-400">
               <ArrowOutwardOutlinedIcon />
             </p>
           </div>

@@ -10,6 +10,7 @@ const useAppNavigate = () => {
     toRoleSelection: () => navigate("/role-selection"),
     toRegisterCandidate: () => navigate("/candidate/complete-profile"),
     toRegisterHr: () => navigate("/hr/complete-profile"),
+    toViewJobDetails: (id) => navigate(id),
   };
 };
 

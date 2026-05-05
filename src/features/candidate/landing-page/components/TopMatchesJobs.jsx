@@ -8,7 +8,7 @@ const TopMatchesJobs = () => {
     <div className="flex flex-col gap-5">
       <div>
         <p className="font-bold text-xl md:text-2xl text-[#2C2F31]">
-          Recommended for You
+          Top Matched Jobs
         </p>
         <p className="text-[#595C5E] text-base">
           High-compatibility roles curated for you.

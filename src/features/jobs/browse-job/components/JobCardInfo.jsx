@@ -1,6 +1,6 @@
 import React from "react";
 import { MapPin, Clock, Briefcase, CheckCircle, XCircle } from "lucide-react";
-import useFormatText from "../hooks/useFormatText";
+import { formatText } from "@/utils/formatText";
 
 const JobCardInfo = ({ job }) => {
   const APPCOUNTTHRESOLD = 10;
@@ -15,7 +15,7 @@ const JobCardInfo = ({ job }) => {
         <div className="flex items-center gap-1.5 sm:w-1/2">
           <Clock size={16} color="#364153" className="shrink-0" />
           <p className="text-xs sm:text-sm text-[#364153]">
-            {useFormatText(job.jobType)}
+            {formatText(job.jobType)}
           </p>
         </div>
       </div>

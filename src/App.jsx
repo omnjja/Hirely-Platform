@@ -19,10 +19,12 @@ import JobDetailsPage from "./pages/JobDetailsPage";
 import CandidateProfile from "./pages/CandidateProfile";
 import CandidateLayout from "./components/layout/CandidateLayout";
 import CandidateLandingPage from "./pages/CandidateLandingPage";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />

@@ -1,12 +1,10 @@
 import React from "react";
-import { Ellipsis, ExternalLink } from "lucide-react";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import { useNavigate } from "react-router-dom";
-dayjs.extend(relativeTime);
+import { ExternalLink } from "lucide-react";
+import useAppNavigate from "@/hooks/useAppNavigate";
+import { formatPastDate } from "@/utils/formatPastDate";
 
 const JobCardHeader = ({ job }) => {
-  const navigate = useNavigate();
+  const { toViewJobDetails } = useAppNavigate();
   return (
     <div className="flex items-start justify-between gap-2">
       <div className="w-full flex flex-col gap-1 sm:gap-1.5 min-w-0">
@@ -16,13 +14,13 @@ const JobCardHeader = ({ job }) => {
           </p>
           <div className="flex items-center gap-1.5 shrink-0">
             <p className="text-[#6A7282] text-xs whitespace-nowrap">
-              {dayjs(job.createdAt).fromNow()}
+              {formatPastDate(job.createdAt)}
             </p>
             <ExternalLink
               size={18}
               color="#6A7282"
               className="cursor-pointer"
-              onClick={() => navigate(job.id)}
+              onClick={() => toViewJobDetails(job.id)}
             />
           </div>
         </div>
