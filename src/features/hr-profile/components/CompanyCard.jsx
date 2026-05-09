@@ -20,7 +20,7 @@ const CompanyCard = ({ data }) => (
     </div>
     <hr className="my-4 border-gray-100" />
     <p className="text-xs text-gray-400 mb-1">About the company</p>
-    <p className="text-sm text-gray-500 leading-relaxed">
+    <p className="text-sm text-gray-500 break-all">
       {data.companySummary || "—"}
     </p>
   </div>

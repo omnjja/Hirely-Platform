@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import HrProfileInfo from "../features/hr-profile/components/HrProfileInfo";
 import CompanyCard from "../features/hr-profile/components/CompanyCard";
+import { getHrProfile } from "../features/hr-profile/services/JobService";
+import { useQuery } from "@tanstack/react-query";
 
 const data = {
   fullName: "Sarah Mitchell",
@@ -18,27 +20,44 @@ const data = {
 const HrProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  return (
-    <div className="flex flex-col gap-4 py-4">
-      <HrProfileInfo data={data} onEdit={() => setIsModalOpen(true)} />
-      <CompanyCard data={data} />
+  const { data: hrData, isLoading } = useQuery({
+    queryKey: ["hrProfile"],
+    queryFn: getHrProfile,
+  });
 
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl">
-            <h2 className="text-lg font-semibold text-[#1B41AA] mb-4">
-              Edit profile
-            </h2>
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="border px-4 py-2 rounded-lg hover:bg-gray-50 text-sm"
-            >
-              Close
-            </button>
-          </div>
+  if (hrData) {
+    console.log(hrData);
+  }
+
+  return (
+    <>
+      {isLoading ? (
+        <div className="flex items-center justify-center h-64">
+          <span className="text-gray-500">Loading profile...</span>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-4 py-4 w-full">
+          <HrProfileInfo data={hrData} onEdit={() => setIsModalOpen(true)} />
+          <CompanyCard data={hrData} />
+
+          {isModalOpen && (
+            <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+              <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl">
+                <h2 className="text-lg font-semibold text-[#1B41AA] mb-4">
+                  Edit profile
+                </h2>
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="border px-4 py-2 rounded-lg hover:bg-gray-50 text-sm"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
-    </div>
+    </>
   );
 };
 
