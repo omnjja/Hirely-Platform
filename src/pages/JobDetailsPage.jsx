@@ -36,7 +36,7 @@ const JobDetailsPage = () => {
     setConfirmOpen(false);
   };
   async function handleJobApply() {
-    const JobApplyData = await applyToJob(data.id);
+    await applyToJob(data.id);
   }
   return (
     <Box sx={{ flexGrow: 1 }} className="px-3 sm:px-5 py-3 mb-5">

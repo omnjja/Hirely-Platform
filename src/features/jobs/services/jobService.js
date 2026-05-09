@@ -11,22 +11,21 @@ export const getJobDetailsById = async (id) => {
 };
 
 export const createJob = async (formData) => {
-  const res = await api.post("/jobs", formData);
-  return res.data;
+  const response = await api.post("/jobs", formData);
+  return response.data;
 };
 
 export const updateJob = async (id, formData) => {
-  const res = await api.patch(`/jobs/${id}`, formData);
-  return res.data;
+  const response = await api.patch(`/jobs/${id}`, formData);
+  return response.data;
 };
 
 export const deleteJob = async (id) => {
-  const res = await api.delete(`/jobs/${id}`);
-  return res.data;
+  const response = await api.delete(`/jobs/${id}`);
+  return response.data;
 };
 
 export const applyToJob = async (id) => {
   const response = await api.post(`/jobs/${id}/apply`);
-  console.log("apply response: ", response.data);
   return response.data;
 };
