@@ -2,11 +2,11 @@ import React from "react";
 import { Ellipsis, ExternalLink } from "lucide-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useNavigate } from "react-router-dom";
+import useAppNavigate from "@/hooks/useAppNavigate";
 dayjs.extend(relativeTime);
 
-const JobCardHeader = ({ job }) => {
-  const navigate = useNavigate();
+const JobCardHeader = ({ id, createdAt, title, companyName, department }) => {
+  const { toViewJobDetails } = useAppNavigate();
   return (
     <div className="flex items-start justify-between gap-2">
       <div className="w-full flex flex-col gap-1 sm:gap-1.5 min-w-0">
@@ -16,24 +16,24 @@ const JobCardHeader = ({ job }) => {
           </p>
           <div className="flex items-center gap-1.5 shrink-0">
             <p className="text-[#6A7282] text-xs whitespace-nowrap">
-              {dayjs(job.createdAt).fromNow()}
+              {dayjs(createdAt).fromNow()}
             </p>
             <ExternalLink
               size={14}
               color="#6A7282"
               className="cursor-pointer"
-              onClick={() => navigate(job.id)}
+              onClick={() => toViewJobDetails(id)}
             />
           </div>
         </div>
 
         <p className="text-[#0A0A0A] font-semibold text-base sm:text-xl leading-tight">
-          {job.title}
+          {title}
         </p>
 
         <p className="text-[#0A0A0A] text-xs sm:text-sm line-clamp-2">
-          {job.companyName}
-          <span className="text-[#677080]">{` / ${job.department}`}</span>
+          {companyName}
+          <span className="text-[#677080]">{` / ${department}`}</span>
         </p>
       </div>
     </div>
