@@ -15,14 +15,14 @@ const RecomendedForYou = () => {
   const { data, error, isLoading } = useRecomendedJobs();
 
   if (error) return;
-
   if (isLoading) return <RecomendedSkeleton />;
+  if (!data || data.length === 0) return;
+
   return (
     <div className="flex flex-col items-start gap-4">
       <p className="font-bold text-xl md:text-2xl text-[#2C2F31]">
         Recommended for You
       </p>
-
       <ScrollArea className="w-full whitespace-nowrap">
         <div className="flex gap-3 w-max pb-4 snap-x snap-mandatory">
           {data?.map((job, indx) => (

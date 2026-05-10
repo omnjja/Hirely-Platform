@@ -7,9 +7,13 @@ export const getJobs = async () => {
 
 export const getRecomendedJobs = async () => {
   const response = await api.get("/jobs/recommended");
-  console.log("recomnded jobs: ", response.data);
   return response.data;
 };
+
+export const getRecentJobs = async () => {
+  const response = await api.get("/jobs/recent");
+  return response.data;
+}
 
 export const getJobDetailsById = async (id) => {
   const response = await api.get(`/jobs/${id}`);
