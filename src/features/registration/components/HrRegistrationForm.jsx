@@ -6,7 +6,7 @@ import {
   hrRegistrationSchema,
 } from "@/schemas/hrRegistrationSchema";
 import ButtonComponent from "@/components/ui/ButtonComponent";
-import useHrRegMutation from "../hooks/useHrRegMutation";
+import useHrRegMutation from "../hooks/UseHrRegMutation";
 import useCustomForm from "@/hooks/useCustomForm";
 import useAppNavigate from "@/hooks/useAppNavigate";
 import { COMPANYSIZE } from "@/constants/companySizesOptions";
