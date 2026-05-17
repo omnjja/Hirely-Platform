@@ -6,8 +6,10 @@ export const signup = async (formData) => {
 };
 
 export const googleAuth = () => {
+  console.log("Redirecting to Google OAuth...");  
   window.location.href = "http://76.13.58.192.nip.io:4000/auth/google/login";
 };
+
 
 
 export const login = async (data) => {
