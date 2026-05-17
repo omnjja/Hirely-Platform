@@ -1,5 +1,6 @@
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { Mail, Phone, Building2, Pencil } from "lucide-react";
+import ButtonComponent from "@/components/ui/ButtonComponent";
 
 const HrProfileInfo = ({ data, onEdit }) => (
   <div className="bg-white border border-gray-200 rounded-2xl p-5">
@@ -15,12 +16,14 @@ const HrProfileInfo = ({ data, onEdit }) => (
               <Building2 className="w-3 h-3" /> {data.companyName}
             </span>
           </div>
-          <button
+          <ButtonComponent
+            text="Edit Profile"
+            rounded="lg"
+            gradientBorder={true}
             onClick={onEdit}
-            className="flex items-center gap-1.5 text-sm border border-teal-500 text-teal-700 rounded-lg px-3 py-1.5 hover:bg-teal-50 transition shrink-0"
           >
-            <Pencil className="w-3.5 h-3.5" /> Edit profile
-          </button>
+            <Pencil className="w-3.5 h-3.5" />
+          </ButtonComponent>
         </div>
 
         <hr className="my-4 border-gray-100" />

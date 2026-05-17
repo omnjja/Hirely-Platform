@@ -1,7 +1,7 @@
 import React from "react";
 import { useFieldArray } from "react-hook-form";
-import SectionWrapper from "../shared/SectionWrapper";
-import Field from "../shared/Field";
+import SectionWrapper from "@/components/ui/SectionWrapper";
+import Field from "@/components/ui/Field";
 
 const EditExperience = ({ control, register, errors }) => {
   const {

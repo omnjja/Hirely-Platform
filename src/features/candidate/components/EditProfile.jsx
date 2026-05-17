@@ -5,7 +5,7 @@ import { X } from "lucide-react";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import InfoSection from "./editProfile/InfoSection";
 import EqualEmploymentSection from "./editProfile/EqualEmploymentSection";
-import SectionWrapper from "./shared/SectionWrapper";
+import SectionWrapper from "../../../components/ui/SectionWrapper";
 import { candidateEditProfileSchema } from "@/schemas/candidateEditProfileSchema";
 import AddingField from "@/components/ui/AddingField";
 import EducationSection from "./editProfile/EducationSection";

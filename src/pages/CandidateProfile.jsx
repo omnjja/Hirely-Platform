@@ -1,5 +1,4 @@
 import { React, useState } from "react";
-import CandidateLayout from "@/components/layout/CandidateLayout";
 import ProfileInfo from "../features/candidate/components/ProfileComponents/ProfileInfo";
 import ProfileTabs from "../features/candidate/components/ProfileComponents/ProfileTabs";
 import { profileSections } from "@/constants/profileSections";
