@@ -1,4 +1,4 @@
-import api from "../../../lib/api";
+import api from "@/lib/api";
 
 export const signup = async (formData) => {
   const res = await api.post("auth/signup", formData);
@@ -6,8 +6,9 @@ export const signup = async (formData) => {
 };
 
 export const googleAuth = () => {
-  window.location.href = "http://localhost:3000/auth/google/login";
+  window.location.href = "http://76.13.58.192.nip.io:4000/auth/google/login";
 };
+
 
 export const login = async (data) => {
   const res = await api.post("auth/login", data);
