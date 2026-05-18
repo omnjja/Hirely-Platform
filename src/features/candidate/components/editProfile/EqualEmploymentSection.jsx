@@ -1,5 +1,5 @@
 import React from "react";
-import Field from "../shared/Field";
+import Field from "@/components/ui/Field";
 
 const EqualEmploymentSection = ({ register, errors }) => {
   return (

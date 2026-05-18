@@ -19,6 +19,7 @@ import JobDetailsPage from "./pages/JobDetailsPage";
 import CandidateProfile from "./pages/CandidateProfile";
 import CandidateLayout from "./components/layout/CandidateLayout";
 import ApplicationTracker from "./pages/ApplicationTracker";
+import HrProfile from "./pages/HrProfile";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
           <Route path="jobs" element={<BrowseJobs />} />
           <Route path="jobs/:id" element={<JobDetailsPage />} />
           <Route path="jobs/:id/edit" element={<EditJobPosting />} />
+          <Route path="hr-profile" element={<HrProfile />} />
         </Route>
         <Route
           path="/"
@@ -77,6 +79,9 @@ function App() {
               </Link>
               <Link to="/candidate/applications" className="text-primary">
                 Go to Application Tracker
+              </Link>
+              <Link to="/recruiter/hr-profile" className="text-primary">
+                Go to HR Profile
               </Link>
             </div>
           }

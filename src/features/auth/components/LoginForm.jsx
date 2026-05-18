@@ -53,7 +53,7 @@ const LoginForm = () => {
 
         if (role === "HR") {
           if (isProfileCompleted) {
-            navigate("/hr/profile");
+            navigate("/recruiter/hr-profile");
           } else {
             navigate("/hr/complete-profile");
           }

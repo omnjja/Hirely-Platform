@@ -1,5 +1,5 @@
-import Field from "../shared/Field";
-import SectionWrapper from "../shared/SectionWrapper";
+import Field from "@/components/ui/Field";
+import SectionWrapper from "@/components/ui/SectionWrapper";
 import SelectField from "@/components/ui/SelectField";
 import { countryOptions } from "@/constants/countryOptions";
 
