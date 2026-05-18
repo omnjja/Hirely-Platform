@@ -1,6 +1,6 @@
 import React from "react";
 import { useFieldArray } from "react-hook-form";
-import SectionWrapper from "@/components/ui/SectionWrapper";
+import Section from "@/components/ui/Section";
 import Field from "@/components/ui/Field";
 
 const EditExperience = ({ control, register, errors }) => {
@@ -13,7 +13,7 @@ const EditExperience = ({ control, register, errors }) => {
     name: "experiences",
   });
   return (
-    <SectionWrapper title="Experience">
+    <Section title="Experience" variant="wrapper">
       {experienceFields.map((field, index) => (
         <div
           key={field.id}
@@ -94,7 +94,7 @@ const EditExperience = ({ control, register, errors }) => {
       >
         + Add Experience
       </button>
-    </SectionWrapper>
+    </Section>
   );
 };
 

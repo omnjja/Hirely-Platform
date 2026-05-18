@@ -26,7 +26,6 @@ const ApplicationTracker = () => {
     queryKey: ["applications", page, state],
     queryFn: () => getApplications({ page, state }),
   });
-  console.log(applicationData);
 
   const { data: detailData, isLoading: detailLoading } = useQuery({
     queryKey: ["application-detail", selectedId],

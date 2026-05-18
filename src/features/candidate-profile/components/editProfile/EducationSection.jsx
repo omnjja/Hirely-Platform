@@ -1,5 +1,5 @@
 import { useFieldArray } from "react-hook-form";
-import SectionWrapper from "@/components/ui/SectionWrapper";
+import Section from "@/components/ui/Section";
 import Field from "@/components/ui/Field";
 
 const EducationSection = ({ control, register, errors }) => {
@@ -13,7 +13,7 @@ const EducationSection = ({ control, register, errors }) => {
   });
 
   return (
-    <SectionWrapper title="Education">
+    <Section title="Education" variant="wrapper">
       {educationFields.map((field, index) => (
         <div
           key={field.id}
@@ -21,7 +21,7 @@ const EducationSection = ({ control, register, errors }) => {
         >
           <Field
             label="Institution"
-            error={errors?.eduacations?.[index]?.institution}
+            error={errors?.educations?.[index]?.institution}
           >
             <input {...register(`educations.${index}.institution`)} />
           </Field>
@@ -81,7 +81,7 @@ const EducationSection = ({ control, register, errors }) => {
       >
         + Add Education
       </button>
-    </SectionWrapper>
+    </Section>
   );
 };
 

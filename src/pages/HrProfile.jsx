@@ -28,10 +28,13 @@ const HrProfile = () => {
     }
   };
 
-  if (hrData) {
-    console.log(hrData);
+  if (!hrData && !isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <span className="text-gray-500">Profile not found.</span>
+      </div>
+    );
   }
-
   return (
     <>
       {isLoading ? (

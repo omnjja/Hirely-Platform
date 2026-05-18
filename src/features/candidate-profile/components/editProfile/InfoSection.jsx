@@ -1,5 +1,5 @@
 import Field from "@/components/ui/Field";
-import SectionWrapper from "@/components/ui/SectionWrapper";
+import Section from "@/components/ui/Section";
 import SelectField from "@/components/ui/SelectField";
 import { countryOptions } from "@/constants/countryOptions";
 
@@ -8,7 +8,7 @@ const InfoSection = ({ register, errors, watch }) => {
 
   return (
     <>
-      <SectionWrapper title="Basic Info">
+      <Section title="Basic Info" variant="wrapper">
         <Field label="Full Name" error={errors.fullName}>
           <input {...register("fullName")} placeholder="Full Name" />
         </Field>
@@ -34,9 +34,9 @@ const InfoSection = ({ register, errors, watch }) => {
             placeholder="+1 (555) 123-4567"
           />
         </Field>
-      </SectionWrapper>
+      </Section>
 
-      <SectionWrapper title="About">
+      <Section title="About" variant="wrapper">
         <Field label="Profile Summary" error={errors.profileSummary}>
           <textarea
             {...register("profileSummary")}
@@ -44,9 +44,9 @@ const InfoSection = ({ register, errors, watch }) => {
             placeholder="Short summary shown on your profile..."
           />
         </Field>
-      </SectionWrapper>
+      </Section>
 
-      <SectionWrapper title="Social Links">
+      <Section title="Social Links" variant="wrapper">
         <Field label="LinkedIn URL" error={errors.linkedInUrl}>
           <input
             {...register("linkedInUrl")}
@@ -59,7 +59,7 @@ const InfoSection = ({ register, errors, watch }) => {
             placeholder="https://github.com/..."
           />
         </Field>
-      </SectionWrapper>
+      </Section>
     </>
   );
 };

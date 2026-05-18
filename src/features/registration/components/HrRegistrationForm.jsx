@@ -9,11 +9,14 @@ import ButtonComponent from "@/components/ui/ButtonComponent";
 import useHrRegMutation from "../hooks/useHrRegMutation";
 import useCustomForm from "@/hooks/useCustomForm";
 import useAppNavigate from "@/hooks/useAppNavigate";
-import { COMPANYINDUSTRY, COMPANYSIZE } from "@/constants/recruiterRegistrationEnums";
+import {
+  COMPANYINDUSTRY,
+  COMPANYSIZE,
+} from "@/constants/recruiterRegistrationEnums";
 
 const HrRegistrationForm = ({ onProgressChange }) => {
   const { mutateAsync: registerHr } = useHrRegMutation();
-  const { toHome } = useAppNavigate();
+  const { toHrProfile } = useAppNavigate();
   const {
     register,
     control,
@@ -39,7 +42,7 @@ const HrRegistrationForm = ({ onProgressChange }) => {
   const onSubmit = async (data) => {
     try {
       await registerHr(data);
-      toHome();
+      toHrProfile();
     } catch (error) {
       setError("root", {
         message:
@@ -117,6 +120,7 @@ const HrRegistrationForm = ({ onProgressChange }) => {
         bottomText={`${companySummaryLength} characters (minimum 50)`}
         fieldHeight="80"
         error={errors.companySummary?.message}
+        required
       />
 
       <InputFieldWithLabel

@@ -13,8 +13,12 @@ const useAppNavigate = () => {
     toRegisterHr: () => navigate("/hr/complete-profile"),
     toViewJobDetails: (id) => navigate(id),
     toEditJob: (id) => navigate(`${id}/edit`),
+    toCandidateProfile: () => navigate("/candidate/profile"),
+    toCandidateJobs: () => navigate("/candidate/jobs"),
+    toCandidateApplications: () => navigate("/candidate/applications"),
+    toHrProfile: () => navigate("/recruiter/hr-profile"),
+    toCreateJobPosting: () => navigate("/recruiter/create-job-posting"),
   };
 };
 
 export default useAppNavigate;
-

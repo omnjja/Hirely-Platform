@@ -18,6 +18,7 @@ import { candidatePayload } from "@/constants/candidatePayload";
 import { useNavigate } from "react-router-dom";
 import { skillsOptions } from "@/constants/skillsOptions";
 import { languageOptions } from "@/constants/languageOptions";
+import useAppNavigate from "@/hooks/useAppNavigate";
 
 const CandidateRegistrationForm = ({ onProgressChange }) => {
   const { mutateAsync: registerCandidate } = useCandidateRegMutation(); // send all data to registerCandidate
@@ -41,7 +42,7 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
   const summaryValue = watch("profileSummary") || "";
   const selectedCountry = watch("country") || "";
   const textLength = summaryValue.length;
-  const navigate = useNavigate();
+  const { toCandidateProfile } = useAppNavigate();
 
   const values = watch();
   useEffect(() => {
@@ -64,22 +65,18 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
         const { key } = await handleCVUpload(cvFile);
         cvKey = key;
       }
-      console.log(watch("cv")); // Check the value of the cv <field>
 
       const payload = candidatePayload(data, profilePictureKey, cvKey);
 
-      console.log("Submitting payload:", payload);
-
       await registerCandidate(payload);
       reset();
-      navigate("/candidate/profile");
+      toCandidateProfile();
     } catch (error) {
       setError("root", {
         message:
           error.response?.data?.message ||
           "An error occurred. Please try again.",
       });
-      console.log("register error:", error);
     }
   };
 

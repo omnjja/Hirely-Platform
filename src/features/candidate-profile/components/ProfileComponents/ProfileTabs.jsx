@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 
 const ProfileTabs = ({ sections }) => {
-  const [activeTab, setActiveTab] = useState("personal");
+  const [activeTab, setActiveTab] = useState("education");
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     document.getElementById(tab)?.scrollIntoView({ behavior: "smooth" });

@@ -5,7 +5,7 @@ import { X } from "lucide-react";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import InfoSection from "./editProfile/InfoSection";
 import EqualEmploymentSection from "./editProfile/EqualEmploymentSection";
-import SectionWrapper from "../../../components/ui/SectionWrapper";
+import Section from "@/components/ui/Section";
 import { candidateEditProfileSchema } from "@/schemas/candidateEditProfileSchema";
 import AddingField from "@/components/ui/AddingField";
 import EducationSection from "./editProfile/EducationSection";
@@ -78,7 +78,7 @@ const EditProfile = ({ isOpen, onClose, profileData, onSubmit, isPending }) => {
           />
 
           {/* ── Skills & Languages ── */}
-          <SectionWrapper title="Skills & Languages">
+          <Section title="Skills & Languages" variant="wrapper">
             <AddingField
               name="skills"
               control={control}
@@ -97,12 +97,11 @@ const EditProfile = ({ isOpen, onClose, profileData, onSubmit, isPending }) => {
               labelStyle="text-sm text-gray-500"
               suggestionsList={languageOptions}
             />
-          </SectionWrapper>
+          </Section>
 
-          <SectionWrapper title="Equal Employment">
+          <Section title="Equal Employment" variant="wrapper">
             <EqualEmploymentSection register={register} errors={errors} />
-          </SectionWrapper>
-
+          </Section>
           {/* ── Actions ── */}
           <div className="flex justify-end gap-3 pt-2 border-t border-gray-100">
             <button

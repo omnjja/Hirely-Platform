@@ -3,7 +3,6 @@ import useApplicationStats from "../hooks/useApplicationStats";
 
 const MatchCard = () => {
   const { data, isLoading, error } = useApplicationStats();
-  console.log(data);
 
   return (
     <div className="border-b-4 border-[#1BA2A5]">
