@@ -1,7 +1,7 @@
 import { Briefcase, Users, User, BarChart3 } from "lucide-react";
 
 export const menuItems = [
-  { icon: User, path: "/recruiter/hr-profile", label: "Profile" },
+  { icon: User, path: "/recruiter/profile", label: "Profile" },
   { icon: Briefcase, path: "/recruiter/jobs", label: "Jobs" },
   { icon: Users, path: "/recruiter/candidates", label: "Candidates" },
   { icon: BarChart3, path: "/recruiter/analytics", label: "Analytics" },

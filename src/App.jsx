@@ -20,35 +20,45 @@ import CandidateProfile from "./pages/CandidateProfile";
 import CandidateLayout from "./components/layout/CandidateLayout";
 import ApplicationTracker from "./pages/ApplicationTracker";
 import HrProfile from "./pages/HrProfile";
+import ProtectedRoute from "./components/routes/ProtectedRoute";
+import PublicRoute from "./components/routes/PublicRoute";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/role-selection" element={<RoleSelection />} />
+          <Route
+            path="/candidate/complete-profile"
+            element={<CandidateRegistration />}
+          />
+          <Route path="/hr/complete-profile" element={<HrRegistration />} />
+
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
         <Route path="/RecoveryEmail" element={<RecoveryEmail />} />
         <Route path="/SuccessfulPassword" element={<SucessfulPassword />} />
-        <Route path="/role-selection" element={<RoleSelection />} />
-        <Route
-          path="/candidate/complete-profile"
-          element={<CandidateRegistration />}
-        />
-        <Route path="/hr/complete-profile" element={<HrRegistration />} />
-        <Route path="/candidate" element={<CandidateLayout />}>
-          <Route path="profile" element={<CandidateProfile />} />
-          <Route path="jobs" element={<BrowseJobs />} />
-          <Route path="jobs/:id" element={<JobDetailsPage />} />
-          <Route path="applications" element={<ApplicationTracker />} />
+
+        <Route element={<ProtectedRoute allowedRoles={"CANDIDATE"} />}>
+          <Route path="/candidate" element={<CandidateLayout />}>
+            <Route path="profile" element={<CandidateProfile />} />
+            <Route path="jobs" element={<BrowseJobs />} />
+            <Route path="jobs/:id" element={<JobDetailsPage />} />
+            <Route path="applications" element={<ApplicationTracker />} />
+          </Route>
         </Route>
-        <Route path="/recruiter" element={<RecruiterLayout />}>
-          <Route path="create-job-posting" element={<CreateJobPosting />} />
-          <Route path="jobs" element={<BrowseJobs />} />
-          <Route path="jobs/:id" element={<JobDetailsPage />} />
-          <Route path="jobs/:id/edit" element={<EditJobPosting />} />
-          <Route path="hr-profile" element={<HrProfile />} />
+
+        <Route element={<ProtectedRoute allowedRoles={"HR"} />}>
+          <Route path="/recruiter" element={<RecruiterLayout />}>
+            <Route path="create-job-posting" element={<CreateJobPosting />} />
+            <Route path="jobs" element={<BrowseJobs />} />
+            <Route path="jobs/:id" element={<JobDetailsPage />} />
+            <Route path="jobs/:id/edit" element={<EditJobPosting />} />
+            <Route path="profile" element={<HrProfile />} />
+          </Route>
         </Route>
+
         <Route
           path="/"
           element={
@@ -80,7 +90,7 @@ function App() {
               <Link to="/candidate/applications" className="text-primary">
                 Go to Application Tracker
               </Link>
-              <Link to="/recruiter/hr-profile" className="text-primary">
+              <Link to="/recruiter/profile" className="text-primary">
                 Go to HR Profile
               </Link>
             </div>
