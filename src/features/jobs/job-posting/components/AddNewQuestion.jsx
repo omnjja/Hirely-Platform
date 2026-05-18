@@ -9,6 +9,7 @@ const AddNewQuestion = ({ quationsNum, onCancelQuestion }) => {
   const questions = useWatch({ control, name: "interviewerQuestions" }) ?? [];
 
   function handleAdd() {
+    if (!text.trim()) return;
     setValue("interviewerQuestions", [...questions, text]);
     onCancelQuestion();
   }
@@ -27,16 +28,24 @@ const AddNewQuestion = ({ quationsNum, onCancelQuestion }) => {
           className="w-full p-2 rounded-lg text-sm sm:text-base text-[#2A3439]"
           value={text}
           onChange={(e) => setText(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              handleAdd();
+            }
+          }}
         />
       </div>
       <div className="flex flex-col justify-end gap-1">
         <ButtonComponent
+          type="button"
           text="Add"
           className="bg-[#1B41AA]"
           style={{ size: "xs" }}
           onClick={() => handleAdd()}
         />
         <ButtonComponent
+          type="button"
           text="Cancel"
           style={{
             bgColor: "#E5E7EB",

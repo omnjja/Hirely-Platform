@@ -27,11 +27,6 @@ export const jobSchema = z
         Array.isArray(val) ? val.map((item) => item.value ?? item) : val,
       z.array(z.string().max(80)).min(1, "At least 1 keyword is required"),
     ),
-    documentAttachment: z
-      .instanceof(File)
-      .refine((f) => f.size <= 2 * 1024 * 1024, "Max file size is 2MB")
-      .nullable()
-      .optional(),
     interviewerQuestions: z.preprocess(
       (val) =>
         Array.isArray(val) ? val.map((item) => item.value ?? item) : val,
@@ -53,12 +48,11 @@ export const jobDefaultValues = {
   jobType: "FULL_TIME",
   location: "",
   experienceLevel: "",
-  compensationMin: 15000,
-  compensationMax: 40000,
+  compensationMin: 10000,
+  compensationMax: 15000,
   roleContext: "",
   coreResponsibilities: "",
   skills: [],
   keywords: [],
-  documentAttachment: null,
   interviewerQuestions: [],
 };

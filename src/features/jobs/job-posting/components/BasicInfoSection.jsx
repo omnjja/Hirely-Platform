@@ -5,7 +5,6 @@ import OptionsCard from "@/components/ui/OptionsCard";
 import Box from "@mui/material/Box";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { EXPERIENCE_LEVELS, JOB_TYPES } from "@/constants/jobEnums";
-import { Briefcase } from "lucide-react";
 import { useFormContext } from "react-hook-form";
 import basicInfoImg from "@/assets/basicInfo.webp"
 

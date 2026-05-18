@@ -1,7 +1,7 @@
 import api from "@/lib/api";
 
-export const getJobs = async () => {
-  const response = await api.get("/jobs");
+export const getJobs = async (page) => {
+  const response = await api.get(`/jobs?page=${page}`);
   return response.data;
 };
 

@@ -5,8 +5,8 @@ import { useState } from "react";
 const useJobs = () => {
   const [page, setPage] = useState(1);
   const query = useQuery({
-    queryKey: ["jobs"],
-    queryFn: getJobs,
+    queryKey: ["jobs", page],
+    queryFn: () => getJobs(page),
     refetchOnWindowFocus: false,
     staleTime: 5 * 1000 * 60,
     placeholderData: (prev) => prev,

@@ -7,9 +7,9 @@ import CustomizedSlider from "@/components/ui/CustomizedSlider";
 import IconWrapper from "@/components/ui/IconWrapper";
 import { useFormContext } from "react-hook-form";
 
-const MIN = 1000;
-const MAX = 50000;
-const STEP = 1000;
+const MIN = 10000;
+const MAX = 15000;
+const STEP = 100;
 
 function fmt(v) {
   return "$" + v.toLocaleString();
@@ -44,7 +44,7 @@ const JobCompensations = () => {
             <InputFieldWithLabel
               type="number"
               label="Minimum Salary"
-              placeholder="e.g., 50000"
+              placeholder="e.g., 5000"
               rounded="xl"
               fullWidth
               variant="outlined"
@@ -62,7 +62,7 @@ const JobCompensations = () => {
             <InputFieldWithLabel
               type="number"
               label="Maximum Salary"
-              placeholder="e.g., 70000"
+              placeholder="e.g., 7000"
               rounded="xl"
               fullWidth
               variant="outlined"
