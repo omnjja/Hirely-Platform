@@ -5,21 +5,24 @@ import React from "react";
 const JobCard = ({
   company,
   role,
-  status, // "INTERVIEW" | "ACCEPTED" | "APPLIED" | "IN_REVIEW" | "REJECTED"
-  stageLabel, // e.g. "CURRENT STAGE" | "STATUS" | "OUTCOME"
-  stageValue, // e.g. "STAGE 3 OF 5" | "COMPLETED" | "PENDING" | "FINALIZED"
+  status,
+  stageLabel,
+  stageValue,
   totalStages = 5,
   currentStage = 1,
-  nextStepIcon, // emoji or icon "
-  nextStepText, // e.g. "Next step: Technical Interview (Oct 24)"
-  actionLabel, // button label e.g. "View Details" | "Review Offer"
-  actionVariant = "ghost", // "ghost" | "solid"
+  nextStepText,
+  actionLabel,
+  actionVariant = "ghost",
   onAction,
+  onClick,
 }) => {
   const config = STATUS_CONFIG[status] || STATUS_CONFIG.APPLIED;
   return (
     <div
-      className={` border-gray-100 rounded-2xl shadow-sm border transition-all duration-200 hover:shadow-md`}
+      className={`border-gray-100 rounded-2xl shadow-sm border transition-all duration-200 hover:shadow-md ${
+        onClick ? "cursor-pointer hover:-translate-y-0.5" : ""
+      }`}
+      onClick={onClick}
     >
       <div className={`h-1 w-full ${config.borderTop}`} />
 
@@ -57,7 +60,6 @@ const JobCard = ({
           <p
             className={`mt-3 text-sm font-medium ${config.badgeText} flex items-center gap-1.5`}
           >
-            {nextStepIcon && <span>{nextStepIcon}</span>}
             {nextStepText}
           </p>
         )}

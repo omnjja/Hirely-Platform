@@ -1,87 +1,53 @@
 import JobCard from "./JobCard";
-import { useQuery } from "@tanstack/react-query";
-import { getApplications } from "../services/applicationService";
+import { formatApplicationCard } from "@/constants/applicationStatus";
 
-const jobs = [
-  {
-    company: "Linear Systems",
-    role: "Senior Product Designer",
-    status: "INTERVIEW",
-    stageLabel: "Current Stage",
-    stageValue: "Stage 3 of 5",
-    totalStages: 5,
-    currentStage: 3,
-    nextStepIcon: "📅",
-    nextStepText: "Next step: Technical Interview (Oct 24)",
-    actionLabel: "View Details",
-    actionVariant: "ghost",
-  },
-  {
-    company: "Stellar AI",
-    role: "Machine Learning Eng.",
-    status: "ACCEPTED",
-    stageLabel: "Status",
-    stageValue: "Completed",
-    totalStages: 5,
-    currentStage: 5,
-    nextStepIcon: "🎉",
-    nextStepText: "Next step: Offer Letter Review",
-    actionLabel: "Review Offer",
-    actionVariant: "solid",
-  },
-  {
-    company: "Meridian Corp",
-    role: "Full Stack Developer",
-    status: "APPLIED",
-    stageLabel: "Current Stage",
-    stageValue: "Pending",
-    totalStages: 5,
-    currentStage: 0,
-    nextStepIcon: "ℹ️",
-    nextStepText: "Application submitted",
-    actionLabel: "View Details",
-    actionVariant: "ghost",
-  },
-  {
-    company: "Prism Flow",
-    role: "Lead UX Researcher",
-    status: "REJECTED",
-    stageLabel: "Outcome",
-    stageValue: "Finalized",
-    totalStages: 5,
-    currentStage: 5,
-    nextStepIcon: "⊘",
-    nextStepText: "Position Filled",
-    actionLabel: "Feedback Details",
-    actionVariant: "ghost",
-  },
-  {
-    company: "Vortex Labs",
-    role: "Frontend Architect",
-    status: "IN_REVIEW",
-    stageLabel: "Current Stage",
-    stageValue: "Stage 1 of 4",
-    totalStages: 4,
-    currentStage: 1,
-    nextStepIcon: "⏳",
-    nextStepText: "Applied 2 days ago",
-    actionLabel: "View Details",
-    actionVariant: "ghost",
-  },
-];
+const JobList = ({
+  applicationData,
+  isLoading,
+  error,
+  setPage,
+  page,
+  onSelectApplication,
+}) => {
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
-const JobList = () => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["applications"],
-    queryFn: getApplications,
-  });
-  console.log(data);
+  if (error) {
+    return <p>Something went wrong</p>;
+  }
+  if (!applicationData?.items?.length) {
+    return (
+      <div className="flex items-center justify-center py-20 text-gray-500">
+        No Applications Found
+      </div>
+    );
+  }
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
-      {jobs.map((job, i) => (
-        <JobCard key={i} {...job} />
-      ))}
-    </div>
+    <>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+        {applicationData?.items?.map((item, index) => (
+          <JobCard
+            key={index}
+            {...formatApplicationCard(item)}
+            onClick={() => onSelectApplication(item.application.id)}
+          />
+        ))}
+      </div>
+      <div className="flex gap-2">
+        {Array.from({ length: applicationData?.totalPages }, (_, index) => (
+          <button
+            key={index}
+            onClick={() => setPage(index + 1)}
+            className={`border px-3 py-1 rounded ${
+              page === index + 1 ? "bg-[#1B41AA] text-white" : ""
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
+    </>
   );
 };
 
