@@ -1,10 +1,10 @@
 import React from "react";
 import { Briefcase, CircleDollarSign, MapPinned, Users } from "lucide-react";
 import JobDetailsInfoCard from "./JobDetailsInfoCard";
-import useFormatText from "../../browse-job/hooks/useFormatText";
+import { formatText } from "@/utils/formatText";
 
 const JobDetailsInfo = ({ jobType, minSalary, maxSalary, location, count }) => {
-  const jobTypeFixed = useFormatText(jobType);
+  const jobTypeFixed = formatText(jobType);
   return (
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5">
       <JobDetailsInfoCard

@@ -3,18 +3,11 @@ import { chooseRole } from "../services/registrationService";
 import toast from "react-hot-toast";
 import useAppNavigate from "@/hooks/useAppNavigate";
 
-const useChooseRoleMutation = () => {
+export const useChooseRoleMutation = () => {
   const { toRegisterCandidate, toRegisterHr } = useAppNavigate();
   return useMutation({
     mutationFn: chooseRole,
-    onMutate: () => {
-      toast.loading("Setting your role", { id: "chooseRoleToast" });
-    },
-
     onSuccess: (data) => {
-      toast.success("Role selected successfully!", {
-        id: "chooseRoleToast",
-      });
       data.role === "CANDIDATE" ? toRegisterCandidate() : toRegisterHr();
     },
 
@@ -27,5 +20,3 @@ const useChooseRoleMutation = () => {
     },
   });
 };
-
-export default useChooseRoleMutation;

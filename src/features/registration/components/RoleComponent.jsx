@@ -1,6 +1,6 @@
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import React from "react";
-import useChooseRoleMutation from "../hooks/useChooseRoleMutation";
+import {useChooseRoleMutation} from "../hooks/useChooseRoleMutation";
 
 const RoleComponent = ({
   id,

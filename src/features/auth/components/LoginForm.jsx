@@ -1,15 +1,15 @@
 import FormHeader from "./FormHeader";
-import InputField from "../../../components/ui/InputField";
-import PasswordField from "../../../components/ui/PasswordField";
-import ButtonComponent from "../../../components/ui/ButtonComponent";
+import InputField from "@/components/ui/InputField";
+import PasswordField from "@/components/ui/PasswordField";
+import ButtonComponent from "@/components/ui/ButtonComponent";
 import FormFooter from "./FormFooter";
-import GoogleButton from "../../../components/ui/GoogleButton";
-import Divider from "../../../components/ui/Divider";
+import GoogleButton from "@/components/ui/GoogleButton";
+import Divider from "@/components/ui/Divider";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import useLoginMutation from "../hooks/useLoginMutation";
+import {useLoginMutation} from "../hooks/useLoginMutation";
 import * as authAPI from "../services/authService";
 
 const LoginForm = () => {
