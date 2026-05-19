@@ -24,5 +24,6 @@ export const updateProfilePicture = async (file) => {
     body: file,
   });
 
-  return key;
+  const res2 = await api.get("profile/photo");
+  return res2.data;
 };
