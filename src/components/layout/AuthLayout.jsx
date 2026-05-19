@@ -2,7 +2,7 @@ import React from "react";
 import LeftLogo from "@/components/ui/LeftLogo";
 import "../../index.css";
 import Logo from "../ui/Logo";
-import lines from "@/assets/lines.png";
+import Lines from "../ui/Lines";
 
 const AuthLayout = ({ children }) => {
   return (
@@ -17,9 +17,7 @@ const AuthLayout = ({ children }) => {
           {children}
         </div>
       </div>
-      <div className="absolute bottom-0 right-0 w-120 h-100 pointer-events-none">
-        <img src={lines} alt="lines" className="w-full h-full" />
-      </div>
+      <Lines place={"lowerRight"} />
     </div>
   );
 };

@@ -74,7 +74,7 @@ const ProfileInfo = ({ profileData, onEdit }) => {
           <input
             ref={fileInputRef}
             type="file"
-            accept=".jpg,.jpeg,.png"
+            accept=".jpg,.jpeg,.webp"
             className="hidden"
             onChange={handleFileChange}
           />

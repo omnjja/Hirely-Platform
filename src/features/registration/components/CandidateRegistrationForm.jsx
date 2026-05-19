@@ -85,6 +85,7 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <p className="text-xl text-[#0576D6] font-bold pb-5">Candidate Application Form</p>
       <InputFieldWithLabel
         {...register("fullName")}
         name="fullName"

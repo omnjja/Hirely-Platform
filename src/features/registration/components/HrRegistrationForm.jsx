@@ -9,7 +9,10 @@ import ButtonComponent from "@/components/ui/ButtonComponent";
 import useHrRegMutation from "../hooks/useHrRegMutation";
 import useCustomForm from "@/hooks/useCustomForm";
 import useAppNavigate from "@/hooks/useAppNavigate";
-import { COMPANYINDUSTRY, COMPANYSIZE } from "@/constants/recruiterRegistrationEnums";
+import {
+  COMPANYINDUSTRY,
+  COMPANYSIZE,
+} from "@/constants/recruiterRegistrationEnums";
 
 const HrRegistrationForm = ({ onProgressChange }) => {
   const { mutateAsync: registerHr } = useHrRegMutation();
@@ -51,6 +54,9 @@ const HrRegistrationForm = ({ onProgressChange }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="">
+      <p className="text-xl text-[#0576D6] font-bold pb-5">
+        HR/Recruiter Application Form
+      </p>
       <InputFieldWithLabel
         {...register("fullName")}
         name="fullName"
@@ -113,7 +119,8 @@ const HrRegistrationForm = ({ onProgressChange }) => {
         {...register("companySummary")}
         name="companySummary"
         label="Company Description"
-        placeholder="Tell us about your company, culture, and what makes it a great place to work..."
+        placeholder="Tell us about your company, culture, and what makes it a great place to work.."
+        required
         bottomText={`${companySummaryLength} characters (minimum 50)`}
         fieldHeight="80"
         error={errors.companySummary?.message}

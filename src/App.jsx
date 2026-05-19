@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
 import RecoveryEmail from "./pages/RecoveryEmail";
+import ResetPassword from "./pages/ResetPassword";
 import SucessfulPassword from "./pages/SucessfulPassword";
 import RoleSelection from "./pages/RoleSelection";
 import CandidateRegistration from "./pages/CandidateRegistration";
@@ -29,6 +30,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
         <Route path="/RecoveryEmail" element={<RecoveryEmail />} />
+        <Route path="/ResetPassword" element={<ResetPassword />} />
         <Route path="/SuccessfulPassword" element={<SucessfulPassword />} />
         <Route path="/role-selection" element={<RoleSelection />} />
         <Route
