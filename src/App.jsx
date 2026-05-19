@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
@@ -58,6 +58,8 @@ function App() {
             <Route path="jobs/:id" element={<JobDetailsPage />} />
             <Route path="jobs/:id/edit" element={<EditJobPosting />} />
             <Route path="profile" element={<HrProfile />} />
+            <Route index element={<Navigate to="analytics" replace />} />
+            <Route path="analytics" element={<div>analytics</div>} />
           </Route>
         </Route>
 

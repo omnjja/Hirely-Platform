@@ -25,7 +25,7 @@ const Jobs = () => {
     return <ErrorComponent error={error.message} action={() => refetch()} />;
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="w-full flex flex-col gap-5">
       {isFetching && (
         <div className="flex items-center gap-2 text-xs text-gray-400">
           <RefreshCw size={12} className="animate-spin" />
@@ -46,7 +46,7 @@ const Jobs = () => {
             <Job key={job.id} job={job} />
           ))}
 
-          <div className="flex items-center justify-evenly pt-2 border-t border-gray-100">
+          <div className="flex items-center justify-evenly pt-2 pb-5 border-t border-gray-100">
             <ButtonComponent
               onClick={() => setPage((p) => p - 1)}
               disabled={!hasPrev || isFetching}

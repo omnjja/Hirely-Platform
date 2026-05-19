@@ -23,21 +23,9 @@ const BrowseJobs = () => {
         )}
       </div>
 
-      <Box sx={{ flexGrow: 1 }} className="bg-[#F4F6F8]">
-        <Grid container spacing={2} className="w-full min-h-screen p-3 sm:p-5">
-          <Grid size={{ xs: 12, lg: 10 }} className="flex-1">
-            <Jobs />
-          </Grid>
-          <Grid size={{ xs: 12, lg: 2 }}>
-            <Card className="p-4 sm:p-5 lg:sticky lg:top-20">
-              <p className="text-sm font-medium text-gray-500 mb-4 flex items-center gap-2">
-                ? AI Card
-              </p>
-            </Card>
-          </Grid>
-        </Grid>
-      </Box>
-      <div></div>
+      <div className="w-full min-h-screen ">
+        <Jobs />
+      </div>
     </div>
   );
 };
