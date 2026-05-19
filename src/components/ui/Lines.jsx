@@ -17,7 +17,7 @@ const PLACES_CLASSES = {
 const Lines = ({ place, position }) => {
   return (
     <div
-      className={`absolute ${PLACES_CLASSES[place] || ""} w-100 h-100 pointer-events-none`}
+      className={`absolute ${PLACES_CLASSES[place] || ""} w-100 h-100 pointer-events-none hidden lg:block`}
     >
       <img
         src={lines}

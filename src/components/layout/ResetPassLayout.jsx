@@ -39,7 +39,9 @@ const ResetPassLayout = ({
           </div>
         </div>
       </div>
-      <div className="absolute bottom-0 left-0 right-0">{lowerImage}</div>
+      <div className="absolute bottom-0 left-0 right-0 hidden lg:block">
+        {lowerImage}
+      </div>
     </div>
   );
 };

@@ -34,3 +34,8 @@ export const deleteJob = async (id) => {
   const res = await api.delete(`/jobs/${id}`);
   return res.data;
 };
+
+export const applyToJob = async (id) => {
+  const response = await api.post(`/jobs/${id}/apply`);
+  return response.data;
+};
