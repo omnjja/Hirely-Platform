@@ -21,20 +21,20 @@ import CandidateLayout from "./components/layout/CandidateLayout";
 import ApplicationTracker from "./pages/ApplicationTracker";
 import HrProfile from "./pages/HrProfile";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
-import PublicRoute from "./components/routes/PublicRoute";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/role-selection" element={<RoleSelection />} />
-          <Route
-            path="/candidate/complete-profile"
-            element={<CandidateRegistration />}
-          />
-          <Route path="/hr/complete-profile" element={<HrRegistration />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/role-selection" element={<RoleSelection />} />
+        <Route
+          path="/candidate/complete-profile"
+          element={<CandidateRegistration />}
+        />
+        <Route path="/hr/complete-profile" element={<HrRegistration />} />
 
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
         <Route path="/RecoveryEmail" element={<RecoveryEmail />} />
@@ -62,8 +62,8 @@ function App() {
         <Route
           path="/"
           element={
-            <div className="flex flex-col items-center justify-center h-screen gap-4">
-              <Link to="/login" className="text-primary">
+            <div>
+              {/* <Link to="/login" className="text-primary">
                 Go to Login
               </Link>
               <Link to="/signup" className="text-primary">
@@ -92,7 +92,8 @@ function App() {
               </Link>
               <Link to="/recruiter/profile" className="text-primary">
                 Go to HR Profile
-              </Link>
+              </Link> */}
+              <LandingPage />
             </div>
           }
         />
