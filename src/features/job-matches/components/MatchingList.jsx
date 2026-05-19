@@ -66,13 +66,13 @@ const MatchingList = () => {
       </div>
       <div>
         <div className="flex flex-col gap-4">
-          {primary.map((job) => (
-            <JobCardPrimary job={job} />
+          {primary.map((job, i) => (
+            <JobCardPrimary job={job} key={i} />
           ))}
 
           <div className="grid grid-cols-2 gap-4">
-            {secondary.map((job) => (
-              <JobCardSecondary job={job} />
+            {secondary.map((job, i) => (
+              <JobCardSecondary job={job} key={i} />
             ))}
           </div>
         </div>
