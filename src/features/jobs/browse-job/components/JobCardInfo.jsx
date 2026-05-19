@@ -1,6 +1,7 @@
 import React from "react";
 import { MapPin, Clock, Briefcase, CheckCircle, XCircle } from "lucide-react";
 import { formatText } from "@/utils/formatText";
+import { formatText } from "@/utils/formatText";
 
 const JobCardInfo = ({location, jobType, status, experienceLevel, applicationCount }) => {
   const APPCOUNTTHRESOLD = 1;

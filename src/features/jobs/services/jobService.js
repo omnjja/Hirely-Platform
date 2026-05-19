@@ -5,6 +5,16 @@ export const getJobs = async (page) => {
   return response.data;
 };
 
+export const getRecomendedJobs = async () => {
+  const response = await api.get("/jobs/recommended");
+  return response.data;
+};
+
+export const getRecentJobs = async () => {
+  const response = await api.get("/jobs/recent");
+  return response.data;
+};
+
 export const getJobDetailsById = async (id) => {
   const response = await api.get(`/jobs/${id}`);
   return response.data;
@@ -21,11 +31,6 @@ export const updateJob = async (id, formData) => {
 };
 
 export const deleteJob = async (id) => {
-  const response = await api.delete(`/jobs/${id}`);
-  return response.data;
-};
-
-export const applyToJob = async (id) => {
-  const response = await api.post(`/jobs/${id}/apply`);
-  return response.data;
+  const res = await api.delete(`/jobs/${id}`);
+  return res.data;
 };

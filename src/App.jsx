@@ -23,10 +23,13 @@ import ApplicationTracker from "./pages/ApplicationTracker";
 import HrProfile from "./pages/HrProfile";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import LandingPage from "./pages/LandingPage";
+import CandidateLandingPage from "./pages/CandidateLandingPage";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
@@ -44,6 +47,7 @@ function App() {
 
         <Route element={<ProtectedRoute allowedRoles={"CANDIDATE"} />}>
           <Route path="/candidate" element={<CandidateLayout />}>
+            <Route index element={<CandidateLandingPage />} />
             <Route path="profile" element={<CandidateProfile />} />
             <Route path="jobs" element={<BrowseJobs />} />
             <Route path="jobs/:id" element={<JobDetailsPage />} />

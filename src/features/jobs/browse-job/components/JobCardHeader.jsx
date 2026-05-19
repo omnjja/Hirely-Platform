@@ -1,9 +1,7 @@
 import React from "react";
-import { Ellipsis, ExternalLink } from "lucide-react";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import { ExternalLink } from "lucide-react";
 import useAppNavigate from "@/hooks/useAppNavigate";
-dayjs.extend(relativeTime);
+import { formatPastDate } from "@/utils/formatPastDate";
 
 const JobCardHeader = ({ id, createdAt, title, companyName, department }) => {
   const { toViewJobDetails } = useAppNavigate();
@@ -16,10 +14,10 @@ const JobCardHeader = ({ id, createdAt, title, companyName, department }) => {
           </p>
           <div className="flex items-center gap-1.5 shrink-0">
             <p className="text-[#6A7282] text-xs whitespace-nowrap">
-              {dayjs(createdAt).fromNow()}
+              {formatPastDate(createdAt)}
             </p>
             <ExternalLink
-              size={14}
+              size={18}
               color="#6A7282"
               className="cursor-pointer"
               onClick={() => toViewJobDetails(id)}
