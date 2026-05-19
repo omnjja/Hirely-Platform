@@ -10,7 +10,7 @@ const Jobs = () => {
   const { data, isLoading, isFetching, error, refetch, page, setPage } =
     useJobs();
   const hasPrev = page > 1;
-  const hasNext = data?.hasNextPage;
+  const hasNext = page < data?.totalPages;
 
   if (isLoading)
     return (
@@ -63,7 +63,7 @@ const Jobs = () => {
               </div>
             </ButtonComponent>
 
-            <span className="text-xs text-gray-400">Page {page}</span>
+            <span className="text-xs text-gray-400">Page {page} | {data?.totalPages}</span>
 
             <ButtonComponent
               onClick={() => setPage((p) => p + 1)}

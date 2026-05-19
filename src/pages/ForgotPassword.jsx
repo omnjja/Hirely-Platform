@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ResetPassLayout from "@/components/layout/ResetPassLayout";
 import InputField from "@/components/ui/InputField";
 import NextButton from "@/components/ui/NextButton";
+import resetPass from "@/assets/resetPassImg.webp";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -12,6 +13,16 @@ const ForgotPassword = () => {
       subhead="Type in your registered email address to reset password"
       buttonText="Back to Login"
       to="/login"
+      topLines={true}
+      lowerImage={
+        <div className="w-full h-70 pointer-events-none">
+          <img
+            src={resetPass}
+            alt="Reset Password"
+            className="w-full h-full bg-cover"
+          />
+        </div>
+      }
     >
       <InputField
         label="Email Address"

@@ -131,7 +131,7 @@ const UploadProfilePictureField = ({
           fileInputRef.current = e;
         }}
         className="hidden"
-        accept=".jpg,.jpeg,.png"
+        accept=".jpg,.jpeg,.webp"
         {...rest}
         onChange={handleFileChange}
       />

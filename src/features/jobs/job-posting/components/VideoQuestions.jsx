@@ -69,8 +69,7 @@ const VideoQuestions = () => {
         ) : (
           !addQuestion && (
             <div
-              className="flex items-center gap-3 p-4 sm:py-3 sm:px-5 rounded-xl border-2 border-dashed border-gray-200
-          transition-all duration-300 hover:bg-gray-50 cursor-pointer"
+              className="flex items-center gap-3 p-4 sm:py-3 sm:px-5 rounded-xl border-2 border-dashed border-gray-200"
             >
               <p className="mx-auto text-gray-500 text-xs sm:text-base ">
                 Click 'Add Question' to define a question prompt...

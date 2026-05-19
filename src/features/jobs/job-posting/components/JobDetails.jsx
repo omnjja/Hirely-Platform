@@ -3,17 +3,15 @@ import { Grid } from "@mui/material";
 import InputFieldWithLabel from "@/components/ui/InputFieldWithLabel";
 import Box from "@mui/material/Box";
 import Card from "@/components/ui/Card";
-import DocumentsPicker from "@/components/ui/DocumentsPicker";
 import { useFormContext } from "react-hook-form";
 
 const JobDetails = () => {
   const {
     register,
-    control,
     formState: { errors },
   } = useFormContext();
   return (
-    <Card className="border rounded-xl shadow-xs p-5">
+    <Card className="border rounded-xl shadow-xs p-5 h-full">
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid size={{ xs: 12 }}>
@@ -39,18 +37,6 @@ const JobDetails = () => {
               labelClassName="text-[#566166] tracking-wide uppercase font-semibold mb-3"
               {...register("coreResponsibilities")}
               error={errors.coreResponsibilities?.message}
-            />
-          </Grid>
-
-          <Grid size={{ xs: 12 }}>
-            <DocumentsPicker
-              label="Document Attachment"
-              labelClassName="text-[#566166] tracking-wide uppercase font-semibold mb-3"
-              name="documentAttachment"
-              control={control}
-              errors={errors}
-              accept=".pdf"
-              maxSizeMB={2}
             />
           </Grid>
         </Grid>
