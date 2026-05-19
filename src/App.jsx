@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.css";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
@@ -63,36 +63,6 @@ function App() {
           path="/"
           element={
             <div>
-              {/* <Link to="/login" className="text-primary">
-                Go to Login
-              </Link>
-              <Link to="/signup" className="text-primary">
-                Go to Sign Up
-              </Link>
-              <Link to="/role-selection" className="text-primary">
-                Go to Role Selection
-              </Link>
-              <Link to="/candidate/complete-profile" className="text-primary">
-                Go to Candidate Registration
-              </Link>
-              <Link to="/hr/complete-profile" className="text-primary">
-                Go to HR Registration
-              </Link>
-              <Link to="/candidate/profile" className="text-primary">
-                Go to Candidate Profile
-              </Link>
-              <Link to="/recruiter/create-job-posting" className="text-primary">
-                Go to Create Job Posting
-              </Link>
-              <Link to="/recruiter/jobs" className="text-primary">
-                Go to all Jobs
-              </Link>
-              <Link to="/candidate/applications" className="text-primary">
-                Go to Application Tracker
-              </Link>
-              <Link to="/recruiter/profile" className="text-primary">
-                Go to HR Profile
-              </Link> */}
               <LandingPage />
             </div>
           }
