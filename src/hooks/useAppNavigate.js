@@ -8,6 +8,7 @@ const useAppNavigate = () => {
     toHome: () => navigate("/"),
     toLogin: () => navigate("/login"),
     toSignup: () => navigate("/signup"),
+    toSuccessfulResetPassword: () => navigate("/SuccessfulPassword"),
     toRoleSelection: () => navigate("/role-selection"),
     toRegisterCandidate: () => navigate("/candidate/complete-profile"),
     toRegisterHr: () => navigate("/hr/complete-profile"),
