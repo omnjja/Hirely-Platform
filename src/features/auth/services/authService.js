@@ -6,7 +6,7 @@ export const signup = async (formData) => {
 };
 
 export const googleAuth = () => {
-  window.location.href = "http://localhost:3000/auth/google/login";
+  window.location.href = "http://76.13.58.192.nip.io:4000/auth/google/login";
 };
 
 export const login = async (data) => {
@@ -16,7 +16,7 @@ export const login = async (data) => {
 
 export const logout = async () => {
   await api.post("/auth/logout");
-}
+};
 
 export const forgotPassword = async (email) => {
   const res = await api.post("/auth/forgot-password", { email });
