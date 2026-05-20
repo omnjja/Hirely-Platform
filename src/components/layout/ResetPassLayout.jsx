@@ -14,6 +14,7 @@ const ResetPassLayout = ({
   leftLines,
   topLines,
   lowerImage,
+  action,
 }) => {
   const navigate = useNavigate();
   return (
@@ -34,7 +35,7 @@ const ResetPassLayout = ({
             <ButtonComponent
               text={buttonText}
               fullWidth
-              onClick={() => to && navigate(to)}
+              onClick={() => to ? navigate(to) : action()}
             />
           </div>
         </div>
