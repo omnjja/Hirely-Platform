@@ -1,7 +1,7 @@
 import React from "react";
 import { Zap, CalendarDays } from "lucide-react";
 import StageTimeline from "./StageTimeline";
-import { fmt } from "@/utils/Formatters";
+import { fmt } from "@/utils/formatters";
 import Section from "@/components/ui/Section";
 
 const DetailProgress = ({ app, statusStyle }) => {
