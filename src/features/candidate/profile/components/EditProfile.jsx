@@ -39,12 +39,10 @@ const EditProfile = ({ isOpen, onClose, profileData, onSubmit, isPending }) => {
       className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4"
       onClick={onClose}
     >
-      {/* Modal Box */}
       <div
         className="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-xl"
         onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
       >
-        {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 sticky top-0 bg-white z-10">
           <h2 className="text-lg font-bold text-[#1B41AA]">Edit Profile</h2>
           <button
@@ -56,7 +54,6 @@ const EditProfile = ({ isOpen, onClose, profileData, onSubmit, isPending }) => {
           </button>
         </div>
 
-        {/* Form */}
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="p-6 flex flex-col gap-6"

@@ -1,7 +1,6 @@
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { Mail, Phone, Building2, Pencil } from "lucide-react";
 import ButtonComponent from "@/components/ui/ButtonComponent";
-import hr_pic from "@/assets/hr_pic.jpg";
+import hr_pic from "@/assets/topMatch.webp";
 
 const HrProfileInfo = ({ data, onEdit }) => (
   <div className="bg-white border border-gray-200 rounded-2xl p-5">

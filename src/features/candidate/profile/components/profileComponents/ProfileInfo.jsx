@@ -1,4 +1,4 @@
-import { React, useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import {
   Mail,
   Phone,
@@ -10,7 +10,7 @@ import {
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import ButtonComponent from "@/components/ui/ButtonComponent";
-import useUpdateProfilePicture from "../../hooks/useUpdateProfilePicture";
+import useUpdateProfilePicture from "@/features/candidate/profile/hooks/useUpdateProfilePicture";
 
 const ProfileInfo = ({ profileData, onEdit }) => {
   const fileInputRef = useRef(null);

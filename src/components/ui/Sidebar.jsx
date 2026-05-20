@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 
 const Sidebar = ({ menuItems, isMobile = false, setIsOpen }) => {
   const { toLogin } = useAppNavigate();
+  const userRole = localStorage.getItem("userRole");
 
   async function handleLogout() {
     try {
@@ -30,7 +31,7 @@ const Sidebar = ({ menuItems, isMobile = false, setIsOpen }) => {
     >
       <div className="flex flex-col items-center w-full gap-6">
         <div className="w-full flex justify-center">
-          <NavLink to="/">
+          <NavLink to={userRole == "HR" ? "/" : "/candidate"}>
             <Logo />
           </NavLink>
         </div>

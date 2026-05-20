@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Box, Card, Grid } from "@mui/material";
 import JobDetailsHeader from "@/features/jobs/job-details/components/JobDetailsHeader";
 import JobDetailsInfo from "@/features/jobs/job-details/components/JobDetailsInfo";
 import JobDetailsDescription from "@/features/jobs/job-details/components/JobDetailsDescription";
@@ -125,7 +124,6 @@ const JobDetailsPage = () => {
           )}
         </div>
         {/* ai */}
-
       </div>
       <ConfirmDialog
         open={confirmOpen}

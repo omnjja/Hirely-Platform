@@ -15,7 +15,6 @@ import ButtonComponent from "@/components/ui/ButtonComponent";
 import { experienceOptions } from "@/constants/experienceOptions";
 import AddingField from "@/components/ui/AddingField";
 import { candidatePayload } from "@/constants/candidatePayload";
-import { useNavigate } from "react-router-dom";
 import { skillsOptions } from "@/constants/skillsOptions";
 import { languageOptions } from "@/constants/languageOptions";
 import useAppNavigate from "@/hooks/useAppNavigate";
@@ -42,7 +41,7 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
   const summaryValue = watch("profileSummary") || "";
   const selectedCountry = watch("country") || "";
   const textLength = summaryValue.length;
-  const { toCandidateProfile } = useAppNavigate();
+  const { toCandidateLandingPage } = useAppNavigate();
 
   const values = watch();
   useEffect(() => {
@@ -70,7 +69,7 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
 
       await registerCandidate(payload);
       reset();
-      toCandidateProfile();
+      toCandidateLandingPage();
     } catch (error) {
       setError("root", {
         message:
@@ -82,7 +81,9 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <p className="text-xl text-[#0576D6] font-bold pb-5">Candidate Application Form</p>
+      <p className="text-xl text-[#0576D6] font-bold pb-5">
+        Candidate Application Form
+      </p>
       <InputFieldWithLabel
         {...register("fullName")}
         name="fullName"

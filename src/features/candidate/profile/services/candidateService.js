@@ -1,4 +1,4 @@
-import api from "../../../lib/api";
+import api from "../../../../lib/api";
 
 export const getCandidateProfile = async () => {
   const res = await api.get("/profile");

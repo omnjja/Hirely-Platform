@@ -1,11 +1,11 @@
-import React, { use, useState } from "react";
-import HrProfileInfo from "../features/hr-profile/components/HrProfileInfo";
-import CompanyCard from "../features/hr-profile/components/CompanyCard";
-import { getHrProfile } from "../features/hr-profile/services/JobService";
+import React, { useState } from "react";
+import HrProfileInfo from "@/features/hr-profile/components/HrProfileInfo";
+import CompanyCard from "@/features/hr-profile/components/CompanyCard";
+import { getHrProfile } from "@/features/hr-profile/services/JobService";
 import { useQuery } from "@tanstack/react-query";
-import EditHrProfileForm from "../features/hr-profile/components/EditHrProfileForm";
-import { updateHrProfile } from "../features/hr-profile/services/JobService";
+import EditHrProfileForm from "@/features/hr-profile/components/EditHrProfileForm";
 import { useQueryClient } from "@tanstack/react-query";
+import useUpdateProfileMutation from "@/features/hr-profile/hooks/useUpdateHrMutation";
 
 const HrProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,10 +15,10 @@ const HrProfile = () => {
     queryKey: ["hrProfile"],
     queryFn: getHrProfile,
   });
-
+  const { mutateAsync: updateProfile, isPending } = useUpdateProfileMutation();
   const handleUpdate = async (formData) => {
     try {
-      await updateHrProfile(formData);
+      await updateProfile(formData);
       await queryClient.invalidateQueries({
         queryKey: ["hrProfile"],
       });
@@ -52,7 +52,7 @@ const HrProfile = () => {
               onClose={() => setIsModalOpen(false)}
               profileData={hrData}
               onSubmit={handleUpdate}
-              // isPending={isPending}
+              isPending={isPending}
             />
           )}
         </div>

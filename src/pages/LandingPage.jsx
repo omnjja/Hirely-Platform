@@ -1,7 +1,7 @@
 import LandingHeader from "@/features/landing-page/components/LandingHeader";
 import LandingButtons from "@/features/landing-page/components/LandingButtons";
 import LandingContent from "@/features/landing-page/components/LandingContent";
-import LandingLogo from "@/assets/LandingLogo.jpg";
+import LandingLogo from "@/assets/authSideLogo.webp";
 
 const LandingPage = () => {
   return (

@@ -37,7 +37,7 @@ const CandidateLayout = () => {
 
       <div className="flex-1 flex flex-col overflow-y-auto">
         {/* Header */}
-        <div className="sticky top-0 left-0 z-10 bg-white flex items-center sm:gap-5 lg:justify-between p-4 border-b border-gray-100 shadow-sm">
+        <div className="px-6 sticky top-0 left-0 z-10 bg-white flex items-center sm:gap-5 lg:justify-between py-4 border-b border-gray-100 shadow-sm">
           <button
             className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition"
             onClick={() => setIsOpen(true)}
@@ -47,7 +47,7 @@ const CandidateLayout = () => {
           <MainHeader />
         </div>
 
-        <div className="px-3 sm:px-6 py-4">
+        <div className="px-4 py-4">
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,1fr)] gap-6">
             {/* Main Page */}
             <div>
