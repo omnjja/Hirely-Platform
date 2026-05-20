@@ -2,7 +2,7 @@ import React from "react";
 ("use client");
 import { Controller } from "react-hook-form";
 import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
+import { Slider } from "@/components/ui/Slider";
 
 const MIN = 0;
 const MAX = 50000;
