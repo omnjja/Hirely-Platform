@@ -7,7 +7,6 @@ const UploadProfilePictureField = ({
   required,
   error,
   onPhotoSelect,
-  // setValue,
   name,
   bottomText,
   register,
@@ -53,7 +52,6 @@ const UploadProfilePictureField = ({
 
     if (onPhotoSelect) onPhotoSelect(file);
 
-    // setValue("profilePicture", file);
     rhfOnChange(e);
   };
 
@@ -133,7 +131,7 @@ const UploadProfilePictureField = ({
           fileInputRef.current = e;
         }}
         className="hidden"
-        accept=".jpg,.jpeg,.png"
+        accept=".jpg,.jpeg,.webp"
         {...rest}
         onChange={handleFileChange}
       />

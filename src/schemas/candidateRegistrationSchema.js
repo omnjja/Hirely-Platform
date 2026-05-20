@@ -35,8 +35,6 @@ export const candidateRegistrationSchema = z.object({
   profileSummary: z
     .string()
     .min(50, "Profile summary must be at least 50 characters"),
-  // skills: z.array(z.string()).min(1, "At least one skill is required"),
-  // languages: z.array(z.string()).min(1, "At least one language is required"),
   skills: z.array(z.object({ value: z.string() })),
   languages: z.array(z.object({ value: z.string() })),
   linkedIn: z

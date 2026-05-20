@@ -1,5 +1,5 @@
-import candidateLogo from "@/assets/candidate_image.png";
-import recruiterLogo from "@/assets/hr_image.png";
+import candidateLogo from "@/assets/candidateRole.webp";
+import recruiterLogo from "@/assets/hrRole.webp";
 
 export const ROLES = [
   {

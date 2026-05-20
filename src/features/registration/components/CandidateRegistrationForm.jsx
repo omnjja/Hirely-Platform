@@ -14,7 +14,10 @@ import { useRegistrationUpload } from "../hooks/useRegisterationUpload";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import { experienceOptions } from "@/constants/experienceOptions";
 import AddingField from "@/components/ui/AddingField";
-import { candidatePayload } from "@/constants/candidatePayload";
+import { candidatePayload, progressConfig } from "@/constants/candidatePayload";
+import { skillsOptions } from "@/constants/skillsOptions";
+import { languageOptions } from "@/constants/languageOptions";
+import useAppNavigate from "@/hooks/useAppNavigate";
 
 const CandidateRegistrationForm = ({ onProgressChange }) => {
   const { mutateAsync: registerCandidate } = useCandidateRegMutation(); // send all data to registerCandidate
@@ -28,8 +31,7 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
     handleSubmit,
     control,
     watch,
-    // setValue,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, dirtyFields },
   } = useCustomForm({
     defaultValues: candidateRegistrationDefaultValues,
     schema: candidateRegistrationSchema,
@@ -37,23 +39,28 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
   });
 
   const summaryValue = watch("profileSummary") || "";
+  const selectedCountry = watch("country") || "";
   const textLength = summaryValue.length;
+  const { toCandidateLandingPage } = useAppNavigate();
 
   const values = watch();
   useEffect(() => {
-    const filled = Object.values(values).filter(Boolean).length;
-    const total = Object.keys(values).length;
-    onProgressChange((filled / total) * 100);
+    const singleFilled = progressConfig.single.filter((key) =>
+      Boolean(values[key]),
+    ).length;
+    const arrayFilled = progressConfig.array.filter(
+      (key) => values[key]?.length > 0,
+    ).length;
+    const total = progressConfig.single.length + progressConfig.array.length;
+    onProgressChange(((singleFilled + arrayFilled) / total) * 100);
   }, [values]);
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       let profilePictureKey = null;
       let cvKey = null;
       if (profilePicture) {
         const { key } = await handleImageUpload(profilePicture);
-        // setValue("profilePicture", key);
         profilePictureKey = key;
       }
       const cvFile = data.cv?.[0];
@@ -61,26 +68,26 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
         const { key } = await handleCVUpload(cvFile);
         cvKey = key;
       }
-      console.log(watch("cv")); // Check the value of the cv <field>
 
       const payload = candidatePayload(data, profilePictureKey, cvKey);
 
-      console.log("Submitting payload:", payload);
-
       await registerCandidate(payload);
       reset();
+      toCandidateLandingPage();
     } catch (error) {
       setError("root", {
         message:
           error.response?.data?.message ||
           "An error occurred. Please try again.",
       });
-      console.log("register error:", error);
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <p className="text-xl text-[#0576D6] font-bold pb-5">
+        Candidate Application Form
+      </p>
       <InputFieldWithLabel
         {...register("fullName")}
         name="fullName"
@@ -109,6 +116,7 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
           name="country"
           label="Country"
           placeholder="Select country"
+          value={selectedCountry}
           required
           options={countryOptions}
           error={errors.country?.message}
@@ -155,22 +163,28 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
         placeholder="Tell us about yourself, your experience, and what you're looking for..."
         required
         bottomText={`${textLength} characters (minimum 50)`}
-        fieldHeight="80px"
+        fieldHeight={80}
         error={errors.profileSummary?.message}
       />
       <AddingField
         name="skills"
+        listName="skills"
         control={control}
         errors={errors}
         placeholder="e.g., React, TypeScript, Node.js"
         bottomText="At least one skill is required"
+        required
+        suggestionsList={skillsOptions}
       />
       <AddingField
         name="languages"
+        listName="languages"
         control={control}
         errors={errors}
         placeholder="e.g., English, Arabic, French"
         bottomText="At least one language is required"
+        required
+        suggestionsList={languageOptions}
       />
       <UploadCVField
         name="cv"

@@ -2,7 +2,7 @@ import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-const UseCustomForm = ({ defaultValues = {}, schema, mode = "onSubmit" }) => {
+const useCustomForm = ({ defaultValues = {}, schema, mode = "onSubmit" }) => {
   return useForm({
     defaultValues,
     resolver: zodResolver(schema),
@@ -10,4 +10,4 @@ const UseCustomForm = ({ defaultValues = {}, schema, mode = "onSubmit" }) => {
   });
 };
 
-export default UseCustomForm;
+export default useCustomForm;

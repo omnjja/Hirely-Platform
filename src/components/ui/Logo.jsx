@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../assets/HirelyLogoRemovebg.png";
+import logo from "@/assets/HirelyLogoRemovebg.webp";
 
 const Logo = () => {
   return (

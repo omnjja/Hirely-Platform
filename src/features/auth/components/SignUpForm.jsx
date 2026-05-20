@@ -7,11 +7,11 @@ import FormFooter from "./FormFooter";
 import GoogleButton from "@/components/ui/GoogleButton";
 import Divider from "@/components/ui/Divider";
 import DateField from "@/components/ui/DateField";
-import useSignupMutation from "../hooks/useSignupMutation";
+import {useSignupMutation} from "../hooks/useSignupMutation";
 import {
   userSignupDefaultValues,
   userSignupSchema,
-} from "@/shcemas/userSignupSchema";
+} from "@/schemas/userSignupSchema";
 import useCustomForm from "@/hooks/useCustomForm";
 import * as authAPI from "../services/authService";
 

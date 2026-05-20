@@ -1,15 +1,15 @@
 import FormHeader from "./FormHeader";
-import InputField from "../../../components/ui/InputField";
-import PasswordField from "../../../components/ui/PasswordField";
-import ButtonComponent from "../../../components/ui/ButtonComponent";
+import InputField from "@/components/ui/InputField";
+import PasswordField from "@/components/ui/PasswordField";
+import ButtonComponent from "@/components/ui/ButtonComponent";
 import FormFooter from "./FormFooter";
-import GoogleButton from "../../../components/ui/GoogleButton";
-import Divider from "../../../components/ui/Divider";
+import GoogleButton from "@/components/ui/GoogleButton";
+import Divider from "@/components/ui/Divider";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import useLoginMutation from "../hooks/useLoginMutation";
+import {useLoginMutation} from "../hooks/useLoginMutation";
 import * as authAPI from "../services/authService";
 
 const LoginForm = () => {
@@ -41,7 +41,23 @@ const LoginForm = () => {
     try {
       const response = await login(data);
       if (response.accessToken) {
-        navigate("/dashboard");
+        const { role, isProfileCompleted } = response;
+
+        if (role === "CANDIDATE") {
+          if (isProfileCompleted) {
+            navigate("/candidate/profile");
+          } else {
+            navigate("/candidate/complete-profile");
+          }
+        }
+
+        if (role === "HR") {
+          if (isProfileCompleted) {
+            navigate("/recruiter/profile");
+          } else {
+            navigate("/hr/complete-profile");
+          }
+        }
       } else {
         setError("root", {
           message: "Failed to sign in. Please check your credentials.",

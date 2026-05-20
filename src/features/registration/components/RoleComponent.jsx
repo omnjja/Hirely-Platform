@@ -1,6 +1,6 @@
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import React from "react";
-import useChooseRoleMutation from "../hooks/useChooseRoleMutation";
+import {useChooseRoleMutation} from "../hooks/useChooseRoleMutation";
 
 const RoleComponent = ({
   id,
@@ -23,8 +23,8 @@ const RoleComponent = ({
 
   return (
     <div className="bg-white rounded-3xl p-8 w-full max-w-sm shadow-md hover:shadow-xl  transition-all duration-300 flex flex-col items-center gap-4 border border-gray-100">
-      <div className="w-24 h-24 flex items-center justify-center">
-        <img src={photo} alt="User Icon" className="w-24 h-24 object-contain" />
+      <div className="w-40 h-30 flex items-center justify-center">
+        <img src={photo} alt="User Icon" className="w-full h-full bg-cover" />
       </div>
 
       <div className="text-xl font-bold text-[#2E2E2E] tracking-tight">
