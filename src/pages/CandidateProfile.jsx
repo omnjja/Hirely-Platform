@@ -10,6 +10,7 @@ import useUpdateProfileMutation from "../features/candidate/profile/hooks/useUpd
 import { updatedCandidatePayload } from "@/constants/updatedCandidatePayload";
 import EditProfile from "../features/candidate/profile/components/EditProfile";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import CandidateProfileSkeleton from "@/features/candidate/profile/components/profileComponents/CandidateProfileSkelton";
 
 const CandidateProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,7 +36,7 @@ const CandidateProfile = () => {
       console.error("Error updating profile:", error);
     }
   };
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <CandidateProfileSkeleton />;
 
   return (
     <>
