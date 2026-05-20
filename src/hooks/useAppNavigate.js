@@ -13,6 +13,7 @@ const useAppNavigate = () => {
     toRegisterCandidate: () => navigate("/candidate/complete-profile"),
     toRegisterHr: () => navigate("/hr/complete-profile"),
     toViewJobDetails: (id) => navigate(id),
+    toCreateJob: () => navigate("/recruiter/create-job-posting"),
     toEditJob: (id) => navigate(`${id}/edit`),
     toCandidateProfile: () => navigate("/candidate/profile"),
     toCandidateJobs: () => navigate("/candidate/jobs"),

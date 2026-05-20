@@ -14,11 +14,12 @@ import { FormProvider } from "react-hook-form";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import { useCreateJobMutation } from "../hooks/useCreateJobMutation";
 import { useUpdateJobMutation } from "../../job-details/hooks/useUpdateJobMutation";
-import { useNavigate } from "react-router-dom";
-import ConfirmDialog from "@/components/ui/ConfirmDialog";
+import useAppNavigate from "@/hooks/useAppNavigate";
 
 const JobForm = ({ mode = "post", initialValues = {} }) => {
-  const navigate = useNavigate();
+  const { back } = useAppNavigate();
+  const role = localStorage.getItem("userRole");
+  const isRecruiter = role === "HR";
   const formattedInitialValues = useMemo(() => {
     return {
       ...jobDefaultValues,
@@ -65,7 +66,7 @@ const JobForm = ({ mode = "post", initialValues = {} }) => {
           { id: jobId, formData: payload },
           {
             onSuccess: () => {
-              setTimeout(() => navigate(-1), 1000);
+              setTimeout(() => back(), 1000);
             },
           },
         );
@@ -126,17 +127,31 @@ const JobForm = ({ mode = "post", initialValues = {} }) => {
                   </Grid>
                 </Grid>
               </div>
+              <div className="mt-4 sm:mt-6">
+                <VideoQuestions />
+              </div>
               {methods.formState.errors?.root && (
-                <p className="text-red-500 text-sm flex items-center mb-1">
+                <p className="text-red-500 text-sm flex items-center mt-3">
                   {methods.formState.errors.root.message ||
                     "An error occurred. Please try again."}
                 </p>
               )}
-              <div className="mt-4 sm:mt-6">
-                <VideoQuestions />
-              </div>
+              <div className="flex sm:flex-row justify-end gap-3 mt-6">
+                {isRecruiter && (
+                  <ButtonComponent
+                    text="Cancel"
+                    style={{
+                      bgColor: "#FFFFFF",
+                      textColor: "#EF4444",
+                      bold: true,
+                      borderColor: "#FEE2E2",
+                      shadow: "sm",
+                    }}
+                    onClick={() => back()}
+                    disabled={methods.formState.isSubmitting}
+                  />
+                )}
 
-              <div className="flex flex-col sm:flex-row justify-end gap-3 mt-6">
                 <ButtonComponent
                   type="submit"
                   fullWidth
