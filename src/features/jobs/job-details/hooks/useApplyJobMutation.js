@@ -30,20 +30,13 @@ export const useApplyJobMutation = () => {
     },
 
     onSuccess: (data, id) => {
-      const { application } = data;
-      toast.success(application.nextStepTitle, { id: "applyJob" });
-
-      queryClient.setQueryData({ queryKey: ["jobs"] }, (old) =>
-        old?.map((job) =>
-          job.id === id ? { ...job, isCandidateApply: true } : job,
-        ),
-      );
-      queryClient.setQueryData({ queryKey: ["job", id] }, (old) =>
-        old ? { ...old, isCandidateApply: true } : old,
-      );
-      
-      queryClient.invalidateQueries({ queryKey: ["job", id] });
-      queryClient.invalidateQueries({ queryKey: ["jobs"] });
+      toast.success(data?.application?.nextStepTitle, { id: "applyJob" });
+      queryClient.invalidateQueries({
+        queryKey: ["job", id],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["jobs"],
+      });
     },
 
     onError: (error, id, context) => {

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Sparkles,
   Heart,
-  RefreshCw,
   CheckCheck,
   Pencil,
   Trash2,
@@ -20,7 +19,7 @@ const Actions = ({ id, isApplied }) => {
   const role = localStorage.getItem("userRole");
   const { toViewJobDetails, toEditJob, back } = useAppNavigate();
   const isMobile = useIsMobile();
-  const { mutateAsync: applyToJob, isPending } = useApplyJobMutation();
+  const { mutateAsync: applyToJob, isPending: isApplying } = useApplyJobMutation();
   const { mutateAsync: deleteJob } = useDeleteJobMutation();
 
   async function handleJobApply() {
@@ -77,7 +76,7 @@ const Actions = ({ id, isApplied }) => {
         onClick={() => {
           role === "HR" ? toViewJobDetails(id) : handleJobApply();
         }}
-        disabled={isApplied || isPending}
+        disabled={isApplying || isApplied}
         className="text-[11px] sm:text-sm flex-1"
       >
         <div className="flex gap-2 justify-center items-center">
@@ -89,13 +88,11 @@ const Actions = ({ id, isApplied }) => {
           ) : (
             <>
               <p>
-                {isPending
-                  ? "Submitting..."
-                  : isApplied
-                    ? "APPLIED"
-                    : isMobile
-                      ? "APPLY"
-                      : "APPLY WITH AUTOFILL"}
+                {isApplied
+                  ? "APPLIED"
+                  : isMobile
+                    ? "APPLY"
+                    : "APPLY WITH AUTOFILL"}
               </p>
               {isApplied && <CheckCheck />}
             </>
