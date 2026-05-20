@@ -14,7 +14,7 @@ import { useRegistrationUpload } from "../hooks/useRegisterationUpload";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import { experienceOptions } from "@/constants/experienceOptions";
 import AddingField from "@/components/ui/AddingField";
-import { candidatePayload } from "@/constants/candidatePayload";
+import { candidatePayload, progressConfig } from "@/constants/candidatePayload";
 import { skillsOptions } from "@/constants/skillsOptions";
 import { languageOptions } from "@/constants/languageOptions";
 import useAppNavigate from "@/hooks/useAppNavigate";
@@ -31,7 +31,7 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
     handleSubmit,
     control,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, dirtyFields },
   } = useCustomForm({
     defaultValues: candidateRegistrationDefaultValues,
     schema: candidateRegistrationSchema,
@@ -45,13 +45,17 @@ const CandidateRegistrationForm = ({ onProgressChange }) => {
 
   const values = watch();
   useEffect(() => {
-    const filled = Object.values(values).filter(Boolean).length;
-    const total = Object.keys(values).length;
-    onProgressChange((filled / total) * 100);
+    const singleFilled = progressConfig.single.filter((key) =>
+      Boolean(values[key]),
+    ).length;
+    const arrayFilled = progressConfig.array.filter(
+      (key) => values[key]?.length > 0,
+    ).length;
+    const total = progressConfig.single.length + progressConfig.array.length;
+    onProgressChange(((singleFilled + arrayFilled) / total) * 100);
   }, [values]);
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       let profilePictureKey = null;
       let cvKey = null;

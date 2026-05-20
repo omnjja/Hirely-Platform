@@ -19,3 +19,19 @@ export const candidatePayload = (data, profilePictureKey, cvKey) => {
     cvFileUrl: cvKey,
   };
 };
+
+export const progressConfig = {
+  single: [
+    "fullName",
+    "currentJobTitle",
+    "country",
+    "mobileNumber",
+    "education",
+    "experienceLevel",
+    "profileSummary",
+    "cv",
+    "linkedIn",
+    "gitHub",
+  ],
+  array: ["skills", "languages"],
+};

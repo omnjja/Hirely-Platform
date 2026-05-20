@@ -124,7 +124,6 @@ const HrRegistrationForm = ({ onProgressChange }) => {
         bottomText={`${companySummaryLength} characters (minimum 50)`}
         fieldHeight="80"
         error={errors.companySummary?.message}
-        required
       />
 
       <InputFieldWithLabel
