@@ -45,7 +45,7 @@ const LoginForm = () => {
 
         if (role === "CANDIDATE") {
           if (isProfileCompleted) {
-            navigate("/candidate/profile");
+            navigate("/candidate/");
           } else {
             navigate("/candidate/complete-profile");
           }
