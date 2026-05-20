@@ -13,10 +13,12 @@ import { useNavigate } from "react-router-dom";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
 import { useDeleteJobMutation } from "@/features/jobs/job-details/hooks/useDeleteJobMutation";
 import { useApplyJobMutation } from "@/features/jobs/job-details/hooks/useApplyJobMutation";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const JobDetailsPage = () => {
   const role = localStorage.getItem("userRole");
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const [confirmOpen, setConfirmOpen] = useState(false);
   const { data, isLoading, isFetching, error, refetch } = useJobDetails();
   const { mutateAsync: deleteJob } = useDeleteJobMutation();
@@ -100,23 +102,17 @@ const JobDetailsPage = () => {
                 <ButtonComponent
                   fullWidth
                   onClick={() => handleJobApply()}
-                  disabled={data?.isCandidateApply || isPending}
+                  disabled={isPending || data?.isCandidateApply}
                 >
                   <div className="flex gap-1 justify-center">
                     <p>
-                      {isPending
-                        ? "Submitting..."
-                        : data?.isCandidateApply
-                          ? "Applied"
-                          : "Apply With Autofill"}
+                      {data?.isCandidateApply
+                        ? "APPLIED"
+                        : isMobile
+                          ? "APPLY"
+                          : "APPLY WITH AUTOFILL"}
                     </p>
-                    {isPending ? (
-                      <RefreshCw className="animate-spin" size={20} />
-                    ) : data?.isCandidateApply ? (
-                      <CheckCheck />
-                    ) : (
-                      <ArrowRight />
-                    )}
+                    {data?.isCandidateApply && <CheckCheck />}
                   </div>
                 </ButtonComponent>
               </div>

@@ -5,15 +5,21 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { Controller } from "react-hook-form";
 import dayjs from "dayjs";
 
-const DateField = ({ label, error, control, name }) => {
+const DateField = ({hasLabel = false, label, error, control, name, required, rounded = "8px" }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
+      {hasLabel && (
+        <label htmlFor={name} className="block font-medium text-sm mb-1">
+          {label}
+          {required && <span className="text-red-500"> *</span>}
+        </label>
+      )}
       <Controller
         name={name}
         control={control}
         render={({ field }) => (
           <DatePicker
-            label={label}
+            label={!hasLabel ? label : undefined}
             value={field.value ? dayjs(field.value) : null}
             onChange={(date) => field.onChange(date ? date.toISOString() : "")}
             slotProps={{
@@ -24,10 +30,10 @@ const DateField = ({ label, error, control, name }) => {
                 helperText: error || " ",
                 sx: {
                   "& .MuiPickersOutlinedInput-root": {
-                    borderRadius: "8px",
+                    borderRadius: rounded,
                   },
                   "& .MuiPickersOutlinedInput-notchedOutline": {
-                    borderRadius: "8px",
+                    borderRadius: rounded,
                   },
                   "& .MuiFormHelperText-root": {
                     minHeight: "14px",

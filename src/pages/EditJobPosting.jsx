@@ -1,8 +1,6 @@
 import React from "react";
-import Card from "@/components/ui/Card";
 import JobForm from "@/features/jobs/job-posting/components/JobForm";
 import useJobDetails from "@/features/jobs/job-details/hooks/useJobDetails";
-import { Box, Grid } from "@mui/material";
 import JobDetailsSkeleton from "@/features/jobs/job-details/components/JobDetailsSkeleton";
 import ErrorComponent from "@/components/ui/ErrorComponent";
 
@@ -43,8 +41,10 @@ const EditJobPosting = () => {
         keywords: (jobData.keywords || []).map((keyword) =>
           typeof keyword === "string" ? { value: keyword } : keyword,
         ),
-        documentAttachment: jobData.documentAttachment || null,
         interviewerQuestions: jobData.interviewerQuestions || [],
+        startDate: jobData.startDate,
+        endDate: jobData.endDate,
+        sprintDuration: jobData.sprintDuration,
       }
     : {};
 
