@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getApplications } from "@/features/application-tracker/services/applicationService";
 import { getApplicationById } from "@/features/application-tracker/services/applicationService";
 import ApplicationDetail from "@/features/application-tracker/components/ApplicationDetail";
+import ApplicationDetailSkeleton from "@/features/application-tracker/components/ApplicationDetailSkeleton";
 
 const ApplicationTracker = () => {
   const { data } = useApplicationStats();
@@ -35,11 +36,7 @@ const ApplicationTracker = () => {
 
   if (selectedId) {
     if (detailLoading) {
-      return (
-        <div className="flex items-center justify-center py-40 text-gray-400 text-sm font-medium">
-          Loading application details…
-        </div>
-      );
+      return <ApplicationDetailSkeleton />;
     }
     return (
       <ApplicationDetail data={detailData} onBack={() => setSelectedId(null)} />

@@ -56,7 +56,7 @@ const ProfileInfo = ({ profileData, onEdit }) => {
   const displayPhoto = previewUrl || profileData.profilePictureUrl;
 
   return (
-    <div className="bg-white border border-gray-500 rounded-2xl p-4 md:p-6  flex flex-col md:flex-row gap-4 md:gap-5">
+    <div className="bg-white border border-gray-500 rounded-2xl p-4 md:p-6  flex flex-col md:flex-row gap-4 md:gap-5 overflow-hidden w-full">
       {/* photo + Buttons in mobile */}
       <div className="flex items-start gap-4 md:contents">
         <div className="shrink-0">
@@ -98,7 +98,6 @@ const ProfileInfo = ({ profileData, onEdit }) => {
         </div>
       </div>
 
-      {/* Info */}
       <div className="flex-1">
         <div className="flex justify-between items-start">
           <div>
@@ -108,11 +107,10 @@ const ProfileInfo = ({ profileData, onEdit }) => {
             <p className="text-gray-500 text-sm mb-2">
               {profileData.currentJobTitle}
             </p>
-            <p className="text-gray-400 text-sm max-w-lg leading-relaxed mb-4">
+            <p className="text-gray-400 text-sm max-w-lg leading-relaxed mb-4 wrap-break-word">
               {profileData.profileSummary}
             </p>
           </div>
-          {/* Buttons */}
 
           <div className="hidden md:flex flex-col gap-2 ml-4 shrink-0">
             <ButtonComponent
@@ -132,22 +130,22 @@ const ProfileInfo = ({ profileData, onEdit }) => {
             </ButtonComponent>
           </div>
         </div>
-        {/* Contact Info */}
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 mb-4">
-          <div className="flex items-center gap-2 text-sm text-gray-500">
+          <div className="flex items-center gap-2 text-sm text-gray-500 min-w-0">
             <Mail className="w-4 h-4" /> {profileData.email}
           </div>
-          <div className="flex items-center gap-2 text-sm text-gray-500">
+          <div className="flex items-center gap-2 text-sm text-gray-500 min-w-0">
             <Phone className="w-4 h-4" /> {profileData.mobileNumber}
           </div>
-          <div className="flex items-center gap-2 text-sm text-gray-500">
+          <div className="flex items-center gap-2 text-sm text-gray-500 min-w-0">
             <MapPin className="w-4 h-4" /> {profileData.country}
           </div>
-          <div className="flex items-center gap-2 text-sm text-gray-500">
+          <div className="flex items-center gap-2 text-sm text-gray-500 min-w-0 ">
             <Briefcase className="w-4 h-4" /> {profileData.profileStatus}
           </div>
         </div>
-        {/* Social Links */}
+
         <div className="flex items-center gap-5">
           <a
             href={profileData.linkedin}
