@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import EditHrProfileForm from "@/features/hr-profile/components/EditHrProfileForm";
 import { useQueryClient } from "@tanstack/react-query";
 import useUpdateProfileMutation from "@/features/hr-profile/hooks/useUpdateHrMutation";
+import HrProfileSkeleton from "@/features/hr-profile/components/HrProfileSkeleton";
 
 const HrProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,9 +39,7 @@ const HrProfile = () => {
   return (
     <>
       {isLoading ? (
-        <div className="flex items-center justify-center h-64">
-          <span className="text-gray-500">Loading profile...</span>
-        </div>
+        <HrProfileSkeleton />
       ) : (
         <div className="flex flex-col gap-4 py-4 w-full">
           <HrProfileInfo data={hrData} onEdit={() => setIsModalOpen(true)} />

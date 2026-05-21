@@ -9,7 +9,7 @@ const LandingPage = () => {
       <div className="hidden md:flex justify-center items-center">
         <img src={LandingLogo} alt="Landing Logo" />
       </div>
-      <div className="bg-white px-8 py-10 flex gap-7 md:gap-10 flex-col items-center justify-center ">
+      <div className="bg-white px-8 py-10 flex gap-7 md:gap-10 flex-col items-center justify-center overflow-hidden">
         <LandingHeader />
         <LandingButtons />
         <LandingContent />
