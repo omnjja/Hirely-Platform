@@ -27,8 +27,6 @@ Hirely is a full-featured recruitment platform that bridges the gap between comp
 
 - Create, edit, and manage job postings
 - Track applicants and manage the full application pipeline
-- Schedule and manage interviews
-- Build and organize interview question banks
 - View detailed candidate profiles
 - Access a dashboard with hiring analytics and insights
 
