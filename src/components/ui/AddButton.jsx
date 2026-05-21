@@ -6,9 +6,9 @@ const AddButton = ({ text = "Add", onClick, className, type = "button" }) => {
       onClick={onClick}
       type={type}
       className={`
-        flex items-center justify-center gap-2
-         h-10
-        px-5 mb-2
+        flex items-center justify-center gap-1
+        h-10
+        px-2 md:px-5 mb-2
         bg-white
         border border-gray-300
         rounded-xl

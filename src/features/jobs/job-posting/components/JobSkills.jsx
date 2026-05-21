@@ -2,8 +2,10 @@ import AddingField from "@/components/ui/AddingField";
 import React from "react";
 import IconWrapper from "@/components/ui/IconWrapper";
 import { useFormContext } from "react-hook-form";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const JobSkills = ({ head, name, placeholder, icon }) => {
+  const isMobile = useIsMobile();
   const {
     control,
     formState: { errors },
@@ -21,7 +23,7 @@ const JobSkills = ({ head, name, placeholder, icon }) => {
         placeholder={placeholder}
         control={control}
         errors={errors}
-        withBtn={false}
+        withBtn={isMobile ? true : false}
       />
     </div>
   );
