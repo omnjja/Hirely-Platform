@@ -1,5 +1,6 @@
 import JobCard from "./JobCard";
 import { formatApplicationCard } from "@/constants/applicationStatus";
+import JobListSkelton from "./JobListSkelton";
 
 const JobList = ({
   applicationData,
@@ -10,7 +11,7 @@ const JobList = ({
   onSelectApplication,
 }) => {
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <JobListSkelton />;
   }
 
   if (error) {
