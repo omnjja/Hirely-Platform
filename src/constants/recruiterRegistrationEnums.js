@@ -4,7 +4,7 @@ export const menuItems = [
   { icon: User, path: "/recruiter/profile", label: "Profile" },
   { icon: Briefcase, path: "/recruiter/jobs", label: "Jobs" },
   { icon: Users, path: "/recruiter/candidates", label: "Candidates" },
-  { icon: BarChart3, path: "/recruiter/analytics", label: "Analytics" },
+  { icon: BarChart3, path: "/recruiter/applications-analytics", label: "Analytics" },
 ];
 
 export const COMPANYINDUSTRY = [

@@ -25,6 +25,8 @@ import ProtectedRoute from "./components/routes/ProtectedRoute";
 import LandingPage from "./pages/LandingPage";
 import CandidateLandingPage from "./pages/CandidateLandingPage";
 import ScrollToTop from "./components/ScrollToTop";
+import ApplicationsAnalysis from "./pages/ApplicationsAnalysis";
+import WithAICard from "./components/layout/WithAICard";
 
 function App() {
   return (
@@ -57,13 +59,21 @@ function App() {
 
         <Route element={<ProtectedRoute allowedRoles={"HR"} />}>
           <Route path="/recruiter" element={<RecruiterLayout />}>
-            <Route path="create-job-posting" element={<CreateJobPosting />} />
-            <Route path="jobs" element={<BrowseJobs />} />
-            <Route path="jobs/:id" element={<JobDetailsPage />} />
-            <Route path="jobs/:id/edit" element={<EditJobPosting />} />
-            <Route path="profile" element={<HrProfile />} />
-            <Route index element={<Navigate to="analytics" replace />} />
-            <Route path="analytics" element={<div>analytics</div>} />
+            <Route element={<WithAICard />}>
+              <Route path="create-job-posting" element={<CreateJobPosting />} />
+              <Route path="jobs" element={<BrowseJobs />} />
+              <Route path="jobs/:id" element={<JobDetailsPage />} />
+              <Route path="jobs/:id/edit" element={<EditJobPosting />} />
+              <Route path="profile" element={<HrProfile />} />
+              <Route
+                index
+                element={<Navigate to="applications-analytics" replace />}
+              />
+            </Route>
+            <Route
+              path="applications-analytics"
+              element={<ApplicationsAnalysis />}
+            />
           </Route>
         </Route>
 
