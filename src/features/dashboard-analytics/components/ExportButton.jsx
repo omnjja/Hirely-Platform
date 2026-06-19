@@ -19,7 +19,10 @@ const ExportButton = ({ onExport }) => {
           Export
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-36">
+      <DropdownMenuContent
+        align="end"
+        className="w-(--radix-dropdown-menu-trigger-width) min-w-36"
+      >
         <DropdownMenuItem onClick={() => onExport?.("excel")}>
           Export as Excel
         </DropdownMenuItem>

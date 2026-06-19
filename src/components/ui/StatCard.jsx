@@ -15,27 +15,48 @@ const StatCard = ({
   return (
     <div
       className={clsx(
-        `p-6 rounded-[12px] shadow ${bg_color} ${border ? `${border} border-l-4` : ""}`,
+        `p-4 sm:p-5 lg:p-6 rounded-[12px] shadow ${bg_color} ${
+          border ? `${border} border-l-4` : ""
+        }`,
       )}
     >
       <p
-        className={`text-[16px] font-semibold ${title_color} uppercase tracking-wide`}
+        className={clsx(
+          "text-xs sm:text-sm lg:text-base font-semibold uppercase tracking-wide",
+          title_color,
+        )}
       >
         {title}
       </p>
-      <p className={`text-[36px] font-bold ${value_color}`}>
-        {value}
-        {side_by_side && (
-          <p
-            className={`inline pl-2 text-[12px]  font-medium ${description_color} capitalize`}
+
+      <div className="flex flex-wrap items-end gap-1 sm:gap-2">
+        <span
+          className={clsx(
+            "text-2xl sm:text-3xl lg:text-[36px] font-bold leading-none",
+            value_color,
+          )}
+        >
+          {value}
+        </span>
+
+        {side_by_side && description && (
+          <span
+            className={clsx(
+              "text-[10px] sm:text-xs font-medium capitalize pb-1",
+              description_color,
+            )}
           >
             {description}
-          </p>
+          </span>
         )}
-      </p>
+      </div>
+
       {description && !side_by_side && (
         <p
-          className={`text-[12px]  font-medium ${description_color} capitalize `}
+          className={clsx(
+            "mt-1 text-[10px] sm:text-xs font-medium capitalize",
+            description_color,
+          )}
         >
           {description}
         </p>

@@ -4,23 +4,15 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const FilterChip = ({
-  label,
-  options = [],
-  value,
-  onChange,
-  onClear,
-}) => {
+const FilterChip = ({ label, options = [], value, onChange, onClear }) => {
   const [open, setOpen] = useState(false);
-
   const selectedOption = options.find((opt) => opt.value === value);
   const displayLabel = selectedOption ? selectedOption.label : label;
-
   const chipClasses =
-    "inline-flex h-8 min-w-[127.55px] items-center gap-2 rounded whitespace-nowrap bg-[#E8EFF3] px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-[#DCE7ED] focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300";
+    "inline-flex h-10 w-full sm:w-auto sm:min-w-[140px] items-center justify-between gap-2 rounded-md bg-[#E8EFF3] px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-[#DCE7ED] focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300";
 
   if (onClear) {
     return (
@@ -48,7 +40,10 @@ const FilterChip = ({
         </button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="start" className="w-48">
+      <DropdownMenuContent
+        align="start"
+        className="w-(--radix-dropdown-menu-trigger-width) min-w-45"
+      >
         {options.map((opt) => {
           const isSelected = opt.value === value;
           return (

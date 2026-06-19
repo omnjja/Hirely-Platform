@@ -2,6 +2,14 @@ import React from "react";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
 import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const ActionsCell = ({
   viewing,
@@ -10,30 +18,55 @@ const ActionsCell = ({
   onToggleEdit,
 }) => {
   return (
-    <div className="flex items-center justify-end gap-3 text-slate-400">
-      <button
-        type="button"
-        onClick={onToggleEdit}
-        aria-label="Toggle status editing"
-        className={editing ? "text-blue-600" : "hover:text-slate-600"}
-      >
-        <ModeOutlinedIcon fontSize="16" />
-      </button>
-      <button
-        type="button"
-        onClick={onToggleViewSummary}
-        aria-label="Toggle status editing"
-        className={viewing ? "text-blue-600" : "hover:text-slate-600"}
-      >
-        <RemoveRedEyeOutlinedIcon fontSize="16" />
-      </button>
-      <button
-        type="button"
-        aria-label="More actions"
-        className="hover:text-slate-600"
-      >
-        <ArrowOutwardOutlinedIcon fontSize="16" />
-      </button>
+    <div className="flex items-center justify-center md:justify-end gap-4 text-slate-400">
+      {/* desktop icons */}
+      <div className="hidden md:flex items-center gap-4">
+        <button
+          onClick={onToggleEdit}
+          className={editing ? "text-blue-600" : "hover:text-slate-600"}
+        >
+          <ModeOutlinedIcon sx={{ fontSize: 18 }} />
+        </button>
+
+        <button
+          onClick={onToggleViewSummary}
+          className={viewing ? "text-blue-600" : "hover:text-slate-600"}
+        >
+          <RemoveRedEyeOutlinedIcon sx={{ fontSize: 18 }} />
+        </button>
+
+        <button className="hover:text-slate-600">
+          <ArrowOutwardOutlinedIcon sx={{ fontSize: 18 }} />
+        </button>
+      </div>
+
+      {/* mobile dropdown */}
+      <div className="md:hidden">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="text-slate-500 hover:text-slate-700">
+              <MoreVertIcon />
+            </button>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent align="end" className="w-40">
+            <DropdownMenuItem onClick={onToggleEdit}>
+              <ModeOutlinedIcon sx={{ fontSize: 14 }} />
+              Edit Status
+            </DropdownMenuItem>
+
+            <DropdownMenuItem onClick={onToggleViewSummary}>
+              <RemoveRedEyeOutlinedIcon sx={{ fontSize: 14 }} />
+              View Summary
+            </DropdownMenuItem>
+
+            <DropdownMenuItem>
+              <ArrowOutwardOutlinedIcon sx={{ fontSize: 14 }} />
+              View Profile
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </div>
   );
 };

@@ -2,74 +2,66 @@ import { useState } from "react";
 import { SlidersHorizontal } from "lucide-react";
 import FilterChip from "./FilterChip";
 import ExportButton from "./ExportButton";
-
-const statusOptions = [
-  { value: "applied", label: "Applied" },
-  { value: "in_review", label: "In Review" },
-  { value: "shortlisted", label: "Shortlisted" },
-  { value: "interviewed", label: "Interviewed" },
-  { value: "rejected", label: "Rejected" },
-];
-
-const matchingScoreOptions = [
-  { value: "80+", label: "Match Score: >80%" },
-  { value: "60-80", label: "Match Score: 60-80%" },
-  { value: "40-60", label: "Match Score: 40-60%" },
-  { value: "0-40", label: "Match Score: <40%" },
-];
+import {
+  matchingScoreOptions,
+  statusOptions,
+} from "@/constants/applicationsAnalysis";
 
 const Toolbar = () => {
   const [showAdvanced, setShowAdvanced] = useState(false);
-
   const [status, setStatus] = useState();
   const [matchScore, setMatchScore] = useState();
 
+  const clearFilters = () => {
+    setStatus(undefined);
+    setMatchScore(undefined);
+    setShowAdvanced(false);
+  };
+
   return (
-    <div className="w-full bg-white shadow-xs rounded-sm px-4 py-3">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        {showAdvanced && (
-          <div className="flex flex-wrap items-center gap-2">
-            <FilterChip
-              label="STATUS"
-              options={statusOptions}
-              value={status}
-              onChange={setStatus}
-            />
+    <div className="w-full rounded-lg bg-white px-4 py-3 shadow-sm">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <button
+          type="button"
+          onClick={() => setShowAdvanced((prev) => !prev)}
+          className={`inline-flex w-fit items-center gap-2 text-sm font-medium transition-colors cursor-pointer ${
+            showAdvanced
+              ? "text-slate-900"
+              : "text-slate-600 hover:text-slate-900"
+          }`}
+        >
+          <SlidersHorizontal className="h-4 w-4" />
+          Advanced Filters
+        </button>
+        <ExportButton onExport={(type) => console.log("export:", type)} />
+      </div>
 
-            <FilterChip
-              label="MATCH SCORE"
-              options={matchingScoreOptions}
-              value={matchScore}
-              onChange={setMatchScore}
-            />
+      <div
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+          showAdvanced
+            ? "max-h-40 opacity-100 mt-4 border-t pt-4"
+            : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="grid grid-cols-1 gap-2 sm:flex sm:flex-wrap sm:items-center">
+          <FilterChip
+            label="STATUS"
+            options={statusOptions}
+            value={status}
+            onChange={setStatus}
+          />
+          <FilterChip
+            label="MATCH SCORE"
+            options={matchingScoreOptions}
+            value={matchScore}
+            onChange={setMatchScore}
+          />
 
-            <FilterChip
-              label="Clear Filters"
-              onClear={() => {
-                setMatchScore();
-                setStatus();
-                setShowAdvanced();
-              }}
-            />
-          </div>
-        )}
-
-        <div className="flex items-center gap-5">
-          <button
-            type="button"
-            onClick={() => setShowAdvanced((prev) => !prev)}
-            className={`inline-flex items-center gap-1.5 text-sm font-medium cursor-pointer ${
-              showAdvanced ? "text-slate-900" : "text-slate-700"
-            } hover:text-slate-900`}
-          >
-            <SlidersHorizontal className="h-4 w-4" />
-            Advanced
-          </button>
-
-          <ExportButton onExport={(type) => console.log("export:", type)} />
+          <FilterChip label="Clear Filters" onClear={clearFilters} />
         </div>
       </div>
     </div>
   );
 };
+
 export default Toolbar;

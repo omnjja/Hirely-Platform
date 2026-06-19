@@ -3,14 +3,16 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const Pagination = ({ page, totalPages, onPageChange, rangeLabel }) => {
   return (
-    <div className="flex items-center justify-between px-5 py-3.5">
-      <span className="text-xs text-slate-400">{rangeLabel}</span>
-      <div className="flex items-center gap-1.5">
+    <div className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
+      <span className="text-xs text-slate-400 text-center sm:text-left">
+        {rangeLabel}
+      </span>
+
+      <div className="flex flex-wrap items-center justify-center gap-1.5">
         <button
-          type="button"
           onClick={() => onPageChange(Math.max(1, page - 1))}
           disabled={page === 1}
-          className="flex h-7 w-7 items-center justify-center rounded-md border border-slate-200 text-slate-400 hover:bg-slate-50 disabled:opacity-50"
+          className="flex h-7 w-7 items-center justify-center rounded-md border border-slate-200 text-slate-400 disabled:opacity-50"
         >
           <ChevronLeft className="h-3.5 w-3.5" />
         </button>
@@ -21,12 +23,11 @@ const Pagination = ({ page, totalPages, onPageChange, rangeLabel }) => {
           return (
             <button
               key={pageNum}
-              type="button"
               onClick={() => onPageChange(pageNum)}
               className={`flex h-7 w-7 items-center justify-center rounded-md text-xs font-medium ${
                 isActive
-                  ? "border border-blue-600 bg-blue-600 text-white"
-                  : "border border-slate-200 text-slate-500 hover:bg-slate-50"
+                  ? "bg-blue-600 text-white"
+                  : "border border-slate-200 text-slate-500"
               }`}
             >
               {pageNum}
@@ -35,10 +36,9 @@ const Pagination = ({ page, totalPages, onPageChange, rangeLabel }) => {
         })}
 
         <button
-          type="button"
           onClick={() => onPageChange(Math.min(totalPages, page + 1))}
           disabled={page === totalPages}
-          className="flex h-7 w-7 items-center justify-center rounded-md border border-slate-200 text-slate-400 hover:bg-slate-50 disabled:opacity-50"
+          className="flex h-7 w-7 items-center justify-center rounded-md border border-slate-200 text-slate-400 disabled:opacity-50"
         >
           <ChevronRight className="h-3.5 w-3.5" />
         </button>
