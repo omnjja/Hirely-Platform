@@ -17,23 +17,7 @@ const Pagination = ({ page, totalPages, onPageChange, rangeLabel }) => {
           <ChevronLeft className="h-3.5 w-3.5" />
         </button>
 
-        {Array.from({ length: totalPages }).map((_, i) => {
-          const pageNum = i + 1;
-          const isActive = pageNum === page;
-          return (
-            <button
-              key={pageNum}
-              onClick={() => onPageChange(pageNum)}
-              className={`flex h-7 w-7 items-center justify-center rounded-md text-xs font-medium ${
-                isActive
-                  ? "bg-blue-600 text-white"
-                  : "border border-slate-200 text-slate-500"
-              }`}
-            >
-              {pageNum}
-            </button>
-          );
-        })}
+        <button className="flex h-7 w-7 items-center justify-center rounded-md text-xs font-medium bg-blue-600 text-white">{page}</button>
 
         <button
           onClick={() => onPageChange(Math.min(totalPages, page + 1))}
