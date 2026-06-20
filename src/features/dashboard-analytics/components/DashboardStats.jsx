@@ -3,7 +3,7 @@ import React from "react";
 
 const DashboardStats = () => {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="grid grid-cols-4 gap-4">
       <StatCard
         title="Total Applicants"
         value="1,234"

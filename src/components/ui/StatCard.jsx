@@ -18,9 +18,11 @@ const StatCard = ({
       )}
     >
       <p className={`text-[10px] font-semibold ${title_color}`}>{title}</p>
-      <p className={`text-2xl font-bold ${value_color}`}>{value}</p>
+      <p className={`text-xl md:text-2xl font-bold ${value_color}`}>{value}</p>
       {description && (
-        <p className={`text-[10px]  font-medium ${description_color}`}>
+        <p
+          className={`text-[9px] md:text-[10px]  font-medium ${description_color}`}
+        >
           {description}
         </p>
       )}
