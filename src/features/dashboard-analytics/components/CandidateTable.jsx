@@ -101,7 +101,13 @@ export default function CandidateTable({
                 <StatusCell
                   status={application?.application?.applicationStatus}
                   editing={isEditing}
-                  onChange={() => {}}
+                  onToggleEdit={() =>
+                    setEditingRowId((prev) =>
+                      prev === application?.candidate?.candidateId
+                        ? null
+                        : application?.candidate?.candidateId,
+                    )
+                  }
                 />
               </div>
             </div>
@@ -164,7 +170,13 @@ export default function CandidateTable({
                   <StatusCell
                     status={application?.application?.applicationStatus}
                     editing={isEditing}
-                    onChange={() => {}}
+                    onToggleEdit={() =>
+                      setEditingRowId((prev) =>
+                        prev === application?.candidate?.candidateId
+                          ? null
+                          : application?.candidate?.candidateId,
+                      )
+                    }
                   />
                 </div>
 

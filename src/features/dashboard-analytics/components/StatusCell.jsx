@@ -1,32 +1,31 @@
 import React from "react";
-import {
-  Check,
-} from "lucide-react";
+import { Check } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useApplicationStatus } from "../hooks/useApplicationStatus";
+import { STATUS_CONFIG, STATUS_OPTIONS } from "@/constants/applicationStatus";
 
-const STATUS_CONFIG = {
-  shortlisted: {
-    label: "Shortlisted",
-    className: "bg-indigo-100 text-indigo-700",
-  },
-  in_review: { label: "In Review", className: "bg-slate-200 text-slate-600" },
-  rejected: { label: "Rejected", className: "bg-rose-100 text-rose-700" },
-  interview: { label: "Interview", className: "bg-violet-100 text-violet-700" },
-  applied: { label: "Applied", className: "bg-sky-100 text-sky-700" },
-};
-const STATUS_OPTIONS = Object.entries(STATUS_CONFIG).map(([value, cfg]) => ({
-  value,
-  label: cfg.label,
-}));
+const StatusCell = ({ status, editing, onToggleEdit }) => {
+  const config = STATUS_CONFIG[status] ?? STATUS_CONFIG.APPLIED;
 
+  const jobId = "6a0b78de036bd27e11fe2458"; // for now!!!! gonna handelded differently after updating routes
+  const applicationId = "6a0b8718036bd27e11fe248e";
 
-const StatusCell = ({ status, editing, onChange }) => {
-  const config = STATUS_CONFIG[status] ?? STATUS_CONFIG.applied;
+  const { mutateAsync: updateStatus } = useApplicationStatus();
+
+  async function handleAppStatus(status) {
+    try {
+      updateStatus({ jobId, applicationId, status });
+    } catch (error) {
+      console.log("error::: ", error);
+    } finally {
+      onToggleEdit();
+    }
+  }
 
   if (!editing) {
     return (
@@ -37,7 +36,6 @@ const StatusCell = ({ status, editing, onChange }) => {
       </span>
     );
   }
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -52,7 +50,7 @@ const StatusCell = ({ status, editing, onChange }) => {
         {STATUS_OPTIONS.map((opt) => (
           <DropdownMenuItem
             key={opt.value}
-            onClick={() => onChange?.(opt.value)}
+            onClick={() => handleAppStatus(opt.value)}
             className="flex items-center justify-between"
           >
             {opt.label}

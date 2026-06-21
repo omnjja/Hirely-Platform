@@ -34,3 +34,12 @@ export const exportApplicationsAnalysis = async ({
   });
   return response;
 };
+
+export const changeApplicationStatus = async (jobId, applicationId, status) => {
+  const response = await api.patch(
+    `/jobs/${jobId}/dashboard/applications/${applicationId}/status`,
+    { applicationStatus: status },
+  );
+  console.log("update status: ", response.data);
+  return response.data;
+};

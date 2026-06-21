@@ -14,42 +14,33 @@ export const matchingScoreOptions = [
   { value: 0, label: "Match Score: <40%" },
 ];
 
-export const candidates = [
-  {
-    id: 1,
-    name: "Malak Elbehairy",
-    role: "Senior UX Designer",
-    avatar: null,
-    matchScore: 90,
-    indicators: { cvRank: 4, english: 5, bodyLang: 3 },
-    status: "shortlisted",
+const STATUS_CONFIG = {
+  APPLIED: {
+    label: "Applied",
+    className: "bg-sky-100 text-sky-700",
   },
-  {
-    id: 2,
-    name: "Younis",
-    role: "Visual Design Lead",
-    avatar: null,
-    matchScore: 80,
-    indicators: { cvRank: 3, english: 4, bodyLang: 5 },
-    status: "in_review",
+  IN_REVIEW: {
+    label: "In Review",
+    className: "bg-slate-200 text-slate-600",
   },
-  {
-    id: 3,
-    name: "Sarah Wael",
-    role: "UI Developer",
-    avatar: null,
-    matchScore: 45,
-    indicators: { cvRank: 2, english: 2, bodyLang: 1 },
-    status: "rejected",
+  SHORTLISTED: {
+    label: "Shortlisted",
+    className: "bg-indigo-100 text-indigo-700",
   },
-  {
-    id: 4,
-    name: "Alaa Ahmed",
-    role: "Product Strategist",
-    avatar: null,
-    matchScore: 85,
-    indicators: { cvRank: 4, english: 4, bodyLang: 5 },
-    status: "interview",
+  INTERVIEW: {
+    label: "Interview",
+    className: "bg-violet-100 text-violet-700",
   },
-  
-];
+  ACCEPTED: {
+    label: "Accepted",
+    className: "bg-green-100 text-green-700",
+  },
+  REJECTED: {
+    label: "Rejected",
+    className: "bg-rose-100 text-rose-700",
+  },
+};
+const STATUS_OPTIONS = Object.entries(STATUS_CONFIG).map(([value, cfg]) => ({
+  value,
+  label: cfg.label,
+}));
