@@ -2,8 +2,19 @@ import Card from "@/components/ui/Card";
 import IconWrapper from "@/components/ui/IconWrapper";
 import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
 import React from "react";
+import { useApplicationSummary } from "../hooks/useApplicationSummary";
+import CandidateSummarySkeleton from "./loading-skeletons/CandidateSummarySkeleton";
+import ErrorComponent from "@/components/ui/ErrorComponent";
 
-const CandidateSummary = () => {
+const CandidateSummary = ({ jobId }) => {
+  const applicationId = "6a0b8718036bd27e11fe248e";
+  const { data, isLoading, error, refetch } = useApplicationSummary({
+    jobId,
+    applicationId,
+  });
+
+  if (isLoading) return <CandidateSummarySkeleton />;
+  if (error) return <ErrorComponent error={error} action={() => refetch()} />;
   return (
     <Card className="flex flex-col gap-6">
       <div className="flex gap-5">
@@ -34,19 +45,7 @@ const CandidateSummary = () => {
         <div className="flex gap-5">
           <AutoAwesomeOutlinedIcon sx={{ color: "#0576D6" }} />
           <p className="text-sm font-bold text-[#2A3439]">
-            Top Match: Elena Rodriguez shows a 98% correlation with your
-            "Innovation Lead" success profile. Her portfolio demonstrates 3 key
-            metrics that align with your Q4 expansion goals.
-          </p>
-        </div>
-      </Card>
-      <Card>
-        <div className="flex gap-5">
-          <AutoAwesomeOutlinedIcon sx={{ color: "#0576D6" }} />
-          <p className="text-sm font-bold text-[#2A3439]">
-            Top Match: Elena Rodriguez shows a 98% correlation with your
-            "Innovation Lead" success profile. Her portfolio demonstrates 3 key
-            metrics that align with your Q4 expansion goals.
+            {data?.applicationSummary}
           </p>
         </div>
       </Card>

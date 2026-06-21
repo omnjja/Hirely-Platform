@@ -10,6 +10,13 @@ export const getApplicationsDashboardData = async (
   const response = await api.get(`/jobs/${jobId}/dashboard`, {
     params: { page, limit, applicationStatus, matchScore },
   });
-  console.log("candidates table: ", response.data);
+  return response.data;
+};
+
+export const getApplicationSummary = async (jobId, applicationId) => {
+  const response = await api.get(
+    `/jobs/${jobId}/dashboard/applications/${applicationId}/summary`,
+  );
+  console.log("summary: ", response.data);
   return response.data;
 };

@@ -19,27 +19,6 @@ const ApplicationsAnalysis = () => {
     matchScore: matchScore,
   });
 
-  //   applicationsToday
-  // :
-  // 0
-  // averageMatchScore
-  // :
-  // null
-  // dashboardData
-  // :
-  // (2) [{…}, {…}]
-  // jobId
-  // :
-  // "69fddfa6c0392cc7940a06c1"
-  // pagination
-  // :
-  // {page: 1, limit: 10, total: 2}
-  // shortlistedCandidates
-  // :
-  // 0
-  // totalApplications
-  // :
-  // 2
   return (
     <div className="flex flex-col gap-8 p-8">
       <ApplicationsStats
@@ -67,7 +46,7 @@ const ApplicationsAnalysis = () => {
         setPage={setPage}
         refetch={refetch}
       />
-      <CandidateSummary />
+      <CandidateSummary jobId={jobId} />
     </div>
   );
 };
