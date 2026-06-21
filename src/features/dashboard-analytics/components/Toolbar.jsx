@@ -6,16 +6,41 @@ import {
   matchingScoreOptions,
   statusOptions,
 } from "@/constants/applicationsAnalysis";
+import { useExportApplicationsAnalysis } from "../hooks/useExportApplicationsAnalysis";
+import { useFileDownload } from "@/hooks/useFileDownload";
+import { toast } from "react-hot-toast";
 
-const Toolbar = () => {
+const Toolbar = ({
+  jobId,
+  status,
+  setStatus,
+  matchScore,
+  setMatchScore,
+  params,
+}) => {
   const [showAdvanced, setShowAdvanced] = useState(false);
-  const [status, setStatus] = useState();
-  const [matchScore, setMatchScore] = useState();
 
   const clearFilters = () => {
     setStatus(undefined);
     setMatchScore(undefined);
     setShowAdvanced(false);
+  };
+  const { mutateAsync: exportData } = useExportApplicationsAnalysis();
+  const { downloadFile } = useFileDownload();
+
+  const handleExport = async (format) => {
+    downloadFile({
+      requestFn: () =>
+        exportData({
+          jobId,
+          format,
+          params,
+          status,
+          matchScore,
+        }),
+      filename: `applications.${format}`,
+      toast,
+    });
   };
 
   return (
@@ -33,7 +58,7 @@ const Toolbar = () => {
           <SlidersHorizontal className="h-4 w-4" />
           Advanced Filters
         </button>
-        <ExportButton onExport={(type) => console.log("export:", type)} />
+        <ExportButton onExport={handleExport} />
       </div>
 
       <div

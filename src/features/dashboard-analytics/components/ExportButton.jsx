@@ -23,11 +23,14 @@ const ExportButton = ({ onExport }) => {
         align="end"
         className="w-(--radix-dropdown-menu-trigger-width) min-w-36"
       >
-        <DropdownMenuItem onClick={() => onExport?.("excel")}>
+        <DropdownMenuItem onClick={() => onExport("xlsx")}>
           Export as Excel
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onExport?.("pdf")}>
+        <DropdownMenuItem onClick={() => onExport("pdf")}>
           Export as PDF
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => onExport("csv")}>
+          Export as CSV
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -17,6 +17,20 @@ export const getApplicationSummary = async (jobId, applicationId) => {
   const response = await api.get(
     `/jobs/${jobId}/dashboard/applications/${applicationId}/summary`,
   );
-  console.log("summary: ", response.data);
   return response.data;
+};
+
+export const exportApplicationsAnalysis = async ({
+  jobId,
+  format,
+  page,
+  limit,
+  applicationStatus,
+  matchScore,
+}) => {
+  const response = await api.get(`/jobs/${jobId}/dashboard/export`, {
+    params: { format, page, limit, applicationStatus, matchScore },
+    responseType: "blob",
+  });
+  return response;
 };

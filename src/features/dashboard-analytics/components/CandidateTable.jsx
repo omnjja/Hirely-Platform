@@ -11,6 +11,7 @@ import TableHeader from "./TableHeader";
 export default function CandidateTable({
   dashboardData,
   pagination,
+  totalApplications,
   isLoading,
   error,
   page,
@@ -19,7 +20,7 @@ export default function CandidateTable({
 }) {
   const [editingRowId, setEditingRowId] = useState(null);
   const [viewSummary, setViewSummary] = useState(null);
-  const totalPages = pagination?.totalPages || 5;
+  const totalPages = Math.ceil(totalApplications / (pagination?.limit || 10));
 
   if (isLoading) return <CandidateTableSkeleton />;
   if (error) return <ErrorComponent error={error} action={() => refetch()} />;
