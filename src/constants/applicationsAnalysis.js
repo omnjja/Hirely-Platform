@@ -8,13 +8,13 @@ export const statusOptions = [
 ];
 
 export const matchingScoreOptions = [
-  { value: 80, label: "Match Score: >80%" },
-  { value: 60, label: "Match Score: 60-80%" },
-  { value: 40, label: "Match Score: 40-60%" },
-  { value: 0, label: "Match Score: <40%" },
+  { value: "80", label: "Match Score: >80%" },
+  { value: "60", label: "Match Score: 60-80%" },
+  { value: "40", label: "Match Score: 40-60%" },
+  { value: "0", label: "Match Score: <40%" },
 ];
 
-const STATUS_CONFIG = {
+export const STATUS_CONFIG = {
   APPLIED: {
     label: "Applied",
     className: "bg-sky-100 text-sky-700",
@@ -40,7 +40,9 @@ const STATUS_CONFIG = {
     className: "bg-rose-100 text-rose-700",
   },
 };
-const STATUS_OPTIONS = Object.entries(STATUS_CONFIG).map(([value, cfg]) => ({
-  value,
-  label: cfg.label,
-}));
+export const STATUS_OPTIONS = Object.entries(STATUS_CONFIG).map(
+  ([value, cfg]) => ({
+    value,
+    label: cfg.label,
+  }),
+);

@@ -2,20 +2,24 @@ import CandidateSummary from "@/features/dashboard-analytics/components/Candidat
 import CandidateTable from "@/features/dashboard-analytics/components/CandidateTable";
 import ApplicationsStats from "@/features/dashboard-analytics/components/ApplicationsStats";
 import Toolbar from "@/features/dashboard-analytics/components/Toolbar";
-import React, { useState } from "react";
+import React from "react";
 import { useApplicationsDashboard } from "@/features/dashboard-analytics/hooks/useApplicationsDashboard";
+import { useAnalysisFilterationStore } from "../features/dashboard-analytics/store/AnalysisFilterationStore";
+import { useCandidateAppSummaryStore } from "@/features/dashboard-analytics/store/applicationSummaryStore";
 
 const ApplicationsAnalysis = () => {
-  const PAGE_LIMIT = 10;
-  const jobId = "6a0b78de036bd27e11fe2458";
-  const [page, setPage] = useState(1);
-  const [status, setStatus] = useState();
-  const [matchScore, setMatchScore] = useState();
+  const jobId = "6a0b78de036bd27e11fe2458"; // removed after merging
 
+  const { page, limit, status, matchScore } = useAnalysisFilterationStore();
+  const viewingSummaryId = useCandidateAppSummaryStore(
+    (state) => state.viewingSummaryId,
+  );
+
+  const onViewSummary = viewingSummaryId !== undefined;
   const { data, isLoading, error, refetch } = useApplicationsDashboard({
     jobId,
     page,
-    limit: PAGE_LIMIT,
+    limit: limit,
     applicationStatus: status,
     matchScore: matchScore,
   });
@@ -30,27 +34,16 @@ const ApplicationsAnalysis = () => {
         isLoading={isLoading}
         error={error}
       />
-      {!isLoading && (
-        <Toolbar
-          jobId={data.jobId}
-          status={status}
-          setStatus={setStatus}
-          matchScore={matchScore}
-          setMatchScore={setMatchScore}
-          params={{ page: page, limit: PAGE_LIMIT }}
-        />
-      )}
+      {!isLoading && <Toolbar jobId={data?.jobId} />}
       <CandidateTable
         dashboardData={data?.dashboardData}
         pagination={data?.pagination}
-        totalApplications={data?.totalApplications}
+        totalApplications={data?.pagination?.total}
         isLoading={isLoading}
         error={error}
-        page={page}
-        setPage={setPage}
         refetch={refetch}
       />
-      <CandidateSummary jobId={jobId} />
+      {onViewSummary && <CandidateSummary jobId={data?.jobId} />}
     </div>
   );
 };

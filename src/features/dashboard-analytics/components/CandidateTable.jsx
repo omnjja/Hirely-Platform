@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import MatchScoreRing from "./MatchScoreRing";
 import RankBars from "./RankBars";
 import StatusCell from "./StatusCell";
@@ -7,6 +7,8 @@ import Pagination from "./Pagination";
 import ErrorComponent from "@/components/ui/ErrorComponent";
 import CandidateTableSkeleton from "./loading-skeletons/CandidateTableSkeleton";
 import TableHeader from "./TableHeader";
+import { useAnalysisFilterationStore } from "../store/AnalysisFilterationStore";
+import { useCandidateAppSummaryStore } from "../store/applicationSummaryStore";
 
 export default function CandidateTable({
   dashboardData,
@@ -14,12 +16,16 @@ export default function CandidateTable({
   totalApplications,
   isLoading,
   error,
-  page,
-  setPage,
   refetch,
 }) {
-  const [editingRowId, setEditingRowId] = useState(null);
-  const [viewSummary, setViewSummary] = useState(null);
+  const page = useAnalysisFilterationStore((state) => state.page);
+  const {
+    editingApplicationId,
+    setEditingApplicationId,
+    viewingSummaryId,
+    setViewingSummaryId,
+  } = useCandidateAppSummaryStore();
+
   const totalPages = Math.ceil(totalApplications / (pagination?.limit || 10));
 
   if (isLoading) return <CandidateTableSkeleton />;
@@ -32,9 +38,9 @@ export default function CandidateTable({
         {dashboardData?.map((application) => {
           const tone = application.matchScore >= 50 ? "blue" : "rose";
           const isEditing =
-            editingRowId === application?.candidate?.candidateId;
+            editingApplicationId === application?.candidate?.candidateId;
           const viewingSummary =
-            viewSummary === application?.candidate?.candidateId;
+            viewingSummaryId === application?.candidate?.candidateId;
           return (
             <div
               key={application?.candidate?.candidateId}
@@ -57,20 +63,8 @@ export default function CandidateTable({
                   <ActionsCell
                     editing={isEditing}
                     viewing={viewingSummary}
-                    onToggleEdit={() =>
-                      setEditingRowId((prev) =>
-                        prev === application?.candidate?.candidateId
-                          ? null
-                          : application?.candidate?.candidateId,
-                      )
-                    }
-                    onToggleViewSummary={() =>
-                      setViewSummary((prev) =>
-                        prev === application?.candidate?.candidateId
-                          ? null
-                          : application?.candidate?.candidateId,
-                      )
-                    }
+                    onToggleEdit={setEditingApplicationId}
+                    onToggleViewSummary={setViewingSummaryId}
                   />
                 </div>
               </div>
@@ -101,13 +95,7 @@ export default function CandidateTable({
                 <StatusCell
                   status={application?.application?.applicationStatus}
                   editing={isEditing}
-                  onToggleEdit={() =>
-                    setEditingRowId((prev) =>
-                      prev === application?.candidate?.candidateId
-                        ? null
-                        : application?.candidate?.candidateId,
-                    )
-                  }
+                  onToggleEdit={setEditingApplicationId}
                 />
               </div>
             </div>
@@ -123,9 +111,9 @@ export default function CandidateTable({
           {dashboardData?.map((application) => {
             const tone = application.matchScore >= 50 ? "blue" : "rose";
             const isEditing =
-              editingRowId === application?.candidate?.candidateId;
+              editingApplicationId === application?.candidate?.candidateId;
             const viewingSummary =
-              viewSummary === application?.candidate?.candidateId;
+              viewingSummaryId === application?.candidate?.candidateId;
 
             return (
               <div
@@ -148,6 +136,7 @@ export default function CandidateTable({
                   <MatchScoreRing score={application?.candidate?.match || 0} />
                 </div>
 
+                {/* indicators */}
                 <div className="flex justify-center gap-5">
                   <RankBars
                     label="CV RANK"
@@ -170,13 +159,7 @@ export default function CandidateTable({
                   <StatusCell
                     status={application?.application?.applicationStatus}
                     editing={isEditing}
-                    onToggleEdit={() =>
-                      setEditingRowId((prev) =>
-                        prev === application?.candidate?.candidateId
-                          ? null
-                          : application?.candidate?.candidateId,
-                      )
-                    }
+                    onToggleEdit={setEditingApplicationId}
                   />
                 </div>
 
@@ -184,18 +167,10 @@ export default function CandidateTable({
                   editing={isEditing}
                   viewing={viewingSummary}
                   onToggleEdit={() =>
-                    setEditingRowId((prev) =>
-                      prev === application?.candidate?.candidateId
-                        ? null
-                        : application?.candidate?.candidateId,
-                    )
+                    setEditingApplicationId(application?.candidate?.candidateId)
                   }
                   onToggleViewSummary={() =>
-                    setViewSummary((prev) =>
-                      prev === application?.candidate?.candidateId
-                        ? null
-                        : application?.candidate?.candidateId,
-                    )
+                    setViewingSummaryId(application?.candidate?.candidateId)
                   }
                 />
               </div>
@@ -205,18 +180,24 @@ export default function CandidateTable({
       </div>
 
       {/* pagination */}
-      <div className="border-t border-slate-100">
-        <Pagination
-          page={pagination?.page}
-          totalPages={totalPages}
-          onPageChange={(p) => {
-            setPage(p);
-            setEditingRowId(null);
-            setViewSummary(null);
-          }}
-          rangeLabel={`Showing ${page}-${totalPages} of ${totalPages}`}
-        />
-      </div>
+      {totalApplications >= 1 ? (
+        <div className="border-t border-slate-100">
+          <Pagination
+            page={pagination?.page}
+            totalPages={totalPages}
+            rangeLabel={`Showing ${page}-${totalPages} of ${totalPages}`}
+          />
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center gap-2 py-12 text-center">
+          <h3 className="text-lg font-semibold text-gray-900">
+            No Applications Found
+          </h3>
+          <p className="max-w-sm text-xs sm:max-w-md sm:text-sm text-gray-500">
+            No candidates have applied yet or no results match your filters.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

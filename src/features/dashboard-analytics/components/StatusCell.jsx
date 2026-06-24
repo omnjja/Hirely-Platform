@@ -7,7 +7,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useApplicationStatus } from "../hooks/useApplicationStatus";
-import { STATUS_CONFIG, STATUS_OPTIONS } from "@/constants/applicationStatus";
+import {
+  STATUS_CONFIG,
+  STATUS_OPTIONS,
+} from "@/constants/applicationsAnalysis";
 
 const StatusCell = ({ status, editing, onToggleEdit }) => {
   const config = STATUS_CONFIG[status] ?? STATUS_CONFIG.APPLIED;

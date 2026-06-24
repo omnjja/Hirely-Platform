@@ -9,15 +9,13 @@ import {
 import { useExportApplicationsAnalysis } from "../hooks/useExportApplicationsAnalysis";
 import { useFileDownload } from "@/hooks/useFileDownload";
 import { toast } from "react-hot-toast";
+import { useAnalysisFilterationStore } from "../store/AnalysisFilterationStore";
 
-const Toolbar = ({
-  jobId,
-  status,
-  setStatus,
-  matchScore,
-  setMatchScore,
-  params,
-}) => {
+const Toolbar = ({ jobId }) => {
+  const { page, limit, status, matchScore, setStatus, setMatchScore } =
+    useAnalysisFilterationStore();
+  const { mutateAsync: exportData } = useExportApplicationsAnalysis();
+  const { downloadFile } = useFileDownload();
   const [showAdvanced, setShowAdvanced] = useState(false);
 
   const clearFilters = () => {
@@ -25,8 +23,6 @@ const Toolbar = ({
     setMatchScore(undefined);
     setShowAdvanced(false);
   };
-  const { mutateAsync: exportData } = useExportApplicationsAnalysis();
-  const { downloadFile } = useFileDownload();
 
   const handleExport = async (format) => {
     downloadFile({
@@ -34,8 +30,9 @@ const Toolbar = ({
         exportData({
           jobId,
           format,
-          params,
-          status,
+          page,
+          limit,
+          applicationStatus: status,
           matchScore,
         }),
       filename: `applications.${format}`,
