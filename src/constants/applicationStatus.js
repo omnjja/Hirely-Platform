@@ -1,7 +1,7 @@
 export const APPLICATION_STATUSES = {
   ALL: "All Statuses",
   APPLIED: "Applied",
-  REVIEW: "In Review",
+  IN_REVIEW: "In Review",
   INTERVIEW: "Interview",
   ACCEPTED: "Accepted",
 };
@@ -13,6 +13,8 @@ export const STATUS_CONFIG = {
     badgeText: "text-blue-600",
     barColor: "bg-[#0576D6]",
     borderTop: "bg-[#0576D6]",
+    detailBg: "bg-blue-50",
+    detailText: "text-blue-600",
   },
   ACCEPTED: {
     label: "Accepted",
@@ -20,6 +22,8 @@ export const STATUS_CONFIG = {
     badgeText: "text-[#00583C]",
     barColor: "bg-[#0576D6]",
     borderTop: "bg-[#9DFFD5]",
+    detailBg: "bg-green-50",
+    detailText: "text-green-600",
   },
   APPLIED: {
     label: "Applied",
@@ -27,6 +31,8 @@ export const STATUS_CONFIG = {
     badgeText: "text-gray-600",
     barColor: "bg-gray-300",
     borderTop: "bg-gray-300",
+    detailBg: "bg-gray-50",
+    detailText: "text-gray-600",
   },
   IN_REVIEW: {
     label: "In Review",
@@ -34,6 +40,8 @@ export const STATUS_CONFIG = {
     badgeText: "text-blue-500",
     barColor: "bg-[#0576D6]",
     borderTop: "bg-[#0576D6]",
+    detailBg: "bg-blue-50",
+    detailText: "text-blue-600",
   },
   REJECTED: {
     label: "Rejected",
@@ -41,5 +49,25 @@ export const STATUS_CONFIG = {
     badgeText: "text-red-400",
     barColor: "bg-red-300",
     borderTop: "bg-black",
+    detailBg: "bg-red-50",
+    detailText: "text-red-500",
   },
 };
+
+export const formatApplicationCard = (item) => ({
+  company: item.job?.companyName || "Unknown Company",
+  role: item.job?.title || "Unknown Role",
+  status: item.application?.status,
+  stageLabel: "Current Stage",
+  stageValue: `Stage ${item.application?.currentStage || 1} of ${item.application?.totalStages || 5}`,
+  currentStage: item.application?.currentStage || 1,
+  totalStages: item.application?.totalStages || 5,
+  nextStepText: item.application?.nextStepTitle,
+  actionVariant: item.application?.status === "ACCEPTED" ? "solid" : "ghost",
+  actionLabel:
+    item.application?.status === "ACCEPTED"
+      ? "Review Offer"
+      : item.application?.status === "REJECTED"
+        ? "Feedback Details"
+        : "View Details",
+});

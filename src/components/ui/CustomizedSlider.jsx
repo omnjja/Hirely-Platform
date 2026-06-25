@@ -2,22 +2,16 @@ import React from "react";
 ("use client");
 import { Controller } from "react-hook-form";
 import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
+import { Slider } from "@/components/ui/Slider";
 
 const MIN = 0;
-const MAX = 5000;
+const MAX = 50000;
 const STEP = 100;
 
 function fmt(v) {
   return "$" + v.toLocaleString();
 }
-const CustomizedSlider = ({
-  label,
-  control,
-  minVal,
-  maxVal,
-  setValue,
-}) => {
+const CustomizedSlider = ({ label, control, minVal, maxVal, setValue }) => {
   return (
     <div className="grid w-full">
       <div className="flex items-center justify-between mb-2">

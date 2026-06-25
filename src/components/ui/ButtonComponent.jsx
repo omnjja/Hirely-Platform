@@ -22,6 +22,7 @@ const ROUNDED = {
 const DEFAULT_STYLE = {
   bgColor: "#1B41AA",
   textColor: "white",
+  borderColor: "transparent",
   rounded: "4xl",
   size: "md",
 };
@@ -38,13 +39,15 @@ const ButtonComponent = ({
   className = "",
   children,
 }) => {
-  const { bgColor, textColor, rounded, size, shadow, bold } = {
+  const { bgColor, textColor,borderColor, rounded, size, shadow, bold } = {
     ...DEFAULT_STYLE,
     ...style,
   };
 
   const baseClasses = clsx(
     ROUNDED[rounded] ?? "rounded-4xl",
+    "border", 
+    "border-[var(--btn-border)]", 
     "active:scale-95 transition-all duration-200",
     "bg-[var(--btn-bg)] text-[var(--btn-text)] hover:bg-[var(--btn-bg-hover)]",
     shadow ? `shadow-${shadow}` : "shadow-none",
@@ -59,6 +62,7 @@ const ButtonComponent = ({
     "--btn-bg": bgColor,
     "--btn-bg-hover": bgColor + "E6",
     "--btn-text": textColor,
+    "--btn-border": borderColor,
   };
 
   if (gradientBorder) {

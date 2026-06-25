@@ -1,9 +1,7 @@
 import React from "react";
-import Card from "@/components/ui/Card";
-import JobForm from "@/features/job-posting/components/JobForm";
-import useJobDetails from "@/features/browse-job/hooks/useJobDetails";
-import { Box, Grid } from "@mui/material";
-import JobDetailsSkeleton from "@/features/browse-job/components/JobDetailsSkeleton";
+import JobForm from "@/features/jobs/job-posting/components/JobForm";
+import useJobDetails from "@/features/jobs/job-details/hooks/useJobDetails";
+import JobDetailsSkeleton from "@/features/jobs/job-details/components/JobDetailsSkeleton";
 import ErrorComponent from "@/components/ui/ErrorComponent";
 
 const EditJobPosting = () => {
@@ -43,28 +41,17 @@ const EditJobPosting = () => {
         keywords: (jobData.keywords || []).map((keyword) =>
           typeof keyword === "string" ? { value: keyword } : keyword,
         ),
-        documentAttachment: jobData.documentAttachment || null,
         interviewerQuestions: jobData.interviewerQuestions || [],
+        startDate: jobData.startDate,
+        endDate: jobData.endDate,
+        sprintDuration: jobData.sprintDuration,
       }
     : {};
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2} className="w-full min-h-screen p-3 sm:p-5">
-        <Grid size={{ xs: 12, lg: 10 }}>
-          <JobForm mode="edit" initialValues={formattedData} />
-        </Grid>
-
-        {/* AI card */}
-        <Grid size={{ xs: 12, lg: 2 }}>
-          <Card className="p-4 sm:p-5 lg:sticky lg:top-20">
-            <p className="text-sm font-medium text-gray-500 mb-4 flex items-center gap-2">
-              ? AI Card
-            </p>
-          </Card>
-        </Grid>
-      </Grid>
-    </Box>
+    <div className="flex flex-1 w-full min-h-screen p-3 sm:p-5">
+      <JobForm mode="edit" initialValues={formattedData} />
+    </div>
   );
 };
 

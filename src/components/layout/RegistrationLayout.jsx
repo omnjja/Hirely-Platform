@@ -4,7 +4,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import useAppNavigate from "@/hooks/useAppNavigate";
 import ProgressBar from "../ui/ProgressBar";
 
-const RegistrationLayout = ({ header, subhead, children }) => {
+const RegistrationLayout = ({ image, header, children }) => {
   const { toRoleSelection } = useAppNavigate();
   const [progress, setProgress] = useState(0);
 
@@ -28,12 +28,18 @@ const RegistrationLayout = ({ header, subhead, children }) => {
       </div>
 
       <div className="flex flex-col items-center justify-center py-6 md:py-10 px-4 mt-16 md:mt-20">
-        <p className="text-lg md:text-2xl font-bold text-gray-800 text-center">
-          {header}
-        </p>
-        <p className="text-gray-400 text-xs md:text-sm mt-1 text-center">
-          {subhead}
-        </p>
+        <div className="flex items-center justify-start gap-4">
+          <div className="w-20 h-15 overflow-hidden">
+            <img
+              src={image}
+              alt="Registration"
+              className="w-full h-full bg-cover"
+            />
+          </div>
+          <p className="text-lg md:text-2xl font-bold text-gray-800 text-center">
+            {header}
+          </p>
+        </div>
         <div className="bg-white p-4 md:p-8 rounded-2xl shadow-sm border border-gray-100 w-full md:w-[50%] mt-4 md:mt-6">
           {cloneElement(children, { onProgressChange: setProgress })}
         </div>

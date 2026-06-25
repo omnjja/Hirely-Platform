@@ -1,15 +1,16 @@
 import { React, useState } from "react";
-import ProfileInfo from "../features/candidate/components/ProfileComponents/ProfileInfo";
-import ProfileTabs from "../features/candidate/components/ProfileComponents/ProfileTabs";
+import ProfileInfo from "@/features/candidate/profile/components/profileComponents/ProfileInfo";
+import ProfileTabs from "@/features/candidate/profile/components/profileComponents/ProfileTabs";
 import { profileSections } from "@/constants/profileSections";
-import ExperienceSection from "../features/candidate/components/ProfileComponents/ExperienceSection";
-import SkillsSection from "../features/candidate/components/ProfileComponents/SkillsSection";
-import EmploymentSection from "../features/candidate/components/ProfileComponents/EmploymentSection";
-import { getCandidateProfile } from "../features/candidate/services/candidateService";
-import useUpdateProfileMutation from "../features/candidate/hooks/useUpdateProfileMutation";
+import ExperienceSection from "@/features/candidate/profile/components/profileComponents/ExperienceSection";
+import SkillsSection from "@/features/candidate/profile/components/profileComponents/SkillsSection";
+import EmploymentSection from "@/features/candidate/profile/components/profileComponents/EmploymentSection";
+import { getCandidateProfile } from "@/features/candidate/profile/services/candidateService";
+import useUpdateProfileMutation from "@/features/candidate/profile/hooks/useUpdateProfileMutation";
 import { updatedCandidatePayload } from "@/constants/updatedCandidatePayload";
-import EditProfile from "../features/candidate/components/EditProfile";
+import EditProfile from "@/features/candidate/profile/components/EditProfile";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import CandidateProfileSkeleton from "@/features/candidate/profile/components/profileComponents/CandidateProfileSkeleton";
 
 const CandidateProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,6 +22,7 @@ const CandidateProfile = () => {
     queryKey: ["candidateProfile"],
     queryFn: getCandidateProfile,
   });
+
   const { mutateAsync: updateProfile, isPending } = useUpdateProfileMutation();
   const queryClient = useQueryClient();
 
@@ -34,7 +36,7 @@ const CandidateProfile = () => {
       console.error("Error updating profile:", error);
     }
   };
-  // if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <CandidateProfileSkeleton />;
 
   return (
     <>
@@ -43,9 +45,6 @@ const CandidateProfile = () => {
         onEdit={() => setIsModalOpen(true)}
       />
       <ProfileTabs sections={profileSections} />
-      <div id="personal" className=" py-4">
-        Personal Section
-      </div>
 
       <div id="education" className=" py-4">
         <ExperienceSection

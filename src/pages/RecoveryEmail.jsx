@@ -1,7 +1,7 @@
 import React from "react";
 import ResetPassLayout from "@/components/layout/ResetPassLayout";
 import NextButton from "@/components/ui/NextButton";
-import RecoveryPhoto from "@/assets/RecoveryPhoto.png";
+import RecoveryPhoto from "@/assets//recoveryMail.webp";
 
 const RecoveryEmail = () => {
   return (
@@ -10,9 +10,11 @@ const RecoveryEmail = () => {
       header="Recovery Email Sent"
       subhead="Please check your email for next steps to reset your password."
       to="/login"
+      topLines={true}
+      leftLines={true}
     >
       <NextButton to="/SuccessfulPassword" />
-      <div className="w-45 h-45 mx-auto mb-5">
+      <div className="w-md h-60 mx-auto pointer-events-none">
         <img src={RecoveryPhoto} className="w-full h-full" />
       </div>
     </ResetPassLayout>

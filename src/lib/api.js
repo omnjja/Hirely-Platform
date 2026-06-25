@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://76.13.58.192:4000/";
+export const BASE_URL = "https://ceramic-partly-bryan-seemed.trycloudflare.com/";
 
 const api = axios.create({
   baseURL: BASE_URL,

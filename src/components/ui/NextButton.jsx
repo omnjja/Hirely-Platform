@@ -32,6 +32,7 @@ const NextButton = ({ text = "Next", to, onClick, disabled = false }) => {
         mx-2
         hover:text-black
         disabled:opacity-40
+        cursor-pointer
       "
     >
       <span>{text}</span>

@@ -1,25 +1,28 @@
 import React, { useState } from "react";
-import { Box, Card, Grid } from "@mui/material";
-import JobDetailsHeader from "@/features/browse-job/components/JobDetailsHeader";
-import JobDetailsInfo from "@/features/browse-job/components/JobDetailsInfo";
-import JobDetailsDescription from "@/features/browse-job/components/JobDetailsDescription";
-import JobDetailsAbout from "@/features/browse-job/components/JobDetailsAbout";
-import JobRecruiter from "@/features/browse-job/components/JobRecruiter";
+import JobDetailsHeader from "@/features/jobs/job-details/components/JobDetailsHeader";
+import JobDetailsInfo from "@/features/jobs/job-details/components/JobDetailsInfo";
+import JobDetailsDescription from "@/features/jobs/job-details/components/JobDetailsDescription";
+import JobDetailsAbout from "@/features/jobs/job-details/components/JobDetailsAbout";
+import JobRecruiter from "@/features/jobs/job-details/components/JobRecruiter";
 import ButtonComponent from "@/components/ui/ButtonComponent";
-import { ArrowRight, Bookmark, RefreshCw } from "lucide-react";
-import useJobDetails from "@/features/browse-job/hooks/useJobDetails";
+import { ArrowRight, Bookmark, CheckCheck, RefreshCw } from "lucide-react";
+import useJobDetails from "@/features/jobs/job-details/hooks/useJobDetails";
 import ErrorComponent from "@/components/ui/ErrorComponent";
-import JobDetailsSkeleton from "@/features/browse-job/components/JobDetailsSkeleton";
+import JobDetailsSkeleton from "@/features/jobs/job-details/components/JobDetailsSkeleton";
 import { useNavigate } from "react-router-dom";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
-import { useDeleteJobMutation } from "@/features/job-posting/hooks/useDeleteJobMutation";
+import { useDeleteJobMutation } from "@/features/jobs/job-details/hooks/useDeleteJobMutation";
+import { useApplyJobMutation } from "@/features/jobs/job-details/hooks/useApplyJobMutation";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const JobDetailsPage = () => {
   const role = localStorage.getItem("userRole");
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const [confirmOpen, setConfirmOpen] = useState(false);
   const { data, isLoading, isFetching, error, refetch } = useJobDetails();
   const { mutateAsync: deleteJob } = useDeleteJobMutation();
+  const { mutateAsync: applyToJob, isPending } = useApplyJobMutation();
 
   if (isLoading) return <JobDetailsSkeleton />;
   if (error)
@@ -33,10 +36,13 @@ const JobDetailsPage = () => {
     });
     setConfirmOpen(false);
   };
+  async function handleJobApply() {
+    await applyToJob(data.id);
+  }
   return (
-    <Box sx={{ flexGrow: 1 }} className="px-3 sm:px-5 py-3 mb-5">
-      <Grid container spacing={10} className="w-full min-h-screen">
-        <Grid size={{ xs: 12, lg: 9 }} className="flex-1 flex flex-col gap-9 ">
+    <div className="flex flex-1 px-3 sm:px-5 py-3 mb-5">
+      <div className="w-full min-h-screen">
+        <div className="flex-1 flex flex-col gap-9 ">
           {isFetching && (
             <div className="flex items-center gap-2 text-xs text-gray-400">
               <RefreshCw size={12} className="animate-spin" />
@@ -93,25 +99,28 @@ const JobDetailsPage = () => {
                 <div className="bg-[#EEF1F3] rounded-full p-3">
                   <Bookmark color="#595C5E" />
                 </div>
-                <ButtonComponent fullWidth>
+                <ButtonComponent
+                  fullWidth
+                  onClick={() => handleJobApply()}
+                  disabled={isPending || data?.isCandidateApply}
+                >
                   <div className="flex gap-1 justify-center">
-                    <p>Apply Now</p>
-                    <ArrowRight />
+                    <p>
+                      {data?.isCandidateApply
+                        ? "APPLIED"
+                        : isMobile
+                          ? "APPLY"
+                          : "APPLY WITH AUTOFILL"}
+                    </p>
+                    {data?.isCandidateApply && <CheckCheck />}
                   </div>
                 </ButtonComponent>
               </div>
             </>
           )}
-        </Grid>
+        </div>
         {/* ai */}
-        <Grid size={{ xs: 12, lg: 3 }}>
-          <Card className="p-4 sm:p-5 lg:sticky lg:top-20">
-            <p className="text-sm font-medium text-gray-500 mb-4 flex items-center gap-2">
-              ? AI Card
-            </p>
-          </Card>
-        </Grid>
-      </Grid>
+      </div>
       <ConfirmDialog
         open={confirmOpen}
         onClose={() => setConfirmOpen(false)}
@@ -120,7 +129,7 @@ const JobDetailsPage = () => {
         description="This will permanently delete the job post and all its applications. This action cannot be undone."
         confirmText="Delete"
       />
-    </Box>
+    </div>
   );
 };
 

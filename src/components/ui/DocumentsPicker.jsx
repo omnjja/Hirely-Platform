@@ -24,7 +24,6 @@ const UploadCVField = ({
         const handleFile = (f) => {
           if (!f) return;
           if (f.size > maxSizeMB * 1024 * 1024)
-            console.log(`Max size is ${maxSizeMB}MB`);
           onChange(f);
         };
 
