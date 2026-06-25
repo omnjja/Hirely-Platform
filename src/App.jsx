@@ -26,6 +26,7 @@ import LandingPage from "./pages/LandingPage";
 import CandidateLandingPage from "./pages/CandidateLandingPage";
 import JobsOverviewDashboard from "./pages/JobsOverviewDashboard";
 import ScrollToTop from "./components/ScrollToTop";
+import VideoInterviewAnalytics from "./pages/VideoInterviewAnalytics";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
             <Route path="jobs" element={<BrowseJobs />} />
             <Route path="jobs/:id" element={<JobDetailsPage />} />
             <Route path="applications" element={<ApplicationTracker />} />
+            <Route path="analytics" element={<VideoInterviewAnalytics />} />
           </Route>
         </Route>
 
