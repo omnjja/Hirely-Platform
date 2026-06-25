@@ -1,5 +1,5 @@
-import MatchesHeader from "@/features/job-matches/components/MatchesHeader";
-import MatchingList from "@/features/job-matches/components/MatchingList";
+import MatchesHeader from "@/features/jobs/job-matches/components/MatchesHeader";
+import MatchingList from "@/features/jobs/job-matches/components/MatchingList";
 import React from "react";
 
 const JobMatches = () => {

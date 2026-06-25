@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getJobMatches } from "../services/JobService";
+import { getJobMatches } from "../../services/jobService";
 
 const useTopMatches = () => {
   return useQuery({

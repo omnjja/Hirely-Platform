@@ -39,3 +39,8 @@ export const applyToJob = async (id) => {
   const response = await api.post(`/jobs/${id}/apply`);
   return response.data;
 };
+
+export const getJobMatches = async () => {
+  const res = await api.get("/jobs/top-matches");
+  return res.data;
+};
