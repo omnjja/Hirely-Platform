@@ -1,6 +1,7 @@
 import React from "react";
 import JobCardPrimary from "./JobCardPrimary";
 import JobCardSecondary from "./JobCardSecondary";
+import useTopMatches from "../hooks/useTopMatches";
 
 const jobs = [
   {
@@ -55,6 +56,9 @@ const jobs = [
 const MatchingList = () => {
   const secondary = jobs.filter((j) => j.variant === "secondary");
   const primary = jobs.filter((j) => j.variant === "primary");
+
+  const { data, isLoading, isError } = useTopMatches();
+  console.log(data);
 
   return (
     <div>
