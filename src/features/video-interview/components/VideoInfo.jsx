@@ -1,14 +1,8 @@
+import { formatTime } from "@/utils/formatTime";
 import { Circle, RotateCcw, Timer } from "lucide-react";
 import React from "react";
 
-const VideoInfo = ({ isRecording, setElapsed, elapsed, TOTAL_DURATION }) => {
-  const formatTime = (s) => {
-    const m = Math.floor(s / 60);
-    const sec = s % 60;
-
-    return `${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
-  };
-
+const VideoInfo = ({ isRecording, TOTAL_DURATION }) => {
   return (
     <div className="">
       {/* Mobile */}
@@ -49,7 +43,8 @@ const VideoInfo = ({ isRecording, setElapsed, elapsed, TOTAL_DURATION }) => {
             <Timer color="#0576D6" size={18} />
 
             <span className="font-[Plus Jakarta Sans] text-sm font-bold tracking-wider text-[#0576D6]">
-              {formatTime(elapsed)}
+              {/* {formatTime(elapsed)} */}
+              30:00
             </span>
 
             <span className="text-[10px] font-semibold text-[#595C5E99]">
@@ -61,7 +56,7 @@ const VideoInfo = ({ isRecording, setElapsed, elapsed, TOTAL_DURATION }) => {
         {/* Retake */}
         <div className="flex justify-center">
           <button
-            onClick={() => setElapsed(1)}
+            onClick={() => {}}
             className="flex items-center gap-1 text-[#595C5E]"
           >
             <RotateCcw size={16} />
@@ -97,7 +92,7 @@ const VideoInfo = ({ isRecording, setElapsed, elapsed, TOTAL_DURATION }) => {
         {/* Retake */}
         <div className="flex flex-1 justify-center">
           <button
-            onClick={() => setElapsed(1)}
+            onClick={() => {}}
             className="flex items-center gap-1 text-[#595C5E]"
           >
             <RotateCcw size={16} />
@@ -111,7 +106,8 @@ const VideoInfo = ({ isRecording, setElapsed, elapsed, TOTAL_DURATION }) => {
             <Timer color="#0576D6" size={20} />
 
             <span className="font-[Plus Jakarta Sans] text-base font-bold tracking-wider text-[#0576D6]">
-              {formatTime(elapsed)}
+              {/* {formatTime(elapsed)} */}
+              30:00
             </span>
 
             <span className="text-[10px] font-semibold text-[#595C5E99]">

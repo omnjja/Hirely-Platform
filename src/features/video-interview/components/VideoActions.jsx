@@ -3,10 +3,10 @@ import { ArrowRight, Circle, Mic, MicOff, Square } from "lucide-react";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 
 const VideoActions = ({
+  startRecording,
+  stopRecording,
   finished,
   isRecording,
-  setIsRecording,
-  handleStop,
   step,
   setStep,
   len,
@@ -20,13 +20,7 @@ const VideoActions = ({
         {/* Record / Stop */}
         <button
           disabled={finished}
-          onClick={
-            isRecording
-              ? handleStop
-              : () => {
-                  setIsRecording(true);
-                }
-          }
+          onClick={isRecording ? stopRecording : startRecording}
           title={
             finished ? "" : isRecording ? "Stop recording" : "Start recording"
           }
