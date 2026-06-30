@@ -1,39 +1,9 @@
 import React from "react";
+import { recruitmentStages } from "@/constants/overviewDashboardStages";
 
-const recruitmentStages = [
-  {
-    label: "APPLIED",
-    count: 1284,
-    pct: 100,
-    filled: true,
-    purple: true,
-    textColor: "text-[#0576D6]",
-  },
-  {
-    label: "SCREENED",
-    count: 742,
-    pct: 57.8,
-    filled: false,
-    textColor: "text-[#526074]",
-  },
-  {
-    label: "INTERVIEWED",
-    count: 236,
-    pct: 18.4,
-    filled: false,
-    textColor: "text-[#526074]",
-  },
-  {
-    label: "HIRED",
-    count: 42,
-    pct: 3.3,
-    filled: true,
-    blue: true,
-    textColor: "text-white",
-  },
-];
+const RecruitmentFunnelCard = ({ data }) => {
+  const stages = recruitmentStages(data);
 
-const RecruitmentFunnelCard = () => {
   return (
     <div className="bg-white rounded-2xl border border-black p-6">
       <h2 className="text-sm font-semibold text-[#2A3439] mb-0.5">
@@ -44,7 +14,7 @@ const RecruitmentFunnelCard = () => {
       </p>
 
       <div className="space-y-3">
-        {recruitmentStages.map(
+        {stages.map(
           ({ label, count, pct, filled, blue, purple, textColor }) => (
             <div key={label}>
               <div className="flex justify-between mb-1"></div>
@@ -52,8 +22,8 @@ const RecruitmentFunnelCard = () => {
                 <div
                   className="h-full rounded flex items-center pl-3 transition-all duration-500"
                   style={{
-                    width: `${Math.max(pct, blue ? 4 : 0)}%`,
-                    minWidth: blue ? "80px" : undefined,
+                    width: `${pct}%`,
+                    minWidth: pct > 0 && blue ? "80px" : undefined,
                     background: blue
                       ? "#0576D6"
                       : purple
@@ -78,8 +48,8 @@ const RecruitmentFunnelCard = () => {
 
       <div className="grid grid-cols-2 gap-3 mt-5 pt-4 border-t border-slate-100 text-center">
         {[
-          ["Overall CV-to-Hire", "3.2%"],
-          ["Interview-to-Hire", "17.8%"],
+          ["Overall CV-to-Hire", `${data?.cv_to_hire || "0"}%`],
+          ["Interview-to-Hire", `${data?.interview_to_hire || "0"}%`],
         ].map(([label, val]) => (
           <div key={label}>
             <p className="text-[10px] uppercase tracking-wide text-[#566166] mb-1 font-semibold">
