@@ -28,6 +28,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import ApplicationsAnalysis from "./pages/ApplicationsAnalysis";
 import WithAICard from "./components/layout/WithAICard";
 import VideoInterviewPage from "./pages/VideoInterviewPage";
+import StartInterview from "./pages/StartInterview";
 
 function App() {
   return (
@@ -55,7 +56,11 @@ function App() {
             <Route path="jobs" element={<BrowseJobs />} />
             <Route path="jobs/:id" element={<JobDetailsPage />} />
             <Route path="applications" element={<ApplicationTracker />} />
-            <Route path="video-interview" element={<VideoInterviewPage />} />
+            <Route path="start-video-interview" element={<StartInterview />} />
+            <Route
+              path="video-interview-session"
+              element={<VideoInterviewPage />}
+            />
           </Route>
         </Route>
 
