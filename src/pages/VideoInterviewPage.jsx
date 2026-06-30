@@ -1,13 +1,12 @@
-import React, { useCallback, useState } from "react";
-import { useReactMediaRecorder } from "react-media-recorder";
-
+import React from "react";
 import CompletedInterview from "@/features/video-interview/components/CompletedInterview";
 import QuestionsProgressBar from "@/features/video-interview/components/QuestionsProgressBar";
 import InterviewRecorder from "@/features/video-interview/components/InterviewRecorder";
 import VideoInfo from "@/features/video-interview/components/VideoInfo";
 import VideoActions from "@/features/video-interview/components/VideoActions";
-
 import { formatTime } from "@/utils/formatTime";
+import { useInterviewFlow } from "@/features/video-interview/hooks/useInterviewFlow";
+import { PHASES } from "@/constants/videoInterview";
 
 const questions = [
   "Tell us about a time you solved a complex problem.",
@@ -22,101 +21,58 @@ const TOTAL_DURATION = 60;
 const PREPARATION_TIME = 5;
 const RETAKES = 2;
 
-const INTERVIEW_PHASE = {
-  PREPARING: "preparing",
-  RECORDING: "recording",
-  REVIEW: "review",
-  SUBMITTED: "submitted",
-};
-
 const VideoInterviewPage = () => {
-  const [step, setStep] = useState(1);
-  const [phase, setPhase] = useState(INTERVIEW_PHASE.PREPARING);
-
-  const onStop = useCallback(() => {
-    setPhase(INTERVIEW_PHASE.REVIEW);
-  }, []);
-
-  const {
-    status,
-    startRecording,
-    stopRecording,
-    mediaBlobUrl,
-    previewStream,
-    clearBlobUrl,
-  } = useReactMediaRecorder({
-    startPreviewOnMount: true,
-    video: true,
-    mediaRecorderOptions: {
-      mimeType: "video/webm;codecs=vp8,opus",
-    },
-    onStop,
+  const { interview, media, timers, actions } = useInterviewFlow({
+    questions,
+    preparationTime: PREPARATION_TIME,
+    totalDuration: TOTAL_DURATION,
+    retakes: RETAKES,
   });
 
-  const handleCountdownFinished = useCallback(() => {
-    startRecording();
-    setPhase(INTERVIEW_PHASE.RECORDING);
-  }, [startRecording]);
+  if (media.cameraError) {
+    return (
+      <div className="mx-auto max-w-7xl px-3 py-10 text-center text-sm text-red-600">
+        Couldn't access your camera/microphone. Please grant permission and
+        reload the page.
+      </div>
+    );
+  }
 
-  const handleStopRecording = useCallback(() => {
-    stopRecording();
-  }, [stopRecording]);
-
-  const handleRetake = useCallback(() => {
-    clearBlobUrl();
-
-    setPhase(INTERVIEW_PHASE.PREPARING);
-  }, [clearBlobUrl]);
-
-  const handleSubmit = () => {
-    console.log("submit");
-
-    if (step === questions.length) {
-      setPhase(INTERVIEW_PHASE.SUBMITTED);
-      return;
-    }
-
-    clearBlobUrl();
-
-    setStep((s) => s + 1);
-    setPhase(INTERVIEW_PHASE.PREPARING);
-  };
-
-  if (phase === INTERVIEW_PHASE.SUBMITTED) {
+  if (interview.phase === PHASES.SUBMITTED) {
     return <CompletedInterview />;
   }
 
   return (
     <div className="mx-auto min-h-screen w-full max-w-7xl px-3 py-4 sm:px-5 md:px-8 lg:w-[80%] lg:px-0 lg:py-2">
       <div className="flex flex-col gap-5 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-        <QuestionsProgressBar questions={questions} step={step} />
+        <QuestionsProgressBar questions={questions} step={interview.step} />
 
         <InterviewRecorder
-          step={step}
-          phase={phase}
-          preparationTime={PREPARATION_TIME}
-          onCountdownFinished={handleCountdownFinished}
-          previewStream={previewStream}
-          mediaBlobUrl={mediaBlobUrl}
+          phase={interview.phase}
+          status={media.status}
+          countdown={timers.countdown}
+          previewStream={media.previewStream}
+          mediaBlobUrl={media.mediaBlobUrl}
         />
 
         <VideoInfo
-          phase={phase}
+          phase={interview.phase}
+          recordingElapsed={timers.recordingElapsed}
           totalDuration={TOTAL_DURATION}
-          onRetake={handleRetake}
+          retakesLeft={interview.retakesLeft}
         />
 
         <p className="text-center text-sm text-[#595c5e]">
           Max duration{" "}
-          <span className="font-semibold">{formatTime(TOTAL_DURATION)}</span> ·{" "}
-          <span className="font-semibold">{RETAKES}</span> retakes available
+          <span className="font-semibold">{formatTime(TOTAL_DURATION)}</span>
         </p>
 
         <VideoActions
-          phase={phase}
-          stopRecording={handleStopRecording}
-          onRetake={handleRetake}
-          onSubmit={handleSubmit}
+          phase={interview.phase}
+          retakesLeft={interview.retakesLeft}
+          stopRecording={actions.stopRecording}
+          onRetake={actions.retake}
+          onSubmit={actions.submit}
         />
       </div>
     </div>
