@@ -1,8 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import React, { memo, useEffect, useRef } from "react";
+import CountdownOverlay from "./CountdownOverlay";
 
-const InterviewRecorder = ({ previewStream, mediaBlobUrl }) => {
+const InterviewRecorder = ({
+  step,
+  phase,
+  preparationTime,
+  onCountdownFinished,
+  previewStream,
+  mediaBlobUrl,
+}) => {
   const videoRef = useRef(null);
-
   useEffect(() => {
     if (previewStream && videoRef.current) {
       if (videoRef.current.srcObject !== previewStream) {
@@ -10,15 +17,23 @@ const InterviewRecorder = ({ previewStream, mediaBlobUrl }) => {
       }
     }
   }, [previewStream]);
+
   return (
     <div className="px-0 sm:px-2 md:px-4 lg:px-6">
       <div
-        className="overflow-hidden rounded-xl"
+        className="relative overflow-hidden rounded-xl"
         style={{ aspectRatio: "16 / 9" }}
       >
+        <CountdownOverlay
+          interviewId={step}
+          phase={phase}
+          preparationTime={preparationTime}
+          onCountdownFinished={onCountdownFinished}
+        />
+
         {mediaBlobUrl ? (
           <video
-            className="h-full w-full object-cover rounded-xl"
+            className="h-full w-full rounded-xl object-cover"
             key={mediaBlobUrl}
             src={mediaBlobUrl}
             controls
@@ -27,8 +42,8 @@ const InterviewRecorder = ({ previewStream, mediaBlobUrl }) => {
           />
         ) : (
           <video
-            className="h-full w-full object-cover rounded-xl"
             ref={videoRef}
+            className="h-full w-full rounded-xl object-cover"
             autoPlay
             muted
             playsInline
@@ -39,4 +54,4 @@ const InterviewRecorder = ({ previewStream, mediaBlobUrl }) => {
   );
 };
 
-export default InterviewRecorder;
+export default memo(InterviewRecorder);
