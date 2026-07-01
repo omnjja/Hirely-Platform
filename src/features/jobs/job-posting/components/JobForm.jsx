@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import Card from "@/components/ui/Card";
 import BasicInfoSection from "./BasicInfoSection";
-import JobCompensations from "./JobCompensations";
+import JobDates from "./JobDates";
 import JobDetails from "./JobDetails";
 import JobSkills from "./JobSkills";
 import VideoQuestions from "./VideoQuestions";
@@ -53,8 +53,6 @@ const JobForm = ({ mode = "post", initialValues = {} }) => {
       ...data,
       skills: data.skills.map((item) => item.value ?? item),
       keywords: data.keywords.map((item) => item.value ?? item),
-      compensationMin: Number(data.compensationMin),
-      compensationMax: Number(data.compensationMax),
     };
     try {
       if (mode === "edit") {
@@ -107,7 +105,7 @@ const JobForm = ({ mode = "post", initialValues = {} }) => {
                     size={{ xs: 12, md: 6 }}
                     className="flex flex-col gap-4 sm:gap-6"
                   >
-                    <JobCompensations />
+                    <JobDates />
                     <JobSkills
                       head="Required Skills"
                       name="skills"

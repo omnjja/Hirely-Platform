@@ -5,13 +5,8 @@ export const jobSchema = z
     department: z.string().min(1, "Department is required").max(120),
     jobType: z.string().min(1, "Job type is required"),
     location: z.string().min(1, "Location is required").max(200),
+    workplaceType: z.string().min(1, "Workplace type is required"),
     experienceLevel: z.string().min(1, "Experience level is required"),
-    compensationMin: z.coerce
-      .number({ invalid_type_error: "Must be a number" })
-      .min(0, "Must be positive"),
-    compensationMax: z.coerce
-      .number({ invalid_type_error: "Must be a number" })
-      .min(0, "Must be positive"),
     roleContext: z.string().min(1, "Role context is required").max(5000),
     coreResponsibilities: z
       .string()
@@ -39,14 +34,6 @@ export const jobSchema = z
       .min(1, "Sprint duration must be at least 1 week")
       .max(12, "Sprint duration cannot exceed 12 weeks"),
   })
-  .refine((data) => data.compensationMax > data.compensationMin, {
-    message: "Max salary must be greater than min salary",
-    path: ["compensationMax"],
-  })
-  .refine((data) => data.compensationMin < data.compensationMax, {
-    message: "Min salary must be less than max salary",
-    path: ["compensationMin"],
-  })
   .refine((data) => data.endDate > data.startDate, {
     message: "End date must be after start date",
     path: ["endDate"],
@@ -72,9 +59,8 @@ export const jobDefaultValues = {
   department: "",
   jobType: "FULL_TIME",
   location: "",
+  workplaceType: "ONSITE",
   experienceLevel: "",
-  compensationMin: 10000,
-  compensationMax: 15000,
   roleContext: "",
   coreResponsibilities: "",
   skills: [],
