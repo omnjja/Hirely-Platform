@@ -29,10 +29,9 @@ const EditJobPosting = () => {
         title: jobData.title,
         department: jobData.department,
         jobType: jobData.jobType,
+        workplaceType: jobData.workplaceType,
         location: jobData.location,
         experienceLevel: jobData.experienceLevel,
-        compensationMin: jobData.compensationMin,
-        compensationMax: jobData.compensationMax,
         roleContext: jobData.roleContext,
         coreResponsibilities: jobData.coreResponsibilities,
         skills: (jobData.skills || []).map((skill) =>
