@@ -3,17 +3,26 @@ import FilterSelect from "./FilterSelect";
 import { FILTERS_CONFIG, INITIAL_FILTERS } from "@/constants/jobFilters";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import { ListFilter } from "lucide-react";
+import {
+  initialStates,
+  useJobFilterationStore,
+} from "../store/jobFiltersStore";
 
 const FiltersBar = () => {
-  const [filters, setFilters] = useState(INITIAL_FILTERS);
+  const resetFilters = useJobFilterationStore((state) => state.resetFilters);
+  const setFilter = useJobFilterationStore((state) => state.setFilter);
+
+  const filters = useJobFilterationStore();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleChange = (key) => (e) => {
-    setFilters((prev) => ({ ...prev, [key]: e.target.value }));
+    setFilter(key, e.target.value);
   };
+  const activeFiltersCount = FILTERS_CONFIG.filter(
+    ({ key }) => filters[key] !== initialStates[key],
+  ).length;
 
-  const activeCount = Object.values(filters).filter(Boolean).length;
-  const handleReset = () => setFilters(INITIAL_FILTERS);
+  const handleReset = () => resetFilters();
 
   // Lock body scroll when drawer is open
   useEffect(() => {
@@ -30,18 +39,17 @@ const FiltersBar = () => {
           key={key}
           options={options}
           placeholder={placeholder}
-          value={filters[key]}
+          value={filters[key] ?? ""}
           onChange={handleChange(key)}
-          resultsCount={3}
         />
       ))}
-      {activeCount > 0 && (
+      {activeFiltersCount > 0 && (
         <button
           onClick={handleReset}
           className="inline-flex items-center gap-1.5 bg-transparent border border-gray-300 rounded-full px-3.5 py-1.5 text-[13px] text-gray-500 cursor-pointer transition-all duration-200"
         >
           <span className="bg-[#1A777E] text-white rounded-full text-[11px] font-bold px-1.75 py-0.5">
-            {activeCount}
+            {activeFiltersCount}
           </span>
           Clear filters
         </button>
@@ -62,14 +70,14 @@ const FiltersBar = () => {
         >
           <ListFilter size={14} />
           Filters
-          {activeCount > 0 && (
+          {activeFiltersCount > 0 && (
             <span className="bg-[#1A777E] text-white rounded-full text-[11px] font-bold px-1.5 py-0.5 leading-none">
-              {activeCount}
+              {activeFiltersCount}
             </span>
           )}
         </button>
 
-        {activeCount > 0 && (
+        {activeFiltersCount > 0 && (
           <button
             onClick={handleReset}
             className="text-[12px] text-gray-400 underline"
@@ -105,16 +113,15 @@ const FiltersBar = () => {
                   key={key}
                   options={options}
                   placeholder={placeholder}
-                  value={filters[key]}
+                  value={filters[key] ?? ""}
                   onChange={handleChange(key)}
-                  resultsCount={3}
                   fullWidth
                 />
               ))}
             </div>
 
             <div className="flex gap-2 mt-5">
-              {activeCount > 0 && (
+              {activeFiltersCount > 0 && (
                 <button
                   onClick={() => {
                     handleReset();
@@ -122,7 +129,7 @@ const FiltersBar = () => {
                   }}
                   className="flex-1 border border-gray-300 rounded-full py-2 text-[13px] text-gray-500"
                 >
-                  Clear all ({activeCount})
+                  Clear all ({activeFiltersCount})
                 </button>
               )}
               <ButtonComponent
