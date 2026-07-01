@@ -7,9 +7,9 @@ import useAppNavigate from "@/hooks/useAppNavigate";
 import React from "react";
 
 const StartInterview = () => {
-  let applicationId = "6a0b8718036bd27e11fe248e";
+  let applicationId = "6a45875abad3dcbdc175c4e4";
   const { data, isLoading, error, refetch } = useInstructions();
-  const { data: interviewSession } = useInterviewSession({ applicationId });
+  const { data: interviewSession } = useInterviewSession(applicationId);
   const { toInterviewSession } = useAppNavigate();
   if (isLoading) return <InterviewInstructionsSkeleton />;
   if (error) return <ErrorComponent error={error} action={refetch} />;

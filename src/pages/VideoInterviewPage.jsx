@@ -23,14 +23,13 @@ const PREPARATION_TIME = 5;
 const RETAKES = 2;
 
 const VideoInterviewPage = () => {
-
-
   const { interview, media, timers, actions } = useInterviewFlow({
     questions,
     preparationTime: PREPARATION_TIME,
     totalDuration: TOTAL_DURATION,
     retakes: RETAKES,
   });
+
 
   if (media.cameraError) {
     return (

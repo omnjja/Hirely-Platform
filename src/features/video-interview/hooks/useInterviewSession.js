@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getInterviewSession } from "../service/videoInterviewService";
 
-const useInterviewSession = ({ applicationId }) => {
+const useInterviewSession = (applicationId) => {
   const query = useQuery({
     queryKey: ["interviewSession", applicationId],
     queryFn: () => getInterviewSession(applicationId),

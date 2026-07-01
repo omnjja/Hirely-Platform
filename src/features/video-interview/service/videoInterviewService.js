@@ -7,7 +7,6 @@ export const getInstructions = async () => {
 
 export const getTest = async () => {
   const response = await api.get("/test");
-  console.log("test", response.data);
   return response.data;
 };
 
@@ -16,4 +15,4 @@ export const getInterviewSession = async (applicationId) => {
   console.log("session", response.data);
   return response.data;
 };
-//6a0b8718036bd27e11fe248e
+//6a45875abad3dcbdc175c4e4
