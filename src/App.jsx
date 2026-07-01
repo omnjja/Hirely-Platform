@@ -24,6 +24,7 @@ import HrProfile from "./pages/HrProfile";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import LandingPage from "./pages/LandingPage";
 import CandidateLandingPage from "./pages/CandidateLandingPage";
+import ViewCandidate from "./pages/ViewCandidate";
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
@@ -64,6 +65,7 @@ function App() {
             <Route path="profile" element={<HrProfile />} />
             <Route index element={<Navigate to="analytics" replace />} />
             <Route path="analytics" element={<div>analytics</div>} />
+            <Route path="candidates/:id" element={<ViewCandidate />} />
           </Route>
         </Route>
 

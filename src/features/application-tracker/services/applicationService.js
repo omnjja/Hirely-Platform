@@ -1,7 +1,7 @@
 import api from "@/lib/api";
 
 export const getApplicationStats = async () => {
-  const res = await api.get("/jobs/applications/me/stats");
+  const res = await api.get("/applications/me/stats");
   return res.data;
 };
 
@@ -13,12 +13,12 @@ export const getApplications = async ({ page, state }) => {
   if (state && state !== "ALL") {
     params.append("status", state);
   }
-  const res = await api.get(`/jobs/applications/me?${params.toString()}`);
+  const res = await api.get(`/applications/me?${params.toString()}`);
 
   return res.data;
 };
 
 export const getApplicationById = async (id) => {
-  const res = await api.get(`/jobs/applications/me/${id}`);
+  const res = await api.get(`/applications/me/${id}`);
   return res.data;
 };
