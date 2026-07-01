@@ -1,7 +1,31 @@
 import api from "@/lib/api";
 
-export const getJobs = async (page) => {
-  const response = await api.get(`/jobs?page=${page}`);
+export const getJobs = async ({
+  page,
+  limit,
+  search,
+  jobType,
+  experienceLevel,
+  workplaceType,
+  location,
+  industry,
+  datePosted,
+  applied,
+}) => {
+  const response = await api.get(`/jobs`, {
+    params: {
+      page,
+      limit,
+      search,
+      jobType,
+      experienceLevel,
+      workplaceType,
+      location,
+      industry,
+      datePosted,
+      applied,
+    },
+  });
   return response.data;
 };
 
