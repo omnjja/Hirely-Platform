@@ -6,13 +6,13 @@ const QuestionsProgressBar = ({ questions, step }) => {
       {/* Header */}
       <div className="mb-6 flex items-center gap-4">
         <span className="shrink-0 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0576D6] sm:text-xs">
-          Step {step} of {questions.length}
+          Step {step + 1} of {questions?.length}
         </span>
 
         <div className="flex flex-1 gap-2">
-          {questions.map((_, index) => {
+          {questions?.map((_, index) => {
             const completed = index < step;
-            const current = index === step - 1;
+            const current = index === step;
 
             return (
               <motion.div
@@ -24,22 +24,14 @@ const QuestionsProgressBar = ({ questions, step }) => {
               >
                 <motion.div
                   initial={false}
-                  animate={{
-                    width: completed ? "100%" : "0%",
-                  }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 180,
-                    damping: 22,
-                  }}
+                  animate={{ width: completed ? "100%" : "0%" }}
+                  transition={{ type: "spring", stiffness: 180, damping: 22 }}
                   className="absolute inset-y-0 left-0 rounded-full bg-[#0576D6]"
                 />
 
                 {current && (
                   <motion.div
-                    animate={{
-                      opacity: [0.15, 0.35, 0.15],
-                    }}
+                    animate={{ opacity: [0.15, 0.35, 0.15] }}
                     transition={{
                       duration: 1.8,
                       repeat: Infinity,
@@ -62,7 +54,7 @@ const QuestionsProgressBar = ({ questions, step }) => {
         transition={{ duration: 0.3 }}
         className="max-w-4xl text-xl font-semibold leading-snug text-gray-900 sm:text-2xl"
       >
-        "{questions[step - 1]}"
+        "{questions?.[step]?.question}"
       </motion.h2>
     </div>
   );

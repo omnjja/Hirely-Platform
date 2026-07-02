@@ -8,6 +8,7 @@ const VideoActions = ({
   stopRecording,
   onRetake,
   onSubmit,
+  isPending,
 }) => {
   const isRecording = phase === "recording";
   const isReview = phase === "review";
@@ -39,12 +40,12 @@ const VideoActions = ({
         <div className="w-full lg:w-auto">
           <ButtonComponent
             onClick={onSubmit}
-            disabled={!isReview}
+            disabled={!isReview || isPending}
             style={{ bgColor: "#0576D6" }}
             className="w-full shadow-sm lg:w-auto"
           >
             <div className="flex items-center justify-center gap-2">
-              <p>Submit Answer</p>
+              <p> Submit Answer</p>
               <ArrowRight className="h-4 w-4" />
             </div>
           </ButtonComponent>

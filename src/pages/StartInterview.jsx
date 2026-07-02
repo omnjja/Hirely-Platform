@@ -3,14 +3,32 @@ import InterviewInstructions from "@/features/video-interview/components/Intervi
 import InterviewInstructionsSkeleton from "@/features/video-interview/components/InterviewInstructionsSkeleton";
 import useInstructions from "@/features/video-interview/hooks/useInstructions";
 import useInterviewSession from "@/features/video-interview/hooks/useInterviewSession";
+import useStartVideoInterview from "@/features/video-interview/hooks/useStartVideoInterview";
 import useAppNavigate from "@/hooks/useAppNavigate";
 import React from "react";
+import toast from "react-hot-toast";
 
 const StartInterview = () => {
-  let applicationId = "6a45875abad3dcbdc175c4e4";
+  let applicationId = "6a4597a4bad3dcbdc175c5b9";
   const { data, isLoading, error, refetch } = useInstructions();
   const { data: interviewSession } = useInterviewSession(applicationId);
-  const { toInterviewSession } = useAppNavigate();
+  const { mutateAsync: startInterviewSession } =
+    useStartVideoInterview(applicationId);
+  const { toInterviewSession, toSubmitInterview } = useAppNavigate();
+
+  async function handleStartInterview() {
+    if (interviewSession?.canStart || interviewSession?.status === "STARTED") {
+      const response = await startInterviewSession();
+      toInterviewSession(response.interviewId);
+    } else if (interviewSession?.canSubmit) {
+      toSubmitInterview(interviewSession?.interviewId);
+    } else {
+      toast.error("You cannot start the interview at this time.");
+    }
+    // const response = await startInterviewSession();
+    // toInterviewSession(response.interviewId);
+  }
+
   if (isLoading) return <InterviewInstructionsSkeleton />;
   if (error) return <ErrorComponent error={error} action={refetch} />;
   return (
@@ -18,7 +36,7 @@ const StartInterview = () => {
       <InterviewInstructions
         title={data?.title}
         instructions={data?.instructions}
-        onStart={() => toInterviewSession()}
+        onStart={handleStartInterview}
       />
     </div>
   );

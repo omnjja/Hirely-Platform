@@ -29,6 +29,7 @@ import ApplicationsAnalysis from "./pages/ApplicationsAnalysis";
 import WithAICard from "./components/layout/WithAICard";
 import VideoInterviewPage from "./pages/VideoInterviewPage";
 import StartInterview from "./pages/StartInterview";
+import SubmitVideoInterview from "./pages/SubmitVideoInterview";
 
 function App() {
   return (
@@ -58,8 +59,12 @@ function App() {
             <Route path="applications" element={<ApplicationTracker />} />
             <Route path="start-video-interview" element={<StartInterview />} />
             <Route
-              path="video-interview-session"
+              path="video-interview-session/:interviewId"
               element={<VideoInterviewPage />}
+            />
+            <Route
+              path="submit-video-interview/:interviewId"
+              element={<SubmitVideoInterview />}
             />
           </Route>
         </Route>

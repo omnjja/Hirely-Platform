@@ -1,10 +1,16 @@
 import { PHASES } from "@/constants/videoInterview";
 
-export function createInitialState({ totalQuestions, retakesAllowed }) {
+export function createInitialState({
+  totalQuestions,
+  retakesAllowed,
+  currentStep,
+}) {
+  const step = currentStep ?? 0;
+  const isComplete = step >= totalQuestions;
   return {
-    step: 1,
+    step: isComplete ? totalQuestions - 1 : step,
     totalQuestions,
-    phase: PHASES.PREPARING,
+    phase: isComplete ? PHASES.SUBMITTED : PHASES.PREPARING,
     retakesAllowed,
     retakesLeft: retakesAllowed,
   };
@@ -34,17 +40,26 @@ export function interviewReducer(state, action) {
     }
 
     // submit or finish
-    case "SUBMIT_ANSWER": {
+    case "SUBMIT_START":
       if (state.phase !== PHASES.REVIEW) return state;
+      return { ...state, phase: PHASES.SUBMITTING };
+
+    case "SUBMIT_ANSWER": {
+      if (state.phase !== PHASES.SUBMITTING) return state; // now gated on SUBMITTING, not REVIEW
       const nextStep = state.step + 1;
-      const isLast = nextStep > state.totalQuestions;
+      const isLast = nextStep >= state.totalQuestions;
       return {
         ...state,
         step: isLast ? state.step : nextStep,
         phase: isLast ? PHASES.SUBMITTED : PHASES.PREPARING,
         retakesLeft: isLast ? state.retakesLeft : state.retakesAllowed,
+        submitError: null,
       };
     }
+
+    case "SUBMIT_ERROR":
+      if (state.phase !== PHASES.SUBMITTING) return state;
+      return { ...state, phase: PHASES.REVIEW, submitError: action.error };
 
     default:
       return state;

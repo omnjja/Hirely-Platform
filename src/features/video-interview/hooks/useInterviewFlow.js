@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useReducer } from "react";
+import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import { useCameraStream } from "./useCameraStream";
 import { useMediaRecorder } from "./useMediaRecorder";
 import { useCountdown } from "./useCountdown";
@@ -8,22 +8,37 @@ import {
   interviewReducer,
 } from "../reducers/interviewReducer";
 import { PHASES } from "@/constants/videoInterview";
+import { uploadFile } from "@/lib/uploadFile";
 
 export function useInterviewFlow({
+  currentStep,
   questions,
-  preparationTime,
-  totalDuration,
   retakes,
+
+  interviewId,
+  createVideoURL,
+  submitAnswer,
 }) {
   const [state, dispatch] = useReducer(
     interviewReducer,
     {
-      totalQuestions: questions.length,
+      totalQuestions: questions?.length,
+      currentStep: currentStep || 0,
       retakesAllowed: retakes,
     },
     createInitialState,
   );
-  const { step, phase, retakesLeft } = state;
+  const { step, phase, retakesLeft, submitError } = state;
+  const [isPending, setIsPending] = useState(false);
+
+  // resolve the active question from `step`, not a flat prop
+  const currentQuestion = useMemo(
+    () => questions?.find((q) => q.order === step) ?? questions?.[0],
+    [questions, step],
+  );
+
+  const preparationTime = currentQuestion?.preparationDuration;
+  const totalDuration = currentQuestion?.answerDuration;
 
   // camera setup
   const { stream: previewStream, error: cameraError } = useCameraStream();
@@ -31,7 +46,7 @@ export function useInterviewFlow({
   // recorder setup
   const recorder = useMediaRecorder(previewStream);
 
-  // timers
+  // timers — now driven by the current question's own durations
   const countdown = useCountdown(preparationTime, phase === PHASES.PREPARING);
   const stopwatch = useStopwatch(phase === PHASES.RECORDING);
 
@@ -45,9 +60,62 @@ export function useInterviewFlow({
     dispatch({ type: "RETAKE" });
   }, []);
 
-  const submit = useCallback(() => {
-    dispatch({ type: "SUBMIT_ANSWER" });
-  }, []);
+  const submit = useCallback(async () => {
+    if (phase !== PHASES.REVIEW) return; // block re-entrancy
+    if (!recorder.clip || !currentQuestion) {
+      throw new Error("No recording to submit");
+    }
+    if (currentQuestion.type === "practice") {
+      dispatch({ type: "SUBMIT_START" });
+      dispatch({ type: "SUBMIT_ANSWER" });
+      return;
+    }
+    dispatch({ type: "SUBMIT_START" });
+    try {
+      const blob = recorder.clip.blob;
+
+      const { uploadUrl, key } = await createVideoURL({
+        interviewId,
+        questionId: currentQuestion.id,
+        requestBody: {
+          fileName: `answer-${currentQuestion?.order}.webm`,
+          contentType: blob.type,
+        },
+      });
+
+      setIsPending(true);
+      try {
+        await uploadFile({
+          uploadUrl,
+          file: blob,
+        });
+
+        await submitAnswer({
+          interviewId,
+          requestBody: {
+            questionId: currentQuestion.id,
+            videoKey: key,
+            responseDuration: stopwatch.elapsedSeconds,
+          },
+        });
+      } finally {
+        setIsPending(false);
+      }
+
+      dispatch({ type: "SUBMIT_ANSWER", videoKey: key });
+    } catch (err) {
+      dispatch({ type: "SUBMIT_ERROR", error: err.message });
+      throw err;
+    }
+  }, [
+    recorder.clip,
+    currentQuestion,
+    interviewId,
+    createVideoURL,
+    submitAnswer,
+    phase,
+    stopwatch,
+  ]);
 
   // interview flow
 
@@ -73,7 +141,7 @@ export function useInterviewFlow({
     }
   }, [phase, step]);
 
-  // stop automatically when recording reach max duration
+  // stop automatically when recording reaches THIS question's max duration
   useEffect(() => {
     if (
       phase === PHASES.RECORDING &&
@@ -86,11 +154,7 @@ export function useInterviewFlow({
   // current status "used in interview recorder"
   const status = useMemo(() => {
     if (recorder.clip) return "stopped";
-
-    if (phase === PHASES.RECORDING) {
-      return "recording";
-    }
-
+    if (phase === PHASES.RECORDING) return "recording";
     return "idle";
   }, [phase, recorder.clip]);
 
@@ -99,10 +163,14 @@ export function useInterviewFlow({
       step,
       phase,
       retakesLeft,
+      currentQuestion,
+      isPending,
+      submitError,
     },
 
     media: {
       previewStream,
+      mediaBlob: recorder.clip?.blob,
       mediaBlobUrl: recorder.clip?.url,
       status,
       cameraError,
