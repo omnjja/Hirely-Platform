@@ -1,9 +1,10 @@
-export const formatDateForDisplay = (date) => {
+export const formatDateForDisplay = (date, ifDayNeeded) => {
   if (!date) return "";
 
   return new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
+    day: ifDayNeeded ? "numeric" : undefined,
   });
 };
 

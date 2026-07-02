@@ -1,25 +1,39 @@
 import { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 
-const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN"];
-const values = [98, 115, 180, 150, 210, 284];
-
-const ApplicantInflowCard = () => {
+const ApplicantInflowCard = ({ data }) => {
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
 
-  useEffect(() => {
-    const colors = values.map((_, i) =>
-      i === 2 ? "#1FA4A7" : i === 5 ? "#0576D6" : "#CBD5E1",
-    );
+  const labels = data?.inflowData.map((item) =>
+    item.month.split(" ")[0].toUpperCase(),
+  );
 
+  const applications = data?.inflowData.map((item) => item.total_applications);
+
+  const average = data?.inflowData.length
+    ? Math.round(data.totalApplications / data.inflowData.length)
+    : 0;
+
+  const peakMonth = data?.inflowData.reduce((max, item) =>
+    item.total_applications > max.total_applications ? item : max,
+  );
+
+  const maxValue = Math.max(...applications);
+
+  const colors = applications.map((value, i) =>
+    value === maxValue ? "#0576D6" : i === 2 ? "#1FA4A7" : "#CBD5E1",
+  );
+
+  useEffect(() => {
+    chartRef.current?.destroy();
     chartRef.current = new Chart(canvasRef.current, {
       type: "bar",
       data: {
-        labels: months,
+        labels: labels,
         datasets: [
           {
-            data: values,
+            data: applications,
             backgroundColor: colors,
             borderRadius: 2,
             borderSkipped: false,
@@ -52,7 +66,7 @@ const ApplicantInflowCard = () => {
     });
 
     return () => chartRef.current?.destroy();
-  }, []);
+  }, [data.inflowData]);
 
   return (
     <div className="bg-white rounded-2xl border border-black p-6">
@@ -66,7 +80,7 @@ const ApplicantInflowCard = () => {
           </p>
         </div>
         <span className="text-xs font-medium bg-slate-100 text-slate-500 rounded-full px-3 py-1 border border-slate-200">
-          Last 6 months
+          Last {labels.length} months
         </span>
       </div>
 
@@ -76,9 +90,12 @@ const ApplicantInflowCard = () => {
 
       <div className="flex justify-around mt-4 pt-4 border-t border-slate-100">
         {[
-          ["Peak Month", "Jun — 284"],
-          ["6-mo Total", "1,037"],
-          ["Monthly Avg", "173"],
+          [
+            "Peak Month",
+            `${peakMonth.month.split(" ")[0]} — ${peakMonth.total_applications}`,
+          ],
+          [`${labels.length}-mo Total`, data.totalApplications],
+          ["Monthly Avg", average],
         ].map(([label, val]) => (
           <div key={label} className="text-center">
             <p className="text-[11px] uppercase tracking-wide text-slate-400 mb-0.5">

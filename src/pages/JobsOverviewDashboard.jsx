@@ -23,15 +23,15 @@ const JobsOverviewDashboard = () => {
       <DashboardStats data={data.headers} />
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex-2 h-full">
-          <ApplicantInflowCard />
+          <ApplicantInflowCard data={data.inflow_trend} />
         </div>
 
         <div className="flex-1 h-full">
-          <RecruitmentFunnelCard data={data.recruitement_funnel}/>
+          <RecruitmentFunnelCard data={data.recruitement_funnel} />
         </div>
       </div>
-      <DepartmentVolumeCard />
-      <ActiveHiringProgress />
+      <DepartmentVolumeCard data={data.volume_by_department} />
+      <ActiveHiringProgress data={data.active_hiring_process} />
     </div>
   );
 };

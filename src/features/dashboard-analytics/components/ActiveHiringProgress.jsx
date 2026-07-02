@@ -1,26 +1,4 @@
-const roles = [
-  {
-    name: "Lead Data Scientist",
-    priority: "High",
-    department: "Engineering",
-    progress: 80,
-    targetDate: "Oct 24, 2023",
-  },
-  {
-    name: "Creative Director",
-    priority: "Medium",
-    department: "Design",
-    progress: 45,
-    targetDate: "Nov 12, 2023",
-  },
-  {
-    name: "Account Executive",
-    priority: "Low",
-    department: "Sales",
-    progress: 15,
-    targetDate: "Dec 05, 2023",
-  },
-];
+import { formatDateForDisplay } from "@/utils/DateFormatter";
 
 const priorityStyles = {
   High: { color: "text-[#4C58A6]", bar: "bg-[#4C58A6]" },
@@ -28,7 +6,8 @@ const priorityStyles = {
   Low: { color: "text-slate-400", bar: "bg-slate-400" },
 };
 
-const ActiveHiringProgress = () => {
+const ActiveHiringProgress = ({ data }) => {
+  const roles = data.activeHiringFields;
   return (
     <div className="bg-white rounded-2xl border border-black p-6">
       <div className="flex items-center justify-between mb-5">
@@ -61,18 +40,18 @@ const ActiveHiringProgress = () => {
         </thead>
         <tbody>
           {roles.map((role) => {
-            const styles = priorityStyles[role.priority];
+            const styles = priorityStyles["High"];
             return (
-              <tr key={role.name} className="border-t border-slate-100">
+              <tr key={role.Role_name} className="border-t border-slate-100">
                 <td className="px-3 py-4">
                   <p className="text-[12px] md:text-sm font-semibold text-[#2A3439]">
-                    {role.name}
+                    {role.Role_name}
                   </p>
-                  <span
+                  {/* <span
                     className={`text-[8px] md:text-[10px] font-semibold uppercase tracking-wide ${styles.color}`}
                   >
                     Priority: {role.priority}
-                  </span>
+                  </span> */}
                 </td>
                 <td className="px-3 py-4  text-[12px] md:text-sm text-[#566166]">
                   {role.department}
@@ -82,16 +61,16 @@ const ActiveHiringProgress = () => {
                     <div className="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden">
                       <div
                         className={`h-full rounded-full ${styles.bar}`}
-                        style={{ width: `${role.progress}%` }}
+                        style={{ width: `${role.hiring_progress}%` }}
                       />
                     </div>
                     <span className="text-[12px] md:text-sm font-medium text-slate-700 min-w-8.5">
-                      {role.progress}%
+                      {role.hiring_progress}%
                     </span>
                   </div>
                 </td>
                 <td className="px-3 py-4 text-[12px] md:text-sm text-[#2A3439]">
-                  {role.targetDate}
+                  {formatDateForDisplay(role.target_date, true)}
                 </td>
                 <td className="px-3 py-4">
                   <button className="md:w-8 md:h-8 h-4 w-4 inline-flex items-center justify-center text-[#566166] hover:bg-slate-50">
