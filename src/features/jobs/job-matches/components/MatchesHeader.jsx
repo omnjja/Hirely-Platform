@@ -7,8 +7,8 @@ const MatchesHeader = () => {
         Strategic Career Intelligence
       </p>
       <p className="text-[#454652] text-sm font-normal">
-        We've analyzed 42 key data points from your portfolio and interview
-        history to curate these high-impact opportunities and growth paths.
+        We've analyzed your profile to identify opportunities that best match
+        your skills, experience, and career goals.
       </p>
     </div>
   );

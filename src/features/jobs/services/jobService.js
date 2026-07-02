@@ -40,7 +40,7 @@ export const applyToJob = async (id) => {
   return response.data;
 };
 
-export const getJobMatches = async () => {
-  const res = await api.get("/jobs/top-matches");
+export const getJobMatches = async ({ page, limit }) => {
+  const res = await api.get(`/jobs/top-matches?page=${page}&limit=${limit}`);
   return res.data;
 };

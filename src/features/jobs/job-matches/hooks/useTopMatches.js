@@ -4,10 +4,9 @@ import { getJobMatches } from "../../services/jobService";
 const useTopMatches = () => {
   return useQuery({
     queryKey: ["top-matches"],
-    queryFn: async () => {
-      const data = await getJobMatches();
-      return data;
-    },
+    queryFn: () => getJobMatches({ page: 1, limit: 5 }),
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
   });
 };
 
