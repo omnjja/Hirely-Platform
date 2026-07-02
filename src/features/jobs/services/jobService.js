@@ -63,3 +63,8 @@ export const applyToJob = async (id) => {
   const response = await api.post(`/jobs/${id}/apply`);
   return response.data;
 };
+
+export const getJobMatches = async ({ page, limit }) => {
+  const res = await api.get(`/jobs/top-matches?page=${page}&limit=${limit}`);
+  return res.data;
+};

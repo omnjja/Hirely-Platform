@@ -24,6 +24,7 @@ import HrProfile from "./pages/HrProfile";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import LandingPage from "./pages/LandingPage";
 import CandidateLandingPage from "./pages/CandidateLandingPage";
+import JobMatches from "./pages/JobMatches";
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
             <Route path="jobs" element={<BrowseJobs />} />
             <Route path="jobs/:id" element={<JobDetailsPage />} />
             <Route path="applications" element={<ApplicationTracker />} />
+            <Route path="job-matches" element={<JobMatches />} />
           </Route>
         </Route>
 
