@@ -1,21 +1,36 @@
 import { formatDateForDisplay } from "@/utils/DateFormatter";
+import useActiveHiringProgress from "../hooks/useActiveHiringProgress";
+import ActiveHiringSkeleton from "./ActiveHiringSkeleton";
+import { useState } from "react";
 
-const priorityStyles = {
-  High: { color: "text-[#4C58A6]", bar: "bg-[#4C58A6]" },
-  Medium: { color: "text-slate-500", bar: "bg-slate-500" },
-  Low: { color: "text-slate-400", bar: "bg-slate-400" },
-};
-
-const ActiveHiringProgress = ({ data }) => {
-  const roles = data.activeHiringFields;
+const ActiveHiringProgress = () => {
+  const { isLoading, isError, data } = useActiveHiringProgress();
+  const [showAll, setShowAll] = useState(false);
+  if (isLoading) {
+    return <ActiveHiringSkeleton />;
+  }
+  if (isError) {
+    return (
+      <div className="ml-3 mr-3 md:mr-0 my-3 flex flex-col gap-6">
+        <p className="text-center text-cyan-950 font-semibold">
+          Error occurred while fetching active hiring progress data.
+        </p>
+      </div>
+    );
+  }
+  const displayedData = showAll ? data : data.slice(0, 5);
   return (
     <div className="bg-white rounded-2xl border border-black p-6">
       <div className="flex items-center justify-between mb-5">
         <h2 className="text-sm  md:text-base font-semibold text-[#2A3439]">
           Active Hiring Progress
         </h2>
-        <button className="text-[10px] md:text-[11px] font-semibold tracking-widest uppercase text-[#4C58A6]">
-          View all openings
+        <button
+          className="text-[10px] md:text-[11px] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed  font-semibold tracking-widest uppercase text-[#4C58A6]"
+          onClick={() => setShowAll(!showAll)}
+          disabled={data.length <= 5}
+        >
+          {showAll ? "Show Less" : "View all openings"}
         </button>
       </div>
 
@@ -39,8 +54,7 @@ const ActiveHiringProgress = ({ data }) => {
           </tr>
         </thead>
         <tbody>
-          {roles.map((role) => {
-            const styles = priorityStyles["High"];
+          {displayedData.map((role) => {
             return (
               <tr key={role.Role_name} className="border-t border-slate-100">
                 <td className="px-3 py-4">
@@ -60,7 +74,7 @@ const ActiveHiringProgress = ({ data }) => {
                   <div className="flex items-center gap-2">
                     <div className="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden">
                       <div
-                        className={`h-full rounded-full ${styles.bar}`}
+                        className={`h-full rounded-full bg-[#4C58A6]`}
                         style={{ width: `${role.hiring_progress}%` }}
                       />
                     </div>

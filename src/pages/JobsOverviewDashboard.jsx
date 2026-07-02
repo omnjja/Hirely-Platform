@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import DashboardStats from "@/features/dashboard-analytics/components/DashboardStats";
 import ApplicantInflowCard from "@/features/dashboard-analytics/components/ApplicantInflowCard";
 import RecruitmentFunnelCard from "@/features/dashboard-analytics/components/RecruitmentFunnelCard";
@@ -8,8 +8,9 @@ import useHistoricalDashboard from "@/features/dashboard-analytics/hooks/useHist
 import JobsOverviewSkeleton from "@/features/dashboard-analytics/components/JobsOverviewSkeleton";
 
 const JobsOverviewDashboard = () => {
-  const { isLoading, isError, data } = useHistoricalDashboard();
-  console.log(data);
+  const [deptPage, setDeptPage] = useState(1);
+  const { isLoading, isError, data } = useHistoricalDashboard({ deptPage });
+  // console.log(data);
   return isLoading ? (
     <JobsOverviewSkeleton />
   ) : isError ? (
@@ -30,8 +31,11 @@ const JobsOverviewDashboard = () => {
           <RecruitmentFunnelCard data={data.recruitement_funnel} />
         </div>
       </div>
-      <DepartmentVolumeCard data={data.volume_by_department} />
-      <ActiveHiringProgress data={data.active_hiring_process} />
+      <DepartmentVolumeCard
+        data={data.volume_by_department}
+        onPageChange={setDeptPage}
+      />
+      <ActiveHiringProgress />
     </div>
   );
 };

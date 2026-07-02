@@ -5,17 +5,19 @@ const ApplicantInflowCard = ({ data }) => {
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
 
-  const labels = data?.inflowData.map((item) =>
+  const {inflowData, totalApplications} = data;
+
+  const labels = inflowData.map((item) =>
     item.month.split(" ")[0].toUpperCase(),
   );
 
-  const applications = data?.inflowData.map((item) => item.total_applications);
+  const applications = inflowData.map((item) => item.total_applications);
 
-  const average = data?.inflowData.length
-    ? Math.round(data.totalApplications / data.inflowData.length)
+  const average = inflowData.length
+    ? Math.round(totalApplications / inflowData.length)
     : 0;
 
-  const peakMonth = data?.inflowData.reduce((max, item) =>
+  const peakMonth = inflowData.reduce((max, item) =>
     item.total_applications > max.total_applications ? item : max,
   );
 
@@ -66,7 +68,7 @@ const ApplicantInflowCard = ({ data }) => {
     });
 
     return () => chartRef.current?.destroy();
-  }, [data.inflowData]);
+  }, [inflowData]);
 
   return (
     <div className="bg-white rounded-2xl border border-black p-6">
@@ -94,7 +96,7 @@ const ApplicantInflowCard = ({ data }) => {
             "Peak Month",
             `${peakMonth.month.split(" ")[0]} — ${peakMonth.total_applications}`,
           ],
-          [`${labels.length}-mo Total`, data.totalApplications],
+          [`${labels.length}-mo Total`, totalApplications],
           ["Monthly Avg", average],
         ].map(([label, val]) => (
           <div key={label} className="text-center">
