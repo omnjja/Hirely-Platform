@@ -18,7 +18,23 @@ const VideoInterviewPage = () => {
   const applicationId = "6a4597a4bad3dcbdc175c5b9";
 
   const { toSubmitInterview } = useAppNavigate();
-  const { data: interviewSession } = useInterviewSession(applicationId); // Note: added isLoading if your hook provides it
+  const { data: interviewSession } = useInterviewSession(applicationId);
+
+  // useEffect(() => {
+  //   if (
+  //     interviewSession?.answeredCount ===
+  //       interviewSession?.questions?.length - 1 &&
+  //     interviewSession?.interviewId
+  //   ) {
+  //     toSubmitInterview(interviewSession.interviewId);
+  //   }
+  // }, [
+  //   interviewSession?.answeredCount,
+  //   interviewSession?.questions?.length,
+  //   interviewSession?.interviewId,
+  //   toSubmitInterview,
+  // ]);
+
   const { mutateAsync: createVideoURL } = useCreateVidURL();
   const { mutateAsync: submitAnswer, isPending } = useSaveVideoAnswer();
 

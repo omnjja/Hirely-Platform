@@ -4,6 +4,10 @@ export function useCountdown(seconds, active) {
   const [remaining, setRemaining] = useState(seconds);
 
   useEffect(() => {
+    setRemaining(seconds);
+  }, [seconds]);
+  
+  useEffect(() => {
     if (!active) {
       setRemaining(seconds);
       return;
