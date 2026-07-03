@@ -65,6 +65,10 @@ function App() {
             <Route path="profile" element={<HrProfile />} />
             <Route index element={<Navigate to="analytics" replace />} />
             <Route path="analytics" element={<JobsOverviewDashboard />} />
+            <Route
+              path=":applicationId/applications-dashboard"
+              element={<div>Applications Dashboard</div>}
+            />
           </Route>
         </Route>
 

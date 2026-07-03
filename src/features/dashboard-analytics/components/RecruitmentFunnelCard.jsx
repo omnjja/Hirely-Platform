@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { recruitmentStages } from "@/constants/overviewDashboardStages";
 
 const RecruitmentFunnelCard = ({ data }) => {
   const { cv_to_hire = 0, interview_to_hire = 0 } = data;
   const stages = recruitmentStages(data);
-  const barStyle = (pct, filled, blue, purple) => {
-    return {
+  const barStyle = useCallback(
+    (pct, filled, blue, purple) => ({
       width: `${pct}%`,
       minWidth: pct > 0 && blue ? "80px" : undefined,
       background: blue
@@ -16,8 +16,9 @@ const RecruitmentFunnelCard = ({ data }) => {
             ? "#eee"
             : "#e2e8f0",
       border: !filled && !blue ? "0.5px solid #cbd5e1" : "none",
-    };
-  };
+    }),
+    [],
+  );
 
   return (
     <div className="bg-white rounded-2xl border border-black p-6">

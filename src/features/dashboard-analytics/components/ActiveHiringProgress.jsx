@@ -2,10 +2,13 @@ import { formatDateForDisplay } from "@/utils/DateFormatter";
 import useActiveHiringProgress from "../hooks/useActiveHiringProgress";
 import ActiveHiringSkeleton from "./ActiveHiringSkeleton";
 import { useState } from "react";
+import useAppNavigate from "@/hooks/useAppNavigate";
 
 const ActiveHiringProgress = () => {
   const { isLoading, isError, data } = useActiveHiringProgress();
   const [showAll, setShowAll] = useState(false);
+  const { toApplicationsDashboard } = useAppNavigate();
+
   if (isLoading) {
     return <ActiveHiringSkeleton />;
   }
@@ -61,11 +64,6 @@ const ActiveHiringProgress = () => {
                   <p className="text-[12px] md:text-sm font-semibold text-[#2A3439]">
                     {role.Role_name}
                   </p>
-                  {/* <span
-                    className={`text-[8px] md:text-[10px] font-semibold uppercase tracking-wide ${styles.color}`}
-                  >
-                    Priority: {role.priority}
-                  </span> */}
                 </td>
                 <td className="px-3 py-4  text-[12px] md:text-sm text-[#566166]">
                   {role.department}
@@ -87,7 +85,10 @@ const ActiveHiringProgress = () => {
                   {formatDateForDisplay(role.target_date, true)}
                 </td>
                 <td className="px-3 py-4">
-                  <button className="md:w-8 md:h-8 h-4 w-4 inline-flex items-center justify-center text-[#566166] hover:bg-slate-50">
+                  <button
+                    className="md:w-8 md:h-8 h-4 w-4 inline-flex items-center justify-center text-[#566166] hover:bg-slate-50"
+                    onClick={() => toApplicationsDashboard(role.jobId)}
+                  >
                     <svg
                       width="14"
                       height="14"

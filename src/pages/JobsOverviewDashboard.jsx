@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DashboardStats from "@/features/dashboard-analytics/components/DashboardStats";
 import ApplicantInflowCard from "@/features/dashboard-analytics/components/ApplicantInflowCard";
 import RecruitmentFunnelCard from "@/features/dashboard-analytics/components/RecruitmentFunnelCard";
@@ -6,20 +6,18 @@ import ActiveHiringProgress from "@/features/dashboard-analytics/components/Acti
 import DepartmentVolumeCard from "@/features/dashboard-analytics/components/DepartmentVolumeCard";
 import useHistoricalDashboard from "@/features/dashboard-analytics/hooks/useHistoricalDashboard";
 import JobsOverviewSkeleton from "@/features/dashboard-analytics/components/JobsOverviewSkeleton";
+import { toast } from "react-hot-toast";
 
 const JobsOverviewDashboard = () => {
   const [deptPage, setDeptPage] = useState(1);
-  const { isLoading, isError, data } = useHistoricalDashboard({ deptPage });
-  // console.log(data);
-  return isLoading ? (
-    <JobsOverviewSkeleton />
-  ) : isError ? (
-    <div className="ml-3 mr-3 md:mr-0 my-3 flex flex-col gap-6">
-      <p className="text-center text-cyan-950 font-semibold">
-        Error occurred while fetching dashboard data.
-      </p>
-    </div>
-  ) : (
+  const { isLoading, isError, isFetching, data } = useHistoricalDashboard({
+    deptPage,
+  });
+  useEffect(() => {
+    if (isError) toast.error("Failed to load dashboard data.");
+  }, [isError]);
+  if (isLoading) return <JobsOverviewSkeleton />;
+  return (
     <div className="ml-3 mr-3 md:mr-0 my-3 flex flex-col gap-6">
       <DashboardStats data={data.headers} />
       <div className="flex flex-col md:flex-row gap-4">
@@ -34,6 +32,7 @@ const JobsOverviewDashboard = () => {
       <DepartmentVolumeCard
         data={data.volume_by_department}
         onPageChange={setDeptPage}
+        isFetching={isFetching}
       />
       <ActiveHiringProgress />
     </div>

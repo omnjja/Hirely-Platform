@@ -1,74 +1,49 @@
-import { useEffect, useRef } from "react";
-import Chart from "chart.js/auto";
+import { useMemo } from "react";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  Cell,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 const ApplicantInflowCard = ({ data }) => {
-  const canvasRef = useRef(null);
-  const chartRef = useRef(null);
+  const { inflowData, totalApplications } = data;
 
-  const {inflowData, totalApplications} = data;
-
-  const labels = inflowData.map((item) =>
-    item.month.split(" ")[0].toUpperCase(),
+  const chartData = useMemo(
+    () =>
+      inflowData.map((item) => ({
+        month: item.month.split(" ")[0].toUpperCase(),
+        value: item.total_applications,
+      })),
+    [inflowData],
   );
 
-  const applications = inflowData.map((item) => item.total_applications);
-
-  const average = inflowData.length
-    ? Math.round(totalApplications / inflowData.length)
-    : 0;
-
-  const peakMonth = inflowData.reduce((max, item) =>
-    item.total_applications > max.total_applications ? item : max,
+  const maxValue = useMemo(
+    () => Math.max(...chartData.map((d) => d.value)),
+    [chartData],
   );
 
-  const maxValue = Math.max(...applications);
-
-  const colors = applications.map((value, i) =>
-    value === maxValue ? "#0576D6" : i === 2 ? "#1FA4A7" : "#CBD5E1",
+  const peakMonth = useMemo(
+    () =>
+      inflowData.reduce((max, item) =>
+        item.total_applications > max.total_applications ? item : max,
+      ),
+    [inflowData],
   );
 
-  useEffect(() => {
-    chartRef.current?.destroy();
-    chartRef.current = new Chart(canvasRef.current, {
-      type: "bar",
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            data: applications,
-            backgroundColor: colors,
-            borderRadius: 2,
-            borderSkipped: false,
-            categoryPercentage: 1,
-            barPercentage: 1,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: { label: (ctx) => ` ${ctx.parsed.y} applicants` },
-            backgroundColor: "#0f172a",
-            padding: 10,
-            cornerRadius: 6,
-          },
-        },
-        scales: {
-          x: {
-            grid: { display: false },
-            border: { display: false },
-            ticks: { color: "#94a3b8", font: { size: 11, weight: "500" } },
-          },
-          y: { display: false },
-        },
-      },
-    });
+  const average = useMemo(
+    () =>
+      inflowData.length ? Math.round(totalApplications / inflowData.length) : 0,
+    [inflowData, totalApplications],
+  );
 
-    return () => chartRef.current?.destroy();
-  }, [inflowData]);
+  const getColor = (value, index) => {
+    if (value === maxValue) return "#0576D6";
+    if (index === 2) return "#1FA4A7";
+    return "#CBD5E1";
+  };
 
   return (
     <div className="bg-white rounded-2xl border border-black p-6">
@@ -82,12 +57,37 @@ const ApplicantInflowCard = ({ data }) => {
           </p>
         </div>
         <span className="text-xs font-medium bg-slate-100 text-slate-500 rounded-full px-3 py-1 border border-slate-200">
-          Last {labels.length} months
+          Last {chartData.length} months
         </span>
       </div>
 
-      <div className="relative h-56">
-        <canvas ref={canvasRef} />
+      <div className="h-56">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={chartData} barCategoryGap={2} barGap={0}>
+            <XAxis
+              dataKey="month"
+              axisLine={false}
+              tickLine={false}
+              tick={{ fill: "#94a3b8", fontSize: 11, fontWeight: 500 }}
+            />
+            <Tooltip
+              formatter={(value) => [`${value} applicants`, ""]}
+              contentStyle={{
+                background: "#0f172a",
+                border: "none",
+                borderRadius: 6,
+                color: "#fff",
+                fontSize: 12,
+              }}
+              cursor={{ fill: "transparent" }}
+            />
+            <Bar dataKey="value" radius={[2, 2, 0, 0]}>
+              {chartData.map((entry, index) => (
+                <Cell key={index} fill={getColor(entry.value, index)} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
       </div>
 
       <div className="flex justify-around mt-4 pt-4 border-t border-slate-100">
@@ -96,7 +96,7 @@ const ApplicantInflowCard = ({ data }) => {
             "Peak Month",
             `${peakMonth.month.split(" ")[0]} — ${peakMonth.total_applications}`,
           ],
-          [`${labels.length}-mo Total`, totalApplications],
+          [`${chartData.length}-mo Total`, totalApplications],
           ["Monthly Avg", average],
         ].map(([label, val]) => (
           <div key={label} className="text-center">
