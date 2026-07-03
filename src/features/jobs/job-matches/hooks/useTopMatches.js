@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { getJobMatches } from "../../services/jobService";
 
-const useTopMatches = () => {
+const useTopMatches = ({ limit }) => {
   return useQuery({
-    queryKey: ["top-matches"],
-    queryFn: () => getJobMatches({ page: 1, limit: 5 }),
+    queryKey: ["top-matches", limit],
+    queryFn: () => getJobMatches({ page: 1, limit: limit }),
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000,
   });

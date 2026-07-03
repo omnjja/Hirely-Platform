@@ -6,7 +6,7 @@ import MatchingListSkeleton from "./MatchingListSkeleton";
 import toast from "react-hot-toast";
 
 const MatchingList = () => {
-  const { data, isLoading, isError } = useTopMatches();
+  const { data, isLoading, isError } = useTopMatches({ limit: 5 });
 
   if (isLoading) return <MatchingListSkeleton />;
   if (isError) toast.error("Failed to load matching roles.");
@@ -26,18 +26,12 @@ const MatchingList = () => {
       <div>
         <div className="flex flex-col gap-4">
           {jobs.slice(0, 3).map((item) => (
-            <JobCardPrimary
-              job={item}
-              key={item.job.id}
-            />
+            <JobCardPrimary job={item} key={item.job.id} />
           ))}
           {jobs.length > 3 && (
             <div className="grid grid-cols-2 gap-4">
               {jobs.slice(3, 5).map((item) => (
-                <JobCardSecondary
-                  job={item}
-                  key={item.job.id}
-                />
+                <JobCardSecondary job={item} key={item.job.id} />
               ))}
             </div>
           )}

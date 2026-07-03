@@ -1,6 +1,6 @@
 import React from "react";
 import CandidateLandingHero from "@/features/candidate/landing-page/components/CandidateLandingHero";
-import RecomendedForYou from "@/features/candidate/landing-page/components/RecomendedForYou";
+// import RecomendedForYou from "@/features/candidate/landing-page/components/RecomendedForYou";
 import LandingRecentJobs from "@/features/candidate/landing-page/components/LandingRecentJobs";
 import TopMatchesJobs from "@/features/candidate/landing-page/components/TopMatchesJobs";
 
@@ -12,7 +12,7 @@ const CandidateLandingPage = () => {
     >
       <CandidateLandingHero />
       <TopMatchesJobs />
-      <RecomendedForYou />
+      {/* <RecomendedForYou /> */}
       <LandingRecentJobs />
     </div>
   );
