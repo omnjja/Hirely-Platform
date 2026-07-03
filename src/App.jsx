@@ -25,6 +25,7 @@ import ProtectedRoute from "./components/routes/ProtectedRoute";
 import LandingPage from "./pages/LandingPage";
 import CandidateLandingPage from "./pages/CandidateLandingPage";
 import JobMatches from "./pages/JobMatches";
+import JobsOverviewDashboard from "./pages/JobsOverviewDashboard";
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
@@ -65,7 +66,11 @@ function App() {
             <Route path="jobs/:id/edit" element={<EditJobPosting />} />
             <Route path="profile" element={<HrProfile />} />
             <Route index element={<Navigate to="analytics" replace />} />
-            <Route path="analytics" element={<div>analytics</div>} />
+            <Route path="analytics" element={<JobsOverviewDashboard />} />
+            <Route
+              path=":applicationId/applications-dashboard"
+              element={<div>Applications Dashboard</div>}
+            />
           </Route>
         </Route>
 

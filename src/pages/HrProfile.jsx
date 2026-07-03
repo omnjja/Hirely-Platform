@@ -41,7 +41,7 @@ const HrProfile = () => {
       {isLoading ? (
         <HrProfileSkeleton />
       ) : (
-        <div className="flex flex-col gap-4 py-4 w-full">
+        <div className="flex flex-col gap-4 py-4 w-full md:mx-4 ">
           <HrProfileInfo data={hrData} onEdit={() => setIsModalOpen(true)} />
           <CompanyCard data={hrData} />
 
