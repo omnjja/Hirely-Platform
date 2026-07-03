@@ -17,5 +17,5 @@ export const CANDIDATEMENUITEMS = [
     label: "Applications",
   },
   { icon: Video, path: "/candidate/interviews", label: "Video Interviews" },
-  { icon: Clipboard, path: "/candidate/matches", label: "Matches" },
+  { icon: Clipboard, path: "/candidate/job-matches", label: "Matches" },
 ];

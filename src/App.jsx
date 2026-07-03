@@ -24,6 +24,8 @@ import HrProfile from "./pages/HrProfile";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import LandingPage from "./pages/LandingPage";
 import CandidateLandingPage from "./pages/CandidateLandingPage";
+import JobMatches from "./pages/JobMatches";
+import JobsOverviewDashboard from "./pages/JobsOverviewDashboard";
 import ScrollToTop from "./components/ScrollToTop";
 import ApplicationsAnalysis from "./pages/ApplicationsAnalysis";
 import WithAICard from "./components/layout/WithAICard";
@@ -54,6 +56,7 @@ function App() {
             <Route path="jobs" element={<BrowseJobs />} />
             <Route path="jobs/:id" element={<JobDetailsPage />} />
             <Route path="applications" element={<ApplicationTracker />} />
+            <Route path="job-matches" element={<JobMatches />} />
           </Route>
         </Route>
 

@@ -1,7 +1,31 @@
 import api from "@/lib/api";
 
-export const getJobs = async (page) => {
-  const response = await api.get(`/jobs?page=${page}`);
+export const getJobs = async ({
+  page,
+  limit,
+  search,
+  jobType,
+  experienceLevel,
+  workplaceType,
+  location,
+  industry,
+  datePosted,
+  applied,
+}) => {
+  const response = await api.get(`/jobs`, {
+    params: {
+      page,
+      limit,
+      search,
+      jobType,
+      experienceLevel,
+      workplaceType,
+      location,
+      industry,
+      datePosted,
+      applied,
+    },
+  });
   return response.data;
 };
 
@@ -38,4 +62,9 @@ export const deleteJob = async (id) => {
 export const applyToJob = async (id) => {
   const response = await api.post(`/jobs/${id}/apply`);
   return response.data;
+};
+
+export const getJobMatches = async ({ page, limit }) => {
+  const res = await api.get(`/jobs/top-matches?page=${page}&limit=${limit}`);
+  return res.data;
 };

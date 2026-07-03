@@ -56,8 +56,7 @@ const JobDetailsPage = () => {
           />
           <JobDetailsInfo
             jobType={data.jobType}
-            minSalary={data.compensationMin}
-            maxSalary={data.compensationMax}
+            workplaceType={data.workplaceType}
             location={data.location}
             count={data.applicationCount}
           />
