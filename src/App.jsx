@@ -68,13 +68,11 @@ function App() {
               <Route path="jobs/:id" element={<JobDetailsPage />} />
               <Route path="jobs/:id/edit" element={<EditJobPosting />} />
               <Route path="profile" element={<HrProfile />} />
-              <Route
-                index
-                element={<Navigate to="applications-analytics" replace />}
-              />
+              <Route index element={<Navigate to="analytics" replace />} />
             </Route>
+            <Route path="analytics" element={<JobsOverviewDashboard />} />
             <Route
-              path="applications-analytics"
+              path=":jobId/applications-analytics"
               element={<ApplicationsAnalysis />}
             />
           </Route>

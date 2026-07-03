@@ -11,13 +11,15 @@ import {
   STATUS_CONFIG,
   STATUS_OPTIONS,
 } from "@/constants/applicationsAnalysis";
+import { useParams } from "react-router-dom";
+import { useCandidateAppSummaryStore } from "../store/applicationSummaryStore";
 
 const StatusCell = ({ status, editing, onToggleEdit }) => {
   const config = STATUS_CONFIG[status] ?? STATUS_CONFIG.APPLIED;
-
-  const jobId = "6a0b78de036bd27e11fe2458"; // for now!!!! gonna handelded differently after updating routes
-  const applicationId = "6a0b8718036bd27e11fe248e";
-
+  const { jobId } = useParams();
+  const applicationId = useCandidateAppSummaryStore(
+    (state) => state.editingApplicationId,
+  );
   const { mutateAsync: updateStatus } = useApplicationStatus();
 
   async function handleAppStatus(status) {

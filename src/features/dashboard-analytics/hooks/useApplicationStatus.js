@@ -8,6 +8,9 @@ export const useApplicationStatus = () => {
     mutationFn: ({ jobId, applicationId, status }) =>
       changeApplicationStatus(jobId, applicationId, status),
 
+    onMutate: () => {
+      toast.loading("Updating candidate status...", { id: "editAppStatus" });
+    },
     onSuccess: () => {
       toast.success("Candidate status updated", {
         id: "editAppStatus",

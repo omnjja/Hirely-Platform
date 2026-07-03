@@ -21,8 +21,8 @@ const useAppNavigate = () => {
     toHrProfile: () => navigate("/recruiter/hr-profile"),
     toCreateJobPosting: () => navigate("/recruiter/create-job-posting"),
     toCandidateLandingPage: () => navigate("/candidate"),
-    toApplicationsDashboard: (applicationId) =>
-      navigate(`/recruiter/${applicationId}/applications-dashboard`),
+    toApplicationsDashboard: (jobId) =>
+      navigate(`/recruiter/${jobId}/applications-analytics`),
   };
 };
 

@@ -5,12 +5,15 @@ import React from "react";
 import { useApplicationSummary } from "../hooks/useApplicationSummary";
 import CandidateSummarySkeleton from "./loading-skeletons/CandidateSummarySkeleton";
 import ErrorComponent from "@/components/ui/ErrorComponent";
+import { useCandidateAppSummaryStore } from "../store/applicationSummaryStore";
 
 const CandidateSummary = ({ jobId }) => {
-  const applicationId = "6a0b8718036bd27e11fe248e";
+  const viewingSummaryId = useCandidateAppSummaryStore(
+    (state) => state.viewingSummaryId,
+  );
   const { data, isLoading, error, refetch } = useApplicationSummary({
     jobId,
-    applicationId,
+    applicationId: viewingSummaryId,
   });
 
   if (isLoading) return <CandidateSummarySkeleton />;

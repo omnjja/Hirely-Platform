@@ -6,17 +6,17 @@ import React from "react";
 import { useApplicationsDashboard } from "@/features/dashboard-analytics/hooks/useApplicationsDashboard";
 import { useAnalysisFilterationStore } from "../features/dashboard-analytics/store/AnalysisFilterationStore";
 import { useCandidateAppSummaryStore } from "@/features/dashboard-analytics/store/applicationSummaryStore";
+import { useParams } from "react-router-dom";
 
 const ApplicationsAnalysis = () => {
-  const jobId = "6a0b78de036bd27e11fe2458"; // removed after merging
-
+  const { jobId } = useParams();
   const { page, limit, status, matchScore } = useAnalysisFilterationStore();
   const viewingSummaryId = useCandidateAppSummaryStore(
     (state) => state.viewingSummaryId,
   );
 
   const onViewSummary = viewingSummaryId !== undefined;
-  const { data, isLoading, error, refetch } = useApplicationsDashboard({
+  const { data, isLoading, isFetching, error, refetch } = useApplicationsDashboard({
     jobId,
     page,
     limit: limit,
@@ -40,10 +40,13 @@ const ApplicationsAnalysis = () => {
         pagination={data?.pagination}
         totalApplications={data?.pagination?.total}
         isLoading={isLoading}
+        isFetching={isFetching}
         error={error}
         refetch={refetch}
       />
-      {onViewSummary && <CandidateSummary jobId={data?.jobId} />}
+      {onViewSummary && (
+        <CandidateSummary applicationId={"dkhdk"} jobId={data?.jobId} />
+      )}
     </div>
   );
 };
