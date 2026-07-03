@@ -9,7 +9,7 @@ import {
 } from "recharts";
 
 const ApplicantInflowCard = ({ data }) => {
-  const { inflowData, totalApplications } = data;
+  const { inflowData = {}, totalApplications = 0 } = data;
 
   const chartData = useMemo(
     () =>

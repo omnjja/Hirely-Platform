@@ -1,8 +1,8 @@
 import React from "react";
-import { APPLICATION_STATUSES } from "@/constants/applicationStatus";
+import { APPLICATION_STATUSES_FILTERS } from "@/constants/applicationStatus";
 
 const ApplicationStatus = ({ setPage, state, setState }) => {
-  const statuses = Object.keys(APPLICATION_STATUSES);
+  const statuses = Object.keys(APPLICATION_STATUSES_FILTERS);
 
   return (
     <div className="flex flex-wrap gap-2 md:gap-8 mt-6 md:mt-10">
@@ -19,7 +19,7 @@ const ApplicationStatus = ({ setPage, state, setState }) => {
               : "bg-[#EEF1F3] text-black"
           }`}
         >
-          {APPLICATION_STATUSES[key]}
+          {APPLICATION_STATUSES_FILTERS[key]}
         </button>
       ))}
     </div>
