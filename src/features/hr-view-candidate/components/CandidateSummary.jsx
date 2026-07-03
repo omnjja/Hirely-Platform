@@ -1,35 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Mail } from "lucide-react";
 import SelectField from "@/components/ui/SelectField";
 import basicInfo from "@/assets/basicInfo.webp";
+import useUpdateStatusMutation from "../hooks/useUpdateStatusMutation";
 
-const candidateData = {
-  name: "Medhat",
-  title: "Senior UX Architect",
-  summary: [
-    { label: "Exp", value: "8+ years" },
-    { label: "Location", value: "Egypt" },
-  ],
-  email: "medhat@example.com",
-  status: "In Review",
-  imgURL: basicInfo,
-};
-
-const CandidateSummary = () => {
+const CandidateSummary = ({ data, applicationId }) => {
+  const { YearsOfexperience, location, email, status, name, pfpURL } = data;
+  const { mutate: updateStatus, isPending } = useUpdateStatusMutation();
+  const [selectedStatus, setSelectedStatus] = useState(status);
+  useEffect(() => {
+    setSelectedStatus(status);
+  }, [status]);
+  const handleStatusChange = (e) => {
+    const newStatus = e.target.value;
+    setSelectedStatus(newStatus);
+    console.log("Selected status:", newStatus);
+    updateStatus({
+      applicationId,
+      status: e.target.value,
+    });
+  };
   return (
     <div className="flex flex-col items-center justify-center gap-2 border border-black bg-white p-4 rounded-lg ">
       <img
-        src={candidateData.imgURL}
+        src={pfpURL || basicInfo}
         alt="Candidate"
         className="w-30 h-30 rounded-full hidden md:block"
       />
-      <p className="text-[#2A3439] text-lg font-semibold">
-        {candidateData.name}
-      </p>
-      <p className="text-[#4C58A6] text-sm">{candidateData.title}</p>
-
+      <p className="text-[#2A3439] text-lg font-semibold">{name}</p>
+      {/* here add title to api or remove it ??? */}
+      {/* <p className="text-[#4C58A6] text-sm">{title}</p> */}
       <div className="flex flex-row justify-between gap-4">
-        {candidateData.summary.map((item) => (
+        {[
+          { label: "Exp", value: `${YearsOfexperience}+ years` },
+          { label: "Location", value: location },
+        ].map((item) => (
           <div
             key={item.label}
             className="bg-[#F0F4F7] rounded-2xl flex flex-col p-2"
@@ -46,11 +51,21 @@ const CandidateSummary = () => {
       </div>
       <div className="text-[#2A3439] text-xs flex items-center gap-1 font-medium bg-[#E1E9EE] p-2 rounded-2xl">
         <Mail className="size-3" />
-        {candidateData.email}
+        {email}
       </div>
       <SelectField
-        placeholder={candidateData.status}
+        placeholder={status}
         containerClassName="m-0"
+        value={selectedStatus}
+        disabled={isPending}
+        onChange={handleStatusChange}
+        options={[
+          { label: "Applied", value: "APPLIED" },
+          { label: "In Review", value: "IN_REVIEW" },
+          { label: "Shortlisted", value: "SHORTLISTED" },
+          { label: "Rejected", value: "REJECTED" },
+          { label: "Accepted", value: "ACCEPTED" },
+        ]}
         sx={{
           "& .MuiOutlinedInput-root": {
             bgcolor: "#D5E3FC",

@@ -1,4 +1,5 @@
-const CvPreviewCard = () => {
+const CvPreviewCard = ({ data }) => {
+  const { CVUrl } = data;
   return (
     <div className="bg-[#EFF4F7] border border-black rounded-2xl p-5">
       <div className="flex items-center justify-between mb-4">
@@ -8,6 +9,7 @@ const CvPreviewCard = () => {
         <button
           aria-label="Open CV"
           className="text-[#4C58A6] hover:text-[#3a4585]"
+          onClick={() => window.open(CVUrl, "_blank")}
         >
           <svg
             width="16"
