@@ -41,11 +41,9 @@ const BrowseJobs = () => {
             )}
           </div>
         </div>
-        {!isRecruiter && (
-          <div className="bg-white">
-            <FiltersBar />
-          </div>
-        )}
+        <div className="bg-white">
+          <FiltersBar userRole={role} />
+        </div>
       </div>
 
       <div className="w-full min-h-screen ">

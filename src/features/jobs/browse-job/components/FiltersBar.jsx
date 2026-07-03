@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import FilterSelect from "./FilterSelect";
-import { FILTERS_CONFIG, INITIAL_FILTERS } from "@/constants/jobFilters";
+import { FILTERS_CONFIG } from "@/constants/jobFilters";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import { ListFilter } from "lucide-react";
 import {
@@ -8,17 +8,23 @@ import {
   useJobFilterationStore,
 } from "../store/jobFiltersStore";
 
-const FiltersBar = () => {
+const FiltersBar = ({ userRole }) => {
   const resetFilters = useJobFilterationStore((state) => state.resetFilters);
   const setFilter = useJobFilterationStore((state) => state.setFilter);
 
   const filters = useJobFilterationStore();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
+  const visibleFilters = useMemo(() => {
+    return FILTERS_CONFIG.filter(
+      (filter) => !(userRole === "HR" && filter.key === "applied"),
+    );
+  }, [userRole]);
+
   const handleChange = (key) => (e) => {
     setFilter(key, e.target.value);
   };
-  const activeFiltersCount = FILTERS_CONFIG.filter(
+  const activeFiltersCount = visibleFilters.filter(
     ({ key }) => filters[key] !== initialStates[key],
   ).length;
 
@@ -34,7 +40,7 @@ const FiltersBar = () => {
 
   const filterList = (
     <>
-      {FILTERS_CONFIG.map(({ key, placeholder, options }) => (
+      {visibleFilters.map(({ key, placeholder, options }) => (
         <FilterSelect
           key={key}
           options={options}
@@ -108,7 +114,7 @@ const FiltersBar = () => {
             </div>
 
             <div className="flex flex-col gap-3">
-              {FILTERS_CONFIG.map(({ key, placeholder, options }) => (
+              {visibleFilters.map(({ key, placeholder, options }) => (
                 <FilterSelect
                   key={key}
                   options={options}

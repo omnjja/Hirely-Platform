@@ -5,6 +5,7 @@ import JobCardInfo from "./JobCardInfo";
 import JobCardHeader from "./JobCardHeader";
 import Actions from "./Actions";
 import CompanyLogo from "./CompanyLogo";
+import { formatText } from "@/utils/formatText";
 
 const Job = ({ job }) => {
   const role = localStorage.getItem("userRole");
@@ -53,7 +54,10 @@ const Job = ({ job }) => {
             className="hidden md:flex"
             sx={{ display: "hidden md:flex items-center justify-center" }}
           >
-            <MatchPercentage />
+            <MatchPercentage
+              title={job?.title}
+              subtitle={`${job?.companyName} • ${formatText(job?.workplaceType)}`}
+            />
           </Grid>
         )}
       </Grid>

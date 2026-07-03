@@ -4,8 +4,8 @@ import clsx from "clsx";
 const MatchPercentage = ({
   percentage = 92,
   label = "Match Score",
-  title = "UX Designer",
-  subtitle = "Google • Remote",
+  title = "",
+  subtitle = "",
   className,
   rounded = "lg",
   circleClassName,
