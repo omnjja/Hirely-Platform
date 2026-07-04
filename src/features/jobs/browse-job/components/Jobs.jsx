@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import Job from "./Job";
 import useJobs from "../hooks/useJobs";
 import { ChevronLeft, ChevronRight, RefreshCw } from "lucide-react";
@@ -36,10 +36,6 @@ const Jobs = () => {
     applied,
   });
 
-  const sortedJobs = useMemo(() => {
-    return [...(data?.items || [])].sort((a, b) => b.matchScore - a.matchScore);
-  }, [data?.items]);
-
   const hasPrev = page > 1;
   const hasNext = page < data?.totalPages;
 
@@ -73,7 +69,7 @@ const Jobs = () => {
         </div>
       ) : (
         <>
-          {sortedJobs?.map((job) => (
+          {data?.items?.map((job) => (
             <Job key={job.id} job={job} />
           ))}
 
