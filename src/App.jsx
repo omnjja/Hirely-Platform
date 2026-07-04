@@ -29,6 +29,9 @@ import JobsOverviewDashboard from "./pages/JobsOverviewDashboard";
 import ScrollToTop from "./components/ScrollToTop";
 import ApplicationsAnalysis from "./pages/ApplicationsAnalysis";
 import WithAICard from "./components/layout/WithAICard";
+import VideoInterviewPage from "./pages/VideoInterviewPage";
+import StartInterview from "./pages/StartInterview";
+import SubmitVideoInterview from "./pages/SubmitVideoInterview";
 
 function App() {
   return (
@@ -56,6 +59,14 @@ function App() {
             <Route path="jobs" element={<BrowseJobs />} />
             <Route path="jobs/:id" element={<JobDetailsPage />} />
             <Route path="applications" element={<ApplicationTracker />} />
+            <Route path="start-video-interview" element={<StartInterview />} />
+            <Route
+              path="video-interview-session/:interviewId"
+              element={<VideoInterviewPage />}
+            />
+            <Route
+              path="submit-video-interview/:interviewId"
+              element={<SubmitVideoInterview />}
             <Route path="job-matches" element={<JobMatches />} />
             <Route
               path="applications/:id/start-video-interview"
