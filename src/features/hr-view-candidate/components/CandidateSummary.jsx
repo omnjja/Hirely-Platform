@@ -6,8 +6,9 @@ import useUpdateStatusMutation from "../hooks/useUpdateStatusMutation";
 
 const APPLICATION_STATUS = [
   { label: "Applied", value: "APPLIED" },
-  { label: "In Review", value: "IN_REVIEW" },
   { label: "Shortlisted", value: "SHORTLISTED" },
+  { label: "In Review", value: "IN_REVIEW" },
+  { label: "Interview", value: "INTERVIEW" },
   { label: "Rejected", value: "REJECTED" },
   { label: "Accepted", value: "ACCEPTED" },
 ];
@@ -29,12 +30,19 @@ const CandidateSummary = ({ data, applicationId }) => {
   }, [selectedStatus]);
   const handleStatusChange = (e) => {
     const newStatus = e.target.value;
+    const previousStatus = selectedStatus;
     setSelectedStatus(newStatus);
-    console.log("Selected status:", newStatus);
-    updateStatus({
-      applicationId,
-      status: { status: newStatus },
-    });
+    updateStatus(
+      {
+        applicationId,
+        status: { status: newStatus },
+      },
+      {
+        onError: () => {
+          setSelectedStatus(previousStatus);
+        },
+      },
+    );
   };
   return (
     <div className="flex flex-col items-center justify-center gap-2 border border-black bg-white p-4 rounded-lg ">
@@ -47,7 +55,10 @@ const CandidateSummary = ({ data, applicationId }) => {
       <p className="text-[#4C58A6] text-sm">{title}</p>
       <div className="flex flex-row justify-between gap-4">
         {[
-          { label: "Exp", value: `${YearsOfexperience}+ years` },
+          {
+            label: "Exp",
+            value: `${YearsOfexperience} ${YearsOfexperience === 1 ? "year" : "years"}`,
+          },
           { label: "Location", value: location },
         ].map((item) => (
           <div

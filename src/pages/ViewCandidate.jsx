@@ -1,3 +1,4 @@
+import React from "react";
 import BehavioralAnalysis from "@/features/hr-view-candidate/components/BehavioralAnalysis";
 import CandidateMatch from "@/features/hr-view-candidate/components/CandidateMatch";
 import CandidateSummary from "@/features/hr-view-candidate/components/CandidateSummary";
@@ -5,25 +6,26 @@ import CvPreviewCard from "@/features/hr-view-candidate/components/CvPreviewCard
 import InterviewSummary from "@/features/hr-view-candidate/components/InterviewSummary";
 import RecruiterNotes from "@/features/hr-view-candidate/components/RecruiterNotes";
 import useApplicationData from "@/features/hr-view-candidate/hooks/useApplicationData";
-import React from "react";
 import ViewCandidateSkeleton from "@/features/hr-view-candidate/components/ViewCandidateSkeleton";
-import toast from "react-hot-toast";
+import ErrorComponent from "@/components/ui/ErrorComponent";
 
-const APPLICATION_ID = "6a4557febad3dcbdc175c215"; // this will change
+// const APPLICATION_ID = "6a4557febad3dcbdc175c215"; // this will change
+const APPLICATION_ID = "6a491971477dd71a18367921";
 
 const ViewCandidate = () => {
   const {
     data: applicationData,
     isLoading,
     isError,
+    error,
+    refetch,
   } = useApplicationData({ applicationId: APPLICATION_ID });
-  console.log(applicationData);
 
   if (isLoading) {
     return <ViewCandidateSkeleton />;
   }
   if (isError) {
-    return toast.error("Error loading application data");
+    return <ErrorComponent error={error} action={refetch} />;
   }
   const hasVideoAnalysis =
     applicationData?.VideoAnalysisSection &&

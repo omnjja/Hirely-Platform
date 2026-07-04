@@ -11,6 +11,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import useUpdateProfilePicture from "@/features/candidate/profile/hooks/useUpdateProfilePicture";
+import ProfileInfoSkeleton from "./ProfileInfoSkeleton";
 
 const ProfileInfo = ({ profileData, onEdit }) => {
   const fileInputRef = useRef(null);
@@ -19,7 +20,7 @@ const ProfileInfo = ({ profileData, onEdit }) => {
   const { mutate: uploadPhoto } = useUpdateProfilePicture();
 
   if (!profileData) {
-    return <div>Loading...</div>;
+    return <ProfileInfoSkeleton />;
   }
 
   const handleChangePhoto = () => {

@@ -12,6 +12,7 @@ import { getApplications } from "@/features/application-tracker/services/applica
 import { getApplicationById } from "@/features/application-tracker/services/applicationService";
 import ApplicationDetail from "@/features/application-tracker/components/ApplicationDetail";
 import ApplicationDetailSkeleton from "@/features/application-tracker/components/ApplicationDetailSkeleton";
+import ErrorComponent from "@/components/ui/ErrorComponent";
 
 const ApplicationTracker = () => {
   const { data } = useApplicationStats();
@@ -23,6 +24,8 @@ const ApplicationTracker = () => {
     data: applicationData,
     isLoading,
     error,
+    isError,
+    refetch,
   } = useQuery({
     queryKey: ["applications", page, state],
     queryFn: () => getApplications({ page, state }),
@@ -41,6 +44,9 @@ const ApplicationTracker = () => {
     return (
       <ApplicationDetail data={detailData} onBack={() => setSelectedId(null)} />
     );
+  }
+  if (isError) {
+    return <ErrorComponent error={error} action={refetch} />;
   }
 
   return (
