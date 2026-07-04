@@ -1,23 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Mail } from "lucide-react";
 import SelectField from "@/components/ui/SelectField";
 import basicInfo from "@/assets/basicInfo.webp";
 import useUpdateStatusMutation from "../hooks/useUpdateStatusMutation";
 
+const APPLICATION_STATUS = [
+  { label: "Applied", value: "APPLIED" },
+  { label: "In Review", value: "IN_REVIEW" },
+  { label: "Shortlisted", value: "SHORTLISTED" },
+  { label: "Rejected", value: "REJECTED" },
+  { label: "Accepted", value: "ACCEPTED" },
+];
+
 const CandidateSummary = ({ data, applicationId }) => {
-  const { YearsOfexperience, location, email, status, name, pfpURL } = data;
+  const { YearsOfexperience, location, email, status, name, pfpURL, title } =
+    data;
   const { mutate: updateStatus, isPending } = useUpdateStatusMutation();
   const [selectedStatus, setSelectedStatus] = useState(status);
   useEffect(() => {
     setSelectedStatus(status);
   }, [status]);
+  const availableStatuses = useMemo(() => {
+    const currentIndex = APPLICATION_STATUS.findIndex(
+      (s) => s.value === selectedStatus,
+    );
+
+    return APPLICATION_STATUS.slice(currentIndex);
+  }, [selectedStatus]);
   const handleStatusChange = (e) => {
     const newStatus = e.target.value;
     setSelectedStatus(newStatus);
     console.log("Selected status:", newStatus);
     updateStatus({
       applicationId,
-      status: e.target.value,
+      status: { status: newStatus },
     });
   };
   return (
@@ -28,8 +44,7 @@ const CandidateSummary = ({ data, applicationId }) => {
         className="w-30 h-30 rounded-full hidden md:block"
       />
       <p className="text-[#2A3439] text-lg font-semibold">{name}</p>
-      {/* here add title to api or remove it ??? */}
-      {/* <p className="text-[#4C58A6] text-sm">{title}</p> */}
+      <p className="text-[#4C58A6] text-sm">{title}</p>
       <div className="flex flex-row justify-between gap-4">
         {[
           { label: "Exp", value: `${YearsOfexperience}+ years` },
@@ -59,13 +74,7 @@ const CandidateSummary = ({ data, applicationId }) => {
         value={selectedStatus}
         disabled={isPending}
         onChange={handleStatusChange}
-        options={[
-          { label: "Applied", value: "APPLIED" },
-          { label: "In Review", value: "IN_REVIEW" },
-          { label: "Shortlisted", value: "SHORTLISTED" },
-          { label: "Rejected", value: "REJECTED" },
-          { label: "Accepted", value: "ACCEPTED" },
-        ]}
+        options={availableStatuses}
         sx={{
           "& .MuiOutlinedInput-root": {
             bgcolor: "#D5E3FC",

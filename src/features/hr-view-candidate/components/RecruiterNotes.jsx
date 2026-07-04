@@ -4,6 +4,8 @@ import InputFieldWithLabel from "@/components/ui/InputFieldWithLabel";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import useApplicationNoteMutation from "../hooks/useApplicationNoteMutation";
 import toast from "react-hot-toast";
+import useUpdateNoteMutation from "../hooks/useUpdateNoteMutation";
+import useDeleteNoteMutation from "../hooks/useDeleteNoteMutation";
 
 const RecruiterNotes = ({ data, applicationId }) => {
   const { notes: initialNotes } = data;
@@ -12,6 +14,8 @@ const RecruiterNotes = ({ data, applicationId }) => {
   const [editingId, setEditingId] = useState(null);
   const [editText, setEditText] = useState("");
   const { mutate: addNote } = useApplicationNoteMutation();
+  const { mutate: editNote } = useUpdateNoteMutation();
+  const { mutate: deleteNote } = useDeleteNoteMutation();
 
   const handleAddNote = () => {
     if (!note.trim()) {
@@ -25,13 +29,13 @@ const RecruiterNotes = ({ data, applicationId }) => {
     setNote("");
     addNote({
       applicationId: applicationId,
-      note: note,
+      note: newNote,
     });
   };
 
   const handleEdit = (n) => {
     setEditingId(n.id);
-    setEditText(n.text);
+    setEditText(n.content);
   };
 
   const handleEditSave = (id) => {
@@ -39,15 +43,22 @@ const RecruiterNotes = ({ data, applicationId }) => {
     setNotes((prev) =>
       prev.map((n) => (n.id === id ? { ...n, content: editText } : n)),
     );
+    editNote({
+      applicationId: applicationId,
+      noteId: id,
+      updatedNote: { content: editText },
+    });
+
     setEditingId(null);
-    toast.success("Note updated.");
-    // edit mutation here
+    setEditText("");
   };
 
   const handleDelete = (id) => {
     setNotes((prev) => prev.filter((n) => n.id !== id));
-    toast.success("Note deleted.");
-    // delete mutation here
+    deleteNote({
+      applicationId: applicationId,
+      id: id,
+    });
   };
 
   return (
@@ -59,13 +70,12 @@ const RecruiterNotes = ({ data, applicationId }) => {
 
       {notes.length > 0 && (
         <div className="flex flex-col gap-2">
-          {notes.map((n, i) => (
+          {notes.map((n) => (
             <div
-              key={i}
+              key={n.id}
               className="bg-[#F7F9FB] border border-slate-200 rounded-lg p-3"
             >
               {editingId === n.id ? (
-                // Edit mode
                 <div className="flex flex-col gap-2">
                   <textarea
                     value={editText}
@@ -94,9 +104,6 @@ const RecruiterNotes = ({ data, applicationId }) => {
                     <p className="text-[12px] text-[#2A3439] leading-relaxed">
                       {n.content}
                     </p>
-                    {/* <p className="text-[10px] text-[#566166] mt-1">
-                      {n.createdAt}
-                    </p> */}
                   </div>
                   <div className="flex items-center gap-1.5 shrink-0">
                     <button
