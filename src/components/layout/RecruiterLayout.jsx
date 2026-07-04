@@ -39,9 +39,9 @@ const RecruiterLayout = () => {
           <MainHeader />
         </div>
 
-        <div className="w-full min-h-screen flex-1 flex flex-col gap-9">
+        <main className="w-full min-h-screen flex-1 flex flex-col gap-9">
           <Outlet />
-        </div>
+        </main>
       </div>
     </div>
   );

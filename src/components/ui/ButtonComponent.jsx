@@ -38,6 +38,7 @@ const ButtonComponent = ({
   style = {},
   className = "",
   children,
+  ...props
 }) => {
   const { bgColor, textColor,borderColor, rounded, size, shadow, bold } = {
     ...DEFAULT_STYLE,
@@ -83,6 +84,7 @@ const ButtonComponent = ({
             "transition-all duration-200 flex items-center justify-center gap-2",
             className,
           )}
+          {...props}
         >
           {children}
           {text && <span>{text}</span>}
@@ -98,6 +100,7 @@ const ButtonComponent = ({
       className={baseClasses}
       style={cssVars}
       disabled={disabled}
+      {...props}
     >
       {children ?? text}
     </button>

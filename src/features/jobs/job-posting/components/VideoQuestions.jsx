@@ -45,6 +45,7 @@ const VideoQuestions = () => {
 
         <ButtonComponent
           text="+ Add Question"
+          arial-label="Add Video Question"
           style={{
             bgColor: "#ffffff",
             textColor: "#1B41AA",

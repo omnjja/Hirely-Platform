@@ -5,20 +5,18 @@ import JobDetailsDescription from "@/features/jobs/job-details/components/JobDet
 import JobDetailsAbout from "@/features/jobs/job-details/components/JobDetailsAbout";
 import JobRecruiter from "@/features/jobs/job-details/components/JobRecruiter";
 import ButtonComponent from "@/components/ui/ButtonComponent";
-import { ArrowRight, Bookmark, CheckCheck, RefreshCw } from "lucide-react";
+import { CheckCheck, RefreshCw } from "lucide-react";
 import useJobDetails from "@/features/jobs/job-details/hooks/useJobDetails";
 import ErrorComponent from "@/components/ui/ErrorComponent";
 import JobDetailsSkeleton from "@/features/jobs/job-details/components/JobDetailsSkeleton";
-import { useNavigate } from "react-router-dom";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
 import { useDeleteJobMutation } from "@/features/jobs/job-details/hooks/useDeleteJobMutation";
 import { useApplyJobMutation } from "@/features/jobs/job-details/hooks/useApplyJobMutation";
-import { useIsMobile } from "@/hooks/use-mobile";
+import useAppNavigate from "@/hooks/useAppNavigate";
 
 const JobDetailsPage = () => {
   const role = localStorage.getItem("userRole");
-  const navigate = useNavigate();
-  const isMobile = useIsMobile();
+  const { back, custom } = useAppNavigate();
   const [confirmOpen, setConfirmOpen] = useState(false);
   const { data, isLoading, isFetching, error, refetch } = useJobDetails();
   const { mutateAsync: deleteJob } = useDeleteJobMutation();
@@ -31,7 +29,7 @@ const JobDetailsPage = () => {
   const handleDelete = async () => {
     await deleteJob(data.id, {
       onSuccess: () => {
-        setTimeout(() => navigate(-1), 500);
+        setTimeout(() => back(), 500);
       },
     });
     setConfirmOpen(false);
@@ -71,6 +69,7 @@ const JobDetailsPage = () => {
             <div className="flex gap-3">
               <ButtonComponent
                 onClick={() => setConfirmOpen(true)}
+                aria-label="Delete Job"
                 style={{
                   bgColor: "#FFFFFF",
                   textColor: "#EF4444",
@@ -82,7 +81,11 @@ const JobDetailsPage = () => {
               >
                 Delete
               </ButtonComponent>
-              <ButtonComponent onClick={() => navigate("edit")} fullWidth>
+              <ButtonComponent
+                onClick={() => custom("edit")}
+                aria-label="Edit Job"
+                fullWidth
+              >
                 Edit
               </ButtonComponent>
             </div>
@@ -95,21 +98,17 @@ const JobDetailsPage = () => {
                 quote={data.companySummary}
               />
               <div className="flex gap-3">
-                <div className="bg-[#EEF1F3] rounded-full p-3">
-                  <Bookmark color="#595C5E" />
-                </div>
                 <ButtonComponent
                   fullWidth
                   onClick={() => handleJobApply()}
+                  aria-label="Apply to Job"
                   disabled={isPending || data?.isCandidateApply}
                 >
                   <div className="flex gap-1 justify-center">
                     <p>
                       {data?.isCandidateApply
                         ? "APPLIED"
-                        : isMobile
-                          ? "APPLY"
-                          : "APPLY WITH AUTOFILL"}
+                        : "APPLY WITH AUTOFILL"}
                     </p>
                     {data?.isCandidateApply && <CheckCheck />}
                   </div>

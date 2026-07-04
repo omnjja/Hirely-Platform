@@ -14,11 +14,11 @@ const LandingHeader = () => {
         <br />
         Get hired <span className="text-[#0576D6]">faster.</span>
       </h1>
-      <p className="md:hidden text-sm text-gray-500 leading-relaxed mb-7 font-normal ">
+      <p className="md:hidden text-sm text-gray-600 leading-relaxed mb-4 font-normal ">
         Hirely connects job seekers and HR teams with smart matching and fast
         application tracking.
       </p>
-      <p className="hidden md:flex text-sm text-gray-500 leading-relaxed mb-7 font-normal w-3/4">
+      <p className="hidden md:flex text-sm text-gray-600 leading-relaxed font-normal w-3/4">
         Hirely connects job seekers and HR teams through intelligent matching,
         real-time application tracking, interview prep, and role-based
         dashboards — making every step of the hiring journey faster and smarter.

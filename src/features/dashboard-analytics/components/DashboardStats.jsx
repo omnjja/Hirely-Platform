@@ -14,7 +14,7 @@ const DashboardStats = ({ data }) => {
       />
       <StatCard
         title="Interview Rate"
-        value={`${data?.interviewRate || "0"}%`}
+        value={`${(data?.interviewRate || 0).toFixed(1)}%`}
         description={`Standard baseline: ${data?.interviewRate_baseline || "0"}%`}
         bg_color="bg-[#fff]"
         value_color="text-[#2A3439]"

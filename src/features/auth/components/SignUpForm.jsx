@@ -4,16 +4,13 @@ import InputField from "@/components/ui/InputField";
 import FormHeader from "./FormHeader";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import FormFooter from "./FormFooter";
-import GoogleButton from "@/components/ui/GoogleButton";
-import Divider from "@/components/ui/Divider";
 import DateField from "@/components/ui/DateField";
-import {useSignupMutation} from "../hooks/useSignupMutation";
+import { useSignupMutation } from "../hooks/useSignupMutation";
 import {
   userSignupDefaultValues,
   userSignupSchema,
 } from "@/schemas/userSignupSchema";
 import useCustomForm from "@/hooks/useCustomForm";
-import * as authAPI from "../services/authService";
 
 const SignupForm = () => {
   const {
@@ -95,13 +92,6 @@ const SignupForm = () => {
             fullWidth
             disabled={isSubmitting}
           />
-          <Divider label="or" />
-
-          <GoogleButton
-            label="Continue with Google"
-            onClick={authAPI.googleAuth}
-          />
-
           <FormFooter
             text="Already have an account? "
             linkText="Sign in"

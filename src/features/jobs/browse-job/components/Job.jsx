@@ -29,21 +29,23 @@ const Job = ({ job }) => {
         >
           <div className="w-full h-full flex gap-2 sm:gap-5 bg-white shadow-lg rounded-lg border p-3 sm:p-6">
             <CompanyLogo companyName={job.companyName} />
-            <div className="flex flex-col gap-2 sm:gap-4 min-w-0 flex-1">
-              <JobCardHeader
-                id={job.id}
-                createdAt={job.createdAt}
-                title={job.title}
-                companyName={job.companyName}
-                department={job.department}
-              />
-              <JobCardInfo
-                location={job.location}
-                jobType={job.jobType}
-                status={job.status}
-                experienceLevel={job.experienceLevel}
-                applicationCount={job.applicationCount}
-              />
+            <div className="flex flex-col justify-evenly min-w-0 flex-1">
+              <div className="flex flex-col gap-2 sm:gap-4 min-w-0 flex-1">
+                <JobCardHeader
+                  id={job.id}
+                  createdAt={job.createdAt}
+                  title={job.title}
+                  companyName={job.companyName}
+                  department={job.department}
+                />
+                <JobCardInfo
+                  location={job.location}
+                  jobType={job.jobType}
+                  status={job.status}
+                  experienceLevel={job.experienceLevel}
+                  applicationCount={job.applicationCount}
+                />
+              </div>
               <Actions id={job.id} isApplied={job.isCandidateApply} />
             </div>
           </div>

@@ -150,6 +150,7 @@ const JobForm = ({ mode = "post", initialValues = {} }) => {
                       shadow: "sm",
                     }}
                     onClick={() => back()}
+                    aria-label="Cancel Job Form"
                     disabled={methods.formState.isSubmitting}
                   />
                 )}
@@ -158,6 +159,7 @@ const JobForm = ({ mode = "post", initialValues = {} }) => {
                   type="submit"
                   fullWidth
                   disabled={methods.formState.isSubmitting}
+                  aria-label={mode === "edit" ? "Save Changes" : "Submit Job"}
                 >
                   {mode === "edit"
                     ? methods.formState.isSubmitting

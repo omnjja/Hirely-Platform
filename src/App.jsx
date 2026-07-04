@@ -28,7 +28,6 @@ import JobMatches from "./pages/JobMatches";
 import JobsOverviewDashboard from "./pages/JobsOverviewDashboard";
 import ScrollToTop from "./components/ScrollToTop";
 import ApplicationsAnalysis from "./pages/ApplicationsAnalysis";
-import WithAICard from "./components/layout/WithAICard";
 import VideoInterviewPage from "./pages/VideoInterviewPage";
 import StartInterview from "./pages/StartInterview";
 import SubmitVideoInterview from "./pages/SubmitVideoInterview";
@@ -77,17 +76,15 @@ function App() {
 
         <Route element={<ProtectedRoute allowedRoles={"HR"} />}>
           <Route path="/recruiter" element={<RecruiterLayout />}>
-            <Route element={<WithAICard />}>
-              <Route path="create-job-posting" element={<CreateJobPosting />} />
-              <Route path="jobs" element={<BrowseJobs />} />
-              <Route path="jobs/:id" element={<JobDetailsPage />} />
-              <Route path="jobs/:id/edit" element={<EditJobPosting />} />
-              <Route path="profile" element={<HrProfile />} />
-              <Route index element={<Navigate to="analytics" replace />} />
-            </Route>
+            <Route path="create-job-posting" element={<CreateJobPosting />} />
+            <Route path="jobs" element={<BrowseJobs />} />
+            <Route path="jobs/:id" element={<JobDetailsPage />} />
+            <Route path="jobs/:id/edit" element={<EditJobPosting />} />
+            <Route path="profile" element={<HrProfile />} />
+            <Route index element={<Navigate to="analytics" replace />} />
             <Route path="analytics" element={<JobsOverviewDashboard />} />
             <Route
-              path=":jobId/applications-analytics"
+              path="analytics/:jobId/applications-analytics"
               element={<ApplicationsAnalysis />}
             />
           </Route>

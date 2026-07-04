@@ -37,7 +37,11 @@ const PasswordField = forwardRef(({ label, error, ...props }, ref) => {
         label={label}
         endAdornment={
           <InputAdornment position="end">
-            <IconButton onClick={() => setShowPassword((p) => !p)} edge="end">
+            <IconButton
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              onClick={() => setShowPassword((p) => !p)}
+              edge="end"
+            >
               {showPassword ? (
                 <VisibilityOutlinedIcon />
               ) : (

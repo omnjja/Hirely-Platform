@@ -1,5 +1,5 @@
 import React from "react";
-import { Bell, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import Logo from "./Logo";
 import useAppNavigate from "@/hooks/useAppNavigate";
@@ -22,10 +22,6 @@ const Sidebar = ({ menuItems, isMobile = false, setIsOpen }) => {
 
   const bottomItems = (
     <>
-      <div className="flex items-center gap-3 text-sm text-gray-500 hover:text-[#1B41AA] cursor-pointer transition">
-        <Bell className="w-5 h-5" />
-        {isMobile && <span>Notifications</span>}
-      </div>
       <div
         className="flex items-center gap-3 text-sm text-gray-500 hover:text-[#EF4444] cursor-pointer transition"
         onClick={handleLogout}
