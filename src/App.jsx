@@ -57,6 +57,10 @@ function App() {
             <Route path="jobs/:id" element={<JobDetailsPage />} />
             <Route path="applications" element={<ApplicationTracker />} />
             <Route path="job-matches" element={<JobMatches />} />
+            <Route
+              path="applications/:id/start-video-interview"
+              element={<div>start video</div>}
+            />
           </Route>
         </Route>
 

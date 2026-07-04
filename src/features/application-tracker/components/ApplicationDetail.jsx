@@ -49,7 +49,7 @@ const ApplicationDetail = ({ data, onBack }) => {
               </p>
             </div>
             <button
-              onClick={toStartInterview}
+              onClick={() => toStartInterview(app.id)}
               className="flex items-center gap-2 bg-[#4C58A6] hover:bg-[#3a4585] text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors shrink-0"
             >
               <Video size={14} />

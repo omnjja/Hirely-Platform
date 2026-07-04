@@ -10,7 +10,6 @@ const Tag = ({ children }) => (
 );
 
 const DetailsSidebar = ({ app, skills, keywords }) => {
-  console.log(app.resumeUrl);
   return (
     <div>
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col items-center text-center">
