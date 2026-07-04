@@ -22,7 +22,7 @@ const ApplicationsStats = ({
         title="Total Applicants"
         value={totalApplications}
         description={
-          applicationsIncreasing ? `+${applicationsIncreasing}%` : ""
+          applicationsIncreasing ? `+${applicationsIncreasing.toFixed()}%` : ""
         }
         bg_color="bg-[#fff]"
         value_color="text-[#0576D6]"
@@ -42,7 +42,7 @@ const ApplicationsStats = ({
         title="Shortlisted"
         value={shortlistedCandidates}
         description={
-          shortlistedPerecntage ? `${shortlistedPerecntage}% total` : ""
+          shortlistedPerecntage ? `${shortlistedPerecntage.toFixed()}% total` : ""
         }
         title_color="text-[#4A5167]"
         bg_color="bg-[#DAE2FD]"

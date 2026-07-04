@@ -87,7 +87,7 @@ function App() {
             </Route>
             <Route path="analytics" element={<JobsOverviewDashboard />} />
             <Route
-              path=":jobId/applications-analytics"
+              path="analytics/:jobId/applications-analytics"
               element={<ApplicationsAnalysis />}
             />
           </Route>

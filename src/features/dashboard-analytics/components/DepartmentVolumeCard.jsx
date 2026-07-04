@@ -52,6 +52,7 @@ const DepartmentVolumeCard = ({ data, onPageChange, isFetching }) => {
         <div className="flex items-center gap-2">
           <button
             onClick={() => onPageChange(page - 1)}
+            aria-label="Previous Page"
             disabled={page === 1}
             className="w-7 h-7 flex items-center justify-center rounded-lg border border-slate-200 text-[#566166] hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           >
@@ -59,6 +60,7 @@ const DepartmentVolumeCard = ({ data, onPageChange, isFetching }) => {
           </button>
           <button
             onClick={() => onPageChange(page + 1)}
+            aria-label="Next Page"
             disabled={page === total}
             className="w-7 h-7 flex items-center justify-center rounded-lg border border-slate-200 text-[#566166] hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           >

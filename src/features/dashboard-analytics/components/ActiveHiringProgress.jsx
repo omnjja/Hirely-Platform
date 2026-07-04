@@ -88,6 +88,7 @@ const ActiveHiringProgress = () => {
                   <button
                     className="md:w-8 md:h-8 h-4 w-4 inline-flex items-center justify-center text-[#566166] hover:bg-slate-50"
                     onClick={() => toApplicationsDashboard(role.jobId)}
+                    aria-label={`View applications for ${role.Role_name}`}
                   >
                     <svg
                       width="14"

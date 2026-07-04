@@ -18,6 +18,7 @@ const Pagination = ({ page, totalPages, rangeLabel }) => {
       <div className="flex flex-wrap items-center justify-center gap-1.5">
         <button
           onClick={() => decreasePage()}
+          aria-label="Previous Page"
           disabled={page === 1}
           className="flex h-7 w-7 items-center justify-center rounded-md border border-slate-200 text-slate-400 disabled:opacity-50"
         >
@@ -30,6 +31,7 @@ const Pagination = ({ page, totalPages, rangeLabel }) => {
 
         <button
           onClick={() => increasePage()}
+          aria-label="Next Page"
           disabled={page === totalPages}
           className="flex h-7 w-7 items-center justify-center rounded-md border border-slate-200 text-slate-400 disabled:opacity-50"
         >

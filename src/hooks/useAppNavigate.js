@@ -34,7 +34,7 @@ const useAppNavigate = () => {
     toSubmitInterview: (interviewId) =>
       navigate(`/candidate/interviews/${interviewId}/submit-video-interview/`),
     toApplicationsDashboard: (jobId) =>
-      navigate(`/recruiter/${jobId}/applications-analytics`),
+      navigate(`/recruiter/analytics/${jobId}/applications-analytics`),
   };
 };
 

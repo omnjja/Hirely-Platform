@@ -23,6 +23,7 @@ const ActionsCell = ({
       <div className="hidden md:flex items-center gap-4">
         <button
           onClick={onToggleEdit}
+          aria-label="Edit Status"
           className={editing ? "text-blue-600" : "hover:text-slate-600"}
         >
           <ModeOutlinedIcon sx={{ fontSize: 18 }} />
@@ -30,12 +31,13 @@ const ActionsCell = ({
 
         <button
           onClick={onToggleViewSummary}
+          aria-label="View Summary"
           className={viewing ? "text-blue-600" : "hover:text-slate-600"}
         >
           <RemoveRedEyeOutlinedIcon sx={{ fontSize: 18 }} />
         </button>
 
-        <button className="hover:text-slate-600">
+        <button  className="hover:text-slate-600" aria-label="View Profile">
           <ArrowOutwardOutlinedIcon sx={{ fontSize: 18 }} />
         </button>
       </div>
@@ -50,17 +52,17 @@ const ActionsCell = ({
           </DropdownMenuTrigger>
 
           <DropdownMenuContent align="end" className="w-40">
-            <DropdownMenuItem onClick={onToggleEdit}>
+            <DropdownMenuItem aria-label="Edit Status" onClick={onToggleEdit}>
               <ModeOutlinedIcon sx={{ fontSize: 14 }} />
               Edit Status
             </DropdownMenuItem>
 
-            <DropdownMenuItem onClick={onToggleViewSummary}>
+            <DropdownMenuItem aria-label="View Summary" onClick={onToggleViewSummary}>
               <RemoveRedEyeOutlinedIcon sx={{ fontSize: 14 }} />
               View Summary
             </DropdownMenuItem>
 
-            <DropdownMenuItem>
+            <DropdownMenuItem aria-label="View Profile" >
               <ArrowOutwardOutlinedIcon sx={{ fontSize: 14 }} />
               View Profile
             </DropdownMenuItem>
