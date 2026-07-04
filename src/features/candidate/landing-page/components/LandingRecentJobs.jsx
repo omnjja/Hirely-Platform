@@ -3,18 +3,17 @@ import Card from "@/components/ui/Card";
 import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
 import { useRecentJobs } from "../hooks/useRecentJobs";
 import { formatText } from "@/utils/formatText";
-import { formatSalary } from "@/utils/formatSalary";
 import useAppNavigate from "@/hooks/useAppNavigate";
 import RecentJobsSkeleton from "./RecentJobsSkeleton";
 
 const LandingRecentJobs = () => {
-  const { data: recentJobs, isLoading, isError } = useRecentJobs();
+  const { data: recentJobs, isLoading, error } = useRecentJobs();
   const { toViewJobDetails } = useAppNavigate();
   if (isLoading) {
     return <RecentJobsSkeleton />;
   }
 
-  if (isError) {
+  if (error) {
     return;
   }
   return (
@@ -25,7 +24,7 @@ const LandingRecentJobs = () => {
       {recentJobs?.map((job) => (
         <Card
           key={job.id}
-          className="w-full flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 cursor-pointer transition hover:shadow-lg duration-400"
+          className="w-full flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0  transition hover:shadow-lg duration-400"
           rounded="rounded-4xl sm:rounded-[48px]"
         >
           <div className="flex gap-3 sm:gap-5 items-center">
@@ -37,12 +36,7 @@ const LandingRecentJobs = () => {
                 {job.title}
               </p>
               <p className="text-xs sm:text-sm text-[#595C5E]">
-                {job.companyName} • {formatText(job.jobType)} •
-                {" $" +
-                  formatSalary(job.compensationMin) +
-                  " - " +
-                  "$" +
-                  formatSalary(job.compensationMax)}
+                {job.companyName} • {formatText(job.jobType)}
               </p>
             </div>
           </div>

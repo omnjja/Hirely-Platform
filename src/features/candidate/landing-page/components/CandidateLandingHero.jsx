@@ -10,6 +10,7 @@ const CandidateLandingHero = () => {
     >
       <img
         src={bgImg}
+        alt="Background"
         className="absolute inset-0 w-full h-full object-cover mix-blend-multiply pointer-events-none"
       />
 
@@ -22,7 +23,7 @@ const CandidateLandingHero = () => {
             Our AI has analyzed opportunities to find the career that resonates
             with your core skills.
           </p>
-          <p className="text-[25px] block lg:hidden font-bold text-[#1FA5A8]">
+          <p className="text-[25px] block font-bold text-[#1FA5A8]">
             Find Your Perfect Match
           </p>
         </div>

@@ -9,13 +9,13 @@ import TopMatchesJobsSkeleton from "./TopMatchesJobsSkeleton";
 
 const TopMatchesJobs = () => {
   const { toViewJobDetails } = useAppNavigate();
-  const { data, isLoading, isError } = useTopMatches({ limit: 2 });
+  const { data, isLoading, error } = useTopMatches({ limit: 2 });
   const firstJob = data?.items[0]?.job || {};
   const secondJob = data?.items[1]?.job || {};
 
   console.log("topppp: ", data?.items);
   if (isLoading) return <TopMatchesJobsSkeleton />;
-  if (isError) return;
+  if (error) return;
   return (
     <div className="flex flex-col gap-5">
       <div>
@@ -35,6 +35,7 @@ const TopMatchesJobs = () => {
             <img
               src={img}
               loading="lazy"
+              alt="Top Match"
               className="absolute inset-0 w-full h-full object-cover"
             />
           </div>
@@ -65,6 +66,7 @@ const TopMatchesJobs = () => {
               <div>
                 <ButtonComponent
                   text="View Job"
+                  aria-label="View Job"
                   style={{ bgColor: "#0576D6" }}
                   onClick={() => toViewJobDetails(`jobs/${firstJob?.id}`)}
                 />
@@ -103,6 +105,7 @@ const TopMatchesJobs = () => {
 
           <ButtonComponent
             text="View Details"
+            arial-label="View Details"
             fullWidth
             onClick={() => toViewJobDetails(`jobs/${secondJob?.id}`)}
             style={{
