@@ -12,10 +12,10 @@ const AuthLayout = ({ children }) => {
       </div>
 
       <div className="w-full flex flex-col items-center h-full justify-center">
-        <div className="w-full">
+        <main className="w-full">
           <Logo />
           {children}
-        </div>
+        </main>
       </div>
       <Lines place={"lowerRight"} />
     </div>
