@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const FormFooter = ({ text, linkText, destination }) => {
   return (
-    <div className="text-center text-sm text-[#969696] mt-2">
+    <div className="text-center text-sm text-[#969696] mt-4">
       {text}
       <Link
         to={destination}

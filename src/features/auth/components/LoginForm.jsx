@@ -3,23 +3,26 @@ import InputField from "@/components/ui/InputField";
 import PasswordField from "@/components/ui/PasswordField";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import FormFooter from "./FormFooter";
-import GoogleButton from "@/components/ui/GoogleButton";
-import Divider from "@/components/ui/Divider";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import {useLoginMutation} from "../hooks/useLoginMutation";
-import * as authAPI from "../services/authService";
+import { useLoginMutation } from "../hooks/useLoginMutation";
+import useAppNavigate from "@/hooks/useAppNavigate";
 
 const LoginForm = () => {
-  const navigate = useNavigate();
+  const {
+    toRegisterCandidate,
+    toCandidate,
+    toRegisterHr,
+    toHr,
+    toForgotPassword,
+  } = useAppNavigate();
   const schema = z.object({
     email: z
       .string()
       .min(1, "Email is required")
       .email("Invalid email address"),
-    password: z.string().min(8, "Password must be at least 8 characters"),
+    password: z.string().min(1, "Password is required"),
   });
 
   const {
@@ -45,17 +48,17 @@ const LoginForm = () => {
 
         if (role === "CANDIDATE") {
           if (isProfileCompleted) {
-            navigate("/candidate/");
+            toCandidate();
           } else {
-            navigate("/candidate/complete-profile");
+            toRegisterCandidate();
           }
         }
 
         if (role === "HR") {
           if (isProfileCompleted) {
-            navigate("/recruiter/profile");
+            toHr();
           } else {
-            navigate("/hr/complete-profile");
+            toRegisterHr();
           }
         }
       } else {
@@ -126,20 +129,11 @@ const LoginForm = () => {
             <button
               type="button"
               className="text-red-600 hover:underline"
-              onClick={() => navigate("/ForgotPassword")}
+              onClick={() => toForgotPassword()}
             >
               Forgot password?
             </button>
           </div>
-
-          {/* OR Divider */}
-          <Divider label="or" />
-
-          {/* Google Button */}
-          <GoogleButton
-            label="Continue with Google"
-            onClick={authAPI.googleAuth}
-          />
 
           {/* Need an account */}
           <FormFooter

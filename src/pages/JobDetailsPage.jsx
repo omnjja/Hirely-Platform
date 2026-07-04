@@ -9,15 +9,15 @@ import { ArrowRight, Bookmark, CheckCheck, RefreshCw } from "lucide-react";
 import useJobDetails from "@/features/jobs/job-details/hooks/useJobDetails";
 import ErrorComponent from "@/components/ui/ErrorComponent";
 import JobDetailsSkeleton from "@/features/jobs/job-details/components/JobDetailsSkeleton";
-import { useNavigate } from "react-router-dom";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
 import { useDeleteJobMutation } from "@/features/jobs/job-details/hooks/useDeleteJobMutation";
 import { useApplyJobMutation } from "@/features/jobs/job-details/hooks/useApplyJobMutation";
 import { useIsMobile } from "@/hooks/use-mobile";
+import useAppNavigate from "@/hooks/useAppNavigate";
 
 const JobDetailsPage = () => {
   const role = localStorage.getItem("userRole");
-  const navigate = useNavigate();
+  const { back, custom } = useAppNavigate();
   const isMobile = useIsMobile();
   const [confirmOpen, setConfirmOpen] = useState(false);
   const { data, isLoading, isFetching, error, refetch } = useJobDetails();
@@ -31,7 +31,7 @@ const JobDetailsPage = () => {
   const handleDelete = async () => {
     await deleteJob(data.id, {
       onSuccess: () => {
-        setTimeout(() => navigate(-1), 500);
+        setTimeout(() => back(), 500);
       },
     });
     setConfirmOpen(false);
@@ -82,7 +82,7 @@ const JobDetailsPage = () => {
               >
                 Delete
               </ButtonComponent>
-              <ButtonComponent onClick={() => navigate("edit")} fullWidth>
+              <ButtonComponent onClick={() => custom("edit")} fullWidth>
                 Edit
               </ButtonComponent>
             </div>
