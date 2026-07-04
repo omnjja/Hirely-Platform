@@ -44,6 +44,7 @@ const Actions = ({ id, isApplied }) => {
           onClick={() => {
             role === "HR" && setConfirmOpen(true);
           }}
+          aria-label="Delete Job"
           className={`bg-white ${role === "HR" ? "text-red-600 hover:bg-red-50" : "text-gray-700 hover:bg-gray-50"} border border-gray-700`}
         >
           <span className="flex gap-1 items-center text-[11px] sm:text-sm">
@@ -56,6 +57,7 @@ const Actions = ({ id, isApplied }) => {
           onClick={() => {
             role === "HR" ? toEditJob(id) : null;
           }}
+          aria-label="Edit Job"
           className="bg-white text-gray-700 hover:bg-gray-50 border border-gray-700"
         >
           <span className="flex gap-1 items-center text-[11px] sm:text-sm">
@@ -68,6 +70,7 @@ const Actions = ({ id, isApplied }) => {
         onClick={() => {
           role === "HR" ? toViewJobDetails(id) : handleJobApply();
         }}
+        aria-label={role === "HR" ? "View Job" : "Apply to Job"}
         disabled={isApplying || isApplied}
         className="text-[11px] sm:text-sm flex-1"
       >

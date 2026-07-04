@@ -3,12 +3,10 @@ import SearchComponent from "@/components/ui/SearchComponent";
 import FiltersBar from "@/features/jobs/browse-job/components/FiltersBar";
 import Jobs from "@/features/jobs/browse-job/components/Jobs";
 import { useJobFilterationStore } from "@/features/jobs/browse-job/store/jobFiltersStore";
-import useAppNavigate from "@/hooks/useAppNavigate";
 
 const BrowseJobs = () => {
   const role = localStorage.getItem("userRole");
   const isRecruiter = role === "HR";
-  const { toCreateJob } = useAppNavigate();
   const search = useJobFilterationStore((s) => s.search);
   const setSearch = useJobFilterationStore((s) => s.setSearch);
 
@@ -27,18 +25,6 @@ const BrowseJobs = () => {
             <div className="w-full sm:flex-1 lg:w-auto">
               <SearchComponent search={search} handleChange={handleChange} />
             </div>
-            {isRecruiter && (
-              <ButtonComponent
-                text="+ Post New Job"
-                style={{
-                  bgColor: "#ffffff",
-                  textColor: "#1FA5A8",
-                  bold: true,
-                  shadow: "lg",
-                }}
-                onClick={() => toCreateJob()}
-              />
-            )}
           </div>
         </div>
         <div className="bg-white">

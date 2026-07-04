@@ -76,6 +76,7 @@ const Jobs = () => {
           <div className="flex items-center justify-evenly pt-2 pb-5 border-t border-gray-100">
             <ButtonComponent
               onClick={() => decrementPage()}
+              aria-label="Previous Page"
               disabled={!hasPrev || isFetching}
               style={{
                 bgColor: "#1B41AA",
@@ -99,6 +100,7 @@ const Jobs = () => {
                 incrementPage();
                 console.log("p: ", page);
               }}
+              aria-label="Next Page"
               disabled={!hasNext || isFetching}
               style={{
                 bgColor: "#1B41AA",

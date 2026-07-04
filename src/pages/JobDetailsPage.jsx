@@ -5,7 +5,7 @@ import JobDetailsDescription from "@/features/jobs/job-details/components/JobDet
 import JobDetailsAbout from "@/features/jobs/job-details/components/JobDetailsAbout";
 import JobRecruiter from "@/features/jobs/job-details/components/JobRecruiter";
 import ButtonComponent from "@/components/ui/ButtonComponent";
-import { ArrowRight, Bookmark, CheckCheck, RefreshCw } from "lucide-react";
+import { Bookmark, CheckCheck, RefreshCw } from "lucide-react";
 import useJobDetails from "@/features/jobs/job-details/hooks/useJobDetails";
 import ErrorComponent from "@/components/ui/ErrorComponent";
 import JobDetailsSkeleton from "@/features/jobs/job-details/components/JobDetailsSkeleton";
@@ -71,6 +71,7 @@ const JobDetailsPage = () => {
             <div className="flex gap-3">
               <ButtonComponent
                 onClick={() => setConfirmOpen(true)}
+                aria-label="Delete Job"
                 style={{
                   bgColor: "#FFFFFF",
                   textColor: "#EF4444",
@@ -82,7 +83,11 @@ const JobDetailsPage = () => {
               >
                 Delete
               </ButtonComponent>
-              <ButtonComponent onClick={() => custom("edit")} fullWidth>
+              <ButtonComponent
+                onClick={() => custom("edit")}
+                aria-label="Edit Job"
+                fullWidth
+              >
                 Edit
               </ButtonComponent>
             </div>
@@ -101,6 +106,7 @@ const JobDetailsPage = () => {
                 <ButtonComponent
                   fullWidth
                   onClick={() => handleJobApply()}
+                  aria-label="Apply to Job"
                   disabled={isPending || data?.isCandidateApply}
                 >
                   <div className="flex gap-1 justify-center">

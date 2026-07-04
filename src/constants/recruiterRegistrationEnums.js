@@ -1,10 +1,14 @@
-import { Briefcase, Users, User, BarChart3 } from "lucide-react";
+import { Briefcase, Users, User, BarChart3, FilePlus2 } from "lucide-react";
 
 export const menuItems = [
-  { icon: User, path: "/recruiter/profile", label: "Profile" },
+  {
+    icon: FilePlus2,
+    path: "/recruiter/create-job-posting",
+    label: "New Job",
+  },
   { icon: Briefcase, path: "/recruiter/jobs", label: "Jobs" },
-  { icon: Users, path: "/recruiter/candidates", label: "Candidates" },
   { icon: BarChart3, path: "/recruiter/analytics", label: "Analytics" },
+  { icon: User, path: "/recruiter/profile", label: "Profile" },
 ];
 
 export const COMPANYINDUSTRY = [

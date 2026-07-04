@@ -20,7 +20,7 @@ const BasicInfoSection = () => {
     <div className="rounded-xl shadow-xs p-5">
       <div className="text-sm sm:text-[20px] font-semibold mb-6 flex items-center gap-2.5 text-[#2A3439] ">
         <div className="w-10 h-10 overflow-hidden">
-          <img src={basicInfoImg} className=" w-full h-full" />
+          <img src={basicInfoImg} alt="Basic Information" className=" w-full h-full" />
         </div>
         Basic Information
       </div>
