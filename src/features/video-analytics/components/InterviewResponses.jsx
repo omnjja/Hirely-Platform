@@ -5,31 +5,26 @@ import ButtonComponent from "@/components/ui/ButtonComponent";
 const feedbackData = [
   {
     question: "Q1: Tell us about your most complex design challenge.",
-    score: "perfect score",
     feedback:
       "Detailed use of the STAR method. Excellent articulation of the friction points between engineering and design. Suggested slight more focus on the specific metric outcomes.",
   },
   {
     question: "Q2: How do you prioritize features in a tight deadline?",
-    score: "Good Response",
     feedback:
       "Solid understanding of the RICE framework. Alex demonstrated strong leadership qualities. Recommendation: Mention cross-functional stakeholder buy-in more explicitly.",
   },
   {
     question: "Q3: Describe your experience with Design Systems.",
-    score: "perfect score",
     feedback:
       "Expert-level knowledge. Clearly explained tokenization and governance models. Tone was confident and authoritative without being pedantic.",
   },
   {
     question: "Q4: How do you handle design critiques?",
-    score: "Good Response",
     feedback:
       "Alex provided a balanced perspective on receiving and giving feedback. Could have included more examples of handling conflicting opinions.",
   },
   {
     question: "Q5: Can you walk us through a recent project?",
-    score: "perfect score",
     feedback:
       "Excellent storytelling. Alex effectively highlighted the problem, solution, and impact. Recommendation: Include more quantitative metrics to demonstrate success.",
   },
@@ -51,7 +46,6 @@ const InterviewResponses = () => {
           <FeedbackCard
             key={index}
             question={item.question}
-            score={item.score}
             feedback={item.feedback}
           />
         ))}

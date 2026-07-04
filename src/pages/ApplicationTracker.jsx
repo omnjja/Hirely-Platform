@@ -27,7 +27,6 @@ const ApplicationTracker = () => {
     queryKey: ["applications", page, state],
     queryFn: () => getApplications({ page, state }),
   });
-
   const { data: detailData, isLoading: detailLoading } = useQuery({
     queryKey: ["application-detail", selectedId],
     queryFn: () => getApplicationById(selectedId),
