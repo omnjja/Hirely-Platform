@@ -1,9 +1,18 @@
-export const APPLICATION_STATUSES = {
+export const APPLICATION_STATUSES_FILTERS = {
   ALL: "All Statuses",
   APPLIED: "Applied",
   IN_REVIEW: "In Review",
   INTERVIEW: "Interview",
   ACCEPTED: "Accepted",
+};
+
+export const APPLICATION_STATUSES = {
+  APPLIED: "Applied",
+  IN_REVIEW: "In Review",
+  SHORTLISTED: "ShortListed",
+  INTERVIEW: "Interview",
+  ACCEPTED: "Accepted",
+  REJECTED: "Rejected",
 };
 
 export const STATUS_CONFIG = {

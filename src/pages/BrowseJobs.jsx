@@ -2,12 +2,19 @@ import ButtonComponent from "@/components/ui/ButtonComponent";
 import SearchComponent from "@/components/ui/SearchComponent";
 import FiltersBar from "@/features/jobs/browse-job/components/FiltersBar";
 import Jobs from "@/features/jobs/browse-job/components/Jobs";
+import { useJobFilterationStore } from "@/features/jobs/browse-job/store/jobFiltersStore";
 import useAppNavigate from "@/hooks/useAppNavigate";
 
 const BrowseJobs = () => {
   const role = localStorage.getItem("userRole");
   const isRecruiter = role === "HR";
   const { toCreateJob } = useAppNavigate();
+  const search = useJobFilterationStore((s) => s.search);
+  const setSearch = useJobFilterationStore((s) => s.setSearch);
+
+  function handleChange(e) {
+    setSearch(e.target.value || undefined);
+  }
 
   return (
     <div className="flex flex-col">
@@ -18,7 +25,7 @@ const BrowseJobs = () => {
           </p>
           <div className="flex flex-col items-center sm:flex-row gap-3 w-full lg:w-auto">
             <div className="w-full sm:flex-1 lg:w-auto">
-              <SearchComponent />
+              <SearchComponent search={search} handleChange={handleChange} />
             </div>
             {isRecruiter && (
               <ButtonComponent
@@ -34,11 +41,9 @@ const BrowseJobs = () => {
             )}
           </div>
         </div>
-        {!isRecruiter && (
-          <div className="bg-white">
-            <FiltersBar />
-          </div>
-        )}
+        <div className="bg-white">
+          <FiltersBar userRole={role} />
+        </div>
       </div>
 
       <div className="w-full min-h-screen ">

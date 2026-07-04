@@ -24,6 +24,8 @@ import HrProfile from "./pages/HrProfile";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import LandingPage from "./pages/LandingPage";
 import CandidateLandingPage from "./pages/CandidateLandingPage";
+import JobMatches from "./pages/JobMatches";
+import JobsOverviewDashboard from "./pages/JobsOverviewDashboard";
 import ScrollToTop from "./components/ScrollToTop";
 import ApplicationsAnalysis from "./pages/ApplicationsAnalysis";
 import WithAICard from "./components/layout/WithAICard";
@@ -65,6 +67,10 @@ function App() {
             <Route
               path="submit-video-interview/:interviewId"
               element={<SubmitVideoInterview />}
+            <Route path="job-matches" element={<JobMatches />} />
+            <Route
+              path="applications/:id/start-video-interview"
+              element={<div>start video</div>}
             />
           </Route>
         </Route>
@@ -77,13 +83,11 @@ function App() {
               <Route path="jobs/:id" element={<JobDetailsPage />} />
               <Route path="jobs/:id/edit" element={<EditJobPosting />} />
               <Route path="profile" element={<HrProfile />} />
-              <Route
-                index
-                element={<Navigate to="applications-analytics" replace />}
-              />
+              <Route index element={<Navigate to="analytics" replace />} />
             </Route>
+            <Route path="analytics" element={<JobsOverviewDashboard />} />
             <Route
-              path="applications-analytics"
+              path=":jobId/applications-analytics"
               element={<ApplicationsAnalysis />}
             />
           </Route>

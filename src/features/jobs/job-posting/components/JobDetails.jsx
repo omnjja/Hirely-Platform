@@ -4,12 +4,10 @@ import InputFieldWithLabel from "@/components/ui/InputFieldWithLabel";
 import Box from "@mui/material/Box";
 import Card from "@/components/ui/Card";
 import { useFormContext } from "react-hook-form";
-import DateField from "@/components/ui/DateField";
 
 const JobDetails = () => {
   const {
     register,
-    control,
     formState: { errors },
   } = useFormContext();
   return (
@@ -39,40 +37,6 @@ const JobDetails = () => {
               labelClassName="text-[#566166] tracking-wide uppercase font-semibold mb-3"
               {...register("coreResponsibilities")}
               error={errors.coreResponsibilities?.message}
-            />
-          </Grid>
-
-          <Grid size={{ xs: 6 }}>
-            <DateField
-              name="startDate"
-              label="Start Date"
-              hasLabel={true}
-              error={errors.startDate?.message}
-              control={control}
-              rounded="20px"
-            />
-          </Grid>
-          <Grid size={{ xs: 6 }}>
-            <DateField
-              name="endDate"
-              label="End Date"
-              rounded="20px"
-              hasLabel={true}
-              control={control}
-              error={errors.endDate?.message}
-            />
-          </Grid>
-          <Grid size={{ xs: 12 }}>
-            <InputFieldWithLabel
-              type="number"
-              label="Sprint Duration (weeks)"
-              placeholder="e.g., 1-12"
-              rounded="xl"
-              fullWidth
-              variant="outlined"
-              labelClassName="text-[#566166] uppercase font-bold"
-              {...register("sprintDuration")}
-              error={errors.sprintDuration?.message}
             />
           </Grid>
         </Grid>
