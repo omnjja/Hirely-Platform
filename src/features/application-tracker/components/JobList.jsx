@@ -1,6 +1,7 @@
 import JobCard from "./JobCard";
 import { formatApplicationCard } from "@/constants/applicationStatus";
 import JobListSkelton from "./JobListSkelton";
+import toast from "react-hot-toast";
 
 const JobList = ({
   applicationData,
@@ -15,7 +16,7 @@ const JobList = ({
   }
 
   if (error) {
-    return <p>Something went wrong</p>;
+    return toast.error("failed to load data");
   }
   if (!applicationData?.items?.length) {
     return (

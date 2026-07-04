@@ -3,6 +3,9 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import DepartmentVolumeSkeleton from "./DepartmentVolumeSkeleton";
 
 const DepartmentVolumeCard = ({ data, onPageChange, isFetching }) => {
+  if (isFetching || !data) {
+    return <DepartmentVolumeSkeleton />;
+  }
   const { departmentData, department_pagination } = data;
   const { page, total } = department_pagination;
 
@@ -11,9 +14,7 @@ const DepartmentVolumeCard = ({ data, onPageChange, isFetching }) => {
     [departmentData],
   );
 
-  return isFetching ? (
-    <DepartmentVolumeSkeleton />
-  ) : (
+  return (
     <div className="bg-white rounded-2xl border border-black p-6">
       <div className="flex items-center justify-between mb-5">
         <p className="text-sm md:text-base font-semibold text-[#2A3439] mb-0.5">

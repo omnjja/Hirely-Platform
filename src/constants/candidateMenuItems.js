@@ -1,6 +1,5 @@
 import {
   Briefcase,
-  FileText,
   User,
   ClipboardCheck,
   Video,
@@ -9,7 +8,6 @@ import {
 
 export const CANDIDATEMENUITEMS = [
   { icon: Briefcase, path: "/candidate/jobs", label: "Jobs" },
-  { icon: FileText, path: "/candidate/resume", label: "Resume" },
   { icon: User, path: "/candidate/profile", label: "Profile" },
   {
     icon: ClipboardCheck,

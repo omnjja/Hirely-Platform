@@ -23,6 +23,7 @@ const useAppNavigate = () => {
     toCandidateLandingPage: () => navigate("/candidate"),
     toApplicationsDashboard: (jobId) =>
       navigate(`/recruiter/${jobId}/applications-analytics`),
+    toStartInterview: () => navigate(`recruiter/start-video-interview`),
   };
 };
 
