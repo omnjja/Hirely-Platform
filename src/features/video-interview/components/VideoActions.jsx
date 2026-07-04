@@ -11,6 +11,7 @@ const VideoActions = ({ phase, stopRecording, onSubmit, isPending }) => {
       <div className="flex flex-wrap items-center justify-center gap-4">
         {isRecording && (
           <button
+            disabled={!isRecording}
             onClick={stopRecording}
             className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0576D6] text-white shadow-md transition hover:bg-[#0568bd]"
           >

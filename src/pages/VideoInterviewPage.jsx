@@ -12,9 +12,8 @@ import toast from "react-hot-toast";
 import useSaveVideoAnswer from "@/features/video-interview/hooks/useSaveVideoAnswer";
 import useAppNavigate from "@/hooks/useAppNavigate";
 
-
 const VideoInterviewPage = () => {
-  const applicationId = "6a459858bad3dcbdc175c5d9";
+  const applicationId = "6a491971477dd71a18367921";
 
   const { toSubmitInterview } = useAppNavigate();
   const { data: interviewSession, isLoading } =
@@ -45,10 +44,14 @@ const VideoInterviewPage = () => {
   }, [interviewSession?.questions]);
 
   const startStep = useMemo(() => {
-    const idx = sortedQuestions.findIndex(
-      (q) => q.type !== "practice" && !q.isAnswered,
-    );
-    return idx === -1 ? sortedQuestions.length : idx;
+    if (interviewSession?.answeredCount > 0) {
+      const idx = sortedQuestions.findIndex(
+        (q) => q.type !== "practice" && !q.isAnswered,
+      );
+      return idx === -1 ? sortedQuestions.length : idx;
+    } else {
+      return 0;
+    }
   }, [sortedQuestions]);
 
   const { interview, media, timers, actions } = useInterviewFlow({
@@ -74,11 +77,11 @@ const VideoInterviewPage = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (interview.phase === PHASES.SUBMITTED && interviewSession?.interviewId) {
-  //     toSubmitInterview(interviewSession.interviewId);
-  //   }
-  // }, [interview.phase, interviewSession?.interviewId, toSubmitInterview]);
+  useEffect(() => {
+    if (interview.phase === PHASES.SUBMITTED && interviewSession?.interviewId) {
+      toSubmitInterview(interviewSession.interviewId);
+    }
+  }, [interview.phase, interviewSession?.interviewId, toSubmitInterview]);
 
   if (media.cameraError) {
     return (

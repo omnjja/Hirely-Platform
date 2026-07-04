@@ -58,7 +58,7 @@ const VideoInfo = ({ phase, recordingElapsed, totalDuration }) => {
           </div>
         </div>
 
-        <div className="flex flex-[1.5] justify-start">
+        <div className="flex flex-[1.5] justify-center">
           <RecordingTimer
             elapsed={recordingElapsed}
             totalDuration={totalDuration}
