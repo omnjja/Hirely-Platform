@@ -7,7 +7,7 @@ const analysis = [
   { label: "Body Language", value: 90, text: "Positive" },
 ];
 
-const BehavioralAnalysis = () => {
+const BehavioralAnalysis = ({ data }) => {
   const videoUrl = "";
   return (
     <div className="border border-[#0A0A0A] rounded-xl bg-[#0576D6]  p-3 text-white flex flex-col">
