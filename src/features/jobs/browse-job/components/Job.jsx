@@ -55,6 +55,7 @@ const Job = ({ job }) => {
             sx={{ display: "hidden md:flex items-center justify-center" }}
           >
             <MatchPercentage
+              percentage={Math.ceil(job?.matchScore * 100)}
               title={job?.title}
               subtitle={`${job?.companyName} • ${formatText(job?.workplaceType)}`}
             />
