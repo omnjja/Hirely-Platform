@@ -21,16 +21,18 @@ const useAppNavigate = () => {
     toHrProfile: () => navigate("/recruiter/hr-profile"),
     toCreateJobPosting: () => navigate("/recruiter/create-job-posting"),
     toCandidateLandingPage: () => navigate("/candidate"),
-    toInterviewSession: (interviewId) =>
-      navigate(`/candidate/video-interview-session/${interviewId}`),
-    toSubmitInterview: (interviewId) =>
-      navigate(`/candidate/submit-video-interview/${interviewId}`),
-    toApplicationsDashboard: (jobId) =>
-      navigate(`/recruiter/${jobId}/applications-analytics`),
     toStartInterview: (applicationId) =>
       navigate(
         `/candidate/applications/${applicationId}/start-video-interview`,
       ),
+    toInterviewSession: (interviewId) =>
+      navigate(`/candidate/interviews/${interviewId}/video-interview-session/`),
+    toSubmitInterview: (interviewId) =>
+      navigate(
+        `/candidate/interviews/${interviewId}/submit-video-interview/`,
+      ),
+    toApplicationsDashboard: (jobId) =>
+      navigate(`/recruiter/${jobId}/applications-analytics`),
   };
 };
 

@@ -59,18 +59,18 @@ function App() {
             <Route path="jobs" element={<BrowseJobs />} />
             <Route path="jobs/:id" element={<JobDetailsPage />} />
             <Route path="applications" element={<ApplicationTracker />} />
-            <Route path="start-video-interview" element={<StartInterview />} />
+            <Route path="job-matches" element={<JobMatches />} />
             <Route
-              path="video-interview-session/:interviewId"
+              path="applications/:applicationId/start-video-interview"
+              element={<StartInterview />}
+            />
+            <Route
+              path="interviews/:interviewId/video-interview-session/"
               element={<VideoInterviewPage />}
             />
             <Route
-              path="submit-video-interview/:interviewId"
+              path="interviews/:interviewId/submit-video-interview/"
               element={<SubmitVideoInterview />}
-            <Route path="job-matches" element={<JobMatches />} />
-            <Route
-              path="applications/:id/start-video-interview"
-              element={<div>start video</div>}
             />
           </Route>
         </Route>

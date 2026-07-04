@@ -30,7 +30,7 @@ const TopMatchesJobs = () => {
       <div className="flex flex-col md:flex-row gap-7">
         {/* card1 */}
         <div className="w-full md:w-2/3 flex flex-col sm:flex-row justify-between p-6 border-3 border-[#EEF1F3] rounded-[48px]">
-          <div className="flex flex-col items-start relative overflow-hidden w-full  sm:w-60 h-65 sm:h-75 mb-4 sm:mb-0">
+          <div className="flex flex-col items-start relative overflow-hidden w-full sm:w-1/2 h-65 sm:h-full mb-4 sm:mb-0">
             <ParagraphInfo color="#00432C">{`${Math.round(firstJob?.matchScore * 100)}% Match`}</ParagraphInfo>
             <img
               src={img}
@@ -39,7 +39,7 @@ const TopMatchesJobs = () => {
             />
           </div>
 
-          <div className="w-full sm:w-1/2 flex flex-col justify-between items-start">
+          <div className="w-full sm:ml-5 flex flex-col justify-between items-start">
             <div className="flex flex-col gap-5 items-start">
               <ParagraphInfo color="#0576D6">
                 {`${formatText(firstJob?.workplaceType)} • ${formatText(firstJob?.jobType)}`}
@@ -96,7 +96,7 @@ const TopMatchesJobs = () => {
                 {secondJob?.companyName} • {secondJob?.location}
               </p>
             </div>
-            <p className="text-sm text-[#595C5ECC]">
+            <p className="text-sm text-[#595C5ECC] overflow-hidden  text-ellipsis whitespace-nowrap">
               {secondJob?.companySummary || "Company summary not available."}
             </p>
           </div>
