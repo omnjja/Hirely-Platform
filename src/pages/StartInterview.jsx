@@ -5,11 +5,13 @@ import useInstructions from "@/features/video-interview/hooks/useInstructions";
 import useInterviewSession from "@/features/video-interview/hooks/useInterviewSession";
 import useStartVideoInterview from "@/features/video-interview/hooks/useStartVideoInterview";
 import useAppNavigate from "@/hooks/useAppNavigate";
+import { useParams } from "react-router-dom";
 import React from "react";
 import toast from "react-hot-toast";
 
 const StartInterview = () => {
-  let applicationId = "6a491971477dd71a18367921";
+  // let applicationId = "6a491971477dd71a18367921";
+  const { applicationId } = useParams();
   const { data, isLoading, error, refetch } = useInstructions();
   const { data: interviewSession } = useInterviewSession(applicationId);
   const { mutateAsync: startInterviewSession } =
