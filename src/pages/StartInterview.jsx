@@ -17,16 +17,19 @@ const StartInterview = () => {
   const { toInterviewSession, toSubmitInterview } = useAppNavigate();
 
   async function handleStartInterview() {
-    if (interviewSession?.canStart || interviewSession?.status === "STARTED") {
-      const response = await startInterviewSession();
-      toInterviewSession(response.interviewId);
+    if (interviewSession?.status === "SUBMITTED") {
+      toast("You have already finished this interview");
     } else if (interviewSession?.canSubmit) {
       toSubmitInterview(interviewSession?.interviewId);
+    } else if (
+      interviewSession?.canStart ||
+      interviewSession?.status === "STARTED"
+    ) {
+      const response = await startInterviewSession();
+      toInterviewSession(response.interviewId);
     } else {
       toast.error("You cannot start the interview at this time.");
     }
-    // const response = await startInterviewSession();
-    // toInterviewSession(response.interviewId);
   }
 
   if (isLoading) return <InterviewInstructionsSkeleton />;

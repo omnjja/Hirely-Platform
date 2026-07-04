@@ -61,7 +61,7 @@ const SubmitVideoInterview = () => {
           <ButtonComponent
             disabled={isPending}
             onClick={submitInterview}
-            className="min-w-[220px]"
+            className="min-w-55"
           >
             {isPending ? "Submitting..." : "Submit Interview"}
           </ButtonComponent>

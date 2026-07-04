@@ -15,7 +15,7 @@ import useAppNavigate from "@/hooks/useAppNavigate";
 const RETAKES = 2;
 
 const VideoInterviewPage = () => {
-  const applicationId = "6a4597a4bad3dcbdc175c5b9";
+  const applicationId = "6a45875abad3dcbdc175c4e4";
 
   const { toSubmitInterview } = useAppNavigate();
   const { data: interviewSession } = useInterviewSession(applicationId);
