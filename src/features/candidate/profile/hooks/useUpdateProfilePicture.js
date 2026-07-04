@@ -6,9 +6,7 @@ const useUpdateProfilePicture = () => {
 
   return useMutation({
     mutationFn: updateProfilePicture,
-
     onSuccess: () => {
-      // reload profile data
       queryClient.invalidateQueries({
         queryKey: ["candidateProfile"],
       });

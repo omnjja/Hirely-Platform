@@ -1,4 +1,4 @@
-import api from "../../../../lib/api";
+import api from "@/lib/api";
 
 export const getCandidateProfile = async () => {
   const res = await api.get("/profile");
@@ -15,7 +15,7 @@ export const updateProfilePicture = async (file) => {
     fileName: file.name,
     contentType: file.type,
   });
-  const { uploadUrl, key } = res.data;
+  const { uploadUrl } = res.data;
 
   // upload file to storage using the presigned URL
   await fetch(uploadUrl, {
@@ -23,7 +23,21 @@ export const updateProfilePicture = async (file) => {
     headers: { "Content-Type": file.type },
     body: file,
   });
+  return res.data;
+};
 
-  const res2 = await api.get("profile/photo");
-  return res2.data;
+export const updateCv = async (file) => {
+  const res = await api.put("upload/cv", {
+    fileName: file.name,
+    contentType: file.type,
+  });
+  const { uploadUrl } = res.data;
+  await fetch(uploadUrl, {
+    method: "PUT",
+    headers: {
+      "Content-Type": file.type,
+    },
+    body: file,
+  });
+  return res.data;
 };
