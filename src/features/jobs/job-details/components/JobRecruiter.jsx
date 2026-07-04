@@ -29,17 +29,6 @@ const JobRecruiter = ({ name, hrJobTitle, size, quote }) => {
             </div>
           </div>
         </div>
-        <ButtonComponent
-          text="Follow"
-          style={{
-            bgColor: "#FFFFFF",
-            textColor: "#1FA5A8",
-            rounded: "4xl",
-            size: "sm",
-            bold: true,
-          }}
-          className="shrink-0 shadow-sm z-5"
-        />
       </div>
 
       <div className=" px-4 py-3">

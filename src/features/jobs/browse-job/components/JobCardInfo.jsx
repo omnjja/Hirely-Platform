@@ -46,7 +46,7 @@ const JobCardInfo = ({location, jobType, status, experienceLevel, applicationCou
         </div>
       </div>
 
-      <div className="text-xs sm:text-sm text-[#6A7282]">
+      <div className="text-xs sm:text-sm text-[#6A7282] mb-1">
         {applicationCount < APPCOUNTTHRESOLD
           ? role === "CANDIDATE" ? "Be the first to apply!" : "No applicants yet"
           : `${applicationCount} applicants`}
