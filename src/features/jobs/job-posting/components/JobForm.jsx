@@ -9,7 +9,11 @@ import { Box, Grid } from "@mui/material";
 import JobPostHeader from "./JobPostHeader";
 import { SquareChevronUp, Wrench } from "lucide-react";
 import useCustomForm from "@/hooks/useCustomForm";
-import { jobDefaultValues, jobSchema } from "@/schemas/jobSchema";
+import {
+  editJobSchema,
+  jobDefaultValues,
+  jobSchema,
+} from "@/schemas/jobSchema";
 import { FormProvider } from "react-hook-form";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import { useCreateJobMutation } from "../hooks/useCreateJobMutation";
@@ -32,7 +36,7 @@ const JobForm = ({ mode = "post", initialValues = {} }) => {
 
   const methods = useCustomForm({
     defaultValues: formattedInitialValues,
-    schema: jobSchema,
+    schema: mode === "edit" ? editJobSchema : jobSchema,
     mode: "onChange",
   });
 

@@ -1,7 +1,6 @@
 import React from "react";
 import { Trash2 } from "lucide-react";
-const TIME_LIMIT = 3;
-const RETAKES = 2;
+const TIME_LIMIT = 1;
 const VidQuestion = ({ questionNumber, question, onRemove }) => {
   return (
     <div
@@ -20,9 +19,6 @@ const VidQuestion = ({ questionNumber, question, onRemove }) => {
             <div className="flex flex-wrap gap-2">
               <span className="text-gray-500 text-[9px] sm:text-xs px-3 py-1 bg-[#E8EFF3] rounded-md">
                 {TIME_LIMIT} Minutes Limit
-              </span>
-              <span className="text-gray-500 text-[9px] sm:text-xs px-3 py-1 bg-[#E8EFF3] rounded-md">
-                {RETAKES} Re-takes allowed
               </span>
             </div>
           </div>
