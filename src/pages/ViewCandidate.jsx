@@ -7,6 +7,7 @@ import RecruiterNotes from "@/features/hr-view-candidate/components/RecruiterNot
 import useApplicationData from "@/features/hr-view-candidate/hooks/useApplicationData";
 import React from "react";
 import ViewCandidateSkeleton from "@/features/hr-view-candidate/components/ViewCandidateSkeleton";
+import toast from "react-hot-toast";
 
 const APPLICATION_ID = "6a4557febad3dcbdc175c215"; // this will change
 
@@ -15,20 +16,14 @@ const ViewCandidate = () => {
     data: applicationData,
     isLoading,
     isError,
-  } = useApplicationData({ applicationId: APPLICATION_ID }); // this will change
+  } = useApplicationData({ applicationId: APPLICATION_ID });
   console.log(applicationData);
 
   if (isLoading) {
     return <ViewCandidateSkeleton />;
   }
   if (isError) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-red-500 text-lg font-semibold">
-          Error loading application data. Please try again later.
-        </p>
-      </div>
-    );
+    return toast.error("Error loading application data");
   }
   return (
     <div className="flex flex-col md:flex-row gap-4 m-5">

@@ -19,17 +19,13 @@ export const updateApplicationNote = async (
 ) => {
   const res = await api.put(
     `/${applicationId}/ApplicationSum/notes/${noteId}`,
-    {
-      notes: [updatedNote],
-    },
+    updatedNote,
   );
   return res.data;
 };
 
-export const deleteApplicationNote = async (applicationId, noteId) => {
-  const res = await api.delete(
-    `/${applicationId}/ApplicationSum/notes/${noteId}`,
-  );
+export const deleteApplicationNote = async (applicationId, id) => {
+  const res = await api.delete(`/${applicationId}/ApplicationSum/notes/${id}`);
   return res.data;
 };
 

@@ -8,9 +8,25 @@ const analysis = [
 ];
 
 const BehavioralAnalysis = () => {
+  const videoUrl = "";
   return (
     <div className="border border-[#0A0A0A] rounded-xl bg-[#0576D6]  p-3 text-white flex flex-col">
-      <div className="flex-3 text-center">video</div>
+      <div className="w-full rounded-lg overflow-hidden bg-white aspect-video mb-1">
+        {videoUrl ? (
+          <video
+            src={videoUrl}
+            controls
+            className="w-full h-full object-cover"
+            preload="metadata"
+          >
+            Your browser does not support video.
+          </video>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-black/50 text-xs">
+            No video available
+          </div>
+        )}
+      </div>
       <div className="flex-1 ">
         <p className="text-sm font-semibold">Behavioral Analysis</p>
         <div className="mt-3 grid grid-cols-2 gap-x-4">

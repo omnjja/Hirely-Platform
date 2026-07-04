@@ -4,10 +4,12 @@ import { deleteApplicationNote } from "../services/HrService";
 const useDeleteNoteMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutateFn: ({ applicationId, noteId }) =>
-      deleteApplicationNote(applicationId, noteId),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["applicationNotes"]);
+    mutationFn: ({ applicationId, id }) =>
+      deleteApplicationNote(applicationId, id),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ["applicationData", variables.applicationId],
+      });
     },
   });
 };
