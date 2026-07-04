@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { Circle, RotateCcw } from "lucide-react";
 import RecordingTimer from "./RecordingTimer";
 
-const VideoInfo = ({ phase, recordingElapsed, totalDuration, retakesLeft }) => {
+const VideoInfo = ({ phase, recordingElapsed, totalDuration }) => {
   const isRecording = phase === "recording";
 
   return (
@@ -37,13 +37,6 @@ const VideoInfo = ({ phase, recordingElapsed, totalDuration, retakesLeft }) => {
             totalDuration={totalDuration}
           />
         </div>
-
-        <div className="flex justify-center">
-          <div className="flex items-center gap-1 text-[#595C5E]">
-            <RotateCcw size={16} />
-            <span className="text-sm font-semibold">{`${retakesLeft} Retake Left`}</span>
-          </div>
-        </div>
       </div>
 
       {/* Desktop */}
@@ -62,13 +55,6 @@ const VideoInfo = ({ phase, recordingElapsed, totalDuration, retakesLeft }) => {
             <span className="text-[10px] font-semibold uppercase text-white">
               Recording
             </span>
-          </div>
-        </div>
-
-        <div className="flex flex-1 justify-center">
-          <div className="flex items-center gap-1 text-[#595C5E]">
-            <RotateCcw size={16} />
-            <span className="text-sm font-semibold">{`${retakesLeft} Retake Left`}</span>
           </div>
         </div>
 

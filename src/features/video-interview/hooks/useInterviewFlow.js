@@ -13,8 +13,6 @@ import { uploadFile } from "@/lib/uploadFile";
 export function useInterviewFlow({
   currentStep,
   questions,
-  retakes,
-
   interviewId,
   createVideoURL,
   submitAnswer,
@@ -24,11 +22,10 @@ export function useInterviewFlow({
     {
       totalQuestions: questions?.length,
       currentStep: currentStep || 0,
-      retakesAllowed: retakes,
     },
     createInitialState,
   );
-  const { step, phase, retakesLeft, submitError } = state;
+  const { step, phase, submitError } = state;
   const [isPending, setIsPending] = useState(false);
 
   // resolve the active question from `step`, not a flat prop
@@ -46,7 +43,7 @@ export function useInterviewFlow({
   // recorder setup
   const recorder = useMediaRecorder(previewStream);
 
-  // timers — now driven by the current question's own durations
+  // timers
   const countdown = useCountdown(preparationTime, phase === PHASES.PREPARING);
   const stopwatch = useStopwatch(phase === PHASES.RECORDING);
 
@@ -56,12 +53,8 @@ export function useInterviewFlow({
     dispatch({ type: "STOP_RECORDING" });
   }, [recorder]);
 
-  const retake = useCallback(() => {
-    dispatch({ type: "RETAKE" });
-  }, []);
-
   const submit = useCallback(async () => {
-    if (phase !== PHASES.REVIEW) return; // block re-entrancy
+    if (phase !== PHASES.REVIEW) return;
     if (!recorder.clip || !currentQuestion) {
       throw new Error("No recording to submit");
     }
@@ -101,7 +94,6 @@ export function useInterviewFlow({
       } finally {
         setIsPending(false);
       }
-
       dispatch({ type: "SUBMIT_ANSWER", videoKey: key });
     } catch (err) {
       dispatch({ type: "SUBMIT_ERROR", error: err.message });
@@ -133,7 +125,7 @@ export function useInterviewFlow({
     }
   }, [phase]);
 
-  // 3. retake or new question
+  // 3. new question
   useEffect(() => {
     if (phase === PHASES.PREPARING) {
       recorder.reset();
@@ -162,7 +154,6 @@ export function useInterviewFlow({
     interview: {
       step,
       phase,
-      retakesLeft,
       currentQuestion,
       isPending,
       submitError,
@@ -183,7 +174,6 @@ export function useInterviewFlow({
 
     actions: {
       stopRecording,
-      retake,
       submit,
     },
   };

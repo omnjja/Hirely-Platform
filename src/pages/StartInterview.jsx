@@ -9,7 +9,7 @@ import React from "react";
 import toast from "react-hot-toast";
 
 const StartInterview = () => {
-  let applicationId = "6a4597a4bad3dcbdc175c5b9";
+  let applicationId = "6a459858bad3dcbdc175c5d9";
   const { data, isLoading, error, refetch } = useInstructions();
   const { data: interviewSession } = useInterviewSession(applicationId);
   const { mutateAsync: startInterviewSession } =

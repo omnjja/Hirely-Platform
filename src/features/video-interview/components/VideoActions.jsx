@@ -1,18 +1,10 @@
 import React, { memo } from "react";
-import { ArrowRight, Mic, MicOff, Square, RotateCcw } from "lucide-react";
+import { ArrowRight, Square } from "lucide-react";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 
-const VideoActions = ({
-  phase,
-  retakesLeft,
-  stopRecording,
-  onRetake,
-  onSubmit,
-  isPending,
-}) => {
+const VideoActions = ({ phase, stopRecording, onSubmit, isPending }) => {
   const isRecording = phase === "recording";
   const isReview = phase === "review";
-  const canRetake = isReview && retakesLeft > 0;
 
   return (
     <div className="flex flex-col gap-5 md:gap-0">
@@ -23,15 +15,6 @@ const VideoActions = ({
             className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0576D6] text-white shadow-md transition hover:bg-[#0568bd]"
           >
             <Square size={18} fill="white" />
-          </button>
-        )}
-
-        {canRetake && (
-          <button
-            onClick={onRetake}
-            className="flex h-12 w-12 items-center justify-center rounded-full border bg-gray-100 transition hover:bg-gray-200 cursor-pointer"
-          >
-            <RotateCcw size={18} />
           </button>
         )}
       </div>

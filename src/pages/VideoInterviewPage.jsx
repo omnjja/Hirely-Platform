@@ -12,28 +12,28 @@ import toast from "react-hot-toast";
 import useSaveVideoAnswer from "@/features/video-interview/hooks/useSaveVideoAnswer";
 import useAppNavigate from "@/hooks/useAppNavigate";
 
-const RETAKES = 2;
 
 const VideoInterviewPage = () => {
-  const applicationId = "6a45875abad3dcbdc175c4e4";
+  const applicationId = "6a459858bad3dcbdc175c5d9";
 
   const { toSubmitInterview } = useAppNavigate();
-  const { data: interviewSession } = useInterviewSession(applicationId);
+  const { data: interviewSession, isLoading } =
+    useInterviewSession(applicationId);
 
-  // useEffect(() => {
-  //   if (
-  //     interviewSession?.answeredCount ===
-  //       interviewSession?.questions?.length - 1 &&
-  //     interviewSession?.interviewId
-  //   ) {
-  //     toSubmitInterview(interviewSession.interviewId);
-  //   }
-  // }, [
-  //   interviewSession?.answeredCount,
-  //   interviewSession?.questions?.length,
-  //   interviewSession?.interviewId,
-  //   toSubmitInterview,
-  // ]);
+  useEffect(() => {
+    if (
+      interviewSession?.answeredCount ===
+        interviewSession?.questions?.length - 1 &&
+      interviewSession?.interviewId
+    ) {
+      toSubmitInterview(interviewSession?.interviewId);
+    }
+  }, [
+    interviewSession?.answeredCount,
+    interviewSession?.questions?.length,
+    interviewSession?.interviewId,
+    toSubmitInterview,
+  ]);
 
   const { mutateAsync: createVideoURL } = useCreateVidURL();
   const { mutateAsync: submitAnswer, isPending } = useSaveVideoAnswer();
@@ -54,7 +54,6 @@ const VideoInterviewPage = () => {
   const { interview, media, timers, actions } = useInterviewFlow({
     currentStep: startStep,
     questions: sortedQuestions,
-    retakes: RETAKES,
     interviewId: interviewSession?.interviewId,
     createVideoURL,
     submitAnswer,
@@ -75,11 +74,11 @@ const VideoInterviewPage = () => {
     }
   };
 
-  useEffect(() => {
-    if (interview.phase === PHASES.SUBMITTED && interviewSession?.interviewId) {
-      toSubmitInterview(interviewSession.interviewId);
-    }
-  }, [interview.phase, interviewSession?.interviewId, toSubmitInterview]);
+  // useEffect(() => {
+  //   if (interview.phase === PHASES.SUBMITTED && interviewSession?.interviewId) {
+  //     toSubmitInterview(interviewSession.interviewId);
+  //   }
+  // }, [interview.phase, interviewSession?.interviewId, toSubmitInterview]);
 
   if (media.cameraError) {
     return (
@@ -90,15 +89,20 @@ const VideoInterviewPage = () => {
     );
   }
 
-  if (!interviewSession) {
+  if (isLoading) {
     return (
       <div className="mx-auto max-w-7xl px-3 py-10 text-center text-sm text-gray-500">
         Loading interview session...
       </div>
     );
   }
-
-  if (interview.phase === PHASES.SUBMITTED) return null;
+  if (!interviewSession) {
+    return (
+      <div className="mx-auto max-w-7xl px-3 py-10 text-center text-sm text-gray-500">
+        Interview session is not available
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto min-h-screen w-full max-w-7xl px-3 py-4 sm:px-5 md:px-8 lg:w-[80%] lg:px-0 lg:py-2">
@@ -120,7 +124,6 @@ const VideoInterviewPage = () => {
           phase={interview.phase}
           recordingElapsed={timers.recordingElapsed}
           totalDuration={interview?.currentQuestion?.answerDuration}
-          retakesLeft={interview.retakesLeft}
         />
 
         <p className="text-center text-sm text-[#595c5e]">
@@ -132,9 +135,7 @@ const VideoInterviewPage = () => {
 
         <VideoActions
           phase={interview.phase}
-          retakesLeft={interview.retakesLeft}
           stopRecording={actions.stopRecording}
-          onRetake={actions.retake}
           isPending={isPending || interview.isPending}
           onSubmit={handleSubmit}
         />
