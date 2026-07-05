@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import BehavioralAnalysis from "@/features/hr-view-candidate/components/BehavioralAnalysis";
 import CandidateMatch from "@/features/hr-view-candidate/components/CandidateMatch";
 import CandidateSummary from "@/features/hr-view-candidate/components/CandidateSummary";
@@ -20,7 +20,7 @@ const ViewCandidate = () => {
     error,
     refetch,
   } = useApplicationData({ applicationId: APPLICATION_ID });
-
+  const [current, setCurrent] = useState(0);
   if (isLoading) {
     return <ViewCandidateSkeleton />;
   }
@@ -30,6 +30,7 @@ const ViewCandidate = () => {
   const hasVideoAnalysis =
     applicationData?.VideoAnalysisSection &&
     applicationData.VideoAnalysisSection.length > 0;
+
   return (
     <div className="flex flex-col md:flex-row gap-4 m-5">
       <div className="md:flex-1 flex flex-row md:flex-col gap-3">
@@ -52,12 +53,19 @@ const ViewCandidate = () => {
           }`}
         >
           {hasVideoAnalysis && (
-            <BehavioralAnalysis data={applicationData.VideoAnalysisSection} />
+            <BehavioralAnalysis
+              data={applicationData.VideoAnalysisSection}
+              current={current}
+              setCurrent={setCurrent}
+            />
           )}
 
           <div className="flex flex-col gap-4">
             {hasVideoAnalysis && (
-              <InterviewSummary data={applicationData.VideoAnalysisSection} />
+              <InterviewSummary
+                data={applicationData.VideoAnalysisSection}
+                current={current}
+              />
             )}
 
             <RecruiterNotes

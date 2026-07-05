@@ -70,9 +70,9 @@ const RecruiterNotes = ({ data, applicationId }) => {
 
       {notes.length > 0 && (
         <div className="flex flex-col gap-2">
-          {notes.map((n) => (
+          {notes.map((n, i) => (
             <div
-              key={n.id}
+              key={i}
               className="bg-[#F7F9FB] border border-slate-200 rounded-lg p-3"
             >
               {editingId === n.id ? (

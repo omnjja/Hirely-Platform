@@ -6,7 +6,7 @@ const CandidateMatch = ({ data }) => {
     <div className="flex w-full gap-2 justify-start items-center bg-[#4C58A60D] border border-[#0A0A0A] rounded-xl p-5">
       <div className="border-6 rounded-full shrink-0 h-40 w-40 border-[#1FA4A7] flex flex-col justify-center items-center">
         <span className="text-[#0576D6] text-[40px] font-extrabold">
-          {score}
+          {Math.round(score)}
         </span>
         <p className="text-[#454652] text-xl font-medium"> out of 100</p>
       </div>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const InterviewSummary = () => {
+const InterviewSummary = ({ data, current }) => {
   return (
     <div className="border border-[#0A0A0A] rounded-xl p-3">
       <div className="flex justify-between items-center">
@@ -11,10 +11,7 @@ const InterviewSummary = () => {
       </div>
 
       <p className="text-[#566166] text-sm mt-1 w-[80%]">
-        "...at my previous role, I realized that design systems aren't just
-        about components; they are about communication. I scaled the library
-        from 20 to 400 components while ensuring adoption across 15 different
-        product teams..."
+        {data[current].transcription}
       </p>
     </div>
   );
