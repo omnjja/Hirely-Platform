@@ -49,7 +49,7 @@ const TopMatchesJobs = () => {
                 <p className="text-[#2C2F31] text-2xl font-bold">
                   {firstJob?.title}
                 </p>
-                <p className="text-[#595C5E] text-base">
+                <p className="text-[#595C5E] text-base line-clamp-6">
                   {firstJob?.companySummary || "Company summary not available."}
                 </p>
               </div>
@@ -77,7 +77,7 @@ const TopMatchesJobs = () => {
 
         {/* card2 */}
         <div className="w-full md:w-1/3 flex flex-col justify-between p-6 bg-[#EEF1F3] border-3 border-[#EEF1F3] rounded-[48px]">
-          <div className="flex flex-col gap-5 mb-5 lg:mb-0">
+          <div className="flex flex-col gap-5 mb-5 lg:mb-2">
             <div className="flex justify-between">
               <p className="py-2 px-4 sm:py-3 sm:px-5 bg-[#E5E9EB] rounded-full text-base sm:text-xl font-bold text-[#0576D6] shrink-0">
                 {secondJob?.companyName[0]?.toUpperCase() || "?"}
@@ -98,7 +98,7 @@ const TopMatchesJobs = () => {
                 {secondJob?.companyName} • {secondJob?.location}
               </p>
             </div>
-            <p className="text-sm text-[#595C5ECC] overflow-hidden  text-ellipsis whitespace-nowrap">
+            <p className="text-sm text-[#595C5ECC] line-clamp-4">
               {secondJob?.companySummary || "Company summary not available."}
             </p>
           </div>

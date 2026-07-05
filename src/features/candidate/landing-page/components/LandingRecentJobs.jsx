@@ -44,12 +44,12 @@ const LandingRecentJobs = () => {
           <div className="flex items-center gap-3 sm:gap-5 self-end sm:self-auto">
             <div className="flex flex-col">
               <p className="font-bold text-sm sm:text-base text-[#006948]">
-                74% Match
-                {/* {job.match} */}
+                {`${Math.round(job.matchScore * 100)}% Match`}
               </p>
               <p className="text-[9px] sm:text-[10px] text-[#747779]">
-                Relevant Skills: 12
-                {/* {job.skills} */}
+                {job?.matchedSkillsCount
+                  ? `Relevant Skills: ${job?.matchedSkillsCount}`
+                  : ""}
               </p>
             </div>
             <p className="flex items-center p-1 bg-[#E5E9EB] rounded-full text-lg sm:text-xl font-bold text-[#747779] cursor-pointer transition hover:scale-110 duration-400">
