@@ -65,7 +65,7 @@ function App() {
               element={<StartInterview />}
             />
             <Route
-              path="interviews/:interviewId/video-interview-session/"
+              path="interviews/:applicationId/video-interview-session/:interviewId"
               element={<VideoInterviewPage />}
             />
             <Route

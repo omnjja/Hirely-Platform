@@ -11,9 +11,10 @@ import useCreateVidURL from "@/features/video-interview/hooks/useCreateVidURL";
 import toast from "react-hot-toast";
 import useSaveVideoAnswer from "@/features/video-interview/hooks/useSaveVideoAnswer";
 import useAppNavigate from "@/hooks/useAppNavigate";
+import { useParams } from "react-router-dom";
 
 const VideoInterviewPage = () => {
-  const applicationId = "6a491971477dd71a18367921";
+  const { applicationId, interviewId } = useParams();
 
   const { toSubmitInterview } = useAppNavigate();
   const { data: interviewSession, isLoading } =
@@ -23,14 +24,14 @@ const VideoInterviewPage = () => {
     if (
       interviewSession?.answeredCount ===
         interviewSession?.questions?.length - 1 &&
-      interviewSession?.interviewId
+      interviewId
     ) {
-      toSubmitInterview(interviewSession?.interviewId);
+      toSubmitInterview(interviewId);
     }
   }, [
     interviewSession?.answeredCount,
     interviewSession?.questions?.length,
-    interviewSession?.interviewId,
+    interviewId,
     toSubmitInterview,
   ]);
 
@@ -52,12 +53,12 @@ const VideoInterviewPage = () => {
     } else {
       return 0;
     }
-  }, [sortedQuestions]);
+  }, [sortedQuestions, interviewSession?.answeredCount]);
 
   const { interview, media, timers, actions } = useInterviewFlow({
     currentStep: startStep,
     questions: sortedQuestions,
-    interviewId: interviewSession?.interviewId,
+    interviewId: interviewId,
     createVideoURL,
     submitAnswer,
   });
@@ -78,10 +79,10 @@ const VideoInterviewPage = () => {
   };
 
   useEffect(() => {
-    if (interview.phase === PHASES.SUBMITTED && interviewSession?.interviewId) {
-      toSubmitInterview(interviewSession.interviewId);
+    if (interview.phase === PHASES.SUBMITTED && interviewId) {
+      toSubmitInterview(interviewId);
     }
-  }, [interview.phase, interviewSession?.interviewId, toSubmitInterview]);
+  }, [interview.phase, interviewId, toSubmitInterview]);
 
   if (media.cameraError) {
     return (
@@ -129,17 +130,24 @@ const VideoInterviewPage = () => {
           totalDuration={interview?.currentQuestion?.answerDuration}
         />
 
-        <p className="text-center text-sm text-[#595c5e]">
-          Max duration{" "}
-          <span className="font-semibold">
-            {formatTime(interview?.currentQuestion?.answerDuration)}
-          </span>
-        </p>
+        <div className="text-center text-sm text-[#595c5e]">
+          <div>
+            Minimum duration {" "}
+            <span className="font-semibold">{formatTime(30)}</span>
+          </div>
+          <div>
+            maximum duration {" "}
+            <span className="font-semibold">
+              {formatTime(interview?.currentQuestion?.answerDuration)}
+            </span>
+          </div>
+        </div>
 
         <VideoActions
           phase={interview.phase}
           stopRecording={actions.stopRecording}
           isPending={isPending || interview.isPending}
+          recordingElapsed={timers.recordingElapsed}
           onSubmit={handleSubmit}
         />
       </div>

@@ -2,18 +2,25 @@ import React, { memo } from "react";
 import { ArrowRight, Square } from "lucide-react";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 
-const VideoActions = ({ phase, stopRecording, onSubmit, isPending }) => {
+const VideoActions = ({
+  phase,
+  stopRecording,
+  onSubmit,
+  recordingElapsed,
+  isPending,
+}) => {
   const isRecording = phase === "recording";
   const isReview = phase === "review";
+  const cantStopRecording = recordingElapsed < 30;
 
   return (
     <div className="flex flex-col gap-5 md:gap-0">
       <div className="flex flex-wrap items-center justify-center gap-4">
         {isRecording && (
           <button
-            disabled={!isRecording}
+            disabled={!isRecording || cantStopRecording}
             onClick={stopRecording}
-            className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0576D6] text-white shadow-md transition hover:bg-[#0568bd]"
+            className={`flex h-12 w-12 items-center justify-center rounded-full bg-[#0576D6] text-white shadow-md transition hover:bg-[#0568bd] ${cantStopRecording ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             <Square size={18} fill="white" />
           </button>

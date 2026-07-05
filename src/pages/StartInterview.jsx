@@ -27,7 +27,7 @@ const StartInterview = () => {
       interviewSession?.status === "STARTED"
     ) {
       const response = await startInterviewSession();
-      toInterviewSession(response.interviewId);
+      toInterviewSession(applicationId, response?.interviewId);
     } else {
       toast.error("You cannot start the interview at this time.");
     }
