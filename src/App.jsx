@@ -26,6 +26,7 @@ import LandingPage from "./pages/LandingPage";
 import CandidateLandingPage from "./pages/CandidateLandingPage";
 import JobMatches from "./pages/JobMatches";
 import JobsOverviewDashboard from "./pages/JobsOverviewDashboard";
+import ViewCandidate from "./pages/ViewCandidate";
 import ScrollToTop from "./components/ScrollToTop";
 import ApplicationsAnalysis from "./pages/ApplicationsAnalysis";
 import VideoInterviewPage from "./pages/VideoInterviewPage";
@@ -86,6 +87,10 @@ function App() {
             <Route
               path="analytics/:jobId/applications-analytics"
               element={<ApplicationsAnalysis />}
+            />
+            <Route
+              path="applications/:applicationId"
+              element={<ViewCandidate />}
             />
           </Route>
         </Route>

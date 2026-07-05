@@ -8,17 +8,18 @@ import { getCandidateProfile } from "@/features/candidate/profile/services/candi
 import useUpdateProfileMutation from "@/features/candidate/profile/hooks/useUpdateProfileMutation";
 import { updatedCandidatePayload } from "@/constants/updatedCandidatePayload";
 import EditProfile from "@/features/candidate/profile/components/EditProfile";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import CandidateProfileSkeleton from "@/features/candidate/profile/components/profileComponents/CandidateProfileSkeleton";
 import CvSection from "@/features/candidate/profile/components/profileComponents/CvSection";
-import toast from "react-hot-toast";
+import ErrorComponent from "@/components/ui/ErrorComponent";
 
 const CandidateProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     data: profileData,
     isLoading,
-    isError,
+    error,
+    refetch,
   } = useQuery({
     queryKey: ["candidateProfile"],
     queryFn: getCandidateProfile,
@@ -36,8 +37,7 @@ const CandidateProfile = () => {
     }
   };
   if (isLoading) return <CandidateProfileSkeleton />;
-  if (isError)
-    return toast.error("error while fetching data. Please try again.");
+  if (error) return <ErrorComponent error={error} action={() => refetch()} />;
 
   return (
     <>

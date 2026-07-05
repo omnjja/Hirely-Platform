@@ -5,13 +5,7 @@ import { hrRegistrationSchema } from "@/schemas/hrRegistrationSchema";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import Field from "@/components/ui/Field";
 
-const EditHrProfileForm = ({
-  isOpen,
-  onClose,
-  profileData,
-  onSubmit,
-  isPending,
-}) => {
+const EditHrProfileForm = ({ onClose, profileData, onSubmit, isPending }) => {
   const {
     register,
     handleSubmit,

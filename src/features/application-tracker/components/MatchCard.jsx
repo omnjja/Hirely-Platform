@@ -12,11 +12,12 @@ const MatchCard = () => {
       </p>
       <div className="flex items-center mb-2 gap-3 ">
         <p className="text-[#595C5E] font-normal text-sm">
-          Your profile aligns with {data ? data.bestMatchScore : "0"}% of
-          current AI Engineering roles.
+          Your profile aligns with{" "}
+          {data ? Math.round(data.bestMatchScore * 100) : "0"}% of current AI
+          Engineering roles.
         </p>
         <span className="border-4 border-[#1BA2A5] rounded-full md:w-16 w-14 md:h-12 h-12 md:p-1 flex items-center justify-center">
-          {data ? data.bestMatchScore : "0"}%
+          {data ? Math.round(data.bestMatchScore * 100) : "0"}%
         </span>
       </div>
     </div>

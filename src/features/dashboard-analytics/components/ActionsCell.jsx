@@ -16,6 +16,7 @@ const ActionsCell = ({
   onToggleViewSummary,
   editing,
   onToggleEdit,
+  onToggleViewProfile,
 }) => {
   return (
     <div className="flex items-center justify-center md:justify-end gap-4 text-slate-400">
@@ -37,7 +38,11 @@ const ActionsCell = ({
           <RemoveRedEyeOutlinedIcon sx={{ fontSize: 18 }} />
         </button>
 
-        <button  className="hover:text-slate-600" aria-label="View Profile">
+        <button
+          className="hover:text-slate-600"
+          aria-label="View Profile"
+          onClick={onToggleViewProfile}
+        >
           <ArrowOutwardOutlinedIcon sx={{ fontSize: 18 }} />
         </button>
       </div>
@@ -57,12 +62,18 @@ const ActionsCell = ({
               Edit Status
             </DropdownMenuItem>
 
-            <DropdownMenuItem aria-label="View Summary" onClick={onToggleViewSummary}>
+            <DropdownMenuItem
+              aria-label="View Summary"
+              onClick={onToggleViewSummary}
+            >
               <RemoveRedEyeOutlinedIcon sx={{ fontSize: 14 }} />
               View Summary
             </DropdownMenuItem>
 
-            <DropdownMenuItem aria-label="View Profile" >
+            <DropdownMenuItem
+              aria-label="View Profile"
+              onClick={onToggleViewProfile}
+            >
               <ArrowOutwardOutlinedIcon sx={{ fontSize: 14 }} />
               View Profile
             </DropdownMenuItem>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import DashboardStats from "@/features/dashboard-analytics/components/DashboardStats";
 import ApplicantInflowCard from "@/features/dashboard-analytics/components/ApplicantInflowCard";
 import RecruitmentFunnelCard from "@/features/dashboard-analytics/components/RecruitmentFunnelCard";
@@ -6,16 +6,15 @@ import ActiveHiringProgress from "@/features/dashboard-analytics/components/Acti
 import DepartmentVolumeCard from "@/features/dashboard-analytics/components/DepartmentVolumeCard";
 import useHistoricalDashboard from "@/features/dashboard-analytics/hooks/useHistoricalDashboard";
 import JobsOverviewSkeleton from "@/features/dashboard-analytics/components/JobsOverviewSkeleton";
-import { toast } from "react-hot-toast";
+import ErrorComponent from "@/components/ui/ErrorComponent";
 
 const JobsOverviewDashboard = () => {
   const [deptPage, setDeptPage] = useState(1);
-  const { isLoading, isError, isFetching, data } = useHistoricalDashboard({
-    deptPage,
-  });
-  useEffect(() => {
-    if (isError) toast.error("Failed to load dashboard data.");
-  }, [isError]);
+  const { isLoading, error, refetch, isFetching, data } =
+    useHistoricalDashboard({
+      deptPage,
+    });
+  if (error) return <ErrorComponent error={error} action={() => refetch()} />;
   if (isLoading) return <JobsOverviewSkeleton />;
   if (!data) {
     return <JobsOverviewSkeleton />;

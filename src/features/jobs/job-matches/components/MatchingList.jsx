@@ -3,13 +3,13 @@ import JobCardPrimary from "./JobCardPrimary";
 import JobCardSecondary from "./JobCardSecondary";
 import useTopMatches from "../hooks/useTopMatches";
 import MatchingListSkeleton from "./MatchingListSkeleton";
-import toast from "react-hot-toast";
+import ErrorComponent from "@/components/ui/ErrorComponent";
 
 const MatchingList = () => {
-  const { data, isLoading, isError } = useTopMatches({ limit: 5 });
+  const { data, isLoading, error, refetch } = useTopMatches({ limit: 5 });
 
   if (isLoading) return <MatchingListSkeleton />;
-  if (isError) toast.error("Failed to load matching roles.");
+  if (error) return <ErrorComponent error={error} action={() => refetch()} />;
 
   const jobs = data?.items || [];
 

@@ -10,6 +10,7 @@ import TableHeader from "./TableHeader";
 import { useAnalysisFilterationStore } from "../store/AnalysisFilterationStore";
 import { useCandidateAppSummaryStore } from "../store/applicationSummaryStore";
 import { RefreshCw } from "lucide-react";
+import useAppNavigate from "@/hooks/useAppNavigate";
 
 export default function CandidateTable({
   dashboardData,
@@ -27,6 +28,7 @@ export default function CandidateTable({
     viewingSummaryId,
     setViewingSummaryId,
   } = useCandidateAppSummaryStore();
+  const { toViewCandidate } = useAppNavigate();
 
   const totalPages = Math.ceil(totalApplications / (pagination?.limit || 10));
 
@@ -77,6 +79,9 @@ export default function CandidateTable({
                       }
                       onToggleViewSummary={() =>
                         setViewingSummaryId(application?.applicationId)
+                      }
+                      onToggleViewProfile={() =>
+                        toViewCandidate(application.applicationId)
                       }
                     />
                   </div>
@@ -186,6 +191,9 @@ export default function CandidateTable({
                     }
                     onToggleViewSummary={() =>
                       setViewingSummaryId(application?.applicationId)
+                    }
+                    onToggleViewProfile={() =>
+                      toViewCandidate(application.applicationId)
                     }
                   />
                 </div>
