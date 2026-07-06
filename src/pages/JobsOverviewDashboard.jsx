@@ -8,6 +8,7 @@ import useHistoricalDashboard from "@/features/dashboard-analytics/hooks/useHist
 import JobsOverviewSkeleton from "@/features/dashboard-analytics/components/JobsOverviewSkeleton";
 import ErrorComponent from "@/components/ui/ErrorComponent";
 import NoJobsFound from "@/features/dashboard-analytics/components/NoJobsFound";
+import NoApplicantsFound from "@/features/dashboard-analytics/components/NoApplicantsFound";
 
 const JobsOverviewDashboard = () => {
   const [deptPage, setDeptPage] = useState(1);
@@ -20,27 +21,34 @@ const JobsOverviewDashboard = () => {
     error?.response?.data?.message === "Did not Find any jobs for this user";
   if (isLoading) return <JobsOverviewSkeleton />;
   if (isNoJobs) return <NoJobsFound />;
+  // if (data?.headers.totalApplications === 0) return <NoApplicantsFound />;
   if (error) return <ErrorComponent error={error} action={() => refetch()} />;
   if (!data) {
     return <JobsOverviewSkeleton />;
   }
   return (
     <div className="ml-3 mr-3 md:mr-0 my-3 flex flex-col gap-6">
-      <DashboardStats data={data?.headers} />
-      <div className="flex flex-col md:flex-row gap-4">
-        <div className="flex-2 h-full">
-          <ApplicantInflowCard data={data?.inflow_trend} />
-        </div>
+      {data?.headers.totalApplications === 0 ? (
+        <NoApplicantsFound />
+      ) : (
+        <>
+          <DashboardStats data={data?.headers} />
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-2 h-full">
+              <ApplicantInflowCard data={data?.inflow_trend} />
+            </div>
 
-        <div className="flex-1 h-full">
-          <RecruitmentFunnelCard data={data?.recruitement_funnel} />
-        </div>
-      </div>
-      <DepartmentVolumeCard
-        data={data?.volume_by_department}
-        onPageChange={setDeptPage}
-        isFetching={isFetching}
-      />
+            <div className="flex-1 h-full">
+              <RecruitmentFunnelCard data={data?.recruitement_funnel} />
+            </div>
+          </div>
+          <DepartmentVolumeCard
+            data={data?.volume_by_department}
+            onPageChange={setDeptPage}
+            isFetching={isFetching}
+          />
+        </>
+      )}
       <ActiveHiringProgress />
     </div>
   );

@@ -9,8 +9,7 @@ import {
 } from "recharts";
 
 const ApplicantInflowCard = ({ data }) => {
-  const { inflowData = {}, totalApplications = 0 } = data;
-
+  const { inflowData = [], totalApplications = 0 } = data ?? {};
   const chartData = useMemo(
     () =>
       inflowData.map((item) => ({
@@ -20,18 +19,18 @@ const ApplicantInflowCard = ({ data }) => {
     [inflowData],
   );
 
-  const maxValue = useMemo(
-    () => Math.max(...chartData.map((d) => d.value)),
-    [chartData],
-  );
+  const maxValue = useMemo(() => {
+    if (!chartData.length) return 0;
+    return Math.max(...chartData.map((d) => d.value));
+  }, [chartData]);
 
-  const peakMonth = useMemo(
-    () =>
-      inflowData.reduce((max, item) =>
-        item.total_applications > max.total_applications ? item : max,
-      ),
-    [inflowData],
-  );
+  const peakMonth = useMemo(() => {
+    if (!inflowData.length) return null;
+
+    return inflowData.reduce((max, item) =>
+      item.total_applications > max.total_applications ? item : max,
+    );
+  }, [inflowData]);
 
   const average = useMemo(
     () =>
@@ -94,7 +93,9 @@ const ApplicantInflowCard = ({ data }) => {
         {[
           [
             "Peak Month",
-            `${peakMonth.month.split(" ")[0]} — ${peakMonth.total_applications}`,
+            peakMonth
+              ? `${peakMonth.month.split(" ")[0]} — ${peakMonth.total_applications}`
+              : "No data",
           ],
           [`${chartData.length}-mo Total`, totalApplications],
           ["Monthly Avg", average],

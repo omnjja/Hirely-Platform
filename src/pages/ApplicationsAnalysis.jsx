@@ -37,31 +37,24 @@ const ApplicationsAnalysis = () => {
         isLoading={isLoading}
         error={error}
       />
-      {!isLoading && <Toolbar jobId={data?.jobId} />}
       {hasNoData ? (
         <div className="flex h-96 items-center justify-center rounded-lg border border-dashed">
           <p className="text-gray-500">No applications found for this job.</p>
         </div>
       ) : (
-        <CandidateTable
-          dashboardData={data?.dashboardData}
-          pagination={data?.pagination}
-          totalApplications={data?.pagination?.total}
-          isLoading={isLoading}
-          isFetching={isFetching}
-          error={error}
-          refetch={refetch}
-        />
+        <>
+          {!isLoading && <Toolbar jobId={data?.jobId} />}
+          <CandidateTable
+            dashboardData={data?.dashboardData}
+            pagination={data?.pagination}
+            totalApplications={data?.pagination?.total}
+            isLoading={isLoading}
+            isFetching={isFetching}
+            error={error}
+            refetch={refetch}
+          />
+        </>
       )}
-      {/* <CandidateTable
-        dashboardData={data?.dashboardData}
-        pagination={data?.pagination}
-        totalApplications={data?.pagination?.total}
-        isLoading={isLoading}
-        isFetching={isFetching}
-        error={error}
-        refetch={refetch}
-      /> */}
       {onViewSummary && (
         <CandidateSummary applicationId={"dkhdk"} jobId={data?.jobId} />
       )}
