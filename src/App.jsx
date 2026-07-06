@@ -24,7 +24,15 @@ import HrProfile from "./pages/HrProfile";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import LandingPage from "./pages/LandingPage";
 import CandidateLandingPage from "./pages/CandidateLandingPage";
+import JobMatches from "./pages/JobMatches";
+import JobsOverviewDashboard from "./pages/JobsOverviewDashboard";
+import ViewCandidate from "./pages/ViewCandidate";
 import ScrollToTop from "./components/ScrollToTop";
+import ApplicationsAnalysis from "./pages/ApplicationsAnalysis";
+import VideoInterviewPage from "./pages/VideoInterviewPage";
+import StartInterview from "./pages/StartInterview";
+import SubmitVideoInterview from "./pages/SubmitVideoInterview";
+import VideoInterviewAnalytics from "./pages/VideoInterviewAnalytics";
 
 function App() {
   return (
@@ -52,6 +60,23 @@ function App() {
             <Route path="jobs" element={<BrowseJobs />} />
             <Route path="jobs/:id" element={<JobDetailsPage />} />
             <Route path="applications" element={<ApplicationTracker />} />
+            <Route path="job-matches" element={<JobMatches />} />
+            <Route
+              path="applications/:applicationId/start-video-interview"
+              element={<StartInterview />}
+            />
+            <Route
+              path="interviews/:applicationId/video-interview-session/:interviewId"
+              element={<VideoInterviewPage />}
+            />
+            <Route
+              path="interviews/:interviewId/submit-video-interview/"
+              element={<SubmitVideoInterview />}
+            />
+            <Route
+              path="applications/:applicationId/analytics"
+              element={<VideoInterviewAnalytics />}
+            />
           </Route>
         </Route>
 
@@ -63,7 +88,15 @@ function App() {
             <Route path="jobs/:id/edit" element={<EditJobPosting />} />
             <Route path="profile" element={<HrProfile />} />
             <Route index element={<Navigate to="analytics" replace />} />
-            <Route path="analytics" element={<div>analytics</div>} />
+            <Route path="analytics" element={<JobsOverviewDashboard />} />
+            <Route
+              path="analytics/:jobId/applications-analytics"
+              element={<ApplicationsAnalysis />}
+            />
+            <Route
+              path="applications/:applicationId"
+              element={<ViewCandidate />}
+            />
           </Route>
         </Route>
 

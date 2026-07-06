@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import Card from "@/components/ui/Card";
 import BasicInfoSection from "./BasicInfoSection";
-import JobCompensations from "./JobCompensations";
+import JobDates from "./JobDates";
 import JobDetails from "./JobDetails";
 import JobSkills from "./JobSkills";
 import VideoQuestions from "./VideoQuestions";
@@ -9,7 +9,11 @@ import { Box, Grid } from "@mui/material";
 import JobPostHeader from "./JobPostHeader";
 import { SquareChevronUp, Wrench } from "lucide-react";
 import useCustomForm from "@/hooks/useCustomForm";
-import { jobDefaultValues, jobSchema } from "@/schemas/jobSchema";
+import {
+  editJobSchema,
+  jobDefaultValues,
+  jobSchema,
+} from "@/schemas/jobSchema";
 import { FormProvider } from "react-hook-form";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import { useCreateJobMutation } from "../hooks/useCreateJobMutation";
@@ -32,7 +36,7 @@ const JobForm = ({ mode = "post", initialValues = {} }) => {
 
   const methods = useCustomForm({
     defaultValues: formattedInitialValues,
-    schema: jobSchema,
+    schema: mode === "edit" ? editJobSchema : jobSchema,
     mode: "onChange",
   });
 
@@ -53,8 +57,6 @@ const JobForm = ({ mode = "post", initialValues = {} }) => {
       ...data,
       skills: data.skills.map((item) => item.value ?? item),
       keywords: data.keywords.map((item) => item.value ?? item),
-      compensationMin: Number(data.compensationMin),
-      compensationMax: Number(data.compensationMax),
     };
     try {
       if (mode === "edit") {
@@ -107,7 +109,7 @@ const JobForm = ({ mode = "post", initialValues = {} }) => {
                     size={{ xs: 12, md: 6 }}
                     className="flex flex-col gap-4 sm:gap-6"
                   >
-                    <JobCompensations />
+                    <JobDates />
                     <JobSkills
                       head="Required Skills"
                       name="skills"
@@ -148,6 +150,7 @@ const JobForm = ({ mode = "post", initialValues = {} }) => {
                       shadow: "sm",
                     }}
                     onClick={() => back()}
+                    aria-label="Cancel Job Form"
                     disabled={methods.formState.isSubmitting}
                   />
                 )}
@@ -156,6 +159,7 @@ const JobForm = ({ mode = "post", initialValues = {} }) => {
                   type="submit"
                   fullWidth
                   disabled={methods.formState.isSubmitting}
+                  aria-label={mode === "edit" ? "Save Changes" : "Submit Job"}
                 >
                   {mode === "edit"
                     ? methods.formState.isSubmitting

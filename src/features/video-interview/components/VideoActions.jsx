@@ -1,0 +1,61 @@
+import React, { memo } from "react";
+import { ArrowRight, FastForward, Square } from "lucide-react";
+import ButtonComponent from "@/components/ui/ButtonComponent";
+
+const VideoActions = ({
+  phase,
+  stopRecording,
+  onSubmit,
+  recordingElapsed,
+  skipCountdown,
+  isPending,
+}) => {
+  const isRecording = phase === "recording";
+  const isReview = phase === "review";
+  const isPreparing = phase === "preparing";
+  const cantStopRecording = recordingElapsed < 30;
+
+  return (
+    <div className="flex flex-col gap-5 md:gap-0">
+      <div className="flex flex-wrap items-center justify-center gap-4">
+        {isPreparing && (
+          <button
+            onClick={skipCountdown}
+            aria-label="Skip countdown"
+            title="Skip countdown"
+            className="flex items-center rounded-full bg-[#0576D6] px-4 py-4 text-sm text-white shadow-md transition hover:bg-[#0568bd] cursor-pointer"
+          >
+            <FastForward size={16} fill="white" />
+          </button>
+        )}
+        {isRecording && (
+          <button
+            disabled={!isRecording || cantStopRecording}
+            onClick={stopRecording}
+            className={`flex h-12 w-12 items-center justify-center rounded-full bg-[#0576D6] text-white shadow-md transition hover:bg-[#0568bd] ${cantStopRecording ? "opacity-50 cursor-not-allowed" : ""}`}
+          >
+            <Square size={18} fill="white" />
+          </button>
+        )}
+      </div>
+
+      <div className="flex justify-stretch lg:justify-end mt-2 lg:mt-0">
+        <div className="w-full lg:w-auto">
+          <ButtonComponent
+            onClick={onSubmit}
+            disabled={!isReview || isPending}
+            style={{ bgColor: "#0576D6" }}
+            className="w-full shadow-sm lg:w-auto"
+          >
+            <div className="flex items-center justify-center gap-2">
+              <p> Submit Answer</p>
+              <ArrowRight className="h-4 w-4" />
+            </div>
+          </ButtonComponent>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default memo(VideoActions);

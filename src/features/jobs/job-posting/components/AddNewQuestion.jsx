@@ -43,6 +43,7 @@ const AddNewQuestion = ({ quationsNum, onCancelQuestion }) => {
           className="bg-[#1B41AA]"
           style={{ size: "xs" }}
           onClick={() => handleAdd()}
+          aria-label="Add Video Question"
         />
         <ButtonComponent
           type="button"
@@ -57,6 +58,7 @@ const AddNewQuestion = ({ quationsNum, onCancelQuestion }) => {
             },
           }}
           onClick={() => onCancelQuestion()}
+          aria-label="Cancel Adding Video Question"
         />
       </div>
     </div>

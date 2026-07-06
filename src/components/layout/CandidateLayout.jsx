@@ -48,20 +48,11 @@ const CandidateLayout = () => {
         </div>
 
         <div className="px-4 py-4">
-          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,1fr)] gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
             {/* Main Page */}
-            <div>
+            <main>
               <Outlet />
-            </div>
-
-            {/* AI Card */}
-            <div className="order-2 lg:order-0">
-              <div className="p-4 sm:p-5 bg-white border rounded-xl shadow-sm lg:sticky lg:top-20">
-                <p className="text-sm font-medium text-gray-500 mb-4 flex items-center gap-2">
-                  AI Card?
-                </p>
-              </div>
-            </div>
+            </main>
           </div>
         </div>
       </div>

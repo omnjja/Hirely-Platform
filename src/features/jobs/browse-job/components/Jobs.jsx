@@ -5,10 +5,36 @@ import { ChevronLeft, ChevronRight, RefreshCw } from "lucide-react";
 import JobSkeleton from "./JobSkeleton";
 import ErrorComponent from "@/components/ui/ErrorComponent";
 import ButtonComponent from "@/components/ui/ButtonComponent";
+import { useJobFilterationStore } from "../store/jobFiltersStore";
 
 const Jobs = () => {
-  const { data, isLoading, isFetching, error, refetch, page, setPage } =
-    useJobs();
+  const {
+    page,
+    limit,
+    search,
+    jobType,
+    experienceLevel,
+    workplaceType,
+    location,
+    industry,
+    datePosted,
+    applied,
+    incrementPage,
+    decrementPage,
+  } = useJobFilterationStore();
+  const { data, isLoading, isFetching, error, refetch } = useJobs({
+    page,
+    limit,
+    search,
+    jobType,
+    experienceLevel,
+    workplaceType,
+    location,
+    industry,
+    datePosted,
+    applied,
+  });
+
   const hasPrev = page > 1;
   const hasNext = page < data?.totalPages;
 
@@ -48,7 +74,8 @@ const Jobs = () => {
 
           <div className="flex items-center justify-evenly pt-2 pb-5 border-t border-gray-100">
             <ButtonComponent
-              onClick={() => setPage((p) => p - 1)}
+              onClick={() => decrementPage()}
+              aria-label="Previous Page"
               disabled={!hasPrev || isFetching}
               style={{
                 bgColor: "#1B41AA",
@@ -63,10 +90,16 @@ const Jobs = () => {
               </div>
             </ButtonComponent>
 
-            <span className="text-xs text-gray-400">Page {page} | {data?.totalPages}</span>
+            <span className="text-xs text-gray-400">
+              Page {page} | {data?.totalPages}
+            </span>
 
             <ButtonComponent
-              onClick={() => setPage((p) => p + 1)}
+              onClick={() => {
+                incrementPage();
+                console.log("p: ", page);
+              }}
+              aria-label="Next Page"
               disabled={!hasNext || isFetching}
               style={{
                 bgColor: "#1B41AA",

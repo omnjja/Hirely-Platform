@@ -4,8 +4,8 @@ import clsx from "clsx";
 const MatchPercentage = ({
   percentage = 92,
   label = "Match Score",
-  title = "UX Designer",
-  subtitle = "Google • Remote",
+  title = "",
+  subtitle = "",
   className,
   rounded = "lg",
   circleClassName,
@@ -50,7 +50,7 @@ const MatchPercentage = ({
     >
       <div
         className={clsx(
-          "w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-full p-3 shrink-0",
+          "w-36 h-36 sm:w-38 sm:h-38 md:w-40 md:h-40 rounded-full p-3 shrink-0",
           circleClassName,
         )}
         style={ringStyle}

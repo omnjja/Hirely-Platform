@@ -2,8 +2,8 @@ import React from "react";
 import ButtonComponent from "../ui/ButtonComponent";
 import Logo from "../ui/Logo";
 import FormHeader from "@/features/auth/components/FormHeader";
-import { useNavigate } from "react-router-dom";
 import Lines from "../ui/Lines";
+import useAppNavigate from "@/hooks/useAppNavigate";
 
 const ResetPassLayout = ({
   buttonText,
@@ -16,7 +16,7 @@ const ResetPassLayout = ({
   lowerImage,
   action,
 }) => {
-  const navigate = useNavigate();
+  const { custom } = useAppNavigate();
   return (
     <div className="relative h-screen bg-white">
       {topLines && <Lines position="upperRight" place="upperRight" />}
@@ -35,7 +35,7 @@ const ResetPassLayout = ({
             <ButtonComponent
               text={buttonText}
               fullWidth
-              onClick={() => to ? navigate(to) : action()}
+              onClick={() => (to ? custom(to) : action())}
             />
           </div>
         </div>

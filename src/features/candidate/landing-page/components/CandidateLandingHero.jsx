@@ -1,7 +1,4 @@
 import React from "react";
-import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
-import ButtonComponent from "@/components/ui/ButtonComponent";
-import MatchPercentage from "@/components/ui/MatchPercentage";
 import Card from "@/components/ui/Card";
 import bgImg from "@/assets/strictLines.webp";
 
@@ -13,6 +10,7 @@ const CandidateLandingHero = () => {
     >
       <img
         src={bgImg}
+        alt="Background"
         className="absolute inset-0 w-full h-full object-cover mix-blend-multiply pointer-events-none"
       />
 
@@ -22,35 +20,13 @@ const CandidateLandingHero = () => {
         </p>
         <div className="flex flex-col">
           <p className="w-full md:w-4/6">
-            Our AI has analyzed 1,200+ opportunities to find the career that
-            resonates with your core skills.
+            Our AI has analyzed opportunities to find the career that resonates
+            with your core skills.
           </p>
-          <p className="text-[25px] block lg:hidden font-bold text-[#1FA5A8]">
-            95% Match Score
+          <p className="text-[25px] block font-bold text-[#1FA5A8]">
+            Find Your Perfect Match
           </p>
         </div>
-
-        <ButtonComponent
-          style={{
-            bgColor: "#FFFFFF",
-            textColor: "#0576D6",
-            bold: true,
-          }}
-          className="shrink-0"
-        >
-          <span>
-            Explore Insights
-            <AutoAwesomeOutlinedIcon fontSize="medium" />
-          </span>
-        </ButtonComponent>
-      </div>
-
-      <div className="relative z-5 hidden lg:flex items-end justify-center mt-6 md:mt-0">
-        <MatchPercentage
-          ringVariant="solid"
-          ringColor="#1FA5A8"
-          rounded="5-xl"
-        />
       </div>
     </Card>
   );

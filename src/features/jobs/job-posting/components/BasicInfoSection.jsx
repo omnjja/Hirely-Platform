@@ -4,9 +4,9 @@ import SelectField from "@/components/ui/SelectField";
 import OptionsCard from "@/components/ui/OptionsCard";
 import Box from "@mui/material/Box";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { EXPERIENCE_LEVELS, JOB_TYPES } from "@/constants/jobEnums";
+import { EXPERIENCE_LEVELS, JOB_TYPES, WORKPLACE_TYPES } from "@/constants/jobEnums";
 import { useFormContext } from "react-hook-form";
-import basicInfoImg from "@/assets/basicInfo.webp"
+import basicInfoImg from "@/assets/basicInfo.webp";
 
 const BasicInfoSection = () => {
   const {
@@ -20,7 +20,7 @@ const BasicInfoSection = () => {
     <div className="rounded-xl shadow-xs p-5">
       <div className="text-sm sm:text-[20px] font-semibold mb-6 flex items-center gap-2.5 text-[#2A3439] ">
         <div className="w-10 h-10 overflow-hidden">
-          <img src={basicInfoImg} className=" w-full h-full" />
+          <img src={basicInfoImg} alt="Basic Information" className=" w-full h-full" />
         </div>
         Basic Information
       </div>
@@ -55,7 +55,7 @@ const BasicInfoSection = () => {
           <Grid size={{ xs: 12, md: 4 }}>
             <InputFieldWithLabel
               label="Location"
-              placeholder="e.g. Cairo, Egypt (Remote)"
+              placeholder="e.g. Cairo, Egypt"
               fullWidth
               rounded="xl"
               variant="outlined"
@@ -65,19 +65,19 @@ const BasicInfoSection = () => {
             />
           </Grid>
 
-          <Grid size={{ xs: 12, md: 6 }} className="w-full">
+          <Grid size={{ xs: 12, md: 6 }}>
             <OptionsCard
-              name="jobType"
-              label="Job Type"
-              options={JOB_TYPES}
-              columns={isMobile ? 2 : JOB_TYPES.length}
+              name="Workplace Type"
+              label="Workplace Type"
+              options={WORKPLACE_TYPES}
+              columns={isMobile ? 2 : WORKPLACE_TYPES.length}
               labelClassName="text-[#566166] uppercase tracking-wider"
-              {...register("jobType")}
-              error={errors.jobType?.message}
+              {...register("workplaceType")}
+              error={errors.workplaceType?.message}
             />
           </Grid>
 
-          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <SelectField
               name="experienceLevel"
               label="Experience Level"
@@ -89,6 +89,18 @@ const BasicInfoSection = () => {
               labelClassName="text-[#566166] uppercase line-wider tracking-wider"
               {...register("experienceLevel")}
               error={errors.experienceLevel?.message}
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 8 }} className="w-full">
+            <OptionsCard
+              name="jobType"
+              label="Job Type"
+              options={JOB_TYPES}
+              columns={isMobile ? 2 : JOB_TYPES.length}
+              labelClassName="text-[#566166] uppercase tracking-wider"
+              {...register("jobType")}
+              error={errors.jobType?.message}
             />
           </Grid>
         </Grid>

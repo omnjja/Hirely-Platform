@@ -11,9 +11,6 @@ export const useApplyJobMutation = () => {
     onMutate: async (id) => {
       toast.loading("Applying...", { id: "applyJob" });
 
-      await queryClient.cancelQueries({ queryKey: ["jobs"] });
-      await queryClient.cancelQueries({ queryKey: ["job", id] });
-
       const previousJobs = queryClient.getQueryData({ queryKey: ["jobs"] });
       const previousJob = queryClient.getQueryData({ queryKey: ["job", id] });
 
@@ -29,14 +26,13 @@ export const useApplyJobMutation = () => {
       return { previousJobs, previousJob };
     },
 
-    onSuccess: (data, id) => {
+    onSuccess: async (data, id) => {
       toast.success(data?.application?.nextStepTitle, { id: "applyJob" });
-      queryClient.invalidateQueries({
-        queryKey: ["job", id],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["jobs"],
-      });
+
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["job", id] }),
+        queryClient.invalidateQueries({ queryKey: ["jobs"] }),
+      ]);
     },
 
     onError: (error, id, context) => {

@@ -1,7 +1,6 @@
 import { React, useState } from "react";
 import ProfileInfo from "@/features/candidate/profile/components/profileComponents/ProfileInfo";
 import ProfileTabs from "@/features/candidate/profile/components/profileComponents/ProfileTabs";
-import { profileSections } from "@/constants/profileSections";
 import ExperienceSection from "@/features/candidate/profile/components/profileComponents/ExperienceSection";
 import SkillsSection from "@/features/candidate/profile/components/profileComponents/SkillsSection";
 import EmploymentSection from "@/features/candidate/profile/components/profileComponents/EmploymentSection";
@@ -9,8 +8,10 @@ import { getCandidateProfile } from "@/features/candidate/profile/services/candi
 import useUpdateProfileMutation from "@/features/candidate/profile/hooks/useUpdateProfileMutation";
 import { updatedCandidatePayload } from "@/constants/updatedCandidatePayload";
 import EditProfile from "@/features/candidate/profile/components/EditProfile";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import CandidateProfileSkeleton from "@/features/candidate/profile/components/profileComponents/CandidateProfileSkeleton";
+import CvSection from "@/features/candidate/profile/components/profileComponents/CvSection";
+import ErrorComponent from "@/components/ui/ErrorComponent";
 
 const CandidateProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,25 +19,25 @@ const CandidateProfile = () => {
     data: profileData,
     isLoading,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["candidateProfile"],
     queryFn: getCandidateProfile,
   });
 
   const { mutateAsync: updateProfile, isPending } = useUpdateProfileMutation();
-  const queryClient = useQueryClient();
 
   const handleUpdate = async (formData) => {
     try {
       const payload = updatedCandidatePayload(formData);
       await updateProfile(payload);
-      await queryClient.invalidateQueries(["candidateProfile"]);
       setIsModalOpen(false);
     } catch (error) {
       console.error("Error updating profile:", error);
     }
   };
   if (isLoading) return <CandidateProfileSkeleton />;
+  if (error) return <ErrorComponent error={error} action={() => refetch()} />;
 
   return (
     <>
@@ -44,7 +45,10 @@ const CandidateProfile = () => {
         profileData={profileData}
         onEdit={() => setIsModalOpen(true)}
       />
-      <ProfileTabs sections={profileSections} />
+      <ProfileTabs />
+      <div id="cv">
+        <CvSection cv={profileData?.cvFileUrl} />
+      </div>
 
       <div id="education" className=" py-4">
         <ExperienceSection

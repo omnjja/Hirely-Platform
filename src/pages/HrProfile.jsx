@@ -1,47 +1,32 @@
 import React, { useState } from "react";
 import HrProfileInfo from "@/features/hr-profile/components/HrProfileInfo";
 import CompanyCard from "@/features/hr-profile/components/CompanyCard";
-import { getHrProfile } from "@/features/hr-profile/services/JobService";
-import { useQuery } from "@tanstack/react-query";
 import EditHrProfileForm from "@/features/hr-profile/components/EditHrProfileForm";
-import { useQueryClient } from "@tanstack/react-query";
 import useUpdateProfileMutation from "@/features/hr-profile/hooks/useUpdateHrMutation";
 import HrProfileSkeleton from "@/features/hr-profile/components/HrProfileSkeleton";
+import useHrProfile from "@/features/hr-profile/hooks/useHrProfile";
+import ErrorComponent from "@/components/ui/ErrorComponent";
 
 const HrProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const queryClient = useQueryClient();
 
-  const { data: hrData, isLoading } = useQuery({
-    queryKey: ["hrProfile"],
-    queryFn: getHrProfile,
+  const { data: hrData, isLoading, error, refetch } = useHrProfile();
+  const { mutate: updateProfile, isPending } = useUpdateProfileMutation({
+    onSuccess: () => setIsModalOpen(false),
   });
-  const { mutateAsync: updateProfile, isPending } = useUpdateProfileMutation();
-  const handleUpdate = async (formData) => {
-    try {
-      await updateProfile(formData);
-      await queryClient.invalidateQueries({
-        queryKey: ["hrProfile"],
-      });
-      setIsModalOpen(false);
-    } catch (error) {
-      console.error("Error updating profile:", error);
-    }
+
+  const handleUpdate = (formData) => {
+    updateProfile(formData);
   };
 
-  if (!hrData && !isLoading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <span className="text-gray-500">Profile not found.</span>
-      </div>
-    );
-  }
+  if (error) return <ErrorComponent error={error} action={() => refetch()} />;
+
   return (
     <>
       {isLoading ? (
         <HrProfileSkeleton />
       ) : (
-        <div className="flex flex-col gap-4 py-4 w-full">
+        <div className="flex flex-col gap-4 py-4 w-full md:mx-4 ">
           <HrProfileInfo data={hrData} onEdit={() => setIsModalOpen(true)} />
           <CompanyCard data={hrData} />
 

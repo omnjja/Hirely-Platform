@@ -6,16 +6,16 @@ import {
 
 const LandingContent = () => {
   return (
-    <div className="md:w-3/4 w-full md:py-4 md:px-1 md:m-4">
+    <div className="md:w-3/4 w-full md:px-1 ">
       <div className="flex items-center gap-6 mb-5">
         <div className="flex-1 bg-black/10 h-0.5 " />
-        <span className="text-[10.5px] font-semibold text-gray-400 uppercase tracking-widest whitespace-nowrap">
+        <span className="text-[10.5px] font-semibold text-gray-600 uppercase tracking-widest whitespace-nowrap">
           What's inside
         </span>
         <div className="flex-1 bg-black/10 h-0.5" />
       </div>
 
-      <div className="flex flex-wrap md:gap-5 gap-2 justify-start items-start">
+      <div className="flex flex-wrap md:gap-5 gap-2 justify-center md:justify-start items-start">
         {CANDIDATE_FEATURES.map(({ label, icon }) => (
           <span
             key={label}

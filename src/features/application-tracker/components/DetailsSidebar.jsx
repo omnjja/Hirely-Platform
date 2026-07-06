@@ -26,7 +26,7 @@ const DetailsSidebar = ({ app, skills, keywords }) => {
         </p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 space-y-3">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 space-y-3 mt-2">
         <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
           Timeline
         </p>
@@ -47,7 +47,7 @@ const DetailsSidebar = ({ app, skills, keywords }) => {
           href={app.resumeUrl}
           target="_blank"
           rel="noreferrer"
-          className="flex items-center justify-between bg-white rounded-2xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-shadow group"
+          className="flex items-center justify-between mt-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-shadow group"
         >
           <div className="flex items-center gap-3">
             <FileText size={18} className="text-[#0576D6]" />
@@ -63,7 +63,7 @@ const DetailsSidebar = ({ app, skills, keywords }) => {
       )}
 
       {skills.length > 0 && (
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mt-2 p-5">
           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
             Skills
           </p>
@@ -75,9 +75,8 @@ const DetailsSidebar = ({ app, skills, keywords }) => {
         </div>
       )}
 
-      {/* keywords */}
       {keywords.length > 0 && (
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mt-2 p-5">
           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
             Keywords
           </p>

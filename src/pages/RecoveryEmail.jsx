@@ -1,6 +1,5 @@
 import React from "react";
 import ResetPassLayout from "@/components/layout/ResetPassLayout";
-import NextButton from "@/components/ui/NextButton";
 import RecoveryPhoto from "@/assets//recoveryMail.webp";
 
 const RecoveryEmail = () => {
@@ -13,7 +12,6 @@ const RecoveryEmail = () => {
       topLines={true}
       leftLines={true}
     >
-      <NextButton to="/SuccessfulPassword" />
       <div className="w-md h-60 mx-auto pointer-events-none">
         <img src={RecoveryPhoto} className="w-full h-full" />
       </div>

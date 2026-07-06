@@ -1,7 +1,8 @@
 import { React, useState, useEffect } from "react";
+import { profileSections } from "@/constants/profileSections";
 
-const ProfileTabs = ({ sections }) => {
-  const [activeTab, setActiveTab] = useState("education");
+const ProfileTabs = () => {
+  const [activeTab, setActiveTab] = useState("cv");
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     document.getElementById(tab)?.scrollIntoView({ behavior: "smooth" });
@@ -20,7 +21,7 @@ const ProfileTabs = ({ sections }) => {
       },
     );
 
-    sections.forEach((section) => {
+    profileSections.forEach((section) => {
       const el = document.getElementById(section.id);
       if (el) observer.observe(el);
     });
@@ -29,7 +30,7 @@ const ProfileTabs = ({ sections }) => {
   }, []);
   return (
     <div className="flex gap-4 md:gap-6 border-b mt-5 sticky top-0 z-10 bg-white py-3">
-      {sections.map((section) => (
+      {profileSections.map((section) => (
         <button
           key={section.id}
           onClick={() => handleTabChange(section.id)}

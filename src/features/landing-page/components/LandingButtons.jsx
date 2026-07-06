@@ -5,7 +5,7 @@ const LandingButtons = () => {
   const { toLogin, toSignup } = useAppNavigate();
 
   return (
-    <div className="flex md:w-1/2 w-full gap-3 mb-8">
+    <div className="flex md:w-1/2 w-full gap-3 ">
       <button
         onClick={() => toSignup()}
         className="flex-1 h-11 rounded-full bg-[#0576D6] text-white text-sm font-semibold flex items-center justify-center gap-2 transition-all hover:bg-[#0461b8] active:scale-[0.97]"

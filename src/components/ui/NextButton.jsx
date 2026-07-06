@@ -1,8 +1,8 @@
-import { useNavigate } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import useAppNavigate from "@/hooks/useAppNavigate";
 
 const NextButton = ({ text = "Next", to, onClick, disabled = false }) => {
-  const navigate = useNavigate();
+    const { custom } = useAppNavigate();
 
   const handleClick = async (e) => {
     if (disabled) return;
@@ -12,7 +12,7 @@ const NextButton = ({ text = "Next", to, onClick, disabled = false }) => {
     }
 
     if (to) {
-      navigate(to);
+      custom(to);
     }
   };
 
