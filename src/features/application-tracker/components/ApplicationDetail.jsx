@@ -6,7 +6,6 @@ import InfoCard from "./InfoCard";
 import DetailsBar from "./DetailsBar";
 import DetailProgress from "./DetailProgress";
 import DetailsAbout from "./DetailsAbout";
-import InterviewQCard from "./InterviewQCard";
 import DetailsSidebar from "./DetailsSidebar";
 import DetailsFooter from "./DetailsFooter";
 import useAppNavigate from "@/hooks/useAppNavigate";
@@ -21,17 +20,10 @@ const ApplicationDetail = ({ data, onBack }) => {
     app.status,
   );
   const statusStyle = STATUS_CONFIG[app.status] || STATUS_CONFIG.APPLIED;
-  const comp =
-    money(job.compensationMin) && money(job.compensationMax)
-      ? `${money(job.compensationMin)} – ${money(job.compensationMax)}`
-      : money(job.compensationMin) || money(job.compensationMax);
 
   const skills = Array.isArray(job.skills) ? job.skills.filter(Boolean) : [];
   const keywords = Array.isArray(job.keywords)
     ? job.keywords.filter(Boolean)
-    : [];
-  const questions = Array.isArray(job.interviewerQuestions)
-    ? job.interviewerQuestions.filter(Boolean)
     : [];
 
   return (
@@ -39,7 +31,7 @@ const ApplicationDetail = ({ data, onBack }) => {
       <DetailsBar job={job} onBack={onBack} />
 
       <div className="max-w-4xl mx-auto px-4 md:px-8 mt-6 space-y-6">
-        <InfoCard job={job} app={app} statusStyle={statusStyle} comp={comp} />
+        <InfoCard job={job} app={app} statusStyle={statusStyle} />
 
         {isInterview && (
           <div className="flex items-center justify-between bg-[#EEF2FF] border border-[#4C58A6] rounded-xl px-5 py-4">
@@ -91,13 +83,11 @@ const ApplicationDetail = ({ data, onBack }) => {
             <DetailProgress app={app} statusStyle={statusStyle} />
 
             <DetailsAbout job={job} />
-
-            {questions.length > 0 && <InterviewQCard questions={questions} />}
           </div>
 
           <div className="space-y-6">
             <DetailsSidebar app={app} skills={skills} keywords={keywords} />
-            <DetailsFooter job={job} app={app} />
+            <DetailsFooter app={app} />
           </div>
         </div>
       </div>

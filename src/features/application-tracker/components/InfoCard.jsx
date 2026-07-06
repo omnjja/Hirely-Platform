@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import InfoChip from "./InfoChip";
 
-const InfoCard = ({ job, app, statusStyle, comp }) => {
+const InfoCard = ({ job, app, statusStyle }) => {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
       <div className={`h-1.5 w-full ${statusStyle.barColor}`} />
@@ -39,7 +39,6 @@ const InfoCard = ({ job, app, statusStyle, comp }) => {
           <InfoChip icon={MapPin} label={job.location} />
           <InfoChip icon={Briefcase} label={job.department} />
           <InfoChip icon={Clock} label={job.jobType?.replace("_", " ")} />
-          <InfoChip icon={DollarSign} label={comp} />
           <InfoChip
             icon={Users}
             label={job.companySize ? `${job.companySize} employees` : null}
