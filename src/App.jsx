@@ -46,7 +46,10 @@ function App() {
           path="/candidate/complete-profile"
           element={<CandidateRegistration />}
         />
-        <Route path="/hr/complete-profile" element={<HrRegistration />} />
+        <Route
+          path="/recruiter/complete-profile"
+          element={<HrRegistration />}
+        />
 
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
         <Route path="/ResetPassword" element={<ResetPassword />} />
