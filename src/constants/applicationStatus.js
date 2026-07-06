@@ -7,9 +7,11 @@ export const APPLICATION_STATUSES_FILTERS = {
 };
 
 export const APPLICATION_STATUSES = {
+  PENDING: "Pending",
   APPLIED: "Applied",
   IN_REVIEW: "In Review",
-  SHORTLISTED: "ShortListed",
+  SHORTLISTED: "Shortlisted",
+  CV_FAILED: "CV Failed",
   INTERVIEW: "Interview",
   ACCEPTED: "Accepted",
   REJECTED: "Rejected",
@@ -60,6 +62,25 @@ export const STATUS_CONFIG = {
     borderTop: "bg-black",
     detailBg: "bg-red-50",
     detailText: "text-red-500",
+  },
+  PENDING: {
+    label: "Pending",
+    badgeBg: "bg-amber-100",
+    badgeText: "text-amber-700",
+    barColor: "bg-amber-400",
+    borderTop: "bg-amber-400",
+    detailBg: "bg-amber-50",
+    detailText: "text-amber-700",
+  },
+
+  CV_FAILED: {
+    label: "CV Failed",
+    badgeBg: "bg-red-100",
+    badgeText: "text-red-700",
+    barColor: "bg-red-400",
+    borderTop: "bg-red-400",
+    detailBg: "bg-red-50",
+    detailText: "text-red-700",
   },
 };
 

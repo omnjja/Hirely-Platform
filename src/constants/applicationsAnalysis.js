@@ -24,6 +24,10 @@ export const STATUS_CONFIG = {
     label: "Shortlisted",
     className: "bg-indigo-100 text-indigo-700",
   },
+  PENDING: {
+    label: "Pending",
+    className: "bg-amber-100 text-amber-700",
+  },
   CV_FAILED: {
     label: "CV Failed",
     className: "bg-red-100 text-red-700",
