@@ -12,3 +12,12 @@ export const formatDateForInput = (date) => {
   if (!date) return "";
   return date.split("T")[0];
 };
+
+export const formatDuration = (milliseconds) => {
+  const totalSeconds = milliseconds / 1000;
+
+  const mins = Math.floor(totalSeconds / 60);
+  const secs = Math.floor(totalSeconds % 60);
+
+  return `${mins}m ${secs}s`;
+};

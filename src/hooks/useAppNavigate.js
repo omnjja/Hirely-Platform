@@ -30,13 +30,17 @@ const useAppNavigate = () => {
         `/candidate/applications/${applicationId}/start-video-interview`,
       ),
     toInterviewSession: (applicationId, interviewId) =>
-      navigate(`/candidate/interviews/${applicationId}/video-interview-session/${interviewId}`),
+      navigate(
+        `/candidate/interviews/${applicationId}/video-interview-session/${interviewId}`,
+      ),
     toSubmitInterview: (interviewId) =>
       navigate(`/candidate/interviews/${interviewId}/submit-video-interview/`),
     toApplicationsDashboard: (jobId) =>
       navigate(`/recruiter/analytics/${jobId}/applications-analytics`),
     toViewCandidate: (applicationId) =>
       navigate(`/recruiter/applications/${applicationId}`),
+    toInterviewSummary: (applicationId) =>
+      navigate(`/candidate/applications/${applicationId}/analytics`),
   };
 };
 

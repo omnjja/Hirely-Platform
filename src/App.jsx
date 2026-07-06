@@ -32,6 +32,7 @@ import ApplicationsAnalysis from "./pages/ApplicationsAnalysis";
 import VideoInterviewPage from "./pages/VideoInterviewPage";
 import StartInterview from "./pages/StartInterview";
 import SubmitVideoInterview from "./pages/SubmitVideoInterview";
+import VideoInterviewAnalytics from "./pages/VideoInterviewAnalytics";
 
 function App() {
   return (
@@ -71,6 +72,10 @@ function App() {
             <Route
               path="interviews/:interviewId/submit-video-interview/"
               element={<SubmitVideoInterview />}
+            />
+            <Route
+              path="applications/:applicationId/analytics"
+              element={<VideoInterviewAnalytics />}
             />
           </Route>
         </Route>
