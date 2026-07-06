@@ -47,6 +47,12 @@ export function useInterviewFlow({
   const countdown = useCountdown(preparationTime, phase === PHASES.PREPARING);
   const stopwatch = useStopwatch(phase === PHASES.RECORDING);
 
+  // skip countdown
+  const skipCountdown = useCallback(() => {
+    countdown.setRemaining(0);
+    dispatch({ type: "PREP_FINISHED" });
+  }, [countdown]);
+
   // video actions
   const stopRecording = useCallback(() => {
     recorder.stop();
@@ -168,13 +174,14 @@ export function useInterviewFlow({
     },
 
     timers: {
-      countdown,
+      countdown: countdown.remaining,
       recordingElapsed: stopwatch.elapsedSeconds,
     },
 
     actions: {
       stopRecording,
       submit,
+      skipCountdown,
     },
   };
 }

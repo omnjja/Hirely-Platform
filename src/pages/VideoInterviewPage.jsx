@@ -32,7 +32,6 @@ const VideoInterviewPage = () => {
     interviewSession?.answeredCount,
     interviewSession?.questions?.length,
     interviewId,
-    toSubmitInterview,
   ]);
 
   const { mutateAsync: createVideoURL } = useCreateVidURL();
@@ -132,11 +131,11 @@ const VideoInterviewPage = () => {
 
         <div className="text-center text-sm text-[#595c5e]">
           <div>
-            Minimum duration {" "}
+            Minimum duration{" "}
             <span className="font-semibold">{formatTime(30)}</span>
           </div>
           <div>
-            maximum duration {" "}
+            maximum duration{" "}
             <span className="font-semibold">
               {formatTime(interview?.currentQuestion?.answerDuration)}
             </span>
@@ -148,6 +147,7 @@ const VideoInterviewPage = () => {
           stopRecording={actions.stopRecording}
           isPending={isPending || interview.isPending}
           recordingElapsed={timers.recordingElapsed}
+          skipCountdown={actions.skipCountdown}
           onSubmit={handleSubmit}
         />
       </div>

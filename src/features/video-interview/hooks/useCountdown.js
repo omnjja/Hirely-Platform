@@ -6,7 +6,7 @@ export function useCountdown(seconds, active) {
   useEffect(() => {
     setRemaining(seconds);
   }, [seconds]);
-  
+
   useEffect(() => {
     if (!active) {
       setRemaining(seconds);
@@ -19,5 +19,5 @@ export function useCountdown(seconds, active) {
     return () => clearInterval(id);
   }, [active, seconds]);
 
-  return remaining;
+  return { remaining, setRemaining };
 }

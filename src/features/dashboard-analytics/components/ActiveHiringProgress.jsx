@@ -57,9 +57,9 @@ const ActiveHiringProgress = () => {
           </tr>
         </thead>
         <tbody>
-          {displayedData.map((role) => {
+          {displayedData.map((role, i) => {
             return (
-              <tr key={role.Role_name} className="border-t border-slate-100">
+              <tr key={i} className="border-t border-slate-100">
                 <td className="px-3 py-4">
                   <p className="text-[12px] md:text-sm font-semibold text-[#2A3439]">
                     {role.Role_name}

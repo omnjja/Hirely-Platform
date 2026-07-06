@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { ArrowRight, Square } from "lucide-react";
+import { ArrowRight, FastForward, Square } from "lucide-react";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 
 const VideoActions = ({
@@ -7,15 +7,27 @@ const VideoActions = ({
   stopRecording,
   onSubmit,
   recordingElapsed,
+  skipCountdown,
   isPending,
 }) => {
   const isRecording = phase === "recording";
   const isReview = phase === "review";
+  const isPreparing = phase === "preparing";
   const cantStopRecording = recordingElapsed < 30;
 
   return (
     <div className="flex flex-col gap-5 md:gap-0">
       <div className="flex flex-wrap items-center justify-center gap-4">
+        {isPreparing && (
+          <button
+            onClick={skipCountdown}
+            aria-label="Skip countdown"
+            title="Skip countdown"
+            className="flex items-center rounded-full bg-[#0576D6] px-4 py-4 text-sm text-white shadow-md transition hover:bg-[#0568bd] cursor-pointer"
+          >
+            <FastForward size={16} fill="white" />
+          </button>
+        )}
         {isRecording && (
           <button
             disabled={!isRecording || cantStopRecording}
