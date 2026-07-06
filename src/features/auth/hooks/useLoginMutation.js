@@ -10,9 +10,7 @@ export const useLoginMutation = () => {
       localStorage.setItem("authToken", accessToken);
       localStorage.setItem("userRole", role);
       localStorage.setItem("isProfileCompleted", isProfileCompleted);
-      await queryClient.invalidateQueries({
-        refetchType: "all",
-      });
+      queryClient.clear();
     },
   });
 };

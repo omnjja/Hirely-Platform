@@ -9,10 +9,8 @@ export const useSignupMutation = () => {
     mutationFn: authAPI.signup,
     onSuccess: async (data) => {
       localStorage.setItem("authToken", data.accessToken);
+      queryClient.clear();
       toRoleSelection();
-      await queryClient.invalidateQueries({
-        refetchType: "all",
-      });
     },
   });
 };

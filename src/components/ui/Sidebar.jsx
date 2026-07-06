@@ -2,23 +2,11 @@ import React from "react";
 import { LogOut } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import Logo from "./Logo";
-import useAppNavigate from "@/hooks/useAppNavigate";
-import { logout } from "@/features/auth/services/authService";
-import toast from "react-hot-toast";
+import { useLogout } from "@/features/auth/hooks/useLogout";
 
 const Sidebar = ({ menuItems, isMobile = false, setIsOpen }) => {
-  const { toLogin } = useAppNavigate();
   const userRole = localStorage.getItem("userRole");
-
-  async function handleLogout() {
-    try {
-      await logout();
-    } catch (error) {
-      toast.error(error.message || "Logout failed. Please try again.");
-    }
-    localStorage.clear();
-    toLogin();
-  }
+  const handleLogout = useLogout();
 
   const bottomItems = (
     <>
