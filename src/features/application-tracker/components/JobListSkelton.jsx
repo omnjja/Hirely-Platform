@@ -30,10 +30,19 @@ const JobListSkeleton = () => (
       ))}
     </div>
 
-    <div className="flex gap-2 px-4">
-      {Array.from({ length: 4 }).map((_, i) => (
-        <div key={i} className="h-7 w-8 rounded bg-gray-200" />
+    <div className="flex items-center justify-center gap-1.5 py-4 animate-pulse">
+      <div className="w-8 h-8 rounded-lg bg-slate-200" />
+
+      {[1, "dots1", 4, 5, 6, "dots2", 12].map((item, i) => (
+        <div
+          key={i}
+          className={`h-8 rounded-lg bg-slate-200 ${
+            typeof item === "string" ? "w-6" : "w-8"
+          }`}
+        />
       ))}
+
+      <div className="w-8 h-8 rounded-lg bg-slate-200" />
     </div>
   </div>
 );

@@ -4,6 +4,7 @@ import { STATUS_CONFIG } from "@/constants/applicationsAnalysis";
 import { useParams } from "react-router-dom";
 import { useCandidateAppSummaryStore } from "../store/applicationSummaryStore";
 import ApplicationStatusDropdown from "@/components/ui/ApplicationStatusDropdown";
+import { statusOptions } from "@/constants/applicationsAnalysis";
 
 const StatusCell = ({ status, editing, onToggleEdit }) => {
   const config = STATUS_CONFIG[status] ?? STATUS_CONFIG.APPLIED;
@@ -37,6 +38,7 @@ const StatusCell = ({ status, editing, onToggleEdit }) => {
       status={status}
       onChange={handleAppStatus}
       highlighted
+      options={statusOptions}
     />
   );
 };

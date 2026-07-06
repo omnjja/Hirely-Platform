@@ -22,7 +22,6 @@ const Jobs = () => {
     incrementPage,
     decrementPage,
   } = useJobFilterationStore();
-  console.log("fil: ");
   const { data, isLoading, isFetching, error, refetch } = useJobs({
     page,
     limit,

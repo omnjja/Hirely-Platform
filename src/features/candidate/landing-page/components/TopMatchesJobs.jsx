@@ -13,7 +13,6 @@ const TopMatchesJobs = () => {
   const firstJob = data?.items[0]?.job || {};
   const secondJob = data?.items[1]?.job || {};
 
-  console.log("topppp: ", data?.items);
   if (isLoading) return <TopMatchesJobsSkeleton />;
   if (error) return;
   return (

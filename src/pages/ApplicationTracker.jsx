@@ -7,18 +7,20 @@ import { SendHorizontal, Calendar } from "lucide-react";
 import ApplicationStatus from "@/features/application-tracker/components/ApplicationStatus";
 import JobList from "@/features/application-tracker/components/JobList";
 import useApplicationStats from "@/features/application-tracker/hooks/useApplicationStats";
-import { useQuery } from "@tanstack/react-query";
-import { getApplications } from "@/features/application-tracker/services/applicationService";
-import { getApplicationById } from "@/features/application-tracker/services/applicationService";
+import useApplicationDetails from "@/features/application-tracker/hooks/useApplicationDetails";
 import ApplicationDetail from "@/features/application-tracker/components/ApplicationDetail";
 import ApplicationDetailSkeleton from "@/features/application-tracker/components/ApplicationDetailSkeleton";
 import ErrorComponent from "@/components/ui/ErrorComponent";
+import useApplicationData from "@/features/application-tracker/hooks/useApplicationData";
 
 const ApplicationTracker = () => {
-  const { data } = useApplicationStats();
   const [page, setPage] = useState(1);
   const [state, setState] = useState("ALL");
   const [selectedId, setSelectedId] = useState(null);
+  const { data: statusData, isLoading: statusLoading } = useApplicationStats();
+
+  const { data: detailData, isLoading: detailLoading } =
+    useApplicationDetails(selectedId);
 
   const {
     data: applicationData,
@@ -26,16 +28,7 @@ const ApplicationTracker = () => {
     error,
     isError,
     refetch,
-  } = useQuery({
-    queryKey: ["applications", page, state],
-    queryFn: () => getApplications({ page, state }),
-  });
-
-  const { data: detailData, isLoading: detailLoading } = useQuery({
-    queryKey: ["application-detail", selectedId],
-    queryFn: () => getApplicationById(selectedId),
-    enabled: !!selectedId,
-  });
+  } = useApplicationData({ page, state });
 
   if (selectedId) {
     if (detailLoading) {
@@ -51,18 +44,18 @@ const ApplicationTracker = () => {
 
   return (
     <div>
-      <ApplicationHeader data={applicationData} />
+      <ApplicationHeader data={statusData} isLoading={statusLoading} />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-        <MatchCard />
+        <MatchCard data={statusData} isLoading={statusLoading} />
         <div className="grid grid-cols-2 gap-6">
           <SummaryCard
             icon={<SendHorizontal color="#0576D6" />}
-            sum={data ? data.totalApplied : "0"}
+            sum={statusData ? statusData.totalApplied : "0"}
             description="Total Applied"
           />
           <SummaryCard
             icon={<Calendar color="#0576D6" />}
-            sum={data ? data.upcomingInterviews : "0"}
+            sum={statusData ? statusData.upcomingInterviews : "0"}
             description="Upcoming Interviews"
           />
         </div>

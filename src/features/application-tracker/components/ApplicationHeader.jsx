@@ -1,7 +1,10 @@
 import React from "react";
+import ApplicationHeaderSkeleton from "./ApplicationHeaderSkeleton";
 
-const ApplicationHeader = ({ data }) => {
-  const activeApplications = 12;
+const ApplicationHeader = ({ data, isLoading }) => {
+  if (isLoading) return <ApplicationHeaderSkeleton />;
+  const activeApplications = data?.activeCount;
+
   return (
     <div>
       <p className="text-2xl md:text-4xl font-extrabold mb-2 md:mb-4">

@@ -1,7 +1,4 @@
 export const statusOptions = [
-  { value: "APPLIED", label: "Applied" },
-  { value: "IN_REVIEW", label: "In Review" },
-  { value: "SHORTLISTED", label: "Shortlisted" },
   { value: "INTERVIEW", label: "Interview" },
   { value: "ACCEPTED", label: "Accepted" },
   { value: "REJECTED", label: "Rejected" },
@@ -26,6 +23,10 @@ export const STATUS_CONFIG = {
   SHORTLISTED: {
     label: "Shortlisted",
     className: "bg-indigo-100 text-indigo-700",
+  },
+  CV_FAILED: {
+    label: "CV Failed",
+    className: "bg-red-100 text-red-700",
   },
   INTERVIEW: {
     label: "Interview",

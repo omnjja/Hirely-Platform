@@ -3,6 +3,7 @@ import { Mail } from "lucide-react";
 import basicInfo from "@/assets/basicInfo.webp";
 import useUpdateStatusMutation from "../hooks/useUpdateStatusMutation";
 import ApplicationStatusDropdown from "@/components/ui/ApplicationStatusDropdown";
+import { statusOptions } from "@/constants/applicationsAnalysis";
 
 const CandidateSummary = ({ data, applicationId }) => {
   const { YearsOfexperience, location, email, status, name, pfpURL, title } =
@@ -66,6 +67,7 @@ const CandidateSummary = ({ data, applicationId }) => {
         status={selectedStatus}
         disabled={isPending}
         onChange={handleStatusChange}
+        options={statusOptions}
       />
     </div>
   );
