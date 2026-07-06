@@ -12,7 +12,7 @@ const VideoInterviewAnalytics = () => {
   const { data, isLoading, isError, error } = useVideoSummary({
     applicationId: APPLICATIONID,
   });
-  console.log(data);
+  if (isLoading) return <div></div>;
   const isNotAnalysed = error?.response?.status === 400;
 
   if (isError && isNotAnalysed) {
@@ -33,14 +33,14 @@ const VideoInterviewAnalytics = () => {
 
   return (
     <div>
-      <HeaderCard />
+      <HeaderCard data={data.headerSection} />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 items-start">
         <div className="flex flex-col gap-4">
-          <OverallPerformanceCard />
-          <CoreCompetenciesCard />
+          <OverallPerformanceCard data={data.performanceSection} />
+          <CoreCompetenciesCard data={data.coreCompetenciesSection} />
         </div>
         <div className="md:col-span-2">
-          <InterviewResponses />
+          <InterviewResponses data={data.InterviewResponsesSection} />
         </div>
       </div>
     </div>
