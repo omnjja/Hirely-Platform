@@ -5,6 +5,7 @@ import React from "react";
 import InterviewResponses from "@/features/video-analytics/components/InterviewResponses";
 import useVideoSummary from "@/features/video-analytics/hooks/useVideoSummary";
 import { ClockAlert } from "lucide-react";
+import VideoInterviewAnalyticsSkeleton from "@/features/video-analytics/components/VideoInterviewAnalyticsSkeleton";
 
 const APPLICATIONID = "6a0e1d15959770bcf42df73c";
 
@@ -12,7 +13,7 @@ const VideoInterviewAnalytics = () => {
   const { data, isLoading, isError, error } = useVideoSummary({
     applicationId: APPLICATIONID,
   });
-  if (isLoading) return <div></div>;
+  if (isLoading) return <VideoInterviewAnalyticsSkeleton />;
   const isNotAnalysed = error?.response?.status === 400;
 
   if (isError && isNotAnalysed) {

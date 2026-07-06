@@ -3,8 +3,6 @@ import FeedbackCard from "./FeedbackCard";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 
 const InterviewResponses = ({ data }) => {
-  console.log(data);
-
   const numberOfResponses = data.length;
   const [showAllResponses, setShowAllResponses] = useState(false);
   const displayResponses = showAllResponses ? data : data.slice(0, 3);
