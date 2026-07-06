@@ -12,6 +12,7 @@ const ApplicationsStats = ({
 }) => {
   if (isLoading) return <DashboardStatsSkeleton />;
   if (error) return;
+  
   const shortlistedPerecntage =
     (shortlistedCandidates / totalApplications) * 100;
   const applicationsIncreasing = (applicationsToday / totalApplications) * 100;

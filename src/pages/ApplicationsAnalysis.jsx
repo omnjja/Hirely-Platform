@@ -14,15 +14,18 @@ const ApplicationsAnalysis = () => {
   const viewingSummaryId = useCandidateAppSummaryStore(
     (state) => state.viewingSummaryId,
   );
-
   const onViewSummary = viewingSummaryId !== undefined;
-  const { data, isLoading, isFetching, error, refetch } = useApplicationsDashboard({
-    jobId,
-    page,
-    limit: limit,
-    applicationStatus: status,
-    matchScore: matchScore,
-  });
+  const { data, isLoading, isFetching, error, refetch } =
+    useApplicationsDashboard({
+      jobId,
+      page,
+      limit: limit,
+      applicationStatus: status,
+      matchScore: matchScore,
+    });
+
+  const hasNoData =
+    !isLoading && !error && (data?.dashboardData?.length ?? 0) === 0;
 
   return (
     <div className="flex flex-col gap-8 p-8">
@@ -35,7 +38,22 @@ const ApplicationsAnalysis = () => {
         error={error}
       />
       {!isLoading && <Toolbar jobId={data?.jobId} />}
-      <CandidateTable
+      {hasNoData ? (
+        <div className="flex h-96 items-center justify-center rounded-lg border border-dashed">
+          <p className="text-gray-500">No applications found for this job.</p>
+        </div>
+      ) : (
+        <CandidateTable
+          dashboardData={data?.dashboardData}
+          pagination={data?.pagination}
+          totalApplications={data?.pagination?.total}
+          isLoading={isLoading}
+          isFetching={isFetching}
+          error={error}
+          refetch={refetch}
+        />
+      )}
+      {/* <CandidateTable
         dashboardData={data?.dashboardData}
         pagination={data?.pagination}
         totalApplications={data?.pagination?.total}
@@ -43,7 +61,7 @@ const ApplicationsAnalysis = () => {
         isFetching={isFetching}
         error={error}
         refetch={refetch}
-      />
+      /> */}
       {onViewSummary && (
         <CandidateSummary applicationId={"dkhdk"} jobId={data?.jobId} />
       )}

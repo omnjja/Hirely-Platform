@@ -1,9 +1,9 @@
 import React from "react";
-import logo from "@/assets/HirelyLogoRemovebg.webp";
+import logo from "@/assets/hirelyLogo.png";
 
 const Logo = () => {
   return (
-    <div className="w-full md:block flex justify-start">
+    <div className="w-full p-3 md:block flex justify-start">
       <img
         src={logo}
         alt="Hirely Logo"

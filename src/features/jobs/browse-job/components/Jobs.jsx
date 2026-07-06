@@ -6,8 +6,10 @@ import JobSkeleton from "./JobSkeleton";
 import ErrorComponent from "@/components/ui/ErrorComponent";
 import ButtonComponent from "@/components/ui/ButtonComponent";
 import { useJobFilterationStore } from "../store/jobFiltersStore";
+import NoJobsFound from "@/features/dashboard-analytics/components/NoJobsFound";
 
 const Jobs = () => {
+  const role = localStorage.getItem("userRole");
   const {
     page,
     limit,
@@ -38,6 +40,7 @@ const Jobs = () => {
   const hasPrev = page > 1;
   const hasNext = page < data?.totalPages;
 
+  const noJobs = data?.items?.length === 0;
   if (isLoading)
     return (
       <div className="flex flex-col gap-5">
@@ -59,13 +62,17 @@ const Jobs = () => {
         </div>
       )}
 
-      {data?.items?.length === 0 ? (
-        <div className="flex flex-col items-center justify-center gap-2 py-20 text-center">
-          <p className="font-semibold text-gray-700">No jobs found</p>
-          <p className="text-sm text-gray-400">
-            Check back later for new openings
-          </p>
-        </div>
+      {noJobs ? (
+        role === "CANDIDATE" ? (
+          <div className="flex flex-col items-center justify-center gap-2 py-20 text-center">
+            <p className="font-semibold text-gray-700">No jobs found</p>
+            <p className="text-sm text-gray-400">
+              Check back later for new openings
+            </p>
+          </div>
+        ) : (
+          <NoJobsFound />
+        )
       ) : (
         <>
           {data?.items?.map((job) => (
@@ -97,7 +104,6 @@ const Jobs = () => {
             <ButtonComponent
               onClick={() => {
                 incrementPage();
-                console.log("p: ", page);
               }}
               aria-label="Next Page"
               disabled={!hasNext || isFetching}

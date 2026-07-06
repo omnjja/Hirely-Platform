@@ -7,6 +7,7 @@ import DepartmentVolumeCard from "@/features/dashboard-analytics/components/Depa
 import useHistoricalDashboard from "@/features/dashboard-analytics/hooks/useHistoricalDashboard";
 import JobsOverviewSkeleton from "@/features/dashboard-analytics/components/JobsOverviewSkeleton";
 import ErrorComponent from "@/components/ui/ErrorComponent";
+import NoJobsFound from "@/features/dashboard-analytics/components/NoJobsFound";
 
 const JobsOverviewDashboard = () => {
   const [deptPage, setDeptPage] = useState(1);
@@ -14,8 +15,12 @@ const JobsOverviewDashboard = () => {
     useHistoricalDashboard({
       deptPage,
     });
-  if (error) return <ErrorComponent error={error} action={() => refetch()} />;
+  const isNoJobs =
+    error?.response?.status === 404 &&
+    error?.response?.data?.message === "Did not Find any jobs for this user";
   if (isLoading) return <JobsOverviewSkeleton />;
+  if (isNoJobs) return <NoJobsFound />;
+  if (error) return <ErrorComponent error={error} action={() => refetch()} />;
   if (!data) {
     return <JobsOverviewSkeleton />;
   }
