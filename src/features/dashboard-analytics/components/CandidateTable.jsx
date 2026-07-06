@@ -106,7 +106,7 @@ export default function CandidateTable({
                     tone={tone}
                   />
 
-                  <MatchScoreRing score={application?.candidate?.match || 0} />
+                  <MatchScoreRing score={application?.match?.matchScore || 0} />
                 </div>
 
                 <div className="mt-4 flex justify-evenly">
@@ -152,7 +152,7 @@ export default function CandidateTable({
 
                   <div className="flex justify-center">
                     <MatchScoreRing
-                      score={application?.candidate?.match || 0}
+                      score={application?.match?.matchScore || 0}
                     />
                   </div>
 
